@@ -23,13 +23,6 @@ Welcome — this site documents the DGE implementation used to analyze macroecon
 - **Calibration & data sources:** [Calibration](calibration.md)
 - **How to run the model:** [Running the model](running.md)
 
-
-## Where to start
-
-- **Repository overview:** see the root `README.md`
-- **Technical model description:** [Model documentation](model.md)
-- **How to run scenarios:** [Running the model](running.md)
-
 ---
 
 ## What this model is for
