@@ -1,4 +1,4 @@
-# How to Run the DGE-METRIC / DGE-CRED Model
+# How to Run the DGE-METRIC
 
 This guide explains how to install the required software, set up scenario inputs, and run simulations using the **DGE-METRIC** (Dynamic General Equilibrium for Macroeconomic Energy Transition with Carbon Markets) model. It is designed to fit on one page and provide a clear, reproducible workflow.
 
