@@ -51,7 +51,3 @@ Below is the intended navigation by folder. (Names reflect what you see in the r
 - `matlab.mat`, `structScenarioResults*.mat`  
   Saved MATLAB workspaces / result structures (generated artifacts).
 ---
-
-## Getting started
-
-### Requirements
