@@ -1,13 +1,3 @@
-
-
----
-
-
-
-\## 2) GitHub Pages landing page: `docs/index.md`
-
-
-
 ```md
 
 ---
