@@ -1,11 +1,3 @@
----
-
-layout: default
-
-title: Technical model documentation
-
----
-
 # Technical model documentation
 
 ## 📘 Documentation Overview
