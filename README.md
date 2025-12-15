@@ -1,11 +1,6 @@
-# DGE-METRIC / DGE-CRED Model (Vietnam)
+# DGE-METRIC
 
 This repository contains my working implementation of a **Dynamic General Equilibrium (DGE)** model (DGE-CRED / DGE-METRIC variant) used to simulate macroeconomic and sectoral impacts under alternative climate and energy-transition pathways. The codebase combines **Dynare `.mod` files**, **MATLAB steady-state/calibration routines**, and supporting **Excel inputs**.
-
-➡️ **Start here (GitHub Pages):** `docs/index.md`  
-➡️ **Technical model description:** `docs/model.md`
-
----
 
 ## 📘 Documentation Overview
 
