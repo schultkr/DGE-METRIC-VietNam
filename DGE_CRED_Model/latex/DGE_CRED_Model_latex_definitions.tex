@@ -1,0 +1,935 @@
+\begin{center}
+\begin{longtable}{ccc}
+\caption{Endogenous}\\%
+\hline%
+\multicolumn{1}{c}{\textbf{Variable}} &
+\multicolumn{1}{c}{\textbf{\LaTeX}} &
+\multicolumn{1}{c}{\textbf{Description}}\\%
+\hline\hline%
+\endfirsthead
+\multicolumn{3}{c}{{\tablename} \thetable{} -- Continued}\\%
+\hline%
+\multicolumn{1}{c}{\textbf{Variable}} &
+\multicolumn{1}{c}{\textbf{\LaTeX}} &
+\multicolumn{1}{c}{\textbf{Description}}\\%
+\hline\hline%
+\endhead
+\texttt{SL} & ${SL}$ & SL\\
+\texttt{tas\_1} & ${tas_{r}}$ & tas\\
+\texttt{cyclpers\_1} & ${cyclpers_{r}}$ & cyclpers\\
+\texttt{P\_M\_1} & ${P^{M}_s}$ & imports sector price index\\
+\texttt{P\_M\_2} & ${P^{M}_s}$ & imports sector price index\\
+\texttt{P\_M\_3} & ${P^{M}_s}$ & imports sector price index\\
+\texttt{P\_M\_4} & ${P^{M}_s}$ & imports sector price index\\
+\texttt{P\_M\_5} & ${P^{M}_s}$ & imports sector price index\\
+\texttt{B} & $B$ & international traded bonds\\
+\texttt{NX} & $NX$ & net exports\\
+\texttt{rf} & ${r^{f}}$ & foreign interest rate\\
+\texttt{G} & $G$ & government expenditure\\
+\texttt{I} & $I$ & private investment\\
+\texttt{Y} & $Y$ & GDP\\
+\texttt{W} & $W$ & national wage level\\
+\texttt{Q\_U} & $Q^{U}$ & domestic used output\\
+\texttt{Q\_I} & $Q^{I}$ & demand for intermediate products\\
+\texttt{Q} & $Q$ & total production\\
+\texttt{M} & $M$ & Imports\\
+\texttt{X} & $X$ & Exports\\
+\texttt{N} & $N$ & labour\\
+\texttt{C} & $C$ & consumption\\
+\texttt{E} & $E$ & emissions\\
+\texttt{PE} & $PE$ & emissions price\\
+\texttt{LF} & $LF$ & labour force\\
+\texttt{PoP} & $PoP$ & population\\
+\texttt{r\_1\_1} & ${r_{s,r}}$ & regional rental rate for sector capital\\
+\texttt{I\_1\_1} & ${I_{s,r}}$ & regional sector investment\\
+\texttt{omegaI\_1\_1} & ${\omega^I_{s,r}}$ & shadow value of regional private sector investment\\
+\texttt{D\_1\_1} & ${D_{s,r}}$ & regional sector damages\\
+\texttt{D\_N\_1\_1} & ${D^N_{s,r}}$ & regional sector damages to labour productivity\\
+\texttt{D\_K\_1\_1} & ${D^K_{s,r}}$ & regional sector destruction of capital stock\\
+\texttt{G\_A\_1\_1} & ${G^{A}_{s,r}}$ & regional sector adaptation government expenditure\\
+\texttt{K\_A\_1\_1} & ${K^{A}_{s,r}}$ & regional sector adaptation capital stock\\
+\texttt{A\_1\_1} & ${A_{s,r}}$ & regional sector TFP\\
+\texttt{A\_N\_1\_1} & ${A^{N}_{s,r}}$ & regional sector labour specific TFP\\
+\texttt{A\_K\_1\_1} & ${A^{K}_{s,r}}$ & regional sector capital specific TFP\\
+\texttt{A\_I\_1\_1} & ${A^{I}_{s,r}}$ & regional sector intermediate productivity\\
+\texttt{tauKF\_1\_1} & ${\tau^{K,F}_{s,r}}$ & regional sector corporate tax rate on capital\\
+\texttt{tauNF\_1\_1} & ${\tau^{N,F}_{s,r}}$ & regional sector labour tax rate on capital\\
+\texttt{P\_1\_1} & ${P_{s,r}}$ & regional sector price index\\
+\texttt{K\_1\_1} & ${K_{s,r}}$ & regional sector capital\\
+\texttt{Y\_1\_1} & ${Y_{s,r}}$ & regional sector GDP\\
+\texttt{N\_1\_1} & ${N_{s,r}}$ & regional sector employment\\
+\texttt{Q\_I\_1\_1} & ${Q^{I}_{s,r}}$ & regional sector intermediate inputs\\
+\texttt{P\_I\_1\_1} & ${P^{I}_{s,r}}$ & regional sector intermediate inputs price index\\
+\texttt{E\_1\_1} & ${E_{s,r}}$ & regional emissions associated with output used in sector k\\
+\texttt{kappaE\_1\_1} & ${\kappa^{E}_{s,r}}$ & emission factor associated with production in the subsector and region\\
+\texttt{A\_I\_1\_1\_1} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_1\_1\_1} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_1\_1\_1} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_1\_1\_2} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_1\_1\_2} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_1\_1\_2} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_1\_1\_3} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_1\_1\_3} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_1\_1\_3} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_1\_1\_4} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_1\_1\_4} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_1\_1\_4} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{X\_1\_1} & ${X_{s,r}}$ & sector exports\\
+\texttt{D\_X\_1\_1} & ${D^{X}_{s,r}}$ & world demand for sector exports\\
+\texttt{Q\_1\_1} & ${Q_{s,r}}$ & regional sector Output\\
+\texttt{P\_Q\_1\_1} & ${P^Q_{s,r}}$ & regional supply sector price index\\
+\texttt{W\_1\_1} & ${W_{s,r}}$ & regional wage rate for sector labour\\
+\texttt{Q\_D\_1\_1\_1} & ${Q^D_{s,r,m}}$ & regional demand for sector Output\\
+\texttt{Q\_D\_1\_1} & ${Q^{D}_{s,r}}$ & domestically used sector output\\
+\texttt{P\_D\_1\_1} & ${P_{s,r}}$ & regional demand sector price index\\
+\texttt{M\_I\_1\_1} & ${M^I_{s,r}}$ & regional subsectoral imports for intermediates\\
+\texttt{M\_F\_1\_1} & ${M^F_{s,r}}$ & regional subsectoral imports for final products\\
+\texttt{Q\_A\_1\_1} & ${Q^{A}_{k,r}}$ & domestically used sector output\\
+\texttt{Q\_A\_I\_1\_1} & ${Q^{A,I}_{k,r}}$ & domestically used sector output for intermediates\\
+\texttt{Q\_A\_F\_1\_1} & ${Q^{A,F}_{k,r}}$ & domestically used sector output for final use\\
+\texttt{A\_F\_1\_1} & ${A^{F}_{k,r}}$ & sector productivity for final use\\
+\texttt{P\_A\_1\_1} & ${P^{A}_{k,r}}$ & price index for domestically used sector output\\
+\texttt{M\_A\_F\_1\_1} & ${Q^{A,M^F}_{k,r}}$ & domestically used sector output for final use\\
+\texttt{P\_M\_A\_1\_1} & ${P^{A,M}_{k,r}}$ & price index for domestically used sector output\\
+\texttt{r\_2\_1} & ${r_{s,r}}$ & regional rental rate for sector capital\\
+\texttt{I\_2\_1} & ${I_{s,r}}$ & regional sector investment\\
+\texttt{omegaI\_2\_1} & ${\omega^I_{s,r}}$ & shadow value of regional private sector investment\\
+\texttt{D\_2\_1} & ${D_{s,r}}$ & regional sector damages\\
+\texttt{D\_N\_2\_1} & ${D^N_{s,r}}$ & regional sector damages to labour productivity\\
+\texttt{D\_K\_2\_1} & ${D^K_{s,r}}$ & regional sector destruction of capital stock\\
+\texttt{G\_A\_2\_1} & ${G^{A}_{s,r}}$ & regional sector adaptation government expenditure\\
+\texttt{K\_A\_2\_1} & ${K^{A}_{s,r}}$ & regional sector adaptation capital stock\\
+\texttt{A\_2\_1} & ${A_{s,r}}$ & regional sector TFP\\
+\texttt{A\_N\_2\_1} & ${A^{N}_{s,r}}$ & regional sector labour specific TFP\\
+\texttt{A\_K\_2\_1} & ${A^{K}_{s,r}}$ & regional sector capital specific TFP\\
+\texttt{A\_I\_2\_1} & ${A^{I}_{s,r}}$ & regional sector intermediate productivity\\
+\texttt{tauKF\_2\_1} & ${\tau^{K,F}_{s,r}}$ & regional sector corporate tax rate on capital\\
+\texttt{tauNF\_2\_1} & ${\tau^{N,F}_{s,r}}$ & regional sector labour tax rate on capital\\
+\texttt{P\_2\_1} & ${P_{s,r}}$ & regional sector price index\\
+\texttt{K\_2\_1} & ${K_{s,r}}$ & regional sector capital\\
+\texttt{Y\_2\_1} & ${Y_{s,r}}$ & regional sector GDP\\
+\texttt{N\_2\_1} & ${N_{s,r}}$ & regional sector employment\\
+\texttt{Q\_I\_2\_1} & ${Q^{I}_{s,r}}$ & regional sector intermediate inputs\\
+\texttt{P\_I\_2\_1} & ${P^{I}_{s,r}}$ & regional sector intermediate inputs price index\\
+\texttt{E\_2\_1} & ${E_{s,r}}$ & regional emissions associated with output used in sector k\\
+\texttt{kappaE\_2\_1} & ${\kappa^{E}_{s,r}}$ & emission factor associated with production in the subsector and region\\
+\texttt{A\_I\_2\_1\_1} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_2\_1\_1} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_2\_1\_1} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_2\_1\_2} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_2\_1\_2} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_2\_1\_2} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_2\_1\_3} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_2\_1\_3} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_2\_1\_3} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_2\_1\_4} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_2\_1\_4} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_2\_1\_4} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{X\_2\_1} & ${X_{s,r}}$ & sector exports\\
+\texttt{D\_X\_2\_1} & ${D^{X}_{s,r}}$ & world demand for sector exports\\
+\texttt{Q\_2\_1} & ${Q_{s,r}}$ & regional sector Output\\
+\texttt{P\_Q\_2\_1} & ${P^Q_{s,r}}$ & regional supply sector price index\\
+\texttt{W\_2\_1} & ${W_{s,r}}$ & regional wage rate for sector labour\\
+\texttt{Q\_D\_2\_1\_1} & ${Q^D_{s,r,m}}$ & regional demand for sector Output\\
+\texttt{Q\_D\_2\_1} & ${Q^{D}_{s,r}}$ & domestically used sector output\\
+\texttt{P\_D\_2\_1} & ${P_{s,r}}$ & regional demand sector price index\\
+\texttt{M\_I\_2\_1} & ${M^I_{s,r}}$ & regional subsectoral imports for intermediates\\
+\texttt{M\_F\_2\_1} & ${M^F_{s,r}}$ & regional subsectoral imports for final products\\
+\texttt{r\_3\_1} & ${r_{s,r}}$ & regional rental rate for sector capital\\
+\texttt{I\_3\_1} & ${I_{s,r}}$ & regional sector investment\\
+\texttt{omegaI\_3\_1} & ${\omega^I_{s,r}}$ & shadow value of regional private sector investment\\
+\texttt{D\_3\_1} & ${D_{s,r}}$ & regional sector damages\\
+\texttt{D\_N\_3\_1} & ${D^N_{s,r}}$ & regional sector damages to labour productivity\\
+\texttt{D\_K\_3\_1} & ${D^K_{s,r}}$ & regional sector destruction of capital stock\\
+\texttt{G\_A\_3\_1} & ${G^{A}_{s,r}}$ & regional sector adaptation government expenditure\\
+\texttt{K\_A\_3\_1} & ${K^{A}_{s,r}}$ & regional sector adaptation capital stock\\
+\texttt{A\_3\_1} & ${A_{s,r}}$ & regional sector TFP\\
+\texttt{A\_N\_3\_1} & ${A^{N}_{s,r}}$ & regional sector labour specific TFP\\
+\texttt{A\_K\_3\_1} & ${A^{K}_{s,r}}$ & regional sector capital specific TFP\\
+\texttt{A\_I\_3\_1} & ${A^{I}_{s,r}}$ & regional sector intermediate productivity\\
+\texttt{tauKF\_3\_1} & ${\tau^{K,F}_{s,r}}$ & regional sector corporate tax rate on capital\\
+\texttt{tauNF\_3\_1} & ${\tau^{N,F}_{s,r}}$ & regional sector labour tax rate on capital\\
+\texttt{P\_3\_1} & ${P_{s,r}}$ & regional sector price index\\
+\texttt{K\_3\_1} & ${K_{s,r}}$ & regional sector capital\\
+\texttt{Y\_3\_1} & ${Y_{s,r}}$ & regional sector GDP\\
+\texttt{N\_3\_1} & ${N_{s,r}}$ & regional sector employment\\
+\texttt{Q\_I\_3\_1} & ${Q^{I}_{s,r}}$ & regional sector intermediate inputs\\
+\texttt{P\_I\_3\_1} & ${P^{I}_{s,r}}$ & regional sector intermediate inputs price index\\
+\texttt{E\_3\_1} & ${E_{s,r}}$ & regional emissions associated with output used in sector k\\
+\texttt{kappaE\_3\_1} & ${\kappa^{E}_{s,r}}$ & emission factor associated with production in the subsector and region\\
+\texttt{A\_I\_3\_1\_1} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_3\_1\_1} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_3\_1\_1} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_3\_1\_2} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_3\_1\_2} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_3\_1\_2} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_3\_1\_3} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_3\_1\_3} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_3\_1\_3} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_3\_1\_4} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_3\_1\_4} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_3\_1\_4} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{X\_3\_1} & ${X_{s,r}}$ & sector exports\\
+\texttt{D\_X\_3\_1} & ${D^{X}_{s,r}}$ & world demand for sector exports\\
+\texttt{Q\_3\_1} & ${Q_{s,r}}$ & regional sector Output\\
+\texttt{P\_Q\_3\_1} & ${P^Q_{s,r}}$ & regional supply sector price index\\
+\texttt{W\_3\_1} & ${W_{s,r}}$ & regional wage rate for sector labour\\
+\texttt{Q\_D\_3\_1\_1} & ${Q^D_{s,r,m}}$ & regional demand for sector Output\\
+\texttt{Q\_D\_3\_1} & ${Q^{D}_{s,r}}$ & domestically used sector output\\
+\texttt{P\_D\_3\_1} & ${P_{s,r}}$ & regional demand sector price index\\
+\texttt{M\_I\_3\_1} & ${M^I_{s,r}}$ & regional subsectoral imports for intermediates\\
+\texttt{M\_F\_3\_1} & ${M^F_{s,r}}$ & regional subsectoral imports for final products\\
+\texttt{Q\_A\_2\_1} & ${Q^{A}_{k,r}}$ & domestically used sector output\\
+\texttt{Q\_A\_I\_2\_1} & ${Q^{A,I}_{k,r}}$ & domestically used sector output for intermediates\\
+\texttt{Q\_A\_F\_2\_1} & ${Q^{A,F}_{k,r}}$ & domestically used sector output for final use\\
+\texttt{A\_F\_2\_1} & ${A^{F}_{k,r}}$ & sector productivity for final use\\
+\texttt{P\_A\_2\_1} & ${P^{A}_{k,r}}$ & price index for domestically used sector output\\
+\texttt{M\_A\_F\_2\_1} & ${Q^{A,M^F}_{k,r}}$ & domestically used sector output for final use\\
+\texttt{P\_M\_A\_2\_1} & ${P^{A,M}_{k,r}}$ & price index for domestically used sector output\\
+\texttt{r\_4\_1} & ${r_{s,r}}$ & regional rental rate for sector capital\\
+\texttt{I\_4\_1} & ${I_{s,r}}$ & regional sector investment\\
+\texttt{omegaI\_4\_1} & ${\omega^I_{s,r}}$ & shadow value of regional private sector investment\\
+\texttt{D\_4\_1} & ${D_{s,r}}$ & regional sector damages\\
+\texttt{D\_N\_4\_1} & ${D^N_{s,r}}$ & regional sector damages to labour productivity\\
+\texttt{D\_K\_4\_1} & ${D^K_{s,r}}$ & regional sector destruction of capital stock\\
+\texttt{G\_A\_4\_1} & ${G^{A}_{s,r}}$ & regional sector adaptation government expenditure\\
+\texttt{K\_A\_4\_1} & ${K^{A}_{s,r}}$ & regional sector adaptation capital stock\\
+\texttt{A\_4\_1} & ${A_{s,r}}$ & regional sector TFP\\
+\texttt{A\_N\_4\_1} & ${A^{N}_{s,r}}$ & regional sector labour specific TFP\\
+\texttt{A\_K\_4\_1} & ${A^{K}_{s,r}}$ & regional sector capital specific TFP\\
+\texttt{A\_I\_4\_1} & ${A^{I}_{s,r}}$ & regional sector intermediate productivity\\
+\texttt{tauKF\_4\_1} & ${\tau^{K,F}_{s,r}}$ & regional sector corporate tax rate on capital\\
+\texttt{tauNF\_4\_1} & ${\tau^{N,F}_{s,r}}$ & regional sector labour tax rate on capital\\
+\texttt{P\_4\_1} & ${P_{s,r}}$ & regional sector price index\\
+\texttt{K\_4\_1} & ${K_{s,r}}$ & regional sector capital\\
+\texttt{Y\_4\_1} & ${Y_{s,r}}$ & regional sector GDP\\
+\texttt{N\_4\_1} & ${N_{s,r}}$ & regional sector employment\\
+\texttt{Q\_I\_4\_1} & ${Q^{I}_{s,r}}$ & regional sector intermediate inputs\\
+\texttt{P\_I\_4\_1} & ${P^{I}_{s,r}}$ & regional sector intermediate inputs price index\\
+\texttt{E\_4\_1} & ${E_{s,r}}$ & regional emissions associated with output used in sector k\\
+\texttt{kappaE\_4\_1} & ${\kappa^{E}_{s,r}}$ & emission factor associated with production in the subsector and region\\
+\texttt{A\_I\_4\_1\_1} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_4\_1\_1} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_4\_1\_1} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_4\_1\_2} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_4\_1\_2} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_4\_1\_2} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_4\_1\_3} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_4\_1\_3} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_4\_1\_3} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_4\_1\_4} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_4\_1\_4} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_4\_1\_4} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{X\_4\_1} & ${X_{s,r}}$ & sector exports\\
+\texttt{D\_X\_4\_1} & ${D^{X}_{s,r}}$ & world demand for sector exports\\
+\texttt{Q\_4\_1} & ${Q_{s,r}}$ & regional sector Output\\
+\texttt{P\_Q\_4\_1} & ${P^Q_{s,r}}$ & regional supply sector price index\\
+\texttt{W\_4\_1} & ${W_{s,r}}$ & regional wage rate for sector labour\\
+\texttt{Q\_D\_4\_1\_1} & ${Q^D_{s,r,m}}$ & regional demand for sector Output\\
+\texttt{Q\_D\_4\_1} & ${Q^{D}_{s,r}}$ & domestically used sector output\\
+\texttt{P\_D\_4\_1} & ${P_{s,r}}$ & regional demand sector price index\\
+\texttt{M\_I\_4\_1} & ${M^I_{s,r}}$ & regional subsectoral imports for intermediates\\
+\texttt{M\_F\_4\_1} & ${M^F_{s,r}}$ & regional subsectoral imports for final products\\
+\texttt{Q\_A\_3\_1} & ${Q^{A}_{k,r}}$ & domestically used sector output\\
+\texttt{Q\_A\_I\_3\_1} & ${Q^{A,I}_{k,r}}$ & domestically used sector output for intermediates\\
+\texttt{Q\_A\_F\_3\_1} & ${Q^{A,F}_{k,r}}$ & domestically used sector output for final use\\
+\texttt{A\_F\_3\_1} & ${A^{F}_{k,r}}$ & sector productivity for final use\\
+\texttt{P\_A\_3\_1} & ${P^{A}_{k,r}}$ & price index for domestically used sector output\\
+\texttt{M\_A\_F\_3\_1} & ${Q^{A,M^F}_{k,r}}$ & domestically used sector output for final use\\
+\texttt{P\_M\_A\_3\_1} & ${P^{A,M}_{k,r}}$ & price index for domestically used sector output\\
+\texttt{r\_5\_1} & ${r_{s,r}}$ & regional rental rate for sector capital\\
+\texttt{I\_5\_1} & ${I_{s,r}}$ & regional sector investment\\
+\texttt{omegaI\_5\_1} & ${\omega^I_{s,r}}$ & shadow value of regional private sector investment\\
+\texttt{D\_5\_1} & ${D_{s,r}}$ & regional sector damages\\
+\texttt{D\_N\_5\_1} & ${D^N_{s,r}}$ & regional sector damages to labour productivity\\
+\texttt{D\_K\_5\_1} & ${D^K_{s,r}}$ & regional sector destruction of capital stock\\
+\texttt{G\_A\_5\_1} & ${G^{A}_{s,r}}$ & regional sector adaptation government expenditure\\
+\texttt{K\_A\_5\_1} & ${K^{A}_{s,r}}$ & regional sector adaptation capital stock\\
+\texttt{A\_5\_1} & ${A_{s,r}}$ & regional sector TFP\\
+\texttt{A\_N\_5\_1} & ${A^{N}_{s,r}}$ & regional sector labour specific TFP\\
+\texttt{A\_K\_5\_1} & ${A^{K}_{s,r}}$ & regional sector capital specific TFP\\
+\texttt{A\_I\_5\_1} & ${A^{I}_{s,r}}$ & regional sector intermediate productivity\\
+\texttt{tauKF\_5\_1} & ${\tau^{K,F}_{s,r}}$ & regional sector corporate tax rate on capital\\
+\texttt{tauNF\_5\_1} & ${\tau^{N,F}_{s,r}}$ & regional sector labour tax rate on capital\\
+\texttt{P\_5\_1} & ${P_{s,r}}$ & regional sector price index\\
+\texttt{K\_5\_1} & ${K_{s,r}}$ & regional sector capital\\
+\texttt{Y\_5\_1} & ${Y_{s,r}}$ & regional sector GDP\\
+\texttt{N\_5\_1} & ${N_{s,r}}$ & regional sector employment\\
+\texttt{Q\_I\_5\_1} & ${Q^{I}_{s,r}}$ & regional sector intermediate inputs\\
+\texttt{P\_I\_5\_1} & ${P^{I}_{s,r}}$ & regional sector intermediate inputs price index\\
+\texttt{E\_5\_1} & ${E_{s,r}}$ & regional emissions associated with output used in sector k\\
+\texttt{kappaE\_5\_1} & ${\kappa^{E}_{s,r}}$ & emission factor associated with production in the subsector and region\\
+\texttt{A\_I\_5\_1\_1} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_5\_1\_1} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_5\_1\_1} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_5\_1\_2} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_5\_1\_2} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_5\_1\_2} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_5\_1\_3} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_5\_1\_3} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_5\_1\_3} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{A\_I\_5\_1\_4} & ${A^{I}_{s,r,k}}$ & regional subsector intermediate inputs productivity from aggregate sector k\\
+\texttt{Q\_I\_5\_1\_4} & ${Q^{I}_{s,r,k}}$ & regional subsector intermediate inputs from aggregate sector k\\
+\texttt{E\_I\_5\_1\_4} & ${E^I_{s,r,k}}$ & regional emissions associated with inputs used form sector k\\
+\texttt{X\_5\_1} & ${X_{s,r}}$ & sector exports\\
+\texttt{D\_X\_5\_1} & ${D^{X}_{s,r}}$ & world demand for sector exports\\
+\texttt{Q\_5\_1} & ${Q_{s,r}}$ & regional sector Output\\
+\texttt{P\_Q\_5\_1} & ${P^Q_{s,r}}$ & regional supply sector price index\\
+\texttt{W\_5\_1} & ${W_{s,r}}$ & regional wage rate for sector labour\\
+\texttt{Q\_D\_5\_1\_1} & ${Q^D_{s,r,m}}$ & regional demand for sector Output\\
+\texttt{Q\_D\_5\_1} & ${Q^{D}_{s,r}}$ & domestically used sector output\\
+\texttt{P\_D\_5\_1} & ${P_{s,r}}$ & regional demand sector price index\\
+\texttt{M\_I\_5\_1} & ${M^I_{s,r}}$ & regional subsectoral imports for intermediates\\
+\texttt{M\_F\_5\_1} & ${M^F_{s,r}}$ & regional subsectoral imports for final products\\
+\texttt{Q\_A\_4\_1} & ${Q^{A}_{k,r}}$ & domestically used sector output\\
+\texttt{Q\_A\_I\_4\_1} & ${Q^{A,I}_{k,r}}$ & domestically used sector output for intermediates\\
+\texttt{Q\_A\_F\_4\_1} & ${Q^{A,F}_{k,r}}$ & domestically used sector output for final use\\
+\texttt{A\_F\_4\_1} & ${A^{F}_{k,r}}$ & sector productivity for final use\\
+\texttt{P\_A\_4\_1} & ${P^{A}_{k,r}}$ & price index for domestically used sector output\\
+\texttt{M\_A\_F\_4\_1} & ${Q^{A,M^F}_{k,r}}$ & domestically used sector output for final use\\
+\texttt{P\_M\_A\_4\_1} & ${P^{A,M}_{k,r}}$ & price index for domestically used sector output\\
+\texttt{Q\_U\_1} & ${Q^{U}_{r}}$ & regionally used products\\
+\texttt{I\_1} & ${I_{r}}$ & regional investments\\
+\texttt{W\_1} & ${W_{r}}$ & regional wage level\\
+\texttt{G\_1} & ${G_{r}}$ & regional government expenditure\\
+\texttt{BG\_1} & ${B^G_{r}}$ & government debt\\
+\texttt{tauC\_1} & ${\tau^{C}_{r}}$ & consumption tax\\
+\texttt{tauH\_1} & ${\tau^{H}_{r}}$ & tax on housing\\
+\texttt{tauNH\_1} & ${\tau^{N,H}_{r}}$ & labour tax\\
+\texttt{tauKH\_1} & ${\tau^{K,H}_{r}}$ & capital tax\\
+\texttt{G\_A\_DH\_1} & ${G^{A,D^H}_{r}}$ & adaptation government expenditure for housing\\
+\texttt{KG\_1} & ${K^G_{r}}$ & public good capital stock\\
+\texttt{P\_1} & ${P_{r}}$ & regional price level\\
+\texttt{P\_F\_1} & ${P^F_{r}}$ & regional imported price level\\
+\texttt{P\_Q\_1} & ${P^Q_{r}}$ & regional produced price level\\
+\texttt{P\_D\_1} & ${P^D_{r}}$ & regional used price level\\
+\texttt{E\_1} & ${E_r}$ & regional emissions\\
+\texttt{EE\_1} & ${EE_r}$ & regional energy efficiency\\
+\texttt{M\_1} & ${M_{r}}$ & regional imports\\
+\texttt{B\_1} & ${B_r}$ & international traded bonds\\
+\texttt{lambda\_1} & $\lambda_r$ & budget constraint lagrange multiplier\\
+\texttt{H\_1} & ${H_r}$ & houses\\
+\texttt{PH\_1} & ${P^H_r}$ & prices for houses\\
+\texttt{DH\_1} & ${D^H_r}$ & damages to the housing stock\\
+\texttt{omegaH\_1} & ${\omega^H_r}$ & Lagrange multiplier for the law of motion of houses\\
+\texttt{PoP\_1} & ${PoP_r}$ & population\\
+\texttt{LF\_1} & ${LF_r}$ & labour force\\
+\texttt{IH\_1} & ${I^H_r}$ & investment in houses\\
+\texttt{N\_1} & ${N_r}$ & aggregate regional labour\\
+\texttt{Y\_1} & ${Y_r}$ & aggregate regional value added\\
+\texttt{X\_1} & ${X_r}$ & regional exports\\
+\texttt{Q\_1} & ${Q^S_r}$ & regional output supplied\\
+\texttt{Q\_I\_1} & ${Q^I_r}$ & regional intermediate input demand\\
+\texttt{C\_1} & ${C_r}$ & consumption\\
+\texttt{M\_F\_1} & ${M^F_r}$ & imports for final demand\\
+\texttt{NX\_1} & ${NX_r}$ & net exports to the rest of the world\\
+\texttt{Tr\_1} & ${Tr_r}$ & transfers\\
+\texttt{tauS\_1} & ${\tau^{S}_{r}}$ & firm subsidies\\
+\texttt{PE\_1} & ${P^E_r}$ & price for emissions\\
+\texttt{s\_1} & ${s_r}$ & change in exchange rate to the rest of the world\\
+\texttt{adjB\_1} & $a^B_r$ & region specific adjsutment cost shock to foreign bond holdings\\
+\texttt{deltaB\_1} & ${\delta^{B}_r}$ & depreciation rate of foreign assets\\
+\texttt{NX\_1\_1} & ${NX_{r,m}}$ & net exports of region $r$toregion $m$\\
+\texttt{B\_1\_1} & ${B_{r,m}}$ & net asset position of region $r$ to region $m$\\
+\texttt{AUX\_ENDO\_LAG\_292\_1} & $AUX\_ENDO\_LAG\_292\_1$ & AUX\_ENDO\_LAG\_292\_1\\
+\hline%
+\end{longtable}
+\end{center}
+\begin{center}
+\begin{longtable}{ccc}
+\caption{Exogenous}\\%
+\hline%
+\multicolumn{1}{c}{\textbf{Variable}} &
+\multicolumn{1}{c}{\textbf{\LaTeX}} &
+\multicolumn{1}{c}{\textbf{Description}}\\%
+\hline\hline%
+\endfirsthead
+\multicolumn{3}{c}{{\tablename} \thetable{} -- Continued}\\%
+\hline%
+\multicolumn{1}{c}{\textbf{Variable}} &
+\multicolumn{1}{c}{\textbf{\LaTeX}} &
+\multicolumn{1}{c}{\textbf{Description}}\\%
+\hline\hline%
+\endhead
+\texttt{exo\_rf} & ${\eta^{r^f}}$ & exogenous world interest rate\\
+\texttt{exo\_beta} & ${\eta^{\beta}}$ & exogenous discount factor\\
+\texttt{exo\_A\_F\_1\_1} & ${\eta^{A^F,k,r}}$ & exogenous final productivity\\
+\texttt{exo\_M\_1} & ${\eta^{M,k}}$ & exogenous price development of sector imports\\
+\texttt{exo\_X\_1\_1} & ${\eta^{X,s,r}}$ & exogenous demand for sector exports\\
+\texttt{exo\_1\_1} & ${\eta^{A,s,r}}$ & exogenous TFP\\
+\texttt{exo\_N\_1\_1} & ${\eta^{A^{N},k,r}}$ & exogenous labour specific TFP\\
+\texttt{exo\_K\_1\_1} & ${\eta^{A^{K},k,r}}$ & exogenous capital specific TFP\\
+\texttt{exo\_kappaE\_1\_1} & ${\eta^{\kappa^{E},s,r}}$ & exogenous emission intensity of the respective sector and region\\
+\texttt{exo\_E\_1\_1} & ${\eta^{E,s,r}}$ & exogenous emission of the respective sector and region\\
+\texttt{exo\_A\_I\_1\_1} & ${\eta^{A^{I},k,r}}$ & exogenous intermediate specific productivity\\
+\texttt{exo\_QI\_1\_1} & ${\eta^{Q^{I},k,r}}$ & exogenous intermediate share\\
+\texttt{exo\_D\_1\_1} & ${\eta^{D,k,r}}$ & exogenous damage induced by climate change for the sector\\
+\texttt{exo\_D\_N\_1\_1} & ${\eta^{D^{N},k,r}}$ & exogenous damage induced by climate change for labour productivity in the sector\\
+\texttt{exo\_D\_K\_1\_1} & ${\eta^{D^{K},k,r}}$ & exogenous damage induced by climate change for capital productivity in the sector\\
+\texttt{exo\_Q\_1\_1} & ${\eta^{E,s,r}}$ & exogenous share of emissions not part of ETS\\
+\texttt{exo\_tauKF\_1\_1} & ${\eta^{\tau^{K},k,r}}$ & exogenous sector and region corporate tax rate\\
+\texttt{exo\_tauNF\_1\_1} & ${\eta^{\tau^{N},k,r}}$ & exogenous sector and region labour tax rate\\
+\texttt{exo\_GA\_1\_1} & ${\eta^{G^{A,cyclpers},k,r}}$ & exogenous sector adaptation expenditure against cyclpers\\
+\texttt{exo\_EI\_1\_1\_1} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_1\_1\_1} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_1\_1\_2} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_1\_1\_2} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_1\_1\_3} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_1\_1\_3} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_1\_1\_4} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_1\_1\_4} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_A\_F\_2\_1} & ${\eta^{A^F,k,r}}$ & exogenous final productivity\\
+\texttt{exo\_M\_2} & ${\eta^{M,k}}$ & exogenous price development of sector imports\\
+\texttt{exo\_X\_2\_1} & ${\eta^{X,s,r}}$ & exogenous demand for sector exports\\
+\texttt{exo\_2\_1} & ${\eta^{A,s,r}}$ & exogenous TFP\\
+\texttt{exo\_N\_2\_1} & ${\eta^{A^{N},k,r}}$ & exogenous labour specific TFP\\
+\texttt{exo\_K\_2\_1} & ${\eta^{A^{K},k,r}}$ & exogenous capital specific TFP\\
+\texttt{exo\_kappaE\_2\_1} & ${\eta^{\kappa^{E},s,r}}$ & exogenous emission intensity of the respective sector and region\\
+\texttt{exo\_E\_2\_1} & ${\eta^{E,s,r}}$ & exogenous emission of the respective sector and region\\
+\texttt{exo\_A\_I\_2\_1} & ${\eta^{A^{I},k,r}}$ & exogenous intermediate specific productivity\\
+\texttt{exo\_QI\_2\_1} & ${\eta^{Q^{I},k,r}}$ & exogenous intermediate share\\
+\texttt{exo\_D\_2\_1} & ${\eta^{D,k,r}}$ & exogenous damage induced by climate change for the sector\\
+\texttt{exo\_D\_N\_2\_1} & ${\eta^{D^{N},k,r}}$ & exogenous damage induced by climate change for labour productivity in the sector\\
+\texttt{exo\_D\_K\_2\_1} & ${\eta^{D^{K},k,r}}$ & exogenous damage induced by climate change for capital productivity in the sector\\
+\texttt{exo\_Q\_2\_1} & ${\eta^{E,s,r}}$ & exogenous share of emissions not part of ETS\\
+\texttt{exo\_tauKF\_2\_1} & ${\eta^{\tau^{K},k,r}}$ & exogenous sector and region corporate tax rate\\
+\texttt{exo\_tauNF\_2\_1} & ${\eta^{\tau^{N},k,r}}$ & exogenous sector and region labour tax rate\\
+\texttt{exo\_GA\_2\_1} & ${\eta^{G^{A,cyclpers},k,r}}$ & exogenous sector adaptation expenditure against cyclpers\\
+\texttt{exo\_EI\_2\_1\_1} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_2\_1\_1} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_2\_1\_2} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_2\_1\_2} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_2\_1\_3} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_2\_1\_3} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_2\_1\_4} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_2\_1\_4} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_M\_3} & ${\eta^{M,k}}$ & exogenous price development of sector imports\\
+\texttt{exo\_X\_3\_1} & ${\eta^{X,s,r}}$ & exogenous demand for sector exports\\
+\texttt{exo\_3\_1} & ${\eta^{A,s,r}}$ & exogenous TFP\\
+\texttt{exo\_N\_3\_1} & ${\eta^{A^{N},k,r}}$ & exogenous labour specific TFP\\
+\texttt{exo\_K\_3\_1} & ${\eta^{A^{K},k,r}}$ & exogenous capital specific TFP\\
+\texttt{exo\_kappaE\_3\_1} & ${\eta^{\kappa^{E},s,r}}$ & exogenous emission intensity of the respective sector and region\\
+\texttt{exo\_E\_3\_1} & ${\eta^{E,s,r}}$ & exogenous emission of the respective sector and region\\
+\texttt{exo\_A\_I\_3\_1} & ${\eta^{A^{I},k,r}}$ & exogenous intermediate specific productivity\\
+\texttt{exo\_QI\_3\_1} & ${\eta^{Q^{I},k,r}}$ & exogenous intermediate share\\
+\texttt{exo\_D\_3\_1} & ${\eta^{D,k,r}}$ & exogenous damage induced by climate change for the sector\\
+\texttt{exo\_D\_N\_3\_1} & ${\eta^{D^{N},k,r}}$ & exogenous damage induced by climate change for labour productivity in the sector\\
+\texttt{exo\_D\_K\_3\_1} & ${\eta^{D^{K},k,r}}$ & exogenous damage induced by climate change for capital productivity in the sector\\
+\texttt{exo\_Q\_3\_1} & ${\eta^{E,s,r}}$ & exogenous share of emissions not part of ETS\\
+\texttt{exo\_tauKF\_3\_1} & ${\eta^{\tau^{K},k,r}}$ & exogenous sector and region corporate tax rate\\
+\texttt{exo\_tauNF\_3\_1} & ${\eta^{\tau^{N},k,r}}$ & exogenous sector and region labour tax rate\\
+\texttt{exo\_GA\_3\_1} & ${\eta^{G^{A,cyclpers},k,r}}$ & exogenous sector adaptation expenditure against cyclpers\\
+\texttt{exo\_EI\_3\_1\_1} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_3\_1\_1} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_3\_1\_2} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_3\_1\_2} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_3\_1\_3} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_3\_1\_3} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_3\_1\_4} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_3\_1\_4} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_A\_F\_3\_1} & ${\eta^{A^F,k,r}}$ & exogenous final productivity\\
+\texttt{exo\_M\_4} & ${\eta^{M,k}}$ & exogenous price development of sector imports\\
+\texttt{exo\_X\_4\_1} & ${\eta^{X,s,r}}$ & exogenous demand for sector exports\\
+\texttt{exo\_4\_1} & ${\eta^{A,s,r}}$ & exogenous TFP\\
+\texttt{exo\_N\_4\_1} & ${\eta^{A^{N},k,r}}$ & exogenous labour specific TFP\\
+\texttt{exo\_K\_4\_1} & ${\eta^{A^{K},k,r}}$ & exogenous capital specific TFP\\
+\texttt{exo\_kappaE\_4\_1} & ${\eta^{\kappa^{E},s,r}}$ & exogenous emission intensity of the respective sector and region\\
+\texttt{exo\_E\_4\_1} & ${\eta^{E,s,r}}$ & exogenous emission of the respective sector and region\\
+\texttt{exo\_A\_I\_4\_1} & ${\eta^{A^{I},k,r}}$ & exogenous intermediate specific productivity\\
+\texttt{exo\_QI\_4\_1} & ${\eta^{Q^{I},k,r}}$ & exogenous intermediate share\\
+\texttt{exo\_D\_4\_1} & ${\eta^{D,k,r}}$ & exogenous damage induced by climate change for the sector\\
+\texttt{exo\_D\_N\_4\_1} & ${\eta^{D^{N},k,r}}$ & exogenous damage induced by climate change for labour productivity in the sector\\
+\texttt{exo\_D\_K\_4\_1} & ${\eta^{D^{K},k,r}}$ & exogenous damage induced by climate change for capital productivity in the sector\\
+\texttt{exo\_Q\_4\_1} & ${\eta^{E,s,r}}$ & exogenous share of emissions not part of ETS\\
+\texttt{exo\_tauKF\_4\_1} & ${\eta^{\tau^{K},k,r}}$ & exogenous sector and region corporate tax rate\\
+\texttt{exo\_tauNF\_4\_1} & ${\eta^{\tau^{N},k,r}}$ & exogenous sector and region labour tax rate\\
+\texttt{exo\_GA\_4\_1} & ${\eta^{G^{A,cyclpers},k,r}}$ & exogenous sector adaptation expenditure against cyclpers\\
+\texttt{exo\_EI\_4\_1\_1} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_4\_1\_1} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_4\_1\_2} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_4\_1\_2} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_4\_1\_3} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_4\_1\_3} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_4\_1\_4} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_4\_1\_4} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_A\_F\_4\_1} & ${\eta^{A^F,k,r}}$ & exogenous final productivity\\
+\texttt{exo\_M\_5} & ${\eta^{M,k}}$ & exogenous price development of sector imports\\
+\texttt{exo\_X\_5\_1} & ${\eta^{X,s,r}}$ & exogenous demand for sector exports\\
+\texttt{exo\_5\_1} & ${\eta^{A,s,r}}$ & exogenous TFP\\
+\texttt{exo\_N\_5\_1} & ${\eta^{A^{N},k,r}}$ & exogenous labour specific TFP\\
+\texttt{exo\_K\_5\_1} & ${\eta^{A^{K},k,r}}$ & exogenous capital specific TFP\\
+\texttt{exo\_kappaE\_5\_1} & ${\eta^{\kappa^{E},s,r}}$ & exogenous emission intensity of the respective sector and region\\
+\texttt{exo\_E\_5\_1} & ${\eta^{E,s,r}}$ & exogenous emission of the respective sector and region\\
+\texttt{exo\_A\_I\_5\_1} & ${\eta^{A^{I},k,r}}$ & exogenous intermediate specific productivity\\
+\texttt{exo\_QI\_5\_1} & ${\eta^{Q^{I},k,r}}$ & exogenous intermediate share\\
+\texttt{exo\_D\_5\_1} & ${\eta^{D,k,r}}$ & exogenous damage induced by climate change for the sector\\
+\texttt{exo\_D\_N\_5\_1} & ${\eta^{D^{N},k,r}}$ & exogenous damage induced by climate change for labour productivity in the sector\\
+\texttt{exo\_D\_K\_5\_1} & ${\eta^{D^{K},k,r}}$ & exogenous damage induced by climate change for capital productivity in the sector\\
+\texttt{exo\_Q\_5\_1} & ${\eta^{E,s,r}}$ & exogenous share of emissions not part of ETS\\
+\texttt{exo\_tauKF\_5\_1} & ${\eta^{\tau^{K},k,r}}$ & exogenous sector and region corporate tax rate\\
+\texttt{exo\_tauNF\_5\_1} & ${\eta^{\tau^{N},k,r}}$ & exogenous sector and region labour tax rate\\
+\texttt{exo\_GA\_5\_1} & ${\eta^{G^{A,cyclpers},k,r}}$ & exogenous sector adaptation expenditure against cyclpers\\
+\texttt{exo\_EI\_5\_1\_1} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_5\_1\_1} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_5\_1\_2} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_5\_1\_2} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_5\_1\_3} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_5\_1\_3} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_EI\_5\_1\_4} & ${\eta^{E^{I},s,k,r}}$ & exogenous emissions caused by using intermediate products in subsector s from sector k\\
+\texttt{exo\_AI\_5\_1\_4} & ${\eta^{A^{I},s,k,r}}$ & exogenous productivity for intermediate products in subsector s from sector k\\
+\texttt{exo\_G\_A\_DH} & ${\eta^{G^{A,H}}}$ & exogenous sector adaptation expenditure for housing\\
+\texttt{exo\_SL} & ${\eta^{SL,n}}$ & exogenous SL\\
+\texttt{exo\_CapTradeInternat} & ${\eta^{Cap and Trade International}}$ & exogenous indicator wether there is a Cap and trade international\\
+\texttt{exo\_E} & ${\eta^{E}}$ & exogenous emissions\\
+\texttt{exo\_PE} & ${\eta^{P^E}}$ & exogenous emission price\\
+\texttt{exo\_tauS\_1} & ${\eta^{\tau^{S}}_r}$ & exogenous subsidy share of revenues from ETS\\
+\texttt{exo\_tauSTr\_1} & ${\eta^{\tau^{S,Tr}}_r}$ & exogenous subsidy share of revenues for transfers\\
+\texttt{exo\_E\_1} & ${\eta^{E}_r}$ & exogenous emissions\\
+\texttt{exo\_EE\_1} & ${\eta^{EE}_r}$ & exogenous energy efficiency\\
+\texttt{exo\_EBase\_1} & ${\eta^{E,Base}_r}$ & exogenous emissions in Baseline Scenario\\
+\texttt{exo\_PE\_1} & ${\eta^{P^E}_r}$ & exogenous emission price\\
+\texttt{exo\_CapTrade\_1} & ${\eta^{CapTrade}_r}$ & exogenous indicator wehter there is a Cap and trade or a emission price\\
+\texttt{exo\_tas\_1} & ${\eta^{tas,n}}$ & exogenous regional tas\\
+\texttt{exo\_cyclpers\_1} & ${\eta^{cyclpers,n}}$ & exogenous regional cyclpers\\
+\texttt{exo\_LF\_1} & ${\eta^{LF}_{r}}$ & exogenous change in the labour force\\
+\texttt{exo\_NLF\_1} & ${\eta^{NLF}_{r}}$ & exogenous change in the population outside of the labour force\\
+\texttt{exo\_P\_D\_1} & ${\eta^{P^D}_{r}}$ & exogenous price level\\
+\texttt{exo\_H\_1} & ${\eta^{H}_r}$ & exogeneous housing area to population ratio\\
+\texttt{exo\_DH\_1} & ${\eta^{D^{H}}_r}$ & exogeneous damage to housing stock\\
+\texttt{exo\_tauC\_1} & ${\eta^{\tau^C_{r}}}$ & exogeneous consumption tax\\
+\texttt{exo\_tauH\_1} & ${\eta^{\tau^H_{r}}}$ & exogeneous housing tax\\
+\texttt{exo\_tauNH\_1} & ${\eta^{\tau^{N,H}_{r}}}$ & exogeneous labour income tax paid by households\\
+\texttt{exo\_tauKH\_1} & ${\eta^{\tau^{K,H}_{r}}}$ & exogeneous capital income tax paid by households\\
+\texttt{exo\_BG\_1} & ${\eta^{BG}_{r}}$ & exogenous structural balance\\
+\texttt{exo\_Tr\_1} & ${\eta^{Tr}_r}$ & exogeneous transfer payments\\
+\texttt{exo\_NXL\_1} & ${\eta^{NX}_r}$ & logical exogenous variable to set net exports to GDP ratio\\
+\texttt{exo\_BL\_1} & ${\eta^{B}_r}$ & logical exogenous variable to set foreign asset position relative to GDP\\
+\texttt{exo\_NX\_1} & ${\eta^{NX}_r}$ & exogenous net exports to GDP ratio\\
+\texttt{exo\_B\_1} & ${\eta^{B}_r}$ & exogenous net foreign asset position\\
+\texttt{exo\_deltaB\_1} & ${\eta^{\delta^B}_r}$ & exogenous depreciation rate on net foreign asset position\\
+\texttt{exo\_adjB\_1} & ${\eta^{adj^B}_r}$ & exogenous adjustment cost\\
+\texttt{exo\_s\_1} & ${\eta^{s}_r}$ & exogenous change in net foreign asset position\\
+\hline%
+\end{longtable}
+\end{center}
+\begin{center}
+\begin{longtable}{ccc}
+\caption{Parameters}\\%
+\hline%
+\multicolumn{1}{c}{\textbf{Variable}} &
+\multicolumn{1}{c}{\textbf{\LaTeX}} &
+\multicolumn{1}{c}{\textbf{Description}}\\%
+\hline\hline%
+\endfirsthead
+\multicolumn{3}{c}{{\tablename} \thetable{} -- Continued}\\%
+\hline%
+\multicolumn{1}{c}{\textbf{Variable}} &
+\multicolumn{1}{c}{\textbf{\LaTeX}} &
+\multicolumn{1}{c}{\textbf{Description}}\\%
+\hline\hline%
+\endhead
+\texttt{inbsectors\_p} & ${K}$ & number of sectors\\
+\texttt{inbsubsectors\_p} & ${S}$ & number of subsectors\\
+\texttt{inbregions\_p} & ${R}$ & number of regions\\
+\texttt{iSubsecFossil\_p} & ${s^{Fossil}}$ & iSubsecFossil\_p\\
+\texttt{iSecEnergy\_p} & ${s^{Energy}}$ & iSecEnergy\_p\\
+\texttt{iSecHouse\_p} & ${k^{Housing}}$ & iSecHouse\_p\\
+\texttt{lEndogenousY\_p} & ${l^{Y}}$ & logical indicator for endogenous or exogenous production\\
+\texttt{lTargetY\_p} & ${l^{Y,target}}$ & logical indicator for target on Y or Q in Baseline\\
+\texttt{lExoNX\_p} & ${l^{NX}}$ & logical indicator for exogenous net exports\\
+\texttt{lCalibration\_p} & ${l^{Calib}}$ & logical indicator whether model is calibrated or not\\
+\texttt{lCapandTrade\_p} & ${l^{CapandTrade}}$ & logical indicator whether cap and trade or exogenous emissions prices\\
+\texttt{lEndoMig\_p} & ${l^{Endogenous Migration}}$ & logical indicator whether migration is endogenous or not\\
+\texttt{TAdjLF\_p} & ${T^{adjustment}}$ & adjustment time of labour supply to change in wage differentials\\
+\texttt{etaLF\_p} & ${\eta^{LF}}$ & elasticity of labour force to wage differentials\\
+\texttt{h\_p} & ${h}$ & habit persistence\\
+\texttt{substart\_1\_p} & $substart\_1\_p$ & substart\_1\_p\\
+\texttt{subend\_1\_p} & $subend\_1\_p$ & subend\_1\_p\\
+\texttt{substart\_2\_p} & $substart\_2\_p$ & substart\_2\_p\\
+\texttt{subend\_2\_p} & $subend\_2\_p$ & subend\_2\_p\\
+\texttt{substart\_3\_p} & $substart\_3\_p$ & substart\_3\_p\\
+\texttt{subend\_3\_p} & $subend\_3\_p$ & subend\_3\_p\\
+\texttt{substart\_4\_p} & $substart\_4\_p$ & substart\_4\_p\\
+\texttt{subend\_4\_p} & $subend\_4\_p$ & subend\_4\_p\\
+\texttt{etaQA\_1\_p} & ${\eta^{Q^A}_{k}}$ & elasticity of substitution between products from different subsectors in one sector\\
+\texttt{omegaQA\_1\_1\_p} & ${\omega^{Q^A}_{k}}$ & distribution parameter for aggregate output from one sector\\
+\texttt{omegaMA\_F\_1\_1\_p} & ${\omega^{M,A}_{k,r}}$ & distribution parameter for final demand imports from one sector\\
+\texttt{P\_M\_1\_p} & ${P^{M}_{s}}$ & long-run price of sector imports\\
+\texttt{M0\_1\_p} & ${M^{0}_{s}}$ & long-run price of sector imports\\
+\texttt{etaQ\_1\_p} & ${\eta^{Q}_{s}}$ & elasticity of substitution between regional production\\
+\texttt{etaI\_1\_p} & ${\eta^{I}_{s}}$ & elasticity of substitution between value added and intermediate products\\
+\texttt{etaIA\_1\_p} & ${\eta^{I,A}_{s}}$ & elasticity of substitution between intermediate products from different sectors\\
+\texttt{iHomeBias\_1\_p} & ${\iota^{Home}_{s}}$ & Home bias in subsector\\
+\texttt{phiM\_I\_1\_1\_p} & $\frac{M_{s,r,0} \, P^{M}_{k,r,0}}{P_{0} \, Q_{0}}$ & share of sector imports on total output for intermediates\\
+\texttt{phiM\_F\_1\_1\_p} & $\frac{M_{s,r,0} \, P^{M}_{k,r,0}}{P_{0} \, Q_{0}}$ & share of sector imports on total output for final products\\
+\texttt{phiQI\_1\_1\_p} & $\frac{Q^{I}_{s,0} \, P_{0}}{P_{k,0} \, Q_{k,0}}$ & share of intermediate inputs on total production\\
+\texttt{phiY0\_1\_1\_p} & $\frac{P_{s,r,0} \, Y_{s,r,0}}{P_{0} \, Y_{0}}$ & initial share of regional and sectoral output\\
+\texttt{phiX\_1\_1\_p} & $\frac{X_{s,r,0} \, P_{s,r,0}}{P_{s,r,0} \, Y_{s,r,0}}$ & share of exports on gross value added\\
+\texttt{phiK\_1\_1\_p} & ${\phi^{K}_{s,r}}$ & coefficient of investment adjustment cost\\
+\texttt{delta\_1\_1\_p} & ${\delta^{K}_{s,r}}$ & depreciation rate for capital\\
+\texttt{D\_X\_1\_1\_p} & ${D^{X}_{s,r}}$ & long-run demand for exports\\
+\texttt{lEndoQ\_1\_1\_p} & ${l^{Q}_{s,r}}$ & logical indicator whether output is endogenous or not\\
+\texttt{lEndoN\_1\_1\_p} & ${l^{N}_{s,r}}$ & logical indicator whether employment is endogenous or not\\
+\texttt{kappaE\_1\_1\_p} & ${\kappa^{E}_{s,r}}$ & emission factor associated with production in the subsector and region\\
+\texttt{sE\_1\_1\_p} & ${\frac{E_{s,r}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{tauKF\_1\_1\_p} & ${\tau^{K,F}_{s,r}}$ & region and sector-specific tax rate on capital paid by firms\\
+\texttt{tauNF\_1\_1\_p} & ${\tau^{N,F}_{s,r}}$ & region and sector-specific tax rate on labour paid by firms\\
+\texttt{phiY\_1\_1\_p} & $\frac{P_{s,r,0} \, Y_{s,r,0}}{P_{0} \, Y_{0}}$ & share of regional and sectoral output\\
+\texttt{phiYT\_1\_1\_p} & $\frac{P_{s,r,T} \, Y_{s,r,T}}{P_{T} \, Y_{T}}$ & terminal share of regional and sectoral output\\
+\texttt{Q0\_1\_1\_p} & ${Q_{s,r,0}}$ & initial emissions\\
+\texttt{Q\_I0\_1\_1\_p} & ${Q^I_{s,r,0}}$ & initial emissions\\
+\texttt{P0\_Q\_1\_1\_p} & ${P^Q_{s,r,0}}$ & initial guess for regional supply sector price index\\
+\texttt{P0\_1\_1\_p} & ${P_{s,r,0}}$ & initial guess for regional value added sector price index\\
+\texttt{phiN\_1\_1\_p} & ${N_{s,r,0}}$ & long-run share of regional and sectoral employment\\
+\texttt{phiNT\_1\_1\_p} & ${N_{s,r,T}}$ & terminal share of regional and sectoral employment\\
+\texttt{phiN0\_1\_1\_p} & ${N_{s,r,0}}$ & initial share of regional and sectoral employment\\
+\texttt{phiW\_1\_1\_p} & $\frac{W_{s,r,0} \, N_{s,r,0}}{P_{s,r,0} \, Y_{s,r,0}}$ & share of regional and sectoral employment\\
+\texttt{phiL\_1\_1\_p} & ${\phi^{L}_{s,r}}$ & coefficient of disutility to work\\
+\texttt{omegaQ\_1\_1\_1\_p} & ${\omega^{Q}_{s,r,m}}$ & distribution parameter for regional production\\
+\texttt{phiQ\_D\_1\_1\_1\_p} & ${\phi^{Q}_{s,r,m}}$ & share of production used in region regm and produced in region reg\\
+\texttt{omegaQI\_1\_1\_p} & ${\omega^{Q^{I}}_{s,r}}$ & distribution parameter for intermediate products\\
+\texttt{omegaQI\_1\_1\_1\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_1\_1\_1\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_1\_1\_1\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_1\_1\_1\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_1\_1\_2\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_1\_1\_2\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_1\_1\_2\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_1\_1\_2\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_1\_1\_3\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_1\_1\_3\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_1\_1\_3\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_1\_1\_3\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_1\_1\_4\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_1\_1\_4\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_1\_1\_4\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_1\_1\_4\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{alphaK\_1\_1\_p} & ${\alpha^{K}_{s,r}}$ & distribution parameter capital share\\
+\texttt{alphaN\_1\_1\_p} & ${\alpha^{N}_{s,r}}$ & distribution parameter labour share\\
+\texttt{etaNK\_1\_1\_p} & ${\eta^{N,K}_{s,r}}$ & elasticity of substitution between labour and capital\\
+\texttt{A\_1\_1\_p} & ${A_{s,r}}$ & sector long-run TFP\\
+\texttt{deltaKA\_1\_1\_p} & ${\delta^{K^{A}_{s,r}}}$ & depreciation rate of adaptation capital stock against cyclpers\\
+\texttt{gY0\_1\_1\_p} & ${\frac{Y_{2,k,r}}{Y_{1,k,r}}}$ & initial sector growth\\
+\texttt{gN0\_1\_1\_p} & ${\frac{\frac{N_{2,k,r}}{N_{2}}}{\frac{N_{1,k,r}}{N_{1}}}}$ & initial sector labour growth\\
+\texttt{omegaM\_1\_1\_p} & ${\omega^{M}_{s,r}}$ & distribution parameter for imports from one sector\\
+\texttt{omegaM\_F\_1\_1\_p} & ${\omega^{M,F}_{s,r}}$ & distribution parameter for imports from one sector\\
+\texttt{omegaQ\_1\_1\_p} & ${\omega^{Q}_{s,r}}$ & distribution parameter for output from one sector\\
+\texttt{omegaA\_1\_1\_p} & ${\omega^{A}_{s,r}}$ & exponent for productivity growth\\
+\texttt{A\_N\_1\_1\_p} & ${A^{N}_{s,r}}$ & sector labour specific TFP\\
+\texttt{A\_K\_1\_1\_p} & ${A^{K}_{s,r}}$ & sector capital specific TFP\\
+\texttt{etaQA\_2\_p} & ${\eta^{Q^A}_{k}}$ & elasticity of substitution between products from different subsectors in one sector\\
+\texttt{omegaQA\_2\_1\_p} & ${\omega^{Q^A}_{k}}$ & distribution parameter for aggregate output from one sector\\
+\texttt{omegaMA\_F\_2\_1\_p} & ${\omega^{M,A}_{k,r}}$ & distribution parameter for final demand imports from one sector\\
+\texttt{P\_M\_2\_p} & ${P^{M}_{s}}$ & long-run price of sector imports\\
+\texttt{M0\_2\_p} & ${M^{0}_{s}}$ & long-run price of sector imports\\
+\texttt{etaQ\_2\_p} & ${\eta^{Q}_{s}}$ & elasticity of substitution between regional production\\
+\texttt{etaI\_2\_p} & ${\eta^{I}_{s}}$ & elasticity of substitution between value added and intermediate products\\
+\texttt{etaIA\_2\_p} & ${\eta^{I,A}_{s}}$ & elasticity of substitution between intermediate products from different sectors\\
+\texttt{iHomeBias\_2\_p} & ${\iota^{Home}_{s}}$ & Home bias in subsector\\
+\texttt{phiM\_I\_2\_1\_p} & $\frac{M_{s,r,0} \, P^{M}_{k,r,0}}{P_{0} \, Q_{0}}$ & share of sector imports on total output for intermediates\\
+\texttt{phiM\_F\_2\_1\_p} & $\frac{M_{s,r,0} \, P^{M}_{k,r,0}}{P_{0} \, Q_{0}}$ & share of sector imports on total output for final products\\
+\texttt{phiQI\_2\_1\_p} & $\frac{Q^{I}_{s,0} \, P_{0}}{P_{k,0} \, Q_{k,0}}$ & share of intermediate inputs on total production\\
+\texttt{phiY0\_2\_1\_p} & $\frac{P_{s,r,0} \, Y_{s,r,0}}{P_{0} \, Y_{0}}$ & initial share of regional and sectoral output\\
+\texttt{phiX\_2\_1\_p} & $\frac{X_{s,r,0} \, P_{s,r,0}}{P_{s,r,0} \, Y_{s,r,0}}$ & share of exports on gross value added\\
+\texttt{phiK\_2\_1\_p} & ${\phi^{K}_{s,r}}$ & coefficient of investment adjustment cost\\
+\texttt{delta\_2\_1\_p} & ${\delta^{K}_{s,r}}$ & depreciation rate for capital\\
+\texttt{D\_X\_2\_1\_p} & ${D^{X}_{s,r}}$ & long-run demand for exports\\
+\texttt{lEndoQ\_2\_1\_p} & ${l^{Q}_{s,r}}$ & logical indicator whether output is endogenous or not\\
+\texttt{lEndoN\_2\_1\_p} & ${l^{N}_{s,r}}$ & logical indicator whether employment is endogenous or not\\
+\texttt{kappaE\_2\_1\_p} & ${\kappa^{E}_{s,r}}$ & emission factor associated with production in the subsector and region\\
+\texttt{sE\_2\_1\_p} & ${\frac{E_{s,r}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{tauKF\_2\_1\_p} & ${\tau^{K,F}_{s,r}}$ & region and sector-specific tax rate on capital paid by firms\\
+\texttt{tauNF\_2\_1\_p} & ${\tau^{N,F}_{s,r}}$ & region and sector-specific tax rate on labour paid by firms\\
+\texttt{phiY\_2\_1\_p} & $\frac{P_{s,r,0} \, Y_{s,r,0}}{P_{0} \, Y_{0}}$ & share of regional and sectoral output\\
+\texttt{phiYT\_2\_1\_p} & $\frac{P_{s,r,T} \, Y_{s,r,T}}{P_{T} \, Y_{T}}$ & terminal share of regional and sectoral output\\
+\texttt{Q0\_2\_1\_p} & ${Q_{s,r,0}}$ & initial emissions\\
+\texttt{Q\_I0\_2\_1\_p} & ${Q^I_{s,r,0}}$ & initial emissions\\
+\texttt{P0\_Q\_2\_1\_p} & ${P^Q_{s,r,0}}$ & initial guess for regional supply sector price index\\
+\texttt{P0\_2\_1\_p} & ${P_{s,r,0}}$ & initial guess for regional value added sector price index\\
+\texttt{phiN\_2\_1\_p} & ${N_{s,r,0}}$ & long-run share of regional and sectoral employment\\
+\texttt{phiNT\_2\_1\_p} & ${N_{s,r,T}}$ & terminal share of regional and sectoral employment\\
+\texttt{phiN0\_2\_1\_p} & ${N_{s,r,0}}$ & initial share of regional and sectoral employment\\
+\texttt{phiW\_2\_1\_p} & $\frac{W_{s,r,0} \, N_{s,r,0}}{P_{s,r,0} \, Y_{s,r,0}}$ & share of regional and sectoral employment\\
+\texttt{phiL\_2\_1\_p} & ${\phi^{L}_{s,r}}$ & coefficient of disutility to work\\
+\texttt{omegaQ\_2\_1\_1\_p} & ${\omega^{Q}_{s,r,m}}$ & distribution parameter for regional production\\
+\texttt{phiQ\_D\_2\_1\_1\_p} & ${\phi^{Q}_{s,r,m}}$ & share of production used in region regm and produced in region reg\\
+\texttt{omegaQI\_2\_1\_p} & ${\omega^{Q^{I}}_{s,r}}$ & distribution parameter for intermediate products\\
+\texttt{omegaQI\_2\_1\_1\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_2\_1\_1\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_2\_1\_1\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_2\_1\_1\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_2\_1\_2\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_2\_1\_2\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_2\_1\_2\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_2\_1\_2\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_2\_1\_3\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_2\_1\_3\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_2\_1\_3\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_2\_1\_3\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_2\_1\_4\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_2\_1\_4\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_2\_1\_4\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_2\_1\_4\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{alphaK\_2\_1\_p} & ${\alpha^{K}_{s,r}}$ & distribution parameter capital share\\
+\texttt{alphaN\_2\_1\_p} & ${\alpha^{N}_{s,r}}$ & distribution parameter labour share\\
+\texttt{etaNK\_2\_1\_p} & ${\eta^{N,K}_{s,r}}$ & elasticity of substitution between labour and capital\\
+\texttt{A\_2\_1\_p} & ${A_{s,r}}$ & sector long-run TFP\\
+\texttt{deltaKA\_2\_1\_p} & ${\delta^{K^{A}_{s,r}}}$ & depreciation rate of adaptation capital stock against cyclpers\\
+\texttt{gY0\_2\_1\_p} & ${\frac{Y_{2,k,r}}{Y_{1,k,r}}}$ & initial sector growth\\
+\texttt{gN0\_2\_1\_p} & ${\frac{\frac{N_{2,k,r}}{N_{2}}}{\frac{N_{1,k,r}}{N_{1}}}}$ & initial sector labour growth\\
+\texttt{omegaM\_2\_1\_p} & ${\omega^{M}_{s,r}}$ & distribution parameter for imports from one sector\\
+\texttt{omegaM\_F\_2\_1\_p} & ${\omega^{M,F}_{s,r}}$ & distribution parameter for imports from one sector\\
+\texttt{omegaQ\_2\_1\_p} & ${\omega^{Q}_{s,r}}$ & distribution parameter for output from one sector\\
+\texttt{omegaA\_2\_1\_p} & ${\omega^{A}_{s,r}}$ & exponent for productivity growth\\
+\texttt{A\_N\_2\_1\_p} & ${A^{N}_{s,r}}$ & sector labour specific TFP\\
+\texttt{A\_K\_2\_1\_p} & ${A^{K}_{s,r}}$ & sector capital specific TFP\\
+\texttt{P\_M\_3\_p} & ${P^{M}_{s}}$ & long-run price of sector imports\\
+\texttt{M0\_3\_p} & ${M^{0}_{s}}$ & long-run price of sector imports\\
+\texttt{etaQ\_3\_p} & ${\eta^{Q}_{s}}$ & elasticity of substitution between regional production\\
+\texttt{etaI\_3\_p} & ${\eta^{I}_{s}}$ & elasticity of substitution between value added and intermediate products\\
+\texttt{etaIA\_3\_p} & ${\eta^{I,A}_{s}}$ & elasticity of substitution between intermediate products from different sectors\\
+\texttt{iHomeBias\_3\_p} & ${\iota^{Home}_{s}}$ & Home bias in subsector\\
+\texttt{phiM\_I\_3\_1\_p} & $\frac{M_{s,r,0} \, P^{M}_{k,r,0}}{P_{0} \, Q_{0}}$ & share of sector imports on total output for intermediates\\
+\texttt{phiM\_F\_3\_1\_p} & $\frac{M_{s,r,0} \, P^{M}_{k,r,0}}{P_{0} \, Q_{0}}$ & share of sector imports on total output for final products\\
+\texttt{phiQI\_3\_1\_p} & $\frac{Q^{I}_{s,0} \, P_{0}}{P_{k,0} \, Q_{k,0}}$ & share of intermediate inputs on total production\\
+\texttt{phiY0\_3\_1\_p} & $\frac{P_{s,r,0} \, Y_{s,r,0}}{P_{0} \, Y_{0}}$ & initial share of regional and sectoral output\\
+\texttt{phiX\_3\_1\_p} & $\frac{X_{s,r,0} \, P_{s,r,0}}{P_{s,r,0} \, Y_{s,r,0}}$ & share of exports on gross value added\\
+\texttt{phiK\_3\_1\_p} & ${\phi^{K}_{s,r}}$ & coefficient of investment adjustment cost\\
+\texttt{delta\_3\_1\_p} & ${\delta^{K}_{s,r}}$ & depreciation rate for capital\\
+\texttt{D\_X\_3\_1\_p} & ${D^{X}_{s,r}}$ & long-run demand for exports\\
+\texttt{lEndoQ\_3\_1\_p} & ${l^{Q}_{s,r}}$ & logical indicator whether output is endogenous or not\\
+\texttt{lEndoN\_3\_1\_p} & ${l^{N}_{s,r}}$ & logical indicator whether employment is endogenous or not\\
+\texttt{kappaE\_3\_1\_p} & ${\kappa^{E}_{s,r}}$ & emission factor associated with production in the subsector and region\\
+\texttt{sE\_3\_1\_p} & ${\frac{E_{s,r}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{tauKF\_3\_1\_p} & ${\tau^{K,F}_{s,r}}$ & region and sector-specific tax rate on capital paid by firms\\
+\texttt{tauNF\_3\_1\_p} & ${\tau^{N,F}_{s,r}}$ & region and sector-specific tax rate on labour paid by firms\\
+\texttt{phiY\_3\_1\_p} & $\frac{P_{s,r,0} \, Y_{s,r,0}}{P_{0} \, Y_{0}}$ & share of regional and sectoral output\\
+\texttt{phiYT\_3\_1\_p} & $\frac{P_{s,r,T} \, Y_{s,r,T}}{P_{T} \, Y_{T}}$ & terminal share of regional and sectoral output\\
+\texttt{Q0\_3\_1\_p} & ${Q_{s,r,0}}$ & initial emissions\\
+\texttt{Q\_I0\_3\_1\_p} & ${Q^I_{s,r,0}}$ & initial emissions\\
+\texttt{P0\_Q\_3\_1\_p} & ${P^Q_{s,r,0}}$ & initial guess for regional supply sector price index\\
+\texttt{P0\_3\_1\_p} & ${P_{s,r,0}}$ & initial guess for regional value added sector price index\\
+\texttt{phiN\_3\_1\_p} & ${N_{s,r,0}}$ & long-run share of regional and sectoral employment\\
+\texttt{phiNT\_3\_1\_p} & ${N_{s,r,T}}$ & terminal share of regional and sectoral employment\\
+\texttt{phiN0\_3\_1\_p} & ${N_{s,r,0}}$ & initial share of regional and sectoral employment\\
+\texttt{phiW\_3\_1\_p} & $\frac{W_{s,r,0} \, N_{s,r,0}}{P_{s,r,0} \, Y_{s,r,0}}$ & share of regional and sectoral employment\\
+\texttt{phiL\_3\_1\_p} & ${\phi^{L}_{s,r}}$ & coefficient of disutility to work\\
+\texttt{omegaQ\_3\_1\_1\_p} & ${\omega^{Q}_{s,r,m}}$ & distribution parameter for regional production\\
+\texttt{phiQ\_D\_3\_1\_1\_p} & ${\phi^{Q}_{s,r,m}}$ & share of production used in region regm and produced in region reg\\
+\texttt{omegaQI\_3\_1\_p} & ${\omega^{Q^{I}}_{s,r}}$ & distribution parameter for intermediate products\\
+\texttt{omegaQI\_3\_1\_1\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_3\_1\_1\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_3\_1\_1\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_3\_1\_1\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_3\_1\_2\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_3\_1\_2\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_3\_1\_2\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_3\_1\_2\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_3\_1\_3\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_3\_1\_3\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_3\_1\_3\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_3\_1\_3\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_3\_1\_4\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_3\_1\_4\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_3\_1\_4\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_3\_1\_4\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{alphaK\_3\_1\_p} & ${\alpha^{K}_{s,r}}$ & distribution parameter capital share\\
+\texttt{alphaN\_3\_1\_p} & ${\alpha^{N}_{s,r}}$ & distribution parameter labour share\\
+\texttt{etaNK\_3\_1\_p} & ${\eta^{N,K}_{s,r}}$ & elasticity of substitution between labour and capital\\
+\texttt{A\_3\_1\_p} & ${A_{s,r}}$ & sector long-run TFP\\
+\texttt{deltaKA\_3\_1\_p} & ${\delta^{K^{A}_{s,r}}}$ & depreciation rate of adaptation capital stock against cyclpers\\
+\texttt{gY0\_3\_1\_p} & ${\frac{Y_{2,k,r}}{Y_{1,k,r}}}$ & initial sector growth\\
+\texttt{gN0\_3\_1\_p} & ${\frac{\frac{N_{2,k,r}}{N_{2}}}{\frac{N_{1,k,r}}{N_{1}}}}$ & initial sector labour growth\\
+\texttt{omegaM\_3\_1\_p} & ${\omega^{M}_{s,r}}$ & distribution parameter for imports from one sector\\
+\texttt{omegaM\_F\_3\_1\_p} & ${\omega^{M,F}_{s,r}}$ & distribution parameter for imports from one sector\\
+\texttt{omegaQ\_3\_1\_p} & ${\omega^{Q}_{s,r}}$ & distribution parameter for output from one sector\\
+\texttt{omegaA\_3\_1\_p} & ${\omega^{A}_{s,r}}$ & exponent for productivity growth\\
+\texttt{A\_N\_3\_1\_p} & ${A^{N}_{s,r}}$ & sector labour specific TFP\\
+\texttt{A\_K\_3\_1\_p} & ${A^{K}_{s,r}}$ & sector capital specific TFP\\
+\texttt{etaQA\_3\_p} & ${\eta^{Q^A}_{k}}$ & elasticity of substitution between products from different subsectors in one sector\\
+\texttt{omegaQA\_3\_1\_p} & ${\omega^{Q^A}_{k}}$ & distribution parameter for aggregate output from one sector\\
+\texttt{omegaMA\_F\_3\_1\_p} & ${\omega^{M,A}_{k,r}}$ & distribution parameter for final demand imports from one sector\\
+\texttt{P\_M\_4\_p} & ${P^{M}_{s}}$ & long-run price of sector imports\\
+\texttt{M0\_4\_p} & ${M^{0}_{s}}$ & long-run price of sector imports\\
+\texttt{etaQ\_4\_p} & ${\eta^{Q}_{s}}$ & elasticity of substitution between regional production\\
+\texttt{etaI\_4\_p} & ${\eta^{I}_{s}}$ & elasticity of substitution between value added and intermediate products\\
+\texttt{etaIA\_4\_p} & ${\eta^{I,A}_{s}}$ & elasticity of substitution between intermediate products from different sectors\\
+\texttt{iHomeBias\_4\_p} & ${\iota^{Home}_{s}}$ & Home bias in subsector\\
+\texttt{phiM\_I\_4\_1\_p} & $\frac{M_{s,r,0} \, P^{M}_{k,r,0}}{P_{0} \, Q_{0}}$ & share of sector imports on total output for intermediates\\
+\texttt{phiM\_F\_4\_1\_p} & $\frac{M_{s,r,0} \, P^{M}_{k,r,0}}{P_{0} \, Q_{0}}$ & share of sector imports on total output for final products\\
+\texttt{phiQI\_4\_1\_p} & $\frac{Q^{I}_{s,0} \, P_{0}}{P_{k,0} \, Q_{k,0}}$ & share of intermediate inputs on total production\\
+\texttt{phiY0\_4\_1\_p} & $\frac{P_{s,r,0} \, Y_{s,r,0}}{P_{0} \, Y_{0}}$ & initial share of regional and sectoral output\\
+\texttt{phiX\_4\_1\_p} & $\frac{X_{s,r,0} \, P_{s,r,0}}{P_{s,r,0} \, Y_{s,r,0}}$ & share of exports on gross value added\\
+\texttt{phiK\_4\_1\_p} & ${\phi^{K}_{s,r}}$ & coefficient of investment adjustment cost\\
+\texttt{delta\_4\_1\_p} & ${\delta^{K}_{s,r}}$ & depreciation rate for capital\\
+\texttt{D\_X\_4\_1\_p} & ${D^{X}_{s,r}}$ & long-run demand for exports\\
+\texttt{lEndoQ\_4\_1\_p} & ${l^{Q}_{s,r}}$ & logical indicator whether output is endogenous or not\\
+\texttt{lEndoN\_4\_1\_p} & ${l^{N}_{s,r}}$ & logical indicator whether employment is endogenous or not\\
+\texttt{kappaE\_4\_1\_p} & ${\kappa^{E}_{s,r}}$ & emission factor associated with production in the subsector and region\\
+\texttt{sE\_4\_1\_p} & ${\frac{E_{s,r}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{tauKF\_4\_1\_p} & ${\tau^{K,F}_{s,r}}$ & region and sector-specific tax rate on capital paid by firms\\
+\texttt{tauNF\_4\_1\_p} & ${\tau^{N,F}_{s,r}}$ & region and sector-specific tax rate on labour paid by firms\\
+\texttt{phiY\_4\_1\_p} & $\frac{P_{s,r,0} \, Y_{s,r,0}}{P_{0} \, Y_{0}}$ & share of regional and sectoral output\\
+\texttt{phiYT\_4\_1\_p} & $\frac{P_{s,r,T} \, Y_{s,r,T}}{P_{T} \, Y_{T}}$ & terminal share of regional and sectoral output\\
+\texttt{Q0\_4\_1\_p} & ${Q_{s,r,0}}$ & initial emissions\\
+\texttt{Q\_I0\_4\_1\_p} & ${Q^I_{s,r,0}}$ & initial emissions\\
+\texttt{P0\_Q\_4\_1\_p} & ${P^Q_{s,r,0}}$ & initial guess for regional supply sector price index\\
+\texttt{P0\_4\_1\_p} & ${P_{s,r,0}}$ & initial guess for regional value added sector price index\\
+\texttt{phiN\_4\_1\_p} & ${N_{s,r,0}}$ & long-run share of regional and sectoral employment\\
+\texttt{phiNT\_4\_1\_p} & ${N_{s,r,T}}$ & terminal share of regional and sectoral employment\\
+\texttt{phiN0\_4\_1\_p} & ${N_{s,r,0}}$ & initial share of regional and sectoral employment\\
+\texttt{phiW\_4\_1\_p} & $\frac{W_{s,r,0} \, N_{s,r,0}}{P_{s,r,0} \, Y_{s,r,0}}$ & share of regional and sectoral employment\\
+\texttt{phiL\_4\_1\_p} & ${\phi^{L}_{s,r}}$ & coefficient of disutility to work\\
+\texttt{omegaQ\_4\_1\_1\_p} & ${\omega^{Q}_{s,r,m}}$ & distribution parameter for regional production\\
+\texttt{phiQ\_D\_4\_1\_1\_p} & ${\phi^{Q}_{s,r,m}}$ & share of production used in region regm and produced in region reg\\
+\texttt{omegaQI\_4\_1\_p} & ${\omega^{Q^{I}}_{s,r}}$ & distribution parameter for intermediate products\\
+\texttt{omegaQI\_4\_1\_1\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_4\_1\_1\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_4\_1\_1\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_4\_1\_1\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_4\_1\_2\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_4\_1\_2\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_4\_1\_2\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_4\_1\_2\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_4\_1\_3\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_4\_1\_3\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_4\_1\_3\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_4\_1\_3\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_4\_1\_4\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_4\_1\_4\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_4\_1\_4\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_4\_1\_4\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{alphaK\_4\_1\_p} & ${\alpha^{K}_{s,r}}$ & distribution parameter capital share\\
+\texttt{alphaN\_4\_1\_p} & ${\alpha^{N}_{s,r}}$ & distribution parameter labour share\\
+\texttt{etaNK\_4\_1\_p} & ${\eta^{N,K}_{s,r}}$ & elasticity of substitution between labour and capital\\
+\texttt{A\_4\_1\_p} & ${A_{s,r}}$ & sector long-run TFP\\
+\texttt{deltaKA\_4\_1\_p} & ${\delta^{K^{A}_{s,r}}}$ & depreciation rate of adaptation capital stock against cyclpers\\
+\texttt{gY0\_4\_1\_p} & ${\frac{Y_{2,k,r}}{Y_{1,k,r}}}$ & initial sector growth\\
+\texttt{gN0\_4\_1\_p} & ${\frac{\frac{N_{2,k,r}}{N_{2}}}{\frac{N_{1,k,r}}{N_{1}}}}$ & initial sector labour growth\\
+\texttt{omegaM\_4\_1\_p} & ${\omega^{M}_{s,r}}$ & distribution parameter for imports from one sector\\
+\texttt{omegaM\_F\_4\_1\_p} & ${\omega^{M,F}_{s,r}}$ & distribution parameter for imports from one sector\\
+\texttt{omegaQ\_4\_1\_p} & ${\omega^{Q}_{s,r}}$ & distribution parameter for output from one sector\\
+\texttt{omegaA\_4\_1\_p} & ${\omega^{A}_{s,r}}$ & exponent for productivity growth\\
+\texttt{A\_N\_4\_1\_p} & ${A^{N}_{s,r}}$ & sector labour specific TFP\\
+\texttt{A\_K\_4\_1\_p} & ${A^{K}_{s,r}}$ & sector capital specific TFP\\
+\texttt{etaQA\_4\_p} & ${\eta^{Q^A}_{k}}$ & elasticity of substitution between products from different subsectors in one sector\\
+\texttt{omegaQA\_4\_1\_p} & ${\omega^{Q^A}_{k}}$ & distribution parameter for aggregate output from one sector\\
+\texttt{omegaMA\_F\_4\_1\_p} & ${\omega^{M,A}_{k,r}}$ & distribution parameter for final demand imports from one sector\\
+\texttt{P\_M\_5\_p} & ${P^{M}_{s}}$ & long-run price of sector imports\\
+\texttt{M0\_5\_p} & ${M^{0}_{s}}$ & long-run price of sector imports\\
+\texttt{etaQ\_5\_p} & ${\eta^{Q}_{s}}$ & elasticity of substitution between regional production\\
+\texttt{etaI\_5\_p} & ${\eta^{I}_{s}}$ & elasticity of substitution between value added and intermediate products\\
+\texttt{etaIA\_5\_p} & ${\eta^{I,A}_{s}}$ & elasticity of substitution between intermediate products from different sectors\\
+\texttt{iHomeBias\_5\_p} & ${\iota^{Home}_{s}}$ & Home bias in subsector\\
+\texttt{phiM\_I\_5\_1\_p} & $\frac{M_{s,r,0} \, P^{M}_{k,r,0}}{P_{0} \, Q_{0}}$ & share of sector imports on total output for intermediates\\
+\texttt{phiM\_F\_5\_1\_p} & $\frac{M_{s,r,0} \, P^{M}_{k,r,0}}{P_{0} \, Q_{0}}$ & share of sector imports on total output for final products\\
+\texttt{phiQI\_5\_1\_p} & $\frac{Q^{I}_{s,0} \, P_{0}}{P_{k,0} \, Q_{k,0}}$ & share of intermediate inputs on total production\\
+\texttt{phiY0\_5\_1\_p} & $\frac{P_{s,r,0} \, Y_{s,r,0}}{P_{0} \, Y_{0}}$ & initial share of regional and sectoral output\\
+\texttt{phiX\_5\_1\_p} & $\frac{X_{s,r,0} \, P_{s,r,0}}{P_{s,r,0} \, Y_{s,r,0}}$ & share of exports on gross value added\\
+\texttt{phiK\_5\_1\_p} & ${\phi^{K}_{s,r}}$ & coefficient of investment adjustment cost\\
+\texttt{delta\_5\_1\_p} & ${\delta^{K}_{s,r}}$ & depreciation rate for capital\\
+\texttt{D\_X\_5\_1\_p} & ${D^{X}_{s,r}}$ & long-run demand for exports\\
+\texttt{lEndoQ\_5\_1\_p} & ${l^{Q}_{s,r}}$ & logical indicator whether output is endogenous or not\\
+\texttt{lEndoN\_5\_1\_p} & ${l^{N}_{s,r}}$ & logical indicator whether employment is endogenous or not\\
+\texttt{kappaE\_5\_1\_p} & ${\kappa^{E}_{s,r}}$ & emission factor associated with production in the subsector and region\\
+\texttt{sE\_5\_1\_p} & ${\frac{E_{s,r}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{tauKF\_5\_1\_p} & ${\tau^{K,F}_{s,r}}$ & region and sector-specific tax rate on capital paid by firms\\
+\texttt{tauNF\_5\_1\_p} & ${\tau^{N,F}_{s,r}}$ & region and sector-specific tax rate on labour paid by firms\\
+\texttt{phiY\_5\_1\_p} & $\frac{P_{s,r,0} \, Y_{s,r,0}}{P_{0} \, Y_{0}}$ & share of regional and sectoral output\\
+\texttt{phiYT\_5\_1\_p} & $\frac{P_{s,r,T} \, Y_{s,r,T}}{P_{T} \, Y_{T}}$ & terminal share of regional and sectoral output\\
+\texttt{Q0\_5\_1\_p} & ${Q_{s,r,0}}$ & initial emissions\\
+\texttt{Q\_I0\_5\_1\_p} & ${Q^I_{s,r,0}}$ & initial emissions\\
+\texttt{P0\_Q\_5\_1\_p} & ${P^Q_{s,r,0}}$ & initial guess for regional supply sector price index\\
+\texttt{P0\_5\_1\_p} & ${P_{s,r,0}}$ & initial guess for regional value added sector price index\\
+\texttt{phiN\_5\_1\_p} & ${N_{s,r,0}}$ & long-run share of regional and sectoral employment\\
+\texttt{phiNT\_5\_1\_p} & ${N_{s,r,T}}$ & terminal share of regional and sectoral employment\\
+\texttt{phiN0\_5\_1\_p} & ${N_{s,r,0}}$ & initial share of regional and sectoral employment\\
+\texttt{phiW\_5\_1\_p} & $\frac{W_{s,r,0} \, N_{s,r,0}}{P_{s,r,0} \, Y_{s,r,0}}$ & share of regional and sectoral employment\\
+\texttt{phiL\_5\_1\_p} & ${\phi^{L}_{s,r}}$ & coefficient of disutility to work\\
+\texttt{omegaQ\_5\_1\_1\_p} & ${\omega^{Q}_{s,r,m}}$ & distribution parameter for regional production\\
+\texttt{phiQ\_D\_5\_1\_1\_p} & ${\phi^{Q}_{s,r,m}}$ & share of production used in region regm and produced in region reg\\
+\texttt{omegaQI\_5\_1\_p} & ${\omega^{Q^{I}}_{s,r}}$ & distribution parameter for intermediate products\\
+\texttt{omegaQI\_5\_1\_1\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_5\_1\_1\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_5\_1\_1\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_5\_1\_1\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_5\_1\_2\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_5\_1\_2\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_5\_1\_2\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_5\_1\_2\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_5\_1\_3\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_5\_1\_3\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_5\_1\_3\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_5\_1\_3\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{omegaQI\_5\_1\_4\_p} & ${\omega^{Q}_{s,r,k}}$ & distribution parameter for intermediate products from different sectors\\
+\texttt{phiQI\_5\_1\_4\_p} & ${\phi^{Q}_{s,r,k}}$ & share of expenditures for intermediate products\\
+\texttt{kappaEI\_5\_1\_4\_p} & ${\kappa^{E,I}_{s,r,k}}$ & emission factor associated with using the input factor in the subsector and region\\
+\texttt{sEI\_5\_1\_4\_p} & ${\frac{E^{I}_{s,r,k}}{E_0}}$ & share of emissions associated with using the input factor in the subsector and region\\
+\texttt{alphaK\_5\_1\_p} & ${\alpha^{K}_{s,r}}$ & distribution parameter capital share\\
+\texttt{alphaN\_5\_1\_p} & ${\alpha^{N}_{s,r}}$ & distribution parameter labour share\\
+\texttt{etaNK\_5\_1\_p} & ${\eta^{N,K}_{s,r}}$ & elasticity of substitution between labour and capital\\
+\texttt{A\_5\_1\_p} & ${A_{s,r}}$ & sector long-run TFP\\
+\texttt{deltaKA\_5\_1\_p} & ${\delta^{K^{A}_{s,r}}}$ & depreciation rate of adaptation capital stock against cyclpers\\
+\texttt{gY0\_5\_1\_p} & ${\frac{Y_{2,k,r}}{Y_{1,k,r}}}$ & initial sector growth\\
+\texttt{gN0\_5\_1\_p} & ${\frac{\frac{N_{2,k,r}}{N_{2}}}{\frac{N_{1,k,r}}{N_{1}}}}$ & initial sector labour growth\\
+\texttt{omegaM\_5\_1\_p} & ${\omega^{M}_{s,r}}$ & distribution parameter for imports from one sector\\
+\texttt{omegaM\_F\_5\_1\_p} & ${\omega^{M,F}_{s,r}}$ & distribution parameter for imports from one sector\\
+\texttt{omegaQ\_5\_1\_p} & ${\omega^{Q}_{s,r}}$ & distribution parameter for output from one sector\\
+\texttt{omegaA\_5\_1\_p} & ${\omega^{A}_{s,r}}$ & exponent for productivity growth\\
+\texttt{A\_N\_5\_1\_p} & ${A^{N}_{s,r}}$ & sector labour specific TFP\\
+\texttt{A\_K\_5\_1\_p} & ${A^{K}_{s,r}}$ & sector capital specific TFP\\
+\texttt{beta\_p} & ${\beta}$ & discount factor\\
+\texttt{omegaP\_p} & ${\omega^{P}}$ & share of rational agents\\
+\texttt{delta\_p} & ${\delta}$ & capital depreciation rate\\
+\texttt{deltaB\_p} & ${\delta^B}$ & foreign assets depreciation rate\\
+\texttt{phiadjB\_p} & ${\phi^{adj^B}}$ & adjustment cost parameter to foreign assets\\
+\texttt{deltaH\_p} & ${\delta^H}$ & housing depreciation rate\\
+\texttt{deltaKG\_p} & ${\delta^{K^{G}}}$ & public capital depreciation rate\\
+\texttt{phiG\_p} & ${\phi^{G}}$ & elasticity of TFP to public capital\\
+\texttt{sigmaL\_p} & ${\sigma^{L}}$ & inverse Frisch elasticity\\
+\texttt{sigmaC\_p} & ${\sigma^{C}}$ & intertemporal elasticity of substitution\\
+\texttt{etaQ\_p} & ${\eta^{Q}}$ & elasticity of substitution between sectoral production\\
+\texttt{etaM\_p} & ${\eta^{M}}$ & elasticity of substitution between sectoral imports\\
+\texttt{etaF\_p} & ${\eta^{F}}$ & elasticity of substitution between foreign and domestic products\\
+\texttt{phiY\_p} & ${\frac{Y}{Q}}$ & share GDP to Output\\
+\texttt{phiB\_p} & ${\phi^{B}}$ & coefficient of foreign adjustment cost\\
+\texttt{etaX\_p} & ${\eta^{X}}$ & export price elasticity\\
+\texttt{rhos\_p} & ${\rho^{s}}$ & persistence in exchange rate valuation shocks to net foreign asset position\\
+\texttt{omegaNX\_p} & ${\omega^{NX}}$ & share of net exports relative to domestic GDP\\
+\texttt{omegaNX0\_p} & ${\omega^{NX,0}}$ & initial share of net exports relative to domestic GDP\\
+\texttt{omegaNXT\_p} & ${\omega^{NX,T}}$ & terminal share of net exports relative to domestic GDP\\
+\texttt{tauC\_1\_p} & ${\tau^{C}_{r,0}}$ & consumption tax\\
+\texttt{s0\_1\_p} & ${s_{r,0}}$ & initial exchange rate inflation\\
+\texttt{tauH\_1\_p} & ${\tau^{H}_{r,0}}$ & tax on housing\\
+\texttt{tauNH\_1\_p} & ${\tau^{N,H}_{r,0}}$ & labour tax\\
+\texttt{tauKH\_1\_p} & ${\tau^{K,H}_{r,0}}$ & capital tax\\
+\texttt{sH\_1\_p} & ${s_{r,0}^H}$ & share for housing investments\\
+\texttt{N0\_1\_p} & ${N_{r,0}}$ & initial regional employment\\
+\texttt{LF0\_1\_p} & ${LF_{r,0}}$ & initial labour force share\\
+\texttt{omegaLF0\_1\_p} & ${\omega^{LF}_{r,0}}$ & initial labour force preference\\
+\texttt{omegaF\_1\_p} & ${\omega^{F}_{r}}$ & foreign product share\\
+\texttt{P0\_MR\_1\_p} & ${P^M_{r,0}}$ & initial price level\\
+\texttt{P0\_D\_1\_p} & ${P_0}$ & initial price level\\
+\texttt{Tr0\_1\_p} & ${Tr_0}$ & initial transfer payments\\
+\texttt{NX0\_1\_p} & ${NX_0}$ & initial net export to value-added ratio\\
+\texttt{gamma\_1\_p} & ${\gamma_r}$ & preferences for housing in utility function in each region\\
+\texttt{PoP0\_1\_p} & ${PoP_{r,0}}$ & initial population\\
+\texttt{H0\_1\_p} & ${H_{r,0}}$ & initial stocks of houses\\
+\texttt{PH0\_1\_p} & ${P^H_{r,0}}$ & initial price of houses\\
+\texttt{PE0\_1\_p} & ${P^E_{r,0}}$ & initial emission price\\
+\texttt{E0\_1\_p} & ${E_{r,0}}$ & initial emissions\\
+\texttt{tas0\_1\_p} & ${T_{0,n}}$ & initial regional tas\\
+\texttt{cyclpers0\_1\_p} & ${T_{0,n}}$ & initial regional cyclpers\\
+\texttt{SL0\_p} & ${SL_{0}}$ & initial SL\\
+\texttt{Y0\_p} & ${Y_0}$ & initial GDP\\
+\texttt{Q0\_p} & ${Q_0}$ & initial Output\\
+\texttt{PE0\_p} & ${P^E_0}$ & initial emission price\\
+\texttt{E0\_p} & ${E_0}$ & initial emissions\\
+\texttt{rf0\_p} & ${r^f_0}$ & initial world interest rate\\
+\texttt{PoPT\_p} & ${PoP_0}$ & terminal population\\
+\texttt{YT\_p} & ${Y_T}$ & terminal output\\
+\texttt{PT\_p} & ${P_T}$ & terminal price level\\
+\texttt{phitauS\_p} & ${\phi^{\tau^S}}$ & share of revenues from ETS spend on subsidies\\
+\hline%
+\end{longtable}
+\end{center}

@@ -1,0 +1,948 @@
+% =============================
+% === Declare Model Equations =
+% =============================
+
+predetermined_variables
+@# for reg in 1:Regions
+    B_@{reg}
+    @# if Regions > 1
+        @# for regm in 1:Regions
+            B_@{reg}_@{regm}
+        @# endfor
+    @# endif
+@# endfor
+;
+
+model;
+// =======================
+// Block 1: Expectations =
+// =======================
+# rfEXP = omegaP_p * rf(+1) + (1 - omegaP_p) * rf;
+@# for reg in 1:Regions
+    # tauC_@{reg}EXP = omegaP_p * tauC_@{reg}(+1) + (1 - omegaP_p) * tauC_@{reg};
+    # tauKH_@{reg}EXP = omegaP_p * tauKH_@{reg}(+1) + (1 - omegaP_p) * tauKH_@{reg};
+    # P_@{reg}EXP = omegaP_p * P_@{reg}(+1) + (1 - omegaP_p) * P_@{reg};
+    # NX_@{reg}EXP = omegaP_p * NX_@{reg}(+1) + (1 - omegaP_p) * NX_@{reg}; 
+    # B_@{reg}EXP = omegaP_p * B_@{reg}(+1) + (1 - omegaP_p) * B_@{reg};
+    # B_@{reg}EXPEXP = omegaP_p * B_@{reg}(+2) + (1 - omegaP_p) * B_@{reg}(+1);
+    # Y_@{reg}EXP = omegaP_p * Y_@{reg}(+1) + (1 - omegaP_p) * Y_@{reg};
+    # C_@{reg}EXP = omegaP_p * C_@{reg}(+1) + (1 - omegaP_p) * C_@{reg};
+    # H_@{reg}EXP = omegaP_p * H_@{reg}(+1) + (1 - omegaP_p) * H_@{reg};
+    # PoP_@{reg}EXP = omegaP_p * PoP_@{reg}(+1) + (1 - omegaP_p) * PoP_@{reg};
+    # lambda_@{reg}EXP = omegaP_p * lambda_@{reg}(+1) + (1 - omegaP_p) * lambda_@{reg};
+    # omegaH_@{reg}EXP = omegaP_p * omegaH_@{reg}(+1) + (1 - omegaP_p) * omegaH_@{reg};
+    @# if Regions > 0
+        @# for regm in 1:Regions            
+            # NX_@{reg}_@{regm}EXP = omegaP_p * NX_@{reg}_@{regm}(+1) + (1 - omegaP_p) * NX_@{reg}_@{regm};
+            # B_@{reg}_@{regm}EXP = omegaP_p * B_@{reg}_@{regm}(+1) + (1 - omegaP_p) * B_@{reg}_@{regm};
+            # B_@{reg}_@{regm}EXPEXP = omegaP_p * B_@{reg}_@{regm}(+2) + (1 - omegaP_p) * B_@{reg}_@{regm}(+1);
+        @# endfor
+    @# endif
+@# endfor
+@# for sec in 1:Sectors
+    @# for reg in 1:Regions
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            # P_@{subsec}_@{reg}EXP = omegaP_p * P_@{subsec}_@{reg}(+1) + (1 - omegaP_p) * P_@{subsec}_@{reg};
+            # r_@{subsec}_@{reg}EXP = omegaP_p * r_@{subsec}_@{reg}(+1) + (1 - omegaP_p) * r_@{subsec}_@{reg};
+            # omegaI_@{subsec}_@{reg}EXP = omegaP_p * omegaI_@{subsec}_@{reg}(+1) + (1 - omegaP_p) * omegaI_@{subsec}_@{reg};
+            # I_@{subsec}_@{reg}EXP = omegaP_p * I_@{subsec}_@{reg}(+1) + (1 - omegaP_p) * I_@{subsec}_@{reg};
+            
+        @# endfor
+    @# endfor
+@# endfor
+// =====================
+// Block 2: Identities =
+// =====================
+#lhsBlock2_1 = PoP;
+#rhsBlock2_1 = 
+@# for reg in 1:Regions
+    + PoP_@{reg}
+@# endfor
+;
+[name = 'population']
+(1+lhsBlock2_1)/(1+rhsBlock2_1) = 1;
+#lhsBlock2_2 = LF;
+#rhsBlock2_2 = 
+@# for reg in 1:Regions
+    + LF_@{reg}
+@# endfor
+;
+[name = 'labour force']
+(1+lhsBlock2_2)/(1+rhsBlock2_2) = 1;
+# lhsBlock2_3 = W;
+# rhsBlock2_3 =   
+@# for reg in 1:Regions
+    @# for sec in 1:Sectors
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            + N_@{subsec}_@{reg} * LF_@{reg}/(LF * N) * W_@{subsec}_@{reg}
+        @# endfor
+    @# endfor
+@# endfor
+;
+[name = 'wage index']
+(1+lhsBlock2_3)/(1+rhsBlock2_3) = 1;
+#lhsBlock2_4 = B;
+#rhsBlock2_4 =  
+        @# for reg in 1:Regions
+            + B_@{reg}EXP
+        @# endfor
+;
+[name = 'foreign net asset position']
+(lhsBlock2_4+1) = (rhsBlock2_4+1);
+#lhsBlock2_5 = NX;
+#rhsBlock2_5 = X - M;
+[name = 'Net Exports']
+(1+lhsBlock2_5) = (1+rhsBlock2_5);
+#lhsBlock2_6 = G;
+#rhsBlock2_6 = 
+@# for reg in 1:Regions
+    + G_@{reg} * P_@{reg}
+@# endfor
+;
+[name = 'Government Budget Constraint']
+(lhsBlock2_6+1)/(rhsBlock2_6+1) = 1;
+#lhsBlock2_7 = I;
+#rhsBlock2_7 = 
+@# for sec in 1:Sectors
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            @# for reg in 1:Regions
+                + max(0,I_@{subsec}_@{reg} * P_@{subsec}_@{reg})
+            @# endfor
+        @# endfor
+@# endfor
+;
+[name = 'national investment']
+(lhsBlock2_7+1)/(rhsBlock2_7+1) = 1;
+
+#lhsBlock2_8 = C;
+#rhsBlock2_8 = 
+@# for reg in 1:Regions
+ + C_@{reg} * P_@{reg} 
+@# endfor
+;
+[name = 'aggregate consumption']
+(lhsBlock2_8+1)/(rhsBlock2_8+1) = 1;
+
+#lhsBlock2_9 = Y;
+#rhsBlock2_9 = 
+    @# for reg in 1:Regions
+        + Y_@{reg}
+    @# endfor
+;
+[name = 'aggregate gross value added']
+(lhsBlock2_9+1)/(rhsBlock2_9+1) = 1;
+#lhsBlock2_10 = Q;
+#rhsBlock2_10 = 
+    @# for reg in 1:Regions
+        + Q_@{reg}
+    @# endfor
+;
+[name = 'aggregate output']
+(lhsBlock2_10+1)/(rhsBlock2_10+1) = 1;
+#lhsBlock2_11 = Q_I;
+#rhsBlock2_11 = 
+    @# for reg in 1:Regions
+        + Q_I_@{reg}
+    @# endfor
+;
+[name = 'aggregate intermediate output']
+(lhsBlock2_11+1)/(rhsBlock2_11+1) = 1;
+#lhsBlock2_12 = Q_U;
+#rhsBlock2_12 = 
+    @# for reg in 1:Regions
+        + Q_U_@{reg} * P_D_@{reg}
+    @# endfor
+;
+[name = 'aggregate used products']
+(lhsBlock2_12+1)/(rhsBlock2_12+1) = 1;
+#lhsBlock2_13 = X;
+#rhsBlock2_13 = 
+@# for reg in 1:Regions
+    + X_@{reg} * P_Q_@{reg}
+@# endfor
+;
+[name = 'Exports']
+(lhsBlock2_13+1)/(rhsBlock2_13+1) = 1;
+#lhsBlock2_14 = M;
+#rhsBlock2_14 = 
+@# for reg in 1:Regions
+    + M_@{reg}
+@# endfor
+;
+[name = 'Imports']
+(lhsBlock2_14+1)/(rhsBlock2_14+1) = 1;
+#lhsBlock2_15 = N * LF;
+#rhsBlock2_15 = 
+@# for reg in 1:Regions
+    + N_@{reg} * LF_@{reg}
+@# endfor
+;
+[name = 'aggregate labour']
+(lhsBlock2_15+1)/(rhsBlock2_15+1) = 1;
+// ==========================================
+// Block 3: Regional Identities
+// ==========================================
+@# for reg in 1:Regions
+    # WDiff_@{reg} = exp(
+    @# for j in 1:TAdjust
+        + @{j}/((@{TAdjust}+1)*@{TAdjust}/2) * log(W_@{reg}(-@{j})/W(-@{j}))
+    @# endfor
+    );
+@# endfor
+@# for reg in 1:Regions
+    # lhsBlock3_@{reg}_1 = W_@{reg};
+    # rhsBlock3_@{reg}_1 = 
+    @# for sec in 1:Sectors
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            + N_@{subsec}_@{reg} / N_@{reg} * W_@{subsec}_@{reg}
+        @# endfor
+    @# endfor
+    ;
+    [name = 'regional wage index']
+    (1+lhsBlock3_@{reg}_1)/(1+rhsBlock3_@{reg}_1) = 1;
+    #lhsBlock3_@{reg}_2 = M_@{reg};
+    #rhsBlock3_@{reg}_2 = 
+    @# for sec in 1:Sectors                                
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            + P_M_@{subsec} * (M_I_@{subsec}_@{reg} + M_F_@{subsec}_@{reg})
+        @# endfor
+    @# endfor
+    ;
+    [name = 'regional import demand']
+    (lhsBlock3_@{reg}_2+1) / (rhsBlock3_@{reg}_2+1) = 1;
+    #lhsBlock3_@{reg}_3 = P_D_@{reg};
+    #rhsBlock3_@{reg}_3 = P0_D_@{reg}_p * exp(exo_P_D_@{reg});
+    [name = 'regional demand']
+    (lhsBlock3_@{reg}_3+1) / (rhsBlock3_@{reg}_3+1) = 1;
+    #lhsAggReg_@{reg}_11 = P_F_@{reg} * M_F_@{reg}^0;
+    #rhsAggReg_@{reg}_11 = (
+        @# for sec in 1:Sectors
+            +omegaMA_F_@{sec}_@{reg}_p * P_M_A_@{sec}_@{reg}^(1-etaQ_p)
+            @# for subsec in Subsecstart[sec]:Subsecend[sec]
+                + P_M_@{subsec} * M_F_@{subsec}_@{reg}*0
+            @# endfor
+        @# endfor
+    )^(1/(1-etaQ_p));
+    [name = 'imported consumption']
+    (lhsAggReg_@{reg}_11+1)/(rhsAggReg_@{reg}_11+1) = 1;
+    #lhsAggReg_@{reg}_18 = s_@{reg};
+    #rhsAggReg_@{reg}_18 = rhos_p*s_@{reg}(-1) + (1-rhos_p)*s0_@{reg}_p*exp(exo_s_@{reg});
+    [name = 'regional exchange rate']
+    (1+lhsAggReg_@{reg}_18)/(1+rhsAggReg_@{reg}_18) = 1;
+
+
+    #lhsAggReg_@{reg}_EXP = P_Q_@{reg};
+    #rhsAggReg_@{reg}_EXP = (
+                    @# for sec in 1:Sectors
+                            @# for subsec in Subsecstart[sec]:Subsecend[sec] 
+                                + D_X_@{subsec}_@{reg}_p * P_Q_@{subsec}_@{reg}^(1-etaX_p)
+                            @# endfor
+                    @# endfor
+    )^(1/(1-etaX_p));
+    [name = 'regional exports']
+    (1+lhsAggReg_@{reg}_EXP)/(1+rhsAggReg_@{reg}_EXP) = 1;
+
+
+    #lhsAggReg_@{reg}_19 = Q_@{reg};
+    #rhsAggReg_@{reg}_19 = 
+                        @# for sec in 1:Sectors
+                            @# for subsec in Subsecstart[sec]:Subsecend[sec] 
+                                + P_Q_@{subsec}_@{reg} * Q_@{subsec}_@{reg}
+                            @# endfor
+                        @# endfor
+    ;
+    [name = 'regional output']
+    (1+lhsAggReg_@{reg}_19)/(1+rhsAggReg_@{reg}_19) = 1;
+    #lhsAggReg_@{reg}_20 = Q_I_@{reg};
+    #rhsAggReg_@{reg}_20 = 
+                        @# for sec in 1:Sectors
+                            @# for subsec in Subsecstart[sec]:Subsecend[sec] 
+                                + P_I_@{subsec}_@{reg} * Q_I_@{subsec}_@{reg}
+                            @# endfor
+                        @# endfor
+    ;
+    [name = 'regional intermediate product demand']
+    (1+lhsAggReg_@{reg}_20)/(1+rhsAggReg_@{reg}_20) = 1;
+ 
+    #lhsAggReg_@{reg}_6 = P_@{reg};// *(C_@{reg} + I_@{reg} + (iSecHouse_p == 0) * PH_@{reg} / P_@{reg} * IH_@{reg} + G_@{reg}) * exp(exo_P_D_@{reg});
+    #rhsAggReg_@{reg}_6 = (omegaF_@{reg}_p * P_F_@{reg}^(1-etaF_p) + (1-omegaF_@{reg}_p) * P_D_@{reg}^(1-etaF_p))^(1/(1-etaF_p));// * M_F_@{reg} + P_D_@{reg}*Q_U_@{reg};
+    [name = 'national price level']
+    (lhsAggReg_@{reg}_6+1)/(rhsAggReg_@{reg}_6+1) = 1;
+ 
+    #lhsAggReg_@{reg}_22 = NX_@{reg};
+    #rhsAggReg_@{reg}_22 = X_@{reg} * P_Q_@{reg} - M_@{reg};
+    [name = 'net exports to GDP ratio']
+    (1+lhsAggReg_@{reg}_22) / (1+rhsAggReg_@{reg}_22) = 1;
+    #lhsAggReg_@{reg}_23 = N_@{reg};
+    #rhsAggReg_@{reg}_23 = 
+        @# for sec in 1:Sectors
+            @# for subsec in Subsecstart[sec]:Subsecend[sec]
+                + N_@{subsec}_@{reg}
+            @# endfor
+        @# endfor
+    ;
+    [name = 'regional labour']
+    (lhsAggReg_@{reg}_23+1)/(rhsAggReg_@{reg}_23+1) = 1;
+    #lhsAggReg_@{reg}_24 = Y_@{reg};
+    #rhsAggReg_@{reg}_24 = 
+        @# for sec in 1:Sectors
+            @# for subsec in Subsecstart[sec]:Subsecend[sec]
+                + P_@{subsec}_@{reg} * Y_@{subsec}_@{reg}
+            @# endfor
+        @# endfor
+    ;
+    [name = 'regional value added']
+    (lhsAggReg_@{reg}_24+1)/(rhsAggReg_@{reg}_24+1) = 1;
+
+    #lhsAggReg_@{reg}_10 = I_@{reg};
+    #rhsAggReg_@{reg}_10 = 
+    @# for sec in 1:Sectors
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            + max(0,I_@{subsec}_@{reg}) * P_@{subsec}_@{reg} / P_@{reg}
+        @# endfor
+    @# endfor
+    ;
+    [name = 'regional aggregate investment']
+    (lhsAggReg_@{reg}_10+1)/(rhsAggReg_@{reg}_10+1) = 1;
+
+
+// ==========================================
+// Block 4: Demographics
+// ==========================================
+    #lhsAggReg_@{reg}_29 = LF_@{reg};
+    #rhsAggReg_@{reg}_29 = (lEndoMig_p == 0) * LF0_@{reg}_p * exp(exo_LF_@{reg}) + (lEndoMig_p == 1) * (omegaLF0_@{reg}_p * exp(exo_LF_@{reg})*WDiff_@{reg}^(etaLF_p)) /
+    (
+    @# for regm in 1:Regions
+        + omegaLF0_@{regm}_p * exp(exo_LF_@{regm})*WDiff_@{regm}^(etaLF_p)
+    @# endfor
+    ) * (
+    @# for regm in 1:Regions
+        + LF0_@{regm}_p * exp(exo_LF_@{regm})
+    @# endfor
+    );
+    [name = 'regional labour force']
+    (1+lhsAggReg_@{reg}_29)/(1+rhsAggReg_@{reg}_29) = 1;
+    #lhsAggReg_@{reg}_17 = PoP_@{reg};
+    #rhsAggReg_@{reg}_17 = LF_@{reg} + (PoP0_@{reg}_p-LF0_@{reg}_p) * exp(exo_NLF_@{reg});
+    [name = 'Population']
+    (1+lhsAggReg_@{reg}_17)/(1+rhsAggReg_@{reg}_17) = 1;
+@# endfor
+// ==========================================
+// Block 5: Rest of the World
+// ==========================================
+@# for sec in 1:Sectors
+    @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            //@# if YEndogenous == 1
+            //    #lhsSubsec_19_@{subsec} = P_M_@{subsec};
+            //    #rhsSubsec_19_@{subsec} = P_M_@{subsec}_p + exo_M_@{subsec};
+            //@# else
+                #lhsSubsec_19_@{subsec} = P_M_@{subsec};
+                #rhsSubsec_19_@{subsec} = P_Q_@{subsec}_1 + exo_M_@{subsec};
+            //@# endif
+            [name = 'price for imports']
+            (1 + lhsSubsec_19_@{subsec})/(1 + rhsSubsec_19_@{subsec}) = 1;
+    @# endfor
+@# endfor
+
+#lhsAggNat_2 = rf;
+#rhsAggNat_2 = 1/(beta_p*exp(exo_beta))-1 + exo_rf;
+[name = 'World interest rate']
+(lhsAggNat_2+1)/(rhsAggNat_2+1) = 1;
+
+// ==========================================
+// Block 6: Households
+// ==========================================
+@# for reg in 1:Regions
+
+    #lhsNX_@{reg} = NX_@{reg}/Y_@{reg}*(exo_NXL_@{reg}==1) + adjB_@{reg} * (exo_NX_@{reg}==0);
+    #rhsNX_@{reg} = exo_adjB_@{reg} * (exo_NX_@{reg}==0) + (NX0_@{reg}_p+exo_NX_@{reg}) * (exo_NXL_@{reg}==1);
+    [name = 'net export to GDP ratio']
+    (lhsNX_@{reg}+1)=(rhsNX_@{reg}+1);
+
+    #lhsdeltaB_@{reg} = deltaB_@{reg}*(exo_BL_@{reg}==0) + (exo_BL_@{reg}==1)*B_@{reg}EXP/Y_@{reg};
+    #rhsdeltaB_@{reg} = (exo_deltaB_@{reg})*(exo_BL_@{reg}==0) + (exo_BL_@{reg}==1)*exo_B_@{reg};
+    [name = 'world depreciation rate']
+    (lhsdeltaB_@{reg}+1)/(rhsdeltaB_@{reg}+1) = 1;
+
+
+    #lhsAggReg_@{reg}_7 = lambda_@{reg} * (1 + 2*phiadjB_p*(B_@{reg}EXP-B_@{reg} + adjB_@{reg}));
+    #rhsAggReg_@{reg}_7 = lambda_@{reg}EXP * beta_p * exp(exo_beta) * (s_@{reg}(+1) * (1 + rfEXP)*exp(-phiB_p*(B_@{reg}EXP-(1-deltaB_p)*B_@{reg})/Y_@{reg}EXP) + 2*phiadjB_p*(B_@{reg}(+2)-B_@{reg}EXP + adjB_@{reg}(+1)));
+    [name = 'FOC Foreign Assets']
+    (1+lhsAggReg_@{reg}_7)/(1+rhsAggReg_@{reg}_7) = 1;
+
+    #lhsAggReg_@{reg}_107 = (B_@{reg}EXP);
+    #rhsAggReg_@{reg}_107 = (1 + rf)*s_@{reg}*exp(-phiB_p*(B_@{reg}-(1-deltaB_p)*B_@{reg}(-1))/Y_@{reg}) * B_@{reg} + NX_@{reg} - phiadjB_p*(B_@{reg}EXP-B_@{reg} + 1/2*adjB_@{reg})^2 + deltaB_@{reg};
+    
+    [name = 'Law of motion foreign bonds']
+    (1+lhsAggReg_@{reg}_107)/(1+rhsAggReg_@{reg}_107) = 1;
+
+    #lhsAggReg_@{reg}_8 = lambda_@{reg} * P_@{reg} * (1 + tauC_@{reg});
+    #rhsAggReg_@{reg}_8 = (1-gamma_@{reg}_p) * ((C_@{reg}-h_p*C_@{reg}(-1))/PoP_@{reg})^(-gamma_@{reg}_p) * (H_@{reg}/PoP_@{reg})^gamma_@{reg}_p * (((C_@{reg}-h_p*C_@{reg}(-1))/PoP_@{reg})^(1-gamma_@{reg}_p) * (H_@{reg}/PoP_@{reg})^gamma_@{reg}_p)^(-sigmaC_p)
+                          - beta_p * exp(exo_beta) * h_p * (1-gamma_@{reg}_p) * ((C_@{reg}EXP-h_p*C_@{reg})/PoP_@{reg}EXP)^(-gamma_@{reg}_p) * (H_@{reg}EXP/PoP_@{reg}EXP)^gamma_@{reg}_p * (((C_@{reg}EXP-h_p*C_@{reg})/PoP_@{reg}EXP)^(1-gamma_@{reg}_p) * (H_@{reg}EXP/PoP_@{reg}EXP)^gamma_@{reg}_p)^(-sigmaC_p);
+    [name = 'FOC HH consumption']
+    (lhsAggReg_@{reg}_8+1)/(rhsAggReg_@{reg}_8+1) = 1;
+    #lhsAggReg_@{reg}_12 = (H_@{reg}/PoP_@{reg});
+    #rhsAggReg_@{reg}_12 = (1 - deltaH_p) * (H_@{reg}(-1)/PoP_@{reg}(-1)) + (IH_@{reg}/PoP_@{reg}) - DH_@{reg}/PoP_@{reg};
+    [name = 'law of motion for houses']
+    (lhsAggReg_@{reg}_12+1)/(rhsAggReg_@{reg}_12+1) = 1;
+    @# if YEndogenous == 0
+        #lhsAggReg_@{reg}_13 = (H_@{reg}/PoP_@{reg});
+        #rhsAggReg_@{reg}_13 = H0_@{reg}_p + exo_H_@{reg};
+        [name = 'exogenous development of housing area']
+        (lhsAggReg_@{reg}_13+1)/(rhsAggReg_@{reg}_13+1) = 1;
+    @# else
+        #lhsAggReg_@{reg}_13 = PH_@{reg};
+        #rhsAggReg_@{reg}_13 = PH0_@{reg}_p * exp(exo_H_@{reg});
+        [name = 'exogenous development of housing area']
+        (lhsAggReg_@{reg}_13+1)/(rhsAggReg_@{reg}_13+1) = 1;
+    @# endif
+    #lhsAggReg_@{reg}_15 = lambda_@{reg}*omegaH_@{reg};
+    #rhsAggReg_@{reg}_15 = beta_p *exp(exo_beta)*(lambda_@{reg}EXP*omegaH_@{reg}EXP*(1 - deltaH_p) + (((C_@{reg}EXP-h_p*C_@{reg})/PoP_@{reg}EXP)^(1 - gamma_@{reg}_p)*(H_@{reg}/PoP_@{reg}EXP)^(gamma_@{reg}_p - 1)*gamma_@{reg}_p)*(((C_@{reg}EXP-h_p*C_@{reg})/PoP_@{reg}EXP)^(1 - gamma_@{reg}_p)*(H_@{reg}/PoP_@{reg}EXP)^gamma_@{reg}_p)^(-sigmaC_p));
+    [name = 'FOC HH houses']
+    (lhsAggReg_@{reg}_15+1)/(rhsAggReg_@{reg}_15+1) = 1;
+    #lhsAggReg_@{reg}_16 = lambda_@{reg}*omegaH_@{reg};
+    #rhsAggReg_@{reg}_16 = PH_@{reg} * (1 + tauH_@{reg}) * lambda_@{reg};
+    [name = 'FOC HH investment in houses']
+    (1+lhsAggReg_@{reg}_16)/(1+rhsAggReg_@{reg}_16) = 1;
+    @# for sec in 1:Sectors
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            @# if lSolow == 1
+
+                # lhsCapSub_1_@{reg}_@{subsec} = 1;
+                # rhsCapSub_1_@{reg}_@{subsec} = omegaI_@{subsec}_@{reg};
+                
+                [name = 'HH FOC capital']
+                (lhsCapSub_1_@{reg}_@{subsec}+1)=(rhsCapSub_1_@{reg}_@{subsec}+1);
+
+                # lhsCapSub_2_@{reg}_@{subsec} =  0.05*I_@{subsec}_@{reg}(-1) * P_@{subsec}_@{reg}(-1) + 0.95*steady_state(P_@{subsec}_@{reg}) * steady_state(I_@{subsec}_@{reg})/steady_state(Y_@{reg})*Y_@{reg};
+                # rhsCapSub_2_@{reg}_@{subsec} =  I_@{subsec}_@{reg} * P_@{subsec}_@{reg};
+                (lhsCapSub_2_@{reg}_@{subsec}+1)=(rhsCapSub_2_@{reg}_@{subsec}+1);
+            @# else
+                # lhsCapSub_1_@{reg}_@{subsec} = lambda_@{reg}EXP * beta_p * exp(exo_beta) * r_@{subsec}_@{reg}EXP * P_@{subsec}_@{reg}EXP^lEndoQ_@{subsec}_@{reg}_p * (1 - tauKH_@{reg}EXP) + lambda_@{reg}EXP * omegaI_@{subsec}_@{reg}EXP * P_@{subsec}_@{reg}EXP * beta_p * exp(exo_beta) * (1 - delta_@{subsec}_@{reg}_p);
+                # rhsCapSub_1_@{reg}_@{subsec} = lambda_@{reg} * omegaI_@{subsec}_@{reg} * P_@{subsec}_@{reg}
+                ;
+                [name = 'HH FOC capital']
+                (lhsCapSub_1_@{reg}_@{subsec}+1)=(rhsCapSub_1_@{reg}_@{subsec}+1);
+
+                @# if lCapQuad == 1
+                    # lhsCapSub_2_@{reg}_@{subsec} =  lambda_@{reg} * P_@{subsec}_@{reg};
+                    # rhsCapSub_2_@{reg}_@{subsec} =  lambda_@{reg} * omegaI_@{subsec}_@{reg} * P_@{subsec}_@{reg} * (1-2*phiK_@{subsec}_@{reg}_p^2*(I_@{subsec}_@{reg}-I_@{subsec}_@{reg}(-1)))
+                                                      +lambda_@{reg}EXP * omegaI_@{subsec}_@{reg}EXP * P_@{subsec}_@{reg}EXP * 2*phiK_@{subsec}_@{reg}_p^2*(I_@{subsec}_@{reg}EXP-I_@{subsec}_@{reg});
+                @# else 
+                    # lhsCapSub_2_@{reg}_@{subsec} =  lambda_@{reg} * P_@{subsec}_@{reg}^lEndoQ_@{subsec}_@{reg}_p;
+                    # rhsCapSub_2_@{reg}_@{subsec} =  (lambda_@{reg} * omegaI_@{subsec}_@{reg} * P_@{subsec}_@{reg} * (1 -  (exp(sqrt(phiK_@{subsec}_@{reg}_p / 2)*((I_@{subsec}_@{reg})/(I_@{subsec}_@{reg}(-1))*PoP_@{reg}(-1)/PoP_@{reg} -1)) + exp(-sqrt(phiK_@{subsec}_@{reg}_p / 2) * ((I_@{subsec}_@{reg})/(I_@{subsec}_@{reg}(-1)) * PoP_@{reg}(-1)/PoP_@{reg}-1)) - 2) - (I_@{subsec}_@{reg})/(I_@{subsec}_@{reg}(-1)) * PoP_@{reg}(-1)/PoP_@{reg} * sqrt(phiK_@{subsec}_@{reg}_p / 2) * (exp(sqrt(phiK_@{subsec}_@{reg}_p / 2) * ((I_@{subsec}_@{reg})/(I_@{subsec}_@{reg}(-1))-1)) - exp(-sqrt(phiK_@{subsec}_@{reg}_p / 2) * ((I_@{subsec}_@{reg})/(I_@{subsec}_@{reg}(-1))*PoP_@{reg}(-1)/PoP_@{reg}-1))))
+                                                     + beta_p * exp(exo_beta) * lambda_@{reg}EXP * P_@{subsec}_@{reg}EXP * omegaI_@{subsec}_@{reg}EXP * (I_@{subsec}_@{reg}EXP)^2/(I_@{subsec}_@{reg})^2 * (PoP_@{reg}/PoP_@{reg}EXP)^2 * sqrt(phiK_@{subsec}_@{reg}_p / 2) * (exp(sqrt(phiK_@{subsec}_@{reg}_p / 2) * ((I_@{subsec}_@{reg}EXP)/(I_@{subsec}_@{reg}) * PoP_@{reg}/PoP_@{reg}EXP-1)) 
+                            - exp(-sqrt(phiK_@{subsec}_@{reg}_p / 2) * ((I_@{subsec}_@{reg}EXP)/(I_@{subsec}_@{reg})*PoP_@{reg}/PoP_@{reg}EXP-1))));
+                @# endif
+                [name = 'HH FOC investment']
+                (lhsCapSub_2_@{reg}_@{subsec}+1)=(rhsCapSub_2_@{reg}_@{subsec}+1);
+
+            @# endif
+            @# if lSolow == 1
+                # lhsCapSub_3_@{reg}_@{subsec} = K_@{subsec}_@{reg} / PoP_@{reg};
+                # rhsCapSub_3_@{reg}_@{subsec} = (1 - delta_@{subsec}_@{reg}_p) * K_@{subsec}_@{reg}(-1) / PoP_@{reg}(-1) + I_@{subsec}_@{reg} / PoP_@{reg}-phiK_@{subsec}_@{reg}_p^2*(I_@{subsec}_@{reg} / PoP_@{reg}-I_@{subsec}_@{reg}(-1) / PoP_@{reg}(-1))^2 - D_K_@{subsec}_@{reg} / PoP_@{reg};
+                //# rhsCapSub_3_@{reg}_@{subsec} = (1 - delta_@{subsec}_@{reg}_p) * K_@{subsec}_@{reg}(-1) / PoP_@{reg}(-1) + I_@{subsec}_@{reg} / PoP_@{reg}-phiK_@{subsec}_@{reg}_p^2*(I_@{subsec}_@{reg} / K_@{subsec}_@{reg}(-1)-delta_@{subsec}_@{reg}_p)^2 - D_K_@{subsec}_@{reg} / PoP_@{reg};
+            @# else 
+                # lhsCapSub_3_@{reg}_@{subsec} = K_@{subsec}_@{reg} / PoP_@{reg};
+                # rhsCapSub_3_@{reg}_@{subsec} = (1 - delta_@{subsec}_@{reg}_p) * K_@{subsec}_@{reg}(-1) / PoP_@{reg}(-1) + max(0,I_@{subsec}_@{reg}) / PoP_@{reg} * (1 -  (exp(sqrt(phiK_@{subsec}_@{reg}_p / 2)*((I_@{subsec}_@{reg})/(I_@{subsec}_@{reg}(-1)) * PoP_@{reg}(-1) / PoP_@{reg} -1)) + exp(-sqrt(phiK_@{subsec}_@{reg}_p / 2) * ((I_@{subsec}_@{reg})/(I_@{subsec}_@{reg}(-1)) * PoP_@{reg}(-1) / PoP_@{reg} -1)) - 2)) - D_K_@{subsec}_@{reg} / PoP_@{reg};
+            @# endif
+            [name = 'LOM capital',mcp = 'I_@{subsec}_@{reg} > 0']
+            (lhsCapSub_3_@{reg}_@{subsec})/(rhsCapSub_3_@{reg}_@{subsec})=1;
+            #lhsSupplySubsec_11_@{reg}_@{subsec} = (1 - tauNH_@{reg}) * W_@{subsec}_@{reg} * LF_@{reg}/PoP_@{reg} * lambda_@{reg} * lEndoN_@{subsec}_@{reg}_p + (1-lEndoN_@{subsec}_@{reg}_p) * N_@{subsec}_@{reg};
+            #rhsSupplySubsec_11_@{reg}_@{subsec} = phiL_@{subsec}_@{reg}_p * A_N_@{subsec}_@{reg} * (N_@{subsec}_@{reg})^sigmaL_p * lEndoN_@{subsec}_@{reg}_p + (1-lEndoN_@{subsec}_@{reg}_p) * phiN0_@{subsec}_@{reg}_p * N0_@{reg}_p;
+            [name = 'HH FOC labour @{sec} @{reg} ',mcp = 'N_@{sec}_@{reg}>0']
+            (lhsSupplySubsec_11_@{reg}_@{subsec}+1) / (rhsSupplySubsec_11_@{reg}_@{subsec}+1) = 1;
+        @# endfor
+    @# endfor
+    @# if Regions > 0
+        @# for regm in 1:Regions
+           @# if Regions == 1
+                #lhsAggReg_@{reg}_@{regm}_2 = B_@{reg}_@{regm};
+                #rhsAggReg_@{reg}_@{regm}_2 = 0;
+                [name = 'foreign assets']
+                (lhsAggReg_@{reg}_@{regm}_2+1)/(1 + rhsAggReg_@{reg}_@{regm}_2) = 1;
+                #lhsAggReg_@{reg}_@{regm}_1 = NX_@{reg}_@{regm};
+                #rhsAggReg_@{reg}_@{regm}_1 = 0;
+                [name = 'bilateral regional net exports']
+                (lhsAggReg_@{reg}_@{regm}_1+1) / (rhsAggReg_@{reg}_@{regm}_1+1) = 1;
+            @# else
+                #lhsAggReg_@{reg}_@{regm}_2 = lambda_@{reg};
+                #rhsAggReg_@{reg}_@{regm}_2 = lambda_@{reg}EXP * beta_p * exp(exo_beta) * (1 + rfEXP - deltaB_p) * exp(-phiB_p*(rfEXP*sf_@{reg}*B_@{reg}_@{regm}EXP + NX_@{reg}_@{regm}EXP));
+                [name = 'FOC foreign assets']
+                (1+lhsAggReg_@{reg}_@{regm}_2)/(1+rhsAggReg_@{reg}_@{regm}_2) = 1;
+                #lhsAggReg_@{reg}_@{regm}_1 = NX_@{reg}_@{regm};
+                #rhsAggReg_@{reg}_@{regm}_1 = 
+                @# for sec in 1:Sectors
+                    @# for subsec in Subsecstart[sec]:Subsecend[sec]            
+                        + P_Q_@{subsec}_@{reg} * Q_D_@{subsec}_@{regm}_@{reg} - P_Q_@{subsec}_@{regm} * Q_D_@{subsec}_@{reg}_@{regm}
+                    @# endfor
+                @# endfor
+                ;
+                [name = 'bilateral regional net exports']
+                (lhsAggReg_@{reg}_@{regm}_1+1) / (rhsAggReg_@{reg}_@{regm}_1+1) = 1;
+            @# endif
+        @# endfor
+    @# endif
+@# endfor
+                               
+// ==========================================
+// Block 7: Government
+// ==========================================
+@# for reg in 1:Regions
+    #lhsAggReg_@{reg}_27 = P_@{reg} * G_@{reg} + Tr_@{reg} + BG_@{reg};
+    #rhsAggReg_@{reg}_27 = tauC_@{reg} * P_@{reg} * C_@{reg} + IH_@{reg} * PH_@{reg} * tauH_@{reg} + PE_@{reg} * E_@{reg}
+        @# for sec in 1:Sectors
+            @# for subsec in Subsecstart[sec]:Subsecend[sec]
+                + (tauKF_@{subsec}_@{reg}+tauKH_@{reg}) * K_@{subsec}_@{reg}(-1) * P_@{subsec}_@{reg} * r_@{subsec}_@{reg} 
+                + (tauNF_@{subsec}_@{reg}+tauNH_@{reg}) * W_@{subsec}_@{reg} * N_@{subsec}_@{reg} * LF_@{reg}
+            @# endfor
+        @# endfor
+    + (1 + rf) * s_@{reg}(-1) * BG_@{reg}(-1);
+    [name = 'regional government budget constraint']
+    (lhsAggReg_@{reg}_27+1)/(rhsAggReg_@{reg}_27+1) = 1;
+    #lhsAggReg_@{reg}_28 = Tr_@{reg};
+    #rhsAggReg_@{reg}_28 = Tr0_@{reg}_p + exo_Tr_@{reg} + exo_tauSTr_@{reg} * PE_@{reg} * E_@{reg};
+    [name = 'regional transfers']
+    (1+lhsAggReg_@{reg}_28)/(1+rhsAggReg_@{reg}_28) = 1;
+    #lhsAggNat_7_@{reg} = G_A_DH_@{reg};
+    #rhsAggNat_7_@{reg} = exo_G_A_DH * Y0_p;
+    [name = 'adaptation measures for housing stock']
+    (1+lhsAggNat_7_@{reg}) = (1+rhsAggNat_7_@{reg});
+    #lhsGov_1_@{reg} = BG_@{reg};
+    #rhsGov_1_@{reg} = exo_BG_@{reg};
+    [name = 'Government Budget Constraint']
+    (lhsGov_1_@{reg}+1) = (rhsGov_1_@{reg}+1);
+    
+    #lhsGov_11_@{reg} = KG_@{reg};
+    #rhsGov_11_@{reg} = (1 - deltaKG_p) * KG_@{reg}(-1) + G_@{reg};
+    [name = 'public goods capital stock']
+    (lhsGov_11_@{reg}+1)/(rhsGov_11_@{reg}+1) = 1;
+    
+    #lhsGov_3_@{reg} = tauNH_@{reg};
+    #rhsGov_3_@{reg} = tauNH_@{reg}_p + exo_tauNH_@{reg};
+    [name = 'taxes on household labour income']
+    (lhsGov_3_@{reg}+1) = (rhsGov_3_@{reg}+1);
+    
+    #lhsGov_4_@{reg} = tauKH_@{reg};
+    #rhsGov_4_@{reg} = tauKH_@{reg}_p + exo_tauKH_@{reg};
+    [name = 'taxes on household capital income']
+    (lhsGov_4_@{reg}+1) = (rhsGov_4_@{reg}+1);
+    
+    #lhsGov_5_@{reg} = tauC_@{reg};
+    #rhsGov_5_@{reg} = tauC_@{reg}_p + exo_tauC_@{reg};
+    [name = 'taxes on consumption']
+    (lhsGov_5_@{reg}+1) = (rhsGov_5_@{reg}+1);
+    
+    #lhsGov_6_@{reg} = tauH_@{reg};
+    #rhsGov_6_@{reg} = tauH_@{reg}_p + exo_tauH_@{reg};
+    [name = 'taxes on housing']
+    (lhsGov_6_@{reg}+1) = (rhsGov_6_@{reg}+1);
+    @# for sec in 1:Sectors
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            // ==============================================
+            // subsectoral and regional exogenous variables
+            // ==============================================
+            # lhsExoSubsec_1_@{reg}_@{subsec} = tauKF_@{subsec}_@{reg};
+            # rhsExoSubsec_1_@{reg}_@{subsec} = tauKF_@{subsec}_@{reg}_p - tauS_@{reg} + exo_tauKF_@{subsec}_@{reg};
+            [name = 'sector specific corporate tax rate paid by firms']
+            (lhsExoSubsec_1_@{reg}_@{subsec}+1)/(rhsExoSubsec_1_@{reg}_@{subsec}+1) = 1;
+            # lhsExoSubsec_2_@{reg}_@{subsec} = tauNF_@{subsec}_@{reg};
+            # rhsExoSubsec_2_@{reg}_@{subsec} = tauNF_@{subsec}_@{reg}_p + exo_tauNF_@{subsec}_@{reg};
+            [name = 'sector specific labour tax rate paid by firms']
+            (lhsExoSubsec_2_@{reg}_@{subsec}+1) / (rhsExoSubsec_2_@{reg}_@{subsec}+1) = 1;
+      
+            # lhsExoSubsec_9_@{reg}_@{subsec} = K_A_@{subsec}_@{reg};
+            # rhsExoSubsec_9_@{reg}_@{subsec} = exo_GA_@{subsec}_@{reg} * Y0_p;
+            [name = 'sector specific adaptation expenditures by the government against climate change']
+            (lhsExoSubsec_9_@{reg}_@{subsec}+1)/(rhsExoSubsec_9_@{reg}_@{subsec}+1) = 1;
+            # lhsExoSubsec_10_@{reg}_@{subsec} = K_A_@{subsec}_@{reg};
+            # rhsExoSubsec_10_@{reg}_@{subsec} = (1 - deltaKA_@{subsec}_@{reg}_p) * K_A_@{subsec}_@{reg}(-1) + G_A_@{subsec}_@{reg};
+            [name = 'sector specific adaptation capital against climate change']
+            (lhsExoSubsec_10_@{reg}_@{subsec}+1)/(rhsExoSubsec_10_@{reg}_@{subsec}+1) = 1;
+        @# endfor
+    @# endfor
+@# endfor
+// ==========================================
+// Block 8: Productivity and damages
+// ==========================================
+@# for reg in 1:Regions
+    @# for sec in 1:Sectors                                
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            @# if YEndogenous == 1
+                # lhsExoSubsec_3_@{reg}_@{subsec} = log(A_@{subsec}_@{reg}*(lEndoQ_@{subsec}_@{reg}_p)+Q_@{subsec}_@{reg}*(1-lEndoQ_@{subsec}_@{reg}_p));
+                # rhsExoSubsec_3_@{reg}_@{subsec} = log(A_@{subsec}_@{reg}_p * KG_@{reg}^phiG_p * exp(exo_@{subsec}_@{reg})*(lEndoQ_@{subsec}_@{reg}_p) +(Q0_@{subsec}_@{reg}_p * exp(exo_Q_@{subsec}_@{reg}))*(1-lEndoQ_@{subsec}_@{reg}_p));
+                [name = 'sector-specific TFP']
+                (lhsExoSubsec_3_@{reg}_@{subsec}+1) / (rhsExoSubsec_3_@{reg}_@{subsec}+1) = 1;
+            @# else
+                @# if subsec >0//!= SubsecFossil
+                    @# if YTarget == 1
+                        # lhsExoSubsec_3_@{reg}_@{subsec} = Y_@{subsec}_@{reg} * P_@{subsec}_@{reg}*(lEndoQ_@{subsec}_@{reg}_p)+Q_@{subsec}_@{reg}*(1-lEndoQ_@{subsec}_@{reg}_p);
+                        # rhsExoSubsec_3_@{reg}_@{subsec} = phiY0_@{subsec}_@{reg}_p / phiY_p * Y0_p  * exp(exo_@{subsec}_@{reg})*(lEndoQ_@{subsec}_@{reg}_p) +(Q0_@{subsec}_@{reg}_p * exp(exo_Q_@{subsec}_@{reg}))*(1-lEndoQ_@{subsec}_@{reg}_p);
+                    @# elseif YTarget == 2
+                        # lhsExoSubsec_3_@{reg}_@{subsec} = Y_@{subsec}_@{reg} * P0_@{subsec}_@{reg}_p*(lEndoQ_@{subsec}_@{reg}_p)+Q_@{subsec}_@{reg}*(1-lEndoQ_@{subsec}_@{reg}_p);
+                        # rhsExoSubsec_3_@{reg}_@{subsec} = phiY0_@{subsec}_@{reg}_p / phiY_p * Y0_p  * exp(exo_@{subsec}_@{reg})*(lEndoQ_@{subsec}_@{reg}_p) +(Q0_@{subsec}_@{reg}_p * exp(exo_Q_@{subsec}_@{reg}))*(1-lEndoQ_@{subsec}_@{reg}_p);
+                    @# else                 
+                        # lhsExoSubsec_3_@{reg}_@{subsec} = Q_@{subsec}_@{reg}*(lEndoQ_@{subsec}_@{reg}_p)+Q_@{subsec}_@{reg}*(1-lEndoQ_@{subsec}_@{reg}_p);
+                        # rhsExoSubsec_3_@{reg}_@{subsec} = Q0_@{subsec}_@{reg}_p * exp(exo_@{subsec}_@{reg})*(lEndoQ_@{subsec}_@{reg}_p) +(Q0_@{subsec}_@{reg}_p * exp(exo_Q_@{subsec}_@{reg}))*(1-lEndoQ_@{subsec}_@{reg}_p);
+                    @# endif
+                @# else
+        //            # lhsExoSubsec_3_@{reg}_@{subsec} = Y_@{subsec}_@{reg} * P0_@{subsec}_@{reg}_p*(lEndoQ_@{subsec}_@{reg}_p)+Q_@{subsec}_@{reg}*(1-lEndoQ_@{subsec}_@{reg}_p);
+        //            # rhsExoSubsec_3_@{reg}_@{subsec} = phiY0_@{subsec}_@{reg}_p / phiY_p * Y0_p  * exp(exo_@{subsec}_@{reg})*(lEndoQ_@{subsec}_@{reg}_p) +(Q0_@{subsec}_@{reg}_p * exp(exo_Q_@{subsec}_@{reg}))*(1-lEndoQ_@{subsec}_@{reg}_p);
+                        # lhsExoSubsec_3_@{reg}_@{subsec} = Y_@{subsec}_@{reg} * P_@{subsec}_@{reg}*(lEndoQ_@{subsec}_@{reg}_p)+Q_@{subsec}_@{reg}*(1-lEndoQ_@{subsec}_@{reg}_p);
+                        # rhsExoSubsec_3_@{reg}_@{subsec} = phiY0_@{subsec}_@{reg}_p / phiY_p * Y0_p  * exp(exo_@{subsec}_@{reg})*(lEndoQ_@{subsec}_@{reg}_p) +(Q0_@{subsec}_@{reg}_p * exp(exo_Q_@{subsec}_@{reg}))*(1-lEndoQ_@{subsec}_@{reg}_p);
+                @# endif
+
+                [name = 'sector-specific TFP']
+                (lhsExoSubsec_3_@{reg}_@{subsec}+1) / (rhsExoSubsec_3_@{reg}_@{subsec}+1) = 1;
+            @# endif
+            # lhsExoSubsec_300_@{reg}_@{subsec} = log(A_I_@{subsec}_@{reg});
+            # rhsExoSubsec_300_@{reg}_@{subsec} = exo_A_I_@{subsec}_@{reg} + (1-lEndogenousY_p)*exo_QI_@{subsec}_@{reg};
+            [name = 'sector-specific intermediates sector @{subsec} and region @{reg}']
+            (lhsExoSubsec_300_@{reg}_@{subsec}+1) / (rhsExoSubsec_300_@{reg}_@{subsec}+1) = 1;
+            
+            # lhsExoSubsec_4_@{reg}_@{subsec} = A_K_@{subsec}_@{reg};
+            # rhsExoSubsec_4_@{reg}_@{subsec} = exp(exo_K_@{subsec}_@{reg});
+            [name = 'sector and capital specific productivity shock']
+            (lhsExoSubsec_4_@{reg}_@{subsec}+1) / (rhsExoSubsec_4_@{reg}_@{subsec}+1)=1;
+            @# if YEndogenous == 1
+                # lhsExoSubsec_5_@{reg}_@{subsec} = log(A_N_@{subsec}_@{reg});
+                # rhsExoSubsec_5_@{reg}_@{subsec} = exo_N_@{subsec}_@{reg};
+                [name = 'sector and labour specific productivity shock']
+                (lhsExoSubsec_5_@{reg}_@{subsec}+1) / (rhsExoSubsec_5_@{reg}_@{subsec}+1) = 1;
+            @# else
+                # lhsExoSubsec_5_@{reg}_@{subsec} = N_@{subsec}_@{reg};
+                # rhsExoSubsec_5_@{reg}_@{subsec} = phiN0_@{subsec}_@{reg}_p * N0_@{reg}_p * exp(exo_N_@{subsec}_@{reg});
+                [name = 'sector and labour specific productivity shock']
+                (lhsExoSubsec_5_@{reg}_@{subsec}+1)/(rhsExoSubsec_5_@{reg}_@{subsec}+1) = 1;
+            @# endif
+            # lhsExoSubsec_6_@{reg}_@{subsec} = D_@{subsec}_@{reg};
+            # rhsExoSubsec_6_@{reg}_@{subsec} = exo_D_@{subsec}_@{reg};
+            [name = 'sector-specific damage function']
+            
+            lhsExoSubsec_6_@{reg}_@{subsec} = rhsExoSubsec_6_@{reg}_@{subsec};
+            # lhsExoSubsec_7_@{reg}_@{subsec} = D_N_@{subsec}_@{reg};
+            # rhsExoSubsec_7_@{reg}_@{subsec} = exo_D_N_@{subsec}_@{reg};
+            [name = 'sector specific damage function on labour productivity']
+            (lhsExoSubsec_7_@{reg}_@{subsec}+1)/(rhsExoSubsec_7_@{reg}_@{subsec}+1) = 1;
+            
+            # lhsExoSubsec_8_@{reg}_@{subsec} = D_K_@{subsec}_@{reg};
+            # rhsExoSubsec_8_@{reg}_@{subsec} = exo_D_K_@{subsec}_@{reg} * Y0_p;
+            [name = 'sector specific damage function on capital formation']
+            (lhsExoSubsec_8_@{reg}_@{subsec}+1)/(rhsExoSubsec_8_@{reg}_@{subsec}+1) = 1;
+        @# endfor
+    @# endfor
+    #lhsAggReg_@{reg}_14 = DH_@{reg};
+    #rhsAggReg_@{reg}_14 = exo_DH_@{reg}  * Y / PH_@{reg};
+    [name = 'damages to houses']
+    (lhsAggReg_@{reg}_14+1) = (rhsAggReg_@{reg}_14+1);
+@# endfor
+// ==========================================
+// Block 9: Retailers
+// ==========================================
+@# for reg in 1:Regions
+    #lhsAggReg_@{reg}_26 = P_D_@{reg}/P_@{reg};
+    #rhsAggReg_@{reg}_26 = (1-omegaF_@{reg}_p)^(1/etaF_p) * (Q_U_@{reg}/(C_@{reg} + I_@{reg} + (iSecHouse_p == 0) * PH_@{reg} / P_@{reg} * IH_@{reg} + G_@{reg}))^(-1/etaF_p);
+    [name = 'final demand for domestic production']
+    (lhsAggReg_@{reg}_26+1)/(rhsAggReg_@{reg}_26+1) = 1;
+    #lhsAggReg_@{reg}_9 = P_F_@{reg}/P_@{reg};
+    #rhsAggReg_@{reg}_9 = (omegaF_@{reg}_p)^(1/etaF_p) * (M_F_@{reg}/(C_@{reg} + I_@{reg} + (iSecHouse_p == 0) * PH_@{reg} / P_@{reg} * IH_@{reg} + G_@{reg}))^(-1/etaF_p);
+    [name = 'final demand for imports']
+    (lhsAggReg_@{reg}_9+1)/(rhsAggReg_@{reg}_9+1) = 1;
+    @# for sec in 1:Sectors
+       # lhsDemandsec_5_@{reg}_@{sec} = P_M_A_@{sec}_@{reg};//M_A_F_@{sec}_@{reg};
+        # rhsDemandsec_5_@{reg}_@{sec} = 
+        (etaQA_@{sec}_p == 1) * 
+            exp(
+            @# for subsec in Subsecstart[sec]:Subsecend[sec]
+                + log(P_M_@{subsec}/omegaM_F_@{subsec}_@{reg}_p) * omegaM_F_@{subsec}_@{reg}_p
+            @# endfor
+            )+
+            (etaQA_@{sec}_p != 1) * (
+            @# for subsec in Subsecstart[sec]:Subsecend[sec]
+                + omegaM_F_@{subsec}_@{reg}_p * P_M_@{subsec}^(1-etaQA_@{sec}_p)
+            @# endfor
+            )^(1/(1-etaQA_@{sec}_p+(etaQA_@{sec}_p==1)))
+            ;
+        [name = 'domestic aaggregate sector imports']
+        (lhsDemandsec_5_@{reg}_@{sec}+1)/(rhsDemandsec_5_@{reg}_@{sec}+1)=1;
+        # lhsDemandsec_6_@{reg}_@{sec} = P_A_@{sec}_@{reg} / P_D_@{reg};
+        # rhsDemandsec_6_@{reg}_@{sec} = omegaQA_@{sec}_@{reg}_p^(1/etaQ_p) * A_F_@{sec}_@{reg}^((etaQ_p-1)/etaQ_p) * (Q_A_F_@{sec}_@{reg}/Q_U_@{reg})^(-1/etaQ_p);
+        [name = 'domestic demand for aggregate final sector output']    
+        (lhsDemandsec_6_@{reg}_@{sec}+1)/(rhsDemandsec_6_@{reg}_@{sec}+1)=1;
+        # lhsDemandsec_7_@{reg}_@{sec} = P_M_A_@{sec}_@{reg} / P_F_@{reg};
+        # rhsDemandsec_7_@{reg}_@{sec} = omegaMA_F_@{sec}_@{reg}_p^(1/etaQ_p) * (M_A_F_@{sec}_@{reg}/M_F_@{reg})^(-1/etaQ_p);
+        [name = 'domestic demand for aggregate final sector imports']    
+        (lhsDemandsec_7_@{reg}_@{sec}+1)/(rhsDemandsec_7_@{reg}_@{sec}+1)=1;
+        # lhsDemandsec_AF_@{reg}_@{sec} = A_F_@{sec}_@{reg};
+        # rhsDemandsec_AF_@{reg}_@{sec} = exp(exo_A_F_@{sec}_@{reg})*EE_@{reg}^((@{sec}==iSecEnergy_p));
+        [name = 'productivity for final consumption']    
+        (lhsDemandsec_AF_@{reg}_@{sec}+1)/(rhsDemandsec_AF_@{reg}_@{sec}+1)=1;
+
+    @# endfor
+@# endfor
+// ==========================================
+// Block 10: Wholesalers
+// ==========================================
+@# for reg in 1:Regions
+    @# for sec in 1:Sectors
+        # lhsDemandsec_4_@{reg}_@{sec} = Q_A_@{sec}_@{reg};
+        # rhsDemandsec_4_@{reg}_@{sec} = 
+        (etaQA_@{sec}_p == 1) * 
+            exp(
+            @# for subsec in Subsecstart[sec]:Subsecend[sec]
+                + log(Q_D_@{subsec}_@{reg}) * omegaQ_@{subsec}_@{reg}_p
+            @# endfor
+            )+
+            (etaQA_@{sec}_p != 1) * (
+            @# for subsec in Subsecstart[sec]:Subsecend[sec]
+                + omegaQ_@{subsec}_@{reg}_p^(1/etaQA_@{sec}_p) * Q_D_@{subsec}_@{reg}^((etaQA_@{sec}_p-1)/etaQA_@{sec}_p)
+            @# endfor
+            )^(etaQA_@{sec}_p/(etaQA_@{sec}_p-1+(etaQA_@{sec}_p==1)))
+            ;
+        [name = 'domestic aaggregate sector output']
+        (lhsDemandsec_4_@{reg}_@{sec}+1)/(rhsDemandsec_4_@{reg}_@{sec}+1)=1;
+ 
+        # lhsDemandsec_8_@{reg}_@{sec} = Q_A_@{sec}_@{reg};
+        # rhsDemandsec_8_@{reg}_@{sec} = Q_A_F_@{sec}_@{reg} + Q_A_I_@{sec}_@{reg} + (iSecHouse_p == @{sec}) * IH_@{reg} * PH_@{reg}/P_A_@{sec}_@{reg};
+        [name = 'aggregate final sector output']    
+        (lhsDemandsec_8_@{reg}_@{sec}+1)/(rhsDemandsec_8_@{reg}_@{sec}+1)=1;
+        # lhsDemandsec_9_@{reg}_@{sec} = Q_A_I_@{sec}_@{reg} * P_A_@{sec}_@{reg};
+        # rhsDemandsec_9_@{reg}_@{sec} = 
+        @# for secm in 1:Sectors 
+            @# for subsec in Subsecstart[secm]:Subsecend[secm]
+                + Q_I_@{subsec}_@{reg}_@{sec} * (P_A_@{sec}_@{reg} + kappaEI_@{subsec}_@{reg}_@{sec}_p * exp(exo_EI_@{subsec}_@{reg}_@{sec}) * (Q_D_@{SubsecFossil}_@{reg}/Q_A_@{SecEnergy}_@{reg}) * PE_@{reg} * lEndoQ_@{subsec}_@{reg}_p)
+            @# endfor        
+        @# endfor        
+        ;
+        [name = 'domestic demand for aggregate intermediate sector output']    
+        (lhsDemandsec_9_@{reg}_@{sec}+1)/(rhsDemandsec_9_@{reg}_@{sec}+1)=1;
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+           @# for regm in 1:Regions
+                #lhsDemandSubsec_1_@{reg}_@{subsec}_@{regm} = P_Q_@{subsec}_@{regm};
+                #rhsDemandSubsec_1_@{reg}_@{subsec}_@{regm} = omegaQ_@{subsec}_@{reg}_@{regm}_p^(1/etaQ_@{subsec}_p) * ((Q_D_@{subsec}_@{reg}_@{regm})/Q_D_@{subsec}_@{reg})^(-1/etaQ_@{subsec}_p) * P_D_@{subsec}_@{reg};
+                [name = 'demand for regional sector output']
+                lhsDemandSubsec_1_@{reg}_@{subsec}_@{regm} / rhsDemandSubsec_1_@{reg}_@{subsec}_@{regm} = 1;
+            @# endfor
+            #lhsDemandSubsec_1M_@{reg}_@{subsec} = P_M_@{subsec};
+            #rhsDemandSubsec_1M_@{reg}_@{subsec} = omegaM_@{subsec}_@{reg}_p^(1/etaQ_@{subsec}_p) * ((M_I_@{subsec}_@{reg})/Q_D_@{subsec}_@{reg})^(-1/etaQ_@{subsec}_p) * P_D_@{subsec}_@{reg};
+            [name = 'demand for regional subsector imports']
+            (lhsDemandSubsec_1M_@{reg}_@{subsec}+1) / (rhsDemandSubsec_1M_@{reg}_@{subsec}+1) = 1;
+            #lhsDemandSubsec_2M_@{reg}_@{subsec} = P_M_@{subsec} / P_M_A_@{sec}_@{reg};
+            #rhsDemandSubsec_2M_@{reg}_@{subsec} = omegaM_F_@{subsec}_@{reg}_p^(1/etaQA_@{sec}_p) * ((M_F_@{subsec}_@{reg})/M_A_F_@{sec}_@{reg})^(-1/etaQA_@{sec}_p);
+            [name = 'demand for regional subsector final imports']
+            (lhsDemandSubsec_2M_@{reg}_@{subsec}+1) / (rhsDemandSubsec_2M_@{reg}_@{subsec}+1) = 1;
+            #lhsDemandSubsec_2_@{reg}_@{subsec} = Q_D_@{subsec}_@{reg};
+            #rhsDemandSubsec_2_@{reg}_@{subsec} = 
+            (etaQ_@{subsec}_p == 1) * 
+            exp(
+            @# for regm in 1:Regions
+                + log(Q_D_@{subsec}_@{reg}_@{regm}) * omegaQ_@{subsec}_@{reg}_@{regm}_p
+            @# endfor
+            + log(M_I_@{subsec}_@{reg}) * omegaM_@{subsec}_@{reg}_p)+
+            (etaQ_@{subsec}_p != 1) * (
+            @# for regm in 1:Regions
+                + omegaQ_@{subsec}_@{reg}_@{regm}_p^(1/etaQ_@{subsec}_p) * Q_D_@{subsec}_@{reg}_@{regm}^((etaQ_@{subsec}_p-1)/etaQ_@{subsec}_p)
+            @# endfor
+            + omegaM_@{subsec}_@{reg}_p^(1/etaQ_@{subsec}_p) * M_I_@{subsec}_@{reg}^((etaQ_@{subsec}_p-1)/etaQ_@{subsec}_p))^(etaQ_@{subsec}_p/(etaQ_@{subsec}_p-1+(etaQ_@{subsec}_p==1)))
+            ;
+            [name = 'aaggregate demand for subsector regional output']
+            (lhsDemandSubsec_2_@{reg}_@{subsec}+1) / (rhsDemandSubsec_2_@{reg}_@{subsec}+1) = 1;
+            #lhsDemandSubsec_3_@{reg}_@{subsec} = P_D_@{subsec}_@{reg} / P_A_@{sec}_@{reg};
+            #rhsDemandSubsec_3_@{reg}_@{subsec} = omegaQ_@{subsec}_@{reg}_p^(1/etaQA_@{sec}_p) * (Q_D_@{subsec}_@{reg}/Q_A_@{sec}_@{reg})^(-1/etaQA_@{sec}_p);
+            [name = 'demand for subsector output']
+            (lhsDemandSubsec_3_@{reg}_@{subsec}+1) / (rhsDemandSubsec_3_@{reg}_@{subsec}+1) = 1;
+        @# endfor
+    @# endfor
+@# endfor
+// ==========================================
+// Block 11: Firms
+// ==========================================
+@# for reg in 1:Regions
+    @# for sec in 1:Sectors                                
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            // ==========================================
+            // subsectoral and regional production 
+            // ==========================================
+            #lhsSupplySubsec_1_@{reg}_@{subsec} = P_@{subsec}_@{reg};
+            #rhsSupplySubsec_1_@{reg}_@{subsec} = (1 - omegaQI_@{subsec}_@{reg}_p)^(1/etaI_@{subsec}_p) * ((Y_@{subsec}_@{reg})/Q_@{subsec}_@{reg})^(-1/etaI_@{subsec}_p) * (P_Q_@{subsec}_@{reg} - kappaE_@{subsec}_@{reg} * PE_@{reg} * lEndoQ_@{subsec}_@{reg}_p);
+            [name = 'demand for regional sector value added']
+            (lhsSupplySubsec_1_@{reg}_@{subsec}+1) / (rhsSupplySubsec_1_@{reg}_@{subsec}+1) = 1;
+            #lhsSupplySubsec_2_@{reg}_@{subsec} = P_I_@{subsec}_@{reg};
+            #rhsSupplySubsec_2_@{reg}_@{subsec} =  A_I_@{subsec}_@{reg}^((etaI_@{subsec}_p-1)/etaI_@{subsec}_p) * omegaQI_@{subsec}_@{reg}_p^(1/etaI_@{subsec}_p) * ((Q_I_@{subsec}_@{reg})/Q_@{subsec}_@{reg})^(-1/etaI_@{subsec}_p) * (P_Q_@{subsec}_@{reg}-kappaE_@{subsec}_@{reg} * PE_@{reg} * lEndoQ_@{subsec}_@{reg}_p);
+            [name = 'regional sector demand for intermediates']
+            (lhsSupplySubsec_2_@{reg}_@{subsec}+1) / (rhsSupplySubsec_2_@{reg}_@{subsec}+1) = 1;
+            @# for secm in 1:Sectors
+                #lhsSupplySubsecSec_1_@{reg}_@{subsec}_@{secm} = P_A_@{secm}_@{reg} + kappaEI_@{subsec}_@{reg}_@{secm}_p * exp(exo_EI_@{subsec}_@{reg}_@{secm}) * (Q_D_@{SubsecFossil}_@{reg}/Q_A_@{SecEnergy}_@{reg}) * PE_@{reg} * lEndoQ_@{subsec}_@{reg}_p;
+                #rhsSupplySubsecSec_1_@{reg}_@{subsec}_@{secm} = omegaQI_@{subsec}_@{reg}_@{secm}_p^(1/etaIA_@{subsec}_p) * A_I_@{subsec}_@{reg}_@{secm}^((etaIA_@{subsec}_p-1)/etaIA_@{subsec}_p) * ((Q_I_@{subsec}_@{reg}_@{secm})/Q_I_@{subsec}_@{reg})^(-1/etaIA_@{subsec}_p) * P_I_@{subsec}_@{reg};
+                [name = 'regional sector demand for intermediates from aggregate sector']
+                (lhsSupplySubsecSec_1_@{reg}_@{subsec}_@{secm}+1) / (rhsSupplySubsecSec_1_@{reg}_@{subsec}_@{secm}+1) = 1;
+                #lhsSupplySubsecSec_2_@{reg}_@{subsec}_@{secm} = E_I_@{subsec}_@{reg}_@{secm};
+                #rhsSupplySubsecSec_2_@{reg}_@{subsec}_@{secm} = kappaEI_@{subsec}_@{reg}_@{secm}_p * exp(exo_EI_@{subsec}_@{reg}_@{secm}) * (Q_D_@{SubsecFossil}_@{reg}/Q_A_@{SecEnergy}_@{reg}) * Q_I_@{subsec}_@{reg}_@{secm};
+                [name = 'regional emissions caused by using intermediates from aggregate sector']
+                (lhsSupplySubsecSec_2_@{reg}_@{subsec}_@{secm}+1) / (rhsSupplySubsecSec_2_@{reg}_@{subsec}_@{secm}+1) = 1;
+                #lhsSupplySubsecSec_3_@{reg}_@{subsec}_@{secm} = A_I_@{subsec}_@{reg}_@{secm};
+                #rhsSupplySubsecSec_3_@{reg}_@{subsec}_@{secm} = exp(exo_AI_@{subsec}_@{reg}_@{secm})*EE_@{reg}^((@{secm}==iSecEnergy_p));
+                [name = 'productivity of intermediates in subsector @{subsec} from sector @{secm}']
+                (lhsSupplySubsecSec_3_@{reg}_@{subsec}_@{secm}+1) / (rhsSupplySubsecSec_3_@{reg}_@{subsec}_@{secm}+1) = 1;
+            @# endfor
+            #lhsSupplySubsec_3_@{reg}_@{subsec} = Q_I_@{subsec}_@{reg};
+            #rhsSupplySubsec_3_@{reg}_@{subsec} = 
+            (etaIA_@{subsec}_p == 1) * exp(
+            @# for secm in 1:Sectors
+                + log(Q_I_@{subsec}_@{reg}_@{secm}*A_I_@{subsec}_@{reg}_@{secm})*omegaQI_@{subsec}_@{reg}_@{secm}_p
+            @# endfor
+            ) + 
+            (etaIA_@{subsec}_p != 1) * ( 
+            @# for secm in 1:Sectors
+                + omegaQI_@{subsec}_@{reg}_@{secm}_p^(1/etaIA_@{subsec}_p) * (Q_I_@{subsec}_@{reg}_@{secm}*A_I_@{subsec}_@{reg}_@{secm})^((etaIA_@{subsec}_p-1)/etaIA_@{subsec}_p)
+            @# endfor
+            )^(etaIA_@{subsec}_p/(etaIA_@{subsec}_p-1+(etaIA_@{subsec}_p==1)));
+            [name = 'regional sector demand for intermediates']
+            (lhsSupplySubsec_3_@{reg}_@{subsec}+1) / (rhsSupplySubsec_3_@{reg}_@{subsec}+1) = 1;
+            #lhsSupplySubsec_4_@{reg}_@{subsec} = Y_@{subsec}_@{reg};
+            #rhsSupplySubsec_4_@{reg}_@{subsec} = ((etaNK_@{subsec}_@{reg}_p == 1) * (1 - D_@{subsec}_@{reg}) * A_@{subsec}_@{reg} * (A_K_@{subsec}_@{reg} * K_@{subsec}_@{reg}(-1))^alphaK_@{subsec}_@{reg}_p * (LF_@{reg} * (1 - D_N_@{subsec}_@{reg}) * A_N_@{subsec}_@{reg} * N_@{subsec}_@{reg})^alphaN_@{subsec}_@{reg}_p
+            + (etaNK_@{subsec}_@{reg}_p != 1) * (1 - D_@{subsec}_@{reg}) * A_@{subsec}_@{reg} * (alphaK_@{subsec}_@{reg}_p^(1/etaNK_@{subsec}_@{reg}_p) * (A_K_@{subsec}_@{reg} * K_@{subsec}_@{reg}(-1))^((etaNK_@{subsec}_@{reg}_p-1)/etaNK_@{subsec}_@{reg}_p) + alphaN_@{subsec}_@{reg}_p^(1/etaNK_@{subsec}_@{reg}_p) * (LF_@{reg} * (1 - D_N_@{subsec}_@{reg}) * A_N_@{subsec}_@{reg} * N_@{subsec}_@{reg})^((etaNK_@{subsec}_@{reg}_p-1)/etaNK_@{subsec}_@{reg}_p))^(etaNK_@{subsec}_@{reg}_p/(etaNK_@{subsec}_@{reg}_p - 1 + (etaNK_@{subsec}_@{reg}_p == 1) * 1000)));
+            [name = 'sector specific gva']
+            (lhsSupplySubsec_4_@{reg}_@{subsec}+1) / (rhsSupplySubsec_4_@{reg}_@{subsec}+1) = 1;
+            #lhsSupplySubsec_5_@{reg}_@{subsec} = r_@{subsec}_@{reg} * (1 + tauKF_@{subsec}_@{reg});
+            #rhsSupplySubsec_5_@{reg}_@{subsec} = alphaK_@{subsec}_@{reg}_p^(1/etaNK_@{subsec}_@{reg}_p) * ((1 - D_@{subsec}_@{reg}) * A_@{subsec}_@{reg} * A_K_@{subsec}_@{reg})^((etaNK_@{subsec}_@{reg}_p-1)/(etaNK_@{subsec}_@{reg}_p)) * (K_@{subsec}_@{reg}(-1) / Y_@{subsec}_@{reg})^(-1/etaNK_@{subsec}_@{reg}_p);
+            [name = 'Firms FOC capital',mcp = 'K_@{subsec}_@{reg} > 0']
+            (lhsSupplySubsec_5_@{reg}_@{subsec}+1) / (rhsSupplySubsec_5_@{reg}_@{subsec}+1) = 1;
+            
+            #lhsSupplySubsec_6_@{reg}_@{subsec} = W_@{subsec}_@{reg} * (1 + tauNF_@{subsec}_@{reg})/P_@{subsec}_@{reg};
+            #rhsSupplySubsec_6_@{reg}_@{subsec} = alphaN_@{subsec}_@{reg}_p^(1/etaNK_@{subsec}_@{reg}_p) * ((1 - D_N_@{subsec}_@{reg}) * A_N_@{subsec}_@{reg} * (1 - D_@{subsec}_@{reg}) * A_@{subsec}_@{reg})^((etaNK_@{subsec}_@{reg}_p-1)/(etaNK_@{subsec}_@{reg}_p)) * ((LF_@{reg} * N_@{subsec}_@{reg}) / Y_@{subsec}_@{reg})^(-1/etaNK_@{subsec}_@{reg}_p);
+            [name = 'Firms FOC labour @{subsec} @{reg}',mcp = 'N_@{subsec}_@{reg} > 0']
+            (lhsSupplySubsec_6_@{reg}_@{subsec}+1) / (rhsSupplySubsec_6_@{reg}_@{subsec}+1) = 1;
+            #lhsSupplySubsec_7_@{reg}_@{subsec} = Q_@{subsec}_@{reg};
+            #rhsSupplySubsec_7_@{reg}_@{subsec} = ((etaI_@{subsec}_p!=1)*(omegaQI_@{subsec}_@{reg}_p^(1/etaI_@{subsec}_p) * (A_I_@{subsec}_@{reg} * Q_I_@{subsec}_@{reg})^((etaI_@{subsec}_p-1)/etaI_@{subsec}_p) + (1 - omegaQI_@{subsec}_@{reg}_p)^(1/etaI_@{subsec}_p) * Y_@{subsec}_@{reg}^((etaI_@{subsec}_p-1)/etaI_@{subsec}_p))^(etaI_@{subsec}_p/(etaI_@{subsec}_p-1+(etaI_@{subsec}_p==1)))
+                                                  +(etaI_@{subsec}_p==1)*(Q_I_@{subsec}_@{reg}^(omegaQI_@{subsec}_@{reg}_p) * Y_@{subsec}_@{reg}^((1 - omegaQI_@{subsec}_@{reg}_p))))
+                                                    ;
+            [name = 'sector region specific output']
+            (lhsSupplySubsec_7_@{reg}_@{subsec}+1) / (rhsSupplySubsec_7_@{reg}_@{subsec}+1) = 1;
+            #lhsSupplySubsec_9_@{reg}_@{subsec} = D_X_@{subsec}_@{reg};
+            #rhsSupplySubsec_9_@{reg}_@{subsec} = X_@{subsec}_@{reg}/Q_@{subsec}_@{reg};
+            [name = 'sector region specific exports share']
+            (lhsSupplySubsec_9_@{reg}_@{subsec}+1) / (rhsSupplySubsec_9_@{reg}_@{subsec}+1) = 1;
+            #lhsSupplySubsec_10_@{reg}_@{subsec} = Q_@{subsec}_@{reg};
+            #rhsSupplySubsec_10_@{reg}_@{subsec} = X_@{subsec}_@{reg}
+            @# for regm in 1:Regions
+                + Q_D_@{subsec}_@{regm}_@{reg}
+            @# endfor
+            ;
+            [name = 'sector region specific output']
+            (lhsSupplySubsec_10_@{reg}_@{subsec}+1) / (rhsSupplySubsec_10_@{reg}_@{subsec}+1) = 1;
+            #lhsEmissionsSubsecSec_1_@{reg}_@{subsec} = E_@{subsec}_@{reg};
+            #rhsEmissionsSubsecSec_1_@{reg}_@{subsec} = kappaE_@{subsec}_@{reg} * Q_@{subsec}_@{reg};
+            [name = 'regional subsector emissions']
+            (lhsEmissionsSubsecSec_1_@{reg}_@{subsec}+1) / (rhsEmissionsSubsecSec_1_@{reg}_@{subsec}+1) = 1;
+            [name = 'regional subsector emission intensity']
+            (lEndogenousY_p == 1) * kappaE_@{subsec}_@{reg} + (lEndogenousY_p == 0) * E_@{subsec}_@{reg} = (lEndogenousY_p ==1) *(kappaE_@{subsec}_@{reg}_p + exo_kappaE_@{subsec}_@{reg}) + (lEndogenousY_p == 0) *exp(exo_E_@{subsec}_@{reg}) * E0_@{reg}_p * sE_@{subsec}_@{reg}_p;
+        @# endfor
+    @# endfor
+@# endfor
+// ==========================================
+// Block 11: Foreign Wholesalers
+// ==========================================
+@# for reg in 1:Regions
+    @# for sec in 1:Sectors                                
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            #lhsSupplySubsec_8_@{reg}_@{subsec} = (phiX_@{subsec}_@{reg}_p>0)*X_@{subsec}_@{reg}/X_@{reg} + (phiX_@{subsec}_@{reg}_p==0)*X_@{subsec}_@{reg};
+            #rhsSupplySubsec_8_@{reg}_@{subsec} = (phiX_@{subsec}_@{reg}_p>0)*(D_X_@{subsec}_@{reg}_p * exp(exo_X_@{subsec}_@{reg})) * (P_Q_@{subsec}_@{reg} /P_Q_@{reg})^(-etaX_p) + (phiX_@{subsec}_@{reg}_p==0)*0;
+            [name = 'sector region specific exports']
+            (lhsSupplySubsec_8_@{reg}_@{subsec}+1) / (rhsSupplySubsec_8_@{reg}_@{subsec}+1) = 1;
+        @# endfor
+    @# endfor
+@# endfor
+// ==========================================
+// Block 12: Climate Variables and Emissions
+// ==========================================
+@# for reg in 1:Regions
+    @# for z in ClimateVarsRegional
+        #lhsClim_@{z}_@{reg} = @{z}_@{reg};
+        #rhsClim_@{z}_@{reg} = @{z}0_@{reg}_p + exo_@{z}_@{reg};
+        [name = '@{z}']
+        lhsClim_@{z}_@{reg} = rhsClim_@{z}_@{reg};
+    @# endfor
+    #lhsAggReg_@{reg}_25 = E_@{reg};
+    #rhsAggReg_@{reg}_25 = 
+        @# for sec in 1:Sectors
+            @# for subsec in Subsecstart[sec]:Subsecend[sec]
+                + E_@{subsec}_@{reg}
+                @# for secm in 1:Sectors
+                    + E_I_@{subsec}_@{reg}_@{secm}
+                @# endfor
+            @# endfor
+        @# endfor
+    ;
+    [name = 'regional emissions']
+    (lhsAggReg_@{reg}_25+1)/(rhsAggReg_@{reg}_25+1) = 1;
+
+    #lhsSubsidies_@{reg} = tauS_@{reg} * 
+     (
+        @# for sec in 1:Sectors
+            @# for subsec in Subsecstart[sec]:Subsecend[sec]
+                    + K_@{subsec}_@{reg}(-1) * P_@{subsec}_@{reg} * r_@{subsec}_@{reg}
+            @# endfor
+        @# endfor
+    )
+    ;
+    #rhsSubsidies_@{reg} = exo_tauS_@{reg} * PE_@{reg} * E_@{reg};
+    [name = 'regional susbsidies']
+    (1+lhsSubsidies_@{reg})/(1 + rhsSubsidies_@{reg}) = 1;
+
+    #lhsEmissionPrice_@{reg} = exo_CapTradeInternat * PE_@{reg} + (1-exo_CapTradeInternat) * (E_@{reg}*exo_CapTrade_@{reg} + PE_@{reg}*(1-exo_CapTrade_@{reg}));
+    #rhsEmissionPrice_@{reg} = exo_CapTradeInternat * PE + (1-exo_CapTradeInternat) * ((E0_@{reg}_p * exp(exo_EBase_@{reg} + exo_E_@{reg}))*exo_CapTrade_@{reg} + (PE0_@{reg}_p + exo_PE_@{reg} + exo_PE)*(1-exo_CapTrade_@{reg}));
+
+
+    [name = 'regional price of emissions/emission cap']
+    (1+lhsEmissionPrice_@{reg})/(1 + rhsEmissionPrice_@{reg}) = 1;
+
+    #lhsEnergyEfficiency_@{reg} = EE_@{reg}*(lEndogenousY_p==1) + Q_@{SubsecFossil}_@{reg}*(lEndogenousY_p==0);
+    #rhsEnergyEfficiency_@{reg} = exp(exo_EE_@{reg})*(lEndogenousY_p==1) + Q0_@{SubsecFossil}_@{reg}_p*exp(exo_Q_@{SubsecFossil}_@{reg})*(lEndogenousY_p==0);
+
+
+    [name = 'regional energy efficiency']
+    (1+lhsEnergyEfficiency_@{reg})/(1 + rhsEnergyEfficiency_@{reg}) = 1;
+
+@# endfor
+
+@# for z in ClimateVarsNational
+    #lhsClim_@{z} = @{z};
+    #rhsClim_@{z} = @{z}0_p + exo_@{z};
+    [name = '@{z}']
+    (1+lhsClim_@{z})/(1 + rhsClim_@{z}) = 1;
+@# endfor
+
+#lhsEmissions = E;
+#rhsEmissions = 
+        @# for reg in 1:Regions
+            + E_@{reg}
+        @# endfor
+;
+[name = 'aggregate emissions']
+(1+lhsEmissions)/(1 + rhsEmissions) = 1;
+
+#lhsEmissionPrice = E*exo_CapTradeInternat + PE*(1-exo_CapTradeInternat);
+#rhsEmissionPrice = E0_p * exp(exo_E)*exo_CapTradeInternat + (PE0_p)*(1-exo_CapTradeInternat);
+[name = 'price of emissions/emission cap']
+(1+lhsEmissionPrice)/(1 + rhsEmissionPrice) = 1;
+
+
+// ==========================================
+// Block 13: Resource Constraints
+// ==========================================
+@# for reg in 1:Regions        
+    #lhsAggReg_@{reg}_21 = Q_@{reg};
+    #rhsAggReg_@{reg}_21 = 
+    P_@{reg} * (G_@{reg} + C_@{reg} + I_@{reg} + IH_@{reg} * PH_@{reg}/P_@{reg}) + Q_I_@{reg} + NX_@{reg}
+    @# if Regions > 0
+        @# for regm in 1:Regions
+             + NX_@{reg}_@{regm}
+        @# endfor
+    @# endif
+    ;
+    
+    [name = 'regional resource constraint']
+    (1+lhsAggReg_@{reg}_21)/(1+rhsAggReg_@{reg}_21) = 1;
+@# endfor
+end;

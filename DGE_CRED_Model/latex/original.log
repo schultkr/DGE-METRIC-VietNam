@@ -1,0 +1,1984 @@
+This is LuaHBTeX, Version 1.22.0 (MiKTeX 25.4) (format=lualatex 2025.10.31)  15 DEC 2025 11:49
+ restricted system commands enabled.
+**original.tex
+(./original.tex
+LaTeX2e <2025-06-01> patch level 1
+L3 programming layer <2025-10-09>
+Lua module: luaotfload 2024-12-03 v3.29 Lua based OpenType font support
+Lua module: lualibs 2023-07-13 v2.76 ConTeXt Lua standard libraries.
+Lua module: lualibs-extended 2023-07-13 v2.76 ConTeXt Lua libraries -- extended 
+collection.
+luaotfload | conf : Root cache directory is "C:/Users/schul/AppData/Local/MiKTeX
+/luatex-cache/generic/names".
+luaotfload | init : Loading fontloader "fontloader-2023-12-28.lua" from kpse-res
+olved path "C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/luatex/luaotfload/f
+ontloader-2023-12-28.lua".
+Lua-only attribute luaotfload@noligature = 1
+luaotfload | init : Context OpenType loader version 3.134
+Inserting `luaotfload.node_processor' in `pre_linebreak_filter'.
+Inserting `luaotfload.node_processor' in `hpack_filter'.
+Inserting `luaotfload.glyph_stream' in `glyph_stream_provider'.
+Inserting `luaotfload.define_font' in `define_font'.
+Lua-only attribute luaotfload_color_attribute = 2
+luaotfload | conf : Root cache directory is "C:/Users/schul/AppData/Local/MiKTeX
+/luatex-cache/generic/names".
+Inserting `luaotfload.harf.strip_prefix' in `find_opentype_file'.
+Inserting `luaotfload.harf.strip_prefix' in `find_truetype_file'.
+Removing  `luaotfload.glyph_stream' from `glyph_stream_provider'.
+Inserting `luaotfload.harf.glyphstream' in `glyph_stream_provider'.
+Inserting `luaotfload.harf.finalize_vlist' in `post_linebreak_filter'.
+Inserting `luaotfload.harf.finalize_hlist' in `hpack_filter'.
+Inserting `luaotfload.cleanup_files' in `wrapup_run'.
+Inserting `luaotfload.harf.finalize_unicode' in `finish_pdffile'.
+Inserting `luaotfload.glyphinfo' in `glyph_info'.
+Lua-only attribute luaotfload.letterspace_done = 3
+Inserting `luaotfload.aux.set_sscale_dimens' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_font_index' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.patch_cambria_domh' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.fixup_fontdata' in `luaotfload.patch_font_unsafe'.
+Inserting `luaotfload.aux.set_capheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.aux.set_xheight' in `luaotfload.patch_font'.
+Inserting `luaotfload.rewrite_fontname' in `luaotfload.patch_font'.
+Inserting `tracingstacklevels' in `input_level_string'. (C:/Users/schul/AppData
+/Local/Programs/MiKTeX/tex/latex/base/article.cls
+Document Class: article 2025/01/22 v1.4n Standard LaTeX document class
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/base/size10.clo
+File: size10.clo 2025/01/22 v1.4n Standard LaTeX file (size option)
+luaotfload | db : Font names database loaded from C:/Users/schul/AppData/Local/M
+iKTeX/luatex-cache/generic/names/luaotfload-names.luc.gz)
+\c@part=\count273
+\c@section=\count274
+\c@subsection=\count275
+\c@subsubsection=\count276
+\c@paragraph=\count277
+\c@subparagraph=\count278
+\c@figure=\count279
+\c@table=\count280
+\abovecaptionskip=\skip49
+\belowcaptionskip=\skip50
+\bibindent=\dimen147
+)
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/geometry/geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/graphics/keyval.sty
+Package: keyval 2022/05/29 v1.15 key=value parser (DPC)
+\KV@toks@=\toks17
+)
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/generic/iftex/ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/generic/iftex/iftex.sty
+Package: iftex 2024/12/12 v1.0g TeX engine tests
+))
+\Gm@cnth=\count281
+\Gm@cntv=\count282
+\c@Gm@tempcnt=\count283
+\Gm@bindingoffset=\dimen148
+\Gm@wd@mp=\dimen149
+\Gm@odd@mp=\dimen150
+\Gm@even@mp=\dimen151
+\Gm@layoutwidth=\dimen152
+\Gm@layoutheight=\dimen153
+\Gm@layouthoffset=\dimen154
+\Gm@layoutvoffset=\dimen155
+\Gm@dimlist=\toks18
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/geometry/geometry.cfg)) (C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/preprint/fullpage.sty
+Package: fullpage 1999/02/23 1.1 (PWD)
+\FP@margin=\skip51
+) (C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks19
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+) (C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/breqn/breqn.sty
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/l3kernel/expl3.sty
+Package: expl3 2025-10-09 L3 programming layer (loader) 
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-lua
+tex.def
+File: l3backend-luatex.def 2025-10-09 L3 backend support: PDF output (LuaTeX)
+\l__color_backend_stack_int=\count284
+Inserting `l3color' in `luaotfload.parse_color'.))
+Package: breqn 2021/10/28 v0.98l Breaking equations
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2025/06/16 v2.17y AMS math features
+\@mathmargin=\skip52
+
+For additional information on amsmath, use the `?' option.
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amstext.sty
+Package: amstext 2024/11/17 v2.01 AMS text
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks20
+\ex@=\dimen156
+))
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen157
+)
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/amsmath/amsopn.sty
+Package: amsopn 2022/04/08 v2.04 operator names
+)
+\inf@bad=\count285
+LaTeX Info: Redefining \frac on input line 235.
+\uproot@=\count286
+\leftroot@=\count287
+LaTeX Info: Redefining \overline on input line 398.
+LaTeX Info: Redefining \colon on input line 409.
+\classnum@=\count288
+\DOTSCASE@=\count289
+LaTeX Info: Redefining \ldots on input line 495.
+LaTeX Info: Redefining \dots on input line 498.
+LaTeX Info: Redefining \cdots on input line 619.
+\Mathstrutbox@=\box53
+\strutbox@=\box54
+LaTeX Info: Redefining \big on input line 721.
+LaTeX Info: Redefining \Big on input line 722.
+LaTeX Info: Redefining \bigg on input line 723.
+LaTeX Info: Redefining \Bigg on input line 724.
+\big@size=\dimen158
+LaTeX Font Info:    Redeclaring font encoding OML on input line 742.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 743.
+\macc@depth=\count290
+LaTeX Info: Redefining \bmod on input line 904.
+LaTeX Info: Redefining \pmod on input line 909.
+LaTeX Info: Redefining \smash on input line 939.
+LaTeX Info: Redefining \relbar on input line 969.
+LaTeX Info: Redefining \Relbar on input line 970.
+\c@MaxMatrixCols=\count291
+\dotsspace@=\muskip17
+\c@parentequation=\count292
+\dspbrk@lvl=\count293
+\tag@help=\toks21
+\row@=\count294
+\column@=\count295
+\maxfields@=\count296
+\andhelp@=\toks22
+\eqnshift@=\dimen159
+\alignsep@=\dimen160
+\tagshift@=\dimen161
+\tagwidth@=\dimen162
+\totwidth@=\dimen163
+\lineht@=\dimen164
+\@envbody=\toks23
+\multlinegap=\skip53
+\multlinetaggap=\skip54
+\mathdisplay@stack=\toks24
+LaTeX Info: Redefining \[ on input line 2949.
+LaTeX Info: Redefining \] on input line 2950.
+)
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphicx.sty
+Package: graphicx 2024/12/31 v1.2e Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/graphics/graphics.sty
+Package: graphics 2024/08/06 v1.4g Standard LaTeX Graphics (DPC,SPQR)
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/graphics/trig.sty
+Package: trig 2023/12/02 v1.11 sin cos tan (DPC)
+)
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/graphics-cfg/graphics.c
+fg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: luatex.def on input line 106.
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/graphics-def/luatex.def
+File: luatex.def 2025/09/29 v1.2f Graphics/color driver for luatex
+))
+\Gin@req@height=\dimen165
+\Gin@req@width=\dimen166
+) (C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/breqn/flexisym.sty
+Package: flexisym 2021/10/28 v0.98l Make math characters macros
+LaTeX Info: Redefining \textprime on input line 299.
+LaTeX Info: Redefining \not on input line 357.
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/breqn/cmbase.sym
+File: cmbase.sym 2007/12/19 v0.92
+LaTeX Info: Redefining \hbar on input line 324.
+LaTeX Info: Redefining \surd on input line 326.
+LaTeX Info: Redefining \angle on input line 334.
+LaTeX Info: Redefining \neq on input line 335.
+LaTeX Info: Redefining \mapsto on input line 336.
+LaTeX Info: Redefining \cong on input line 337.
+LaTeX Info: Redefining \notin on input line 340.
+LaTeX Info: Redefining \rightleftharpoons on input line 341.
+LaTeX Info: Redefining \doteq on input line 342.
+LaTeX Info: Redefining \hookrightarrow on input line 343.
+LaTeX Info: Redefining \hookleftarrow on input line 344.
+LaTeX Info: Redefining \bowtie on input line 345.
+LaTeX Info: Redefining \models on input line 346.
+LaTeX Info: Redefining \Longrightarrow on input line 347.
+LaTeX Info: Redefining \longrightarrow on input line 348.
+LaTeX Info: Redefining \Longleftarrow on input line 349.
+LaTeX Info: Redefining \longleftarrow on input line 350.
+LaTeX Info: Redefining \longmapsto on input line 351.
+LaTeX Info: Redefining \longleftrightarrow on input line 352.
+LaTeX Info: Redefining \Longleftrightarrow on input line 353.
+LaTeX Info: Redefining \cdots on input line 357.
+LaTeX Info: Redefining \vdots on input line 360.
+LaTeX Info: Redefining \ddots on input line 365.
+)
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/breqn/mathstyle.sty
+Package: mathstyle 2021/10/28 v0.98l Tracking mathstyle implicitly
+LaTeX Info: Redefining \genfrac on input line 149.
+LaTeX Info: Redefining \genfrac on input line 173.
+))
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/tools/calc.sty
+Package: calc 2025/03/01 v4.3b Infix arithmetic (KKT,FJ)
+\calc@Acount=\count297
+\calc@Bcount=\count298
+\calc@Adimen=\dimen167
+\calc@Bdimen=\dimen168
+\calc@Askip=\skip55
+\calc@Bskip=\skip56
+LaTeX Info: Redefining \setlength on input line 86.
+LaTeX Info: Redefining \addtolength on input line 87.
+\calc@Ccount=\count299
+\calc@Cskip=\skip57
+)
+\inf@bad=\count300
+\maxint=\count301
+\listwidth=\dimen169
+\eqnumsep=\dimen170
+\eqmargin=\dimen171
+\eqlinespacing=\skip58
+\eqlineskip=\skip59
+\eqlineskiplimit=\dimen172
+\eqbinoffset=\muskip18
+\eqdelimoffset=\muskip19
+\eqindentstep=\dimen173
+\eqstyle=\toks25
+\eqbreakdepth=\count302
+\eqinterlinepenalty=\count303
+\intereqpenalty=\count304
+\intereqskip=\skip60
+\prerelpenalty=\count305
+\prebinoppenalty=\count306
+\Dmedmuskip=\muskip20
+\Dthickmuskip=\muskip21
+\eqleftskip=\skip61
+\eqrightskip=\skip62
+\eq@vspan=\skip63
+\eq@binoffset=\muskip22
+\EQ@box=\box55
+\EQ@copy=\box56
+\EQ@numbox=\box57
+\eq@wdNum=\dimen174
+\GRP@numbox=\box58
+\grp@wdNum=\dimen175
+\eq@lines=\count307
+\eq@curline=\count308
+\eq@badness=\count309
+\EQ@vims=\count310
+\eq@dp=\dimen176
+\eq@wdL=\dimen177
+\eq@wdT=\dimen178
+\eq@wdMin=\dimen179
+\grp@wdL=\dimen180
+\grp@wdR=\dimen181
+\grp@wdT=\dimen182
+\eq@wdRmax=\dimen183
+\eq@firstht=\dimen184
+\eq@wdCond=\dimen185
+\eq@indentstep=\dimen186
+\eq@linewidth=\dimen187
+\grp@linewidth=\dimen188
+\eq@hshift=\dimen189
+\eq@given@sidespace=\dimen190
+\mathindent=\dimen191
+\eq@final@linecount=\count311
+\eq@wdR=\dimen192
+\EQ@continue=\toks26
+\lr@level=\count312
+\GRP@queue=\toks27
+\GRP@box=\box59
+\GRP@wholebox=\box60
+\darraycolsep=\skip64
+\cur@row=\count313
+\cur@col=\count314
+\conditionsep=\skip65
+)
+(./original.aux (./original_content.aux))
+\openout1 = original.aux
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
+LaTeX Font Info:    ... okay on input line 6.
+
+*geometry* driver: auto-detecting
+*geometry* detected driver: luatex
+*geometry* verbose mode - [ preamble ] result:
+* driver: luatex
+* paper: a4paper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: landscape 
+* h-part:(L,W,R)=(126.75832pt, 591.5302pt, 126.75833pt)
+* v-part:(T,H,B)=(71.70166pt, 418.25368pt, 107.55254pt)
+* \paperwidth=845.04684pt
+* \paperheight=597.50787pt
+* \textwidth=700.50687pt
+* \textheight=422.9679pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=0.0pt
+* \headheight=0.0pt
+* \headsep=0.0pt
+* \topskip=10.0pt
+* \footskip=30.0pt
+* \marginparwidth=57.0pt
+* \marginparsep=11.0pt
+* \columnsep=10.0pt
+* \skip\footins=9.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/context/base/mkii/supp-pdf.mk
+ii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count315
+\scratchdimen=\dimen193
+\scratchbox=\box61
+\nofMPsegments=\count316
+\nofMParguments=\count317
+\everyMPshowfont=\toks28
+\MPscratchCnt=\count318
+\MPscratchDim=\dimen194
+\MPnumerator=\count319
+\makeMPintoPDFobject=\count320
+\everyMPtoPDFconversion=\toks29
+)
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/epstopdf-pkg/epstopdf-b
+ase.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/00miktex/epstopdf-sys.c
+fg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+\openout2 = original_content.aux
+ (./original_content.tex
+LaTeX Font Info:    Trying to load font information for U+msa on input line 1.
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 1.
+
+(C:/Users/schul/AppData/Local/Programs/MiKTeX/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+
+[1
+
+
+{C:/Users/schul/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
+
+[2]
+
+[3]
+
+[4]
+Underfull \hbox (badness 1783) in paragraph at lines 285--285
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1783) in paragraph at lines 285--285
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1221) in paragraph at lines 285--285
+\OT1/cmr/m/n/8 = 1[]|  []  [] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 1221) detected at line 285
+\OT1/cmr/m/n/8 = 1[]|  []  [] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 1221) detected at line 285
+\OT1/cmr/m/n/8 = 1[]|  []  [] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 1783) detected at line 285
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1783) detected at line 285
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1292) in paragraph at lines 285--285
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1292) in paragraph at lines 285--285
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1292) detected at line 285
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1292) detected at line 285
+\OT1/cmr/m/n/8 = 
+ []
+
+
+
+[5]
+
+[6]
+
+[7]
+
+[8]
+
+[9]
+
+[10]
+
+[11]
+
+[12]
+
+[13]
+
+[14]
+
+[15]
+
+[16]
+
+[17]
+
+[18]
+
+[19]
+Underfull \hbox (badness 1028) in paragraph at lines 921--921
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 5[]1[]1 = [][] 
+ []
+
+
+Underfull \hbox (badness 1769) in paragraph at lines 921--921
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1769) detected at line 921
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1028) detected at line 921
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 5[]1[]1 = [][] 
+ []
+
+
+Underfull \hbox (badness 1028) in paragraph at lines 921--921
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 1158) in paragraph at lines 921--921
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1158) detected at line 921
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1028) detected at line 921
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 945--945
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 5[]1[]2 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 945--945
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 7649) in paragraph at lines 945--945
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][]| |  + []  [] [][][]|[]| |  + [][] 
+ []
+
+
+Underfull \hbox (badness 7540) in paragraph at lines 945--945
+[] \OT1/cmr/m/n/8 1[]|  [][] [][] |  + [] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 7540) detected at line 945
+[] \OT1/cmr/m/n/8 1[]|  [][] [][] |  + [] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 7540) detected at line 945
+[] \OT1/cmr/m/n/8 1[]|  [][] [][] |  + [] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 7649) detected at line 945
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][]| |  + []  [] [][][]|[]| |  + [][] 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 945
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 945
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 5[]1[]2 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 945--945
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 945--945
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3954) in paragraph at lines 945--945
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][]| |  + []  [] [][][]|[]| |  + [][] 
+ []
+
+
+Underfull \hbox (badness 3872) in paragraph at lines 945--945
+[] \OT1/cmr/m/n/8 1[]|  [][] [][] |  + [] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3872) detected at line 945
+[] \OT1/cmr/m/n/8 1[]|  [][] [][] |  + [] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3872) detected at line 945
+[] \OT1/cmr/m/n/8 1[]|  [][] [][] |  + [] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3954) detected at line 945
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][]| |  + []  [] [][][]|[]| |  + [][] 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 945
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 945
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[21]
+Underfull \hbox (badness 1028) in paragraph at lines 969--969
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 5[]1[]3 = [][] 
+ []
+
+
+Underfull \hbox (badness 1769) in paragraph at lines 969--969
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1769) detected at line 969
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1028) detected at line 969
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 5[]1[]3 = [][] 
+ []
+
+
+Underfull \hbox (badness 1028) in paragraph at lines 969--969
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 1158) in paragraph at lines 969--969
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1158) detected at line 969
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1028) detected at line 969
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[22]
+Underfull \hbox (badness 1028) in paragraph at lines 993--993
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 5[]1[]4 = [][] 
+ []
+
+
+Underfull \hbox (badness 1769) in paragraph at lines 993--993
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1769) detected at line 993
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1028) detected at line 993
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 5[]1[]4 = [][] 
+ []
+
+
+Underfull \hbox (badness 1028) in paragraph at lines 993--993
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 1158) in paragraph at lines 993--993
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1158) detected at line 993
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1028) detected at line 993
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[23]
+Underfull \hbox (badness 1043) in paragraph at lines 1017--1017
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 4[]1[]1 = [][] 
+ []
+
+
+Underfull \hbox (badness 1796) in paragraph at lines 1017--1017
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1796) detected at line 1017
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1043) detected at line 1017
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 4[]1[]1 = [][] 
+ []
+
+
+Underfull \hbox (badness 1043) in paragraph at lines 1017--1017
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 1178) in paragraph at lines 1017--1017
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1178) detected at line 1017
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1043) detected at line 1017
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[24]
+Underfull \hbox (badness 10000) in paragraph at lines 1053--1053
+$\OML/cmm/m/it/8 rhsDemandSubsec[]\OT1/cmr/m/n/8 2[]1[]1 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1053--1053
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1053--1053
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1053--1053
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1053
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1053
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1053
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1053
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1053
+$\OML/cmm/m/it/8 rhsDemandSubsec[]\OT1/cmr/m/n/8 2[]1[]1 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1053--1053
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1053--1053
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 5105) in paragraph at lines 1053--1053
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 3803) in paragraph at lines 1053--1053
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3803) detected at line 1053
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3803) detected at line 1053
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 5105) detected at line 1053
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1053
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1053
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1065--1065
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 4[]1[]2 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1065--1065
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1065--1065
+\OT1/cmr/m/n/8 = 1[]|  [] [][] [][][][]|  [] |  + [] [][][][]|  [][]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 6792) in paragraph at lines 1065--1065
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 6792) detected at line 1065
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 6792) detected at line 1065
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1065
+\OT1/cmr/m/n/8 = 1[]|  [] [][] [][][][]|  [] |  + [] [][][][]|  [][]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1065
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1065
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 4[]1[]2 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1065--1065
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1065--1065
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 5607) in paragraph at lines 1065--1065
+\OT1/cmr/m/n/8 = 1[]|  [] [][] [][][][]|  [] |  + [] [][][][]|  [][]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 3291) in paragraph at lines 1065--1065
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3291) detected at line 1065
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3291) detected at line 1065
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 5607) detected at line 1065
+\OT1/cmr/m/n/8 = 1[]|  [] [][] [][][][]|  [] |  + [] [][][][]|  [][]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1065
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1065
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[25]
+Underfull \hbox (badness 10000) in paragraph at lines 1101--1101
+$\OML/cmm/m/it/8 rhsDemandSubsec[]\OT1/cmr/m/n/8 2[]1[]2 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1101--1101
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1101--1101
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1101--1101
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1101
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1101
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1101
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1101
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1101
+$\OML/cmm/m/it/8 rhsDemandSubsec[]\OT1/cmr/m/n/8 2[]1[]2 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1101--1101
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1101--1101
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 5105) in paragraph at lines 1101--1101
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 3803) in paragraph at lines 1101--1101
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3803) detected at line 1101
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3803) detected at line 1101
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 5105) detected at line 1101
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1101
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1101
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[26]
+Underfull \hbox (badness 10000) in paragraph at lines 1131--1131
+$\OML/cmm/m/it/8 rhsDemandSubsec[]\OT1/cmr/m/n/8 2[]1[]3 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1131--1131
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1131--1131
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1131--1131
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1131
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1131
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1131
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1131
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1131
+$\OML/cmm/m/it/8 rhsDemandSubsec[]\OT1/cmr/m/n/8 2[]1[]3 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1131--1131
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1131--1131
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 5105) in paragraph at lines 1131--1131
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 3803) in paragraph at lines 1131--1131
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3803) detected at line 1131
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3803) detected at line 1131
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 5105) detected at line 1131
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1131
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1131
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[27]
+Underfull \hbox (badness 1043) in paragraph at lines 1143--1143
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 4[]1[]3 = [][] 
+ []
+
+
+Underfull \hbox (badness 1796) in paragraph at lines 1143--1143
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1796) detected at line 1143
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1043) detected at line 1143
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 4[]1[]3 = [][] 
+ []
+
+
+Underfull \hbox (badness 1043) in paragraph at lines 1143--1143
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 1178) in paragraph at lines 1143--1143
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1178) detected at line 1143
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1043) detected at line 1143
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[28]
+Underfull \hbox (badness 10000) in paragraph at lines 1179--1179
+$\OML/cmm/m/it/8 rhsDemandSubsec[]\OT1/cmr/m/n/8 2[]1[]4 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1179--1179
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1179--1179
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1179--1179
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1179
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1179
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1179
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1179
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1179
+$\OML/cmm/m/it/8 rhsDemandSubsec[]\OT1/cmr/m/n/8 2[]1[]4 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1179--1179
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1179--1179
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 5105) in paragraph at lines 1179--1179
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 3803) in paragraph at lines 1179--1179
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3803) detected at line 1179
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3803) detected at line 1179
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 5105) detected at line 1179
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1179
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1179
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 1043) in paragraph at lines 1191--1191
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 4[]1[]4 = [][] 
+ []
+
+
+Underfull \hbox (badness 1796) in paragraph at lines 1191--1191
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1796) detected at line 1191
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1043) detected at line 1191
+$\OML/cmm/m/it/8 rhsDemandsec[]\OT1/cmr/m/n/8 4[]1[]4 = [][] 
+ []
+
+
+Underfull \hbox (badness 1043) in paragraph at lines 1191--1191
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 1178) in paragraph at lines 1191--1191
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1178) detected at line 1191
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1043) detected at line 1191
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[29]
+
+[30]
+Underfull \hbox (badness 10000) in paragraph at lines 1227--1227
+$\OML/cmm/m/it/8 rhsDemandSubsec[]\OT1/cmr/m/n/8 2[]1[]5 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1227--1227
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1227--1227
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1227--1227
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1227
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1227
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1227
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1227
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1227
+$\OML/cmm/m/it/8 rhsDemandSubsec[]\OT1/cmr/m/n/8 2[]1[]5 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1227--1227
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1227--1227
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 5105) in paragraph at lines 1227--1227
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 3803) in paragraph at lines 1227--1227
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3803) detected at line 1227
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 3803) detected at line 1227
+[] \OT1/cmr/m/n/8 1[]|  [][][] [][] |  + [][] [][][][]||$ 
+ []
+
+
+Underfull \hbox (badness 5105) detected at line 1227
+\OT1/cmr/m/n/8 = 1[]|  [] [][]  [] [][][][]| |  + []  [] [][][][]|[]| |  + [][]
+ 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1227
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1227
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[31]
+
+[32]
+
+[33]
+Underfull \hbox (badness 3281) in paragraph at lines 1347--1347
+$\OML/cmm/m/it/8 rhsSupplySubsec[]\OT1/cmr/m/n/8 7[]1[]1 = [][] 
+ []
+
+
+Underfull \hbox (badness 5667) in paragraph at lines 1347--1347
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3780) in paragraph at lines 1347--1347
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3780) detected at line 1347
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3780) detected at line 1347
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 5667) detected at line 1347
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3281) detected at line 1347
+$\OML/cmm/m/it/8 rhsSupplySubsec[]\OT1/cmr/m/n/8 7[]1[]1 = [][] 
+ []
+
+
+Underfull \hbox (badness 3281) in paragraph at lines 1347--1347
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 3568) in paragraph at lines 1347--1347
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 2213) in paragraph at lines 1347--1347
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 2213) detected at line 1347
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 2213) detected at line 1347
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3568) detected at line 1347
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3281) detected at line 1347
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[34]
+
+[35]
+
+[36]
+Underfull \hbox (badness 3281) in paragraph at lines 1479--1479
+$\OML/cmm/m/it/8 rhsSupplySubsec[]\OT1/cmr/m/n/8 7[]1[]2 = [][] 
+ []
+
+
+Underfull \hbox (badness 5667) in paragraph at lines 1479--1479
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3780) in paragraph at lines 1479--1479
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3780) detected at line 1479
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3780) detected at line 1479
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 5667) detected at line 1479
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3281) detected at line 1479
+$\OML/cmm/m/it/8 rhsSupplySubsec[]\OT1/cmr/m/n/8 7[]1[]2 = [][] 
+ []
+
+
+Underfull \hbox (badness 3281) in paragraph at lines 1479--1479
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 3568) in paragraph at lines 1479--1479
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 2213) in paragraph at lines 1479--1479
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 2213) detected at line 1479
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 2213) detected at line 1479
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3568) detected at line 1479
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3281) detected at line 1479
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[37]
+
+[38]
+
+[39]
+
+[40]
+Underfull \hbox (badness 3281) in paragraph at lines 1611--1611
+$\OML/cmm/m/it/8 rhsSupplySubsec[]\OT1/cmr/m/n/8 7[]1[]3 = [][] 
+ []
+
+
+Underfull \hbox (badness 5667) in paragraph at lines 1611--1611
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3780) in paragraph at lines 1611--1611
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3780) detected at line 1611
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3780) detected at line 1611
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 5667) detected at line 1611
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3281) detected at line 1611
+$\OML/cmm/m/it/8 rhsSupplySubsec[]\OT1/cmr/m/n/8 7[]1[]3 = [][] 
+ []
+
+
+Underfull \hbox (badness 3281) in paragraph at lines 1611--1611
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 3568) in paragraph at lines 1611--1611
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 2213) in paragraph at lines 1611--1611
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 2213) detected at line 1611
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 2213) detected at line 1611
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3568) detected at line 1611
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3281) detected at line 1611
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[41]
+
+[42]
+
+[43]
+Underfull \hbox (badness 3281) in paragraph at lines 1743--1743
+$\OML/cmm/m/it/8 rhsSupplySubsec[]\OT1/cmr/m/n/8 7[]1[]4 = [][] 
+ []
+
+
+Underfull \hbox (badness 5667) in paragraph at lines 1743--1743
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3780) in paragraph at lines 1743--1743
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3780) detected at line 1743
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3780) detected at line 1743
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 5667) detected at line 1743
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3281) detected at line 1743
+$\OML/cmm/m/it/8 rhsSupplySubsec[]\OT1/cmr/m/n/8 7[]1[]4 = [][] 
+ []
+
+
+Underfull \hbox (badness 3281) in paragraph at lines 1743--1743
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 3568) in paragraph at lines 1743--1743
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 2213) in paragraph at lines 1743--1743
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 2213) detected at line 1743
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 2213) detected at line 1743
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3568) detected at line 1743
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3281) detected at line 1743
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[44]
+
+[45]
+
+[46]
+
+[47]
+Underfull \hbox (badness 3281) in paragraph at lines 1875--1875
+$\OML/cmm/m/it/8 rhsSupplySubsec[]\OT1/cmr/m/n/8 7[]1[]5 = [][] 
+ []
+
+
+Underfull \hbox (badness 5667) in paragraph at lines 1875--1875
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3780) in paragraph at lines 1875--1875
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3780) detected at line 1875
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3780) detected at line 1875
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 5667) detected at line 1875
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3281) detected at line 1875
+$\OML/cmm/m/it/8 rhsSupplySubsec[]\OT1/cmr/m/n/8 7[]1[]5 = [][] 
+ []
+
+
+Underfull \hbox (badness 3281) in paragraph at lines 1875--1875
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+Underfull \hbox (badness 3568) in paragraph at lines 1875--1875
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 2213) in paragraph at lines 1875--1875
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 2213) detected at line 1875
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 2213) detected at line 1875
+\OT1/cmr/m/n/8 = 1[]|  [][] [][]|$ 
+ []
+
+
+Underfull \hbox (badness 3568) detected at line 1875
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 3281) detected at line 1875
+$[] \OT1/cmr/m/n/8 = [][] 
+ []
+
+
+
+[48]
+
+[49]
+
+[50]
+
+[51]
+
+[52]
+
+[53]
+
+[54]
+
+[55]
+
+[56]
+
+[57]
+
+[58]
+
+[59]
+
+[60]
+
+[61]
+
+[62]
+
+[63]
+
+[64]
+Underfull \hbox (badness 1033) in paragraph at lines 2823--2823
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) in paragraph at lines 2823--2823
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) detected at line 2823
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) detected at line 2823
+\OT1/cmr/m/n/8 = 
+ []
+
+
+
+[65]
+
+[66]
+Underfull \hbox (badness 1033) in paragraph at lines 2915--2915
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) in paragraph at lines 2915--2915
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) detected at line 2915
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) detected at line 2915
+\OT1/cmr/m/n/8 = 
+ []
+
+
+
+[67]
+Underfull \hbox (badness 1033) in paragraph at lines 3007--3007
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) in paragraph at lines 3007--3007
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) detected at line 3007
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) detected at line 3007
+\OT1/cmr/m/n/8 = 
+ []
+
+
+
+[68]
+
+[69]
+Underfull \hbox (badness 1033) in paragraph at lines 3099--3099
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) in paragraph at lines 3099--3099
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) detected at line 3099
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) detected at line 3099
+\OT1/cmr/m/n/8 = 
+ []
+
+
+
+[70]
+
+[71]
+Underfull \hbox (badness 1033) in paragraph at lines 3191--3191
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) in paragraph at lines 3191--3191
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) detected at line 3191
+\OT1/cmr/m/n/8 = 
+ []
+
+
+Underfull \hbox (badness 1033) detected at line 3191
+\OT1/cmr/m/n/8 = 
+ []
+
+
+
+[72])
+
+[73] (./original.aux (./original_content.aux))
+ ***********
+LaTeX2e <2025-06-01> patch level 1
+L3 programming layer <2025-10-09>
+ ***********
+)
+
+Here is how much of LuaTeX's memory you used:
+ 3707 strings out of 476290
+ 100000,460012 words of node,token memory allocated
+ 1211 words of node memory still in use:
+   22 hlist, 3 vlist, 4 rule, 1 local_par, 2 math, 10 glue, 17 kern, 3 penalty, 
+40 glyph, 19 attribute, 67 glue_spec, 19 attribute_list, 3 write nodes
+   avail lists: 2:1389,3:785,4:51,5:2539,6:146,7:4040,8:457,9:2885,10:25
+ 25867 multiletter control sequences out of 65536+600000
+ 34 fonts using 1971607 bytes
+ 72i,13n,83p,1459b,342s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<c:/users/schul/appdata/local/programs/miktex/fonts/opentype/public/lm/lmroman10
+-regular.otf><c:/users/schul/appdata/local/programs/miktex/fonts/opentype/public
+/lm/lmroman8-regular.otf><C:/Users/schul/AppData/Local/Programs/MiKTeX/fonts/typ
+e1/public/amsfonts/cmextra/cmex7.pfb><C:/Users/schul/AppData/Local/Programs/MiKT
+eX/fonts/type1/public/amsfonts/cmextra/cmex8.pfb><C:/Users/schul/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C:/Users/schul/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/schul/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Users/
+schul/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/
+Users/schul/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr6.pf
+b><C:/Users/schul/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mr8.pfb><C:/Users/schul/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmsy5.pfb><C:/Users/schul/AppData/Local/Programs/MiKTeX/fonts/type1/public/
+amsfonts/cm/cmsy6.pfb><C:/Users/schul/AppData/Local/Programs/MiKTeX/fonts/type1/
+public/amsfonts/cm/cmsy8.pfb>
+Output written on original.pdf (73 pages, 401949 bytes).
+
+PDF statistics: 288 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 131072)
+ 1 words of extra memory for PDF output out of 10000 (max. 100000000)
+

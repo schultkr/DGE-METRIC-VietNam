@@ -1,0 +1,579 @@
+function [fval_vec,strpar,strys] = Calibration(x,strys,strexo,strpar)
+    % function [ys,check] = Calibration(strys,strexo,strpar)
+    % calibrates the parameters of the DGE_CRED_Model.mod
+    % Inputs: 
+    %   - strys     [structure]  endogeonous variables of the model
+    %   - strexo    [structure]  exogeonous variables of the model    
+    %   - strpar    [structure]  parameters of the model
+    %
+    % Output: 
+    %   - fval_vec  [numeric]    difference between demand and supply
+    %                            for imports for a given national 
+    %                            price level
+    %   - strys     [structure]  see inputs
+    %   - strpar    [structure]  see inputs
+	
+
+    %% calculate exogenous variables
+    [strys,strpar, strexo] = AssignPredeterminedVariables(strys,strpar,strexo);
+    strpar.LF0_p = strys.LF;
+    
+    for icoreg = 1:strpar.inbregions_p
+        % assign initial value for national price level
+        sreg = num2str(icoreg);
+        strys.(['s_' sreg]) = 1;
+        strys.(['P_Q_' sreg]) = 0;
+        strys.(['Xshare_' sreg]) = 0;
+        denomexportweights = 0;
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);
+            for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                ssubsec = num2str(icosubsec);            
+                icovec = icosubsec + (icoreg-1) * strpar.(['subend_' num2str(strpar.inbsectors_p) '_p']);
+                strys.(['P_Q_' ssubsec '_' sreg]) = x(icovec);
+                strys.(['Xshare_' sreg]) = strys.(['Xshare_' sreg]) + strpar.(['phiX_'  ssubsec '_' sreg '_p']);        
+                denomexportweights = denomexportweights + strpar.(['phiX_'  ssubsec '_' sreg '_p']) * strys.(['P_Q_' ssubsec '_' sreg])^(1- strpar.etaX_p);
+            end
+            
+        end
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);
+            for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                ssubsec = num2str(icosubsec); 
+                strpar.(['phiX_'  ssubsec '_' sreg '_p'])/strys.(['Xshare_' sreg]);
+                strpar.(['DX_'  ssubsec '_' sreg '_p']) = strpar.(['phiX_'  ssubsec '_' sreg '_p']) * strys.(['P_Q_' ssubsec '_' sreg])^(1- strpar.etaX_p)/denomexportweights;
+                strys.(['P_Q_' sreg]) = strys.(['P_Q_' sreg]) + strpar.(['DX_'  ssubsec '_' sreg '_p']) * strys.(['P_Q_' ssubsec '_' sreg])^(1-strpar.etaX_p);
+            end
+        end
+    end
+    strys.(['P_Q_' sreg]) = strys.(['P_Q_' sreg])^(1/(1-strpar.etaX_p));
+
+
+    % assign value for initial gross vlaue added
+    strys.Y = strpar.Y0_p; 
+    
+    % compute foreign interest rate
+    strys.rf = 1/strpar.beta_p-1; 
+    
+    
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);    
+
+        % regional transfers
+        strys.(['Tr_' sreg]) = strpar.(['Tr0_' sreg '_p']) + strexo.(['exo_Tr_' sreg]);
+    end
+    strpar.PoP0_p = strys.PoP;
+    % housing area
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);    
+        strys.(['H_' sreg]) = strpar.(['H0_' sreg '_p']) * strys.(['PoP_' sreg]);
+    end    
+
+    % hours worked as share of total available hours
+    strys.N = 0;
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);    
+        strys.(['N_' sreg]) = strpar.(['N0_' sreg '_p']);
+        strys.N = strys.N + strys.(['N_' sreg]);
+    end    
+    
+    % adaptation measures in the housing sector
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);  
+        strys.(['G_A_DH_' sreg]) = strexo.exo_G_A_DH * strpar.Y0_p;
+    end
+    for icosec = 1:strpar.inbsectors_p
+        ssec = num2str(icosec);
+        for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])     
+            ssubsec = num2str(icosubsec);
+            strys.(['P_M_'  ssubsec]) = strpar.(['P_M_'  ssubsec '_p']);
+        end
+    end    
+    
+    
+    [strys,strpar] = ComputePFParameters(strys,strpar);
+    
+    %% calculate sectoral and regional production factors and output
+    temp = 0;
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);   
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);
+            
+            for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                ssubsec = num2str(icosubsec);            
+                % subsectoral interat rate
+                strys.(['r_' ssubsec '_' sreg]) = (1/strpar.beta_p - 1 + strpar.delta_p)/(1 - strys.(['tauKH_' sreg]));           
+
+                % labour productivity
+                strys.(['A_N_' ssubsec '_' sreg]) = strpar.(['A_N_' ssubsec '_' sreg '_p']);
+                
+                % sectoral productivity
+                strys.(['A_' ssubsec '_' sreg]) = strpar.(['A_' ssubsec '_' sreg '_p']) .* (strys.(['KG_' sreg])^strpar.phiG_p * exp(strexo.(['exo_' ssubsec '_' sreg])));                                    
+
+                % sectoral productivity
+                strys.(['A_I_' ssubsec '_' sreg]) = exp(strexo.(['exo_A_I_' ssubsec '_' sreg]));                                    
+                
+                % initial allocation of hours wotked 
+                strys.(['N_' ssubsec '_' sreg]) = strpar.(['phiN0_' ssubsec '_' sreg '_p']) * strpar.(['N0_' sreg '_p']) * strpar.(['LF0_' sreg '_p']) / strys.(['LF_' sreg]);
+                
+                               
+            end
+        end
+    end
+    
+    for icosec = 1:strpar.inbsectors_p
+        ssec = num2str(icosec);
+            for icoreg = 1:strpar.inbregions_p
+                sreg = num2str(icoreg);
+                
+                for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                    ssubsec = num2str(icosubsec);                 
+                    stemp = [ssubsec '_' sreg];
+                    % interest rate including taxes 
+                    rkgross = strys.(['r_' ssubsec '_' sreg]) * (1 + strys.(['tauKF_' stemp]));
+                                                          
+                    strys.(['W_' stemp]) = strpar.(['phiW_' stemp '_p']) * (strpar.Q0_p-strys.PE *strpar.E0_p) /(strys.(['LF_' sreg]) * strys.(['N_' stemp]) * (1 + strpar.(['tauNF_' stemp '_p'])));                    
+                    
+                    % distribtuion parameter for capital in production function
+                    strpar.(['alphaK_' stemp '_p']) = (1 - strpar.(['phiW_' stemp '_p'])/strpar.(['phiY_' stemp '_p'])) * (rkgross/ ((1 - strys.(['D_' stemp])) * strys.(['A_' stemp]) * strys.(['A_K_' stemp]) * (1 - strys.(['D_K_' stemp]))))^(strpar.(['etaNK_' stemp '_p'])-1);
+                    
+                    % distribtuion parameter for labour in production function
+                    strpar.(['alphaN_' stemp '_p']) = strpar.(['phiW_' stemp '_p'])/strpar.(['phiY_' stemp '_p']) *  (strys.(['W_' stemp])/(strys.(['P_' stemp])* ((1 - strys.(['D_N_' stemp])) * strys.(['A_N_' stemp]) * (1 - strys.(['D_N_' stemp])) * (1 - strys.(['D_' stemp])) * strys.(['A_' stemp]))))^(strpar.(['etaNK_' stemp '_p'])-1);
+                    
+                    % real gross value adde in the subsector and region
+                    strys.(['Y_' stemp]) = strpar.(['phiY_' stemp '_p'])/strpar.phiY_p * strpar.Y0_p / strys.(['P_' stemp]);
+                    
+                  
+                    % capital stock used in the subsector and region
+                    strys.(['K_' stemp]) = (1 - strpar.(['phiW_' stemp '_p'])/strpar.(['phiY_' stemp '_p'])) * strys.(['Y_' stemp]) / rkgross;  
+                    
+                    if strpar.(['etaNK_' stemp '_p']) == 1
+                        % compute sector specific productviity 
+                        tempdenom = strys.(['K_' stemp])^strpar.(['alphaK_' stemp '_p']) * (strys.(['LF_' sreg]) * (1 - strys.(['D_N_' stemp])) * strys.(['A_N_' stemp]) * strys.(['N_' stemp]))^strpar.(['alphaN_' stemp '_p']);
+                        strys.(['A_' stemp]) = (strys.(['Y_' stemp]) / tempdenom) / (1 - strys.(['D_' stemp])) ;
+                        strpar.(['A_' stemp '_p']) = strys.(['A_' stemp]) / (strys.(['KG_' sreg])^strpar.phiG_p * exp(strexo.(['exo_' stemp])));                                    
+                    end    
+                        
+
+                    strys.(['KH_' ssubsec '_' sreg]) = strys.(['K_' stemp]);% * strys.(['P_' stemp]) / strys.(['P_' sreg]);                   
+
+                    % wages in the subsector and region
+                    strys.(['W_' stemp]) = strpar.(['phiW_' stemp '_p'])/strpar.(['phiY_' stemp '_p']) * strys.(['Y_' stemp]) * strys.(['P_' stemp]) / (strys.(['LF_' sreg]) * strys.(['N_' stemp]) * (1 + strys.(['tauNF_' stemp])));
+                    
+                    %phiQItemp = strys.(['Y_' stemp]) * strys.(['P_' stemp]) * strpar.(['phiQI_' ssubsec  '_' sreg '_p']) / (strpar.(['phiY_' ssubsec '_' sreg '_p']));
+                    for icosecm = 1:strpar.inbsectors_p
+                        ssecm = num2str(icosecm);
+                        % demand for intermediate propducts in the subsector and region
+                        strys.(['Q_I_' stemp '_' ssecm]) = strpar.(['phiQI_' ssubsec '_' sreg '_' ssecm '_p']) * strys.(['QIEXP_' ssubsec '_' sreg]) / (strys.(['P_A_' ssecm '_' sreg])+strpar.(['kappaEI_' stemp '_' ssecm '_p']) * strys.(['sF_' sreg]) * strpar.(['lEndoQ_' ssubsec '_' sreg '_p']) * strys.(['PE_' sreg]));                                  
+                        
+                        strys.(['E_I_' stemp '_' ssecm]) = strys.(['Q_I_' stemp '_' ssecm]) * strpar.(['kappaEI_' stemp '_' ssecm '_p']) * strys.(['sF_' sreg]);
+                    end
+                    
+                                        
+                    % demand for intermediate propducts in the subsector and region
+                    strys.(['Q_I_' stemp]) = strys.(['QIEXP_' ssubsec '_' sreg])/ strys.(['P_I_' stemp]);          
+                                                           
+                    % compute output in the region and subsector
+                    strys.(['Q_' stemp]) = (strys.(['P_' stemp]) * strys.(['Y_' stemp]) + strys.(['P_I_' stemp]) * strys.(['Q_I_' stemp]))/(strys.(['P_Q_' stemp]) - strpar.(['kappaE_' stemp '_p']) * strpar.(['lEndoQ_' ssubsec '_' sreg '_p']) * strys.(['PE_' sreg]));                    
+                    
+                    strpar.(['Q0_' stemp '_p']) = strys.(['Q_' stemp]);                    
+                    
+                    strys.(['E_' stemp]) = strys.(['Q_' stemp]) * strpar.(['kappaE_' stemp '_p']);
+                    
+                    strpar.(['E0_' stemp '_p']) = strys.(['E_' stemp]);
+                    
+                    rhotemp = (strpar.(['etaI_' ssubsec '_p']) - 1)/strpar.(['etaI_' ssubsec '_p']);
+                
+                    % compute outputs
+                    if strpar.(['etaI_' ssubsec '_p']) ~= 1
+                        strys.(['Q_' ssubsec '_' sreg]) = (strpar.(['omegaQI_' ssubsec '_' sreg '_p'])^(1/strpar.(['etaI_' ssubsec '_p'])) * strys.(['Q_I_' ssubsec '_' sreg])^rhotemp + ...
+                                                    (1 - strpar.(['omegaQI_' ssubsec '_' sreg '_p']))^(1/strpar.(['etaI_' ssubsec '_p'])) * strys.(['Y_' ssubsec '_' sreg])^rhotemp)^(1/rhotemp);
+                    else
+                        strys.(['Q_' ssubsec '_' sreg]) = strys.(['Q_I_' ssubsec '_' sreg])^strpar.(['omegaQI_' ssubsec '_' sreg '_p']) * strys.(['Y_' ssubsec '_' sreg])^(1 - strpar.(['omegaQI_' ssubsec '_' sreg '_p']));                     
+                    end
+                    
+                    % compute output in the region and subsector
+                    strys.(['X_' stemp]) = strys.(['XEXP_' stemp]) / strys.(['P_Q_' stemp]);
+                                       
+                    for icoregm = 1:strpar.inbregions_p
+                        sregm = num2str(icoregm);
+                        % compute domestically used output (here we define
+                        % how much of subsec production in sreg is used in
+                        % sregm. E.g. consider the energy output generated
+                        % in Rhineland (sreg). How much output goes to Lusatia,
+                        % Central Germany, Rhineland and the rest of
+                        % Germany (sregm)? 
+                        strys.(['Q_D_' ssubsec '_' sregm '_' sreg]) = strpar.(['phiQ_D_' ssubsec '_' sreg '_' sregm '_p']) * (strys.(['Q_' stemp])  - strys.(['X_' stemp]));
+                    end
+                    % compute sub-sectoral exports share
+                    strys.(['D_X_' stemp]) = strys.(['X_' stemp]) / strys.(['Q_' stemp]);
+                    
+
+                    % Lagrange multiplier for investment
+                    strys.(['omegaI_' ssubsec '_' sreg]) = 1;
+
+                    % compute sectoral and regional investment
+                    strys.(['I_' ssubsec '_' sreg]) = ((strpar.delta_p) * strys.(['KH_' ssubsec '_' sreg]) + strys.(['D_K_' ssubsec '_' sreg]));                    
+
+                    
+                end
+            end
+    end
+
+    % compute aggregates   
+    [strys, strpar, strexo] = ComputeAggregates(strys, strpar, strexo);
+    
+
+    strys.M = 0;    % init imports from abroad
+    strys.C = 0;    % init consumption expenditure
+    strys.G = 0;    % init government expenditure
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);
+        % compute regional imports 
+        strys.(['M_' sreg]) = 0;
+        strys.(['M_F_' sreg]) = 0;
+        strys.(['MEXP_I_' sreg]) = 0;
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);      
+            strys.(['M_A_F_' ssec '_' sreg]) = 0;
+            iasubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p']);
+            for icosubsec = iasubsec
+                ssubsec = num2str(icosubsec);
+                
+                % compute subsectroal regional imports 
+                strys.(['M_F_' ssubsec '_' sreg]) = strpar.(['phiM_F_' ssubsec '_' sreg '_p']) * (strpar.Q0_p-strys.PE *strpar.E0_p)/strys.(['P_M_'  ssubsec]);
+                
+                % compute regional final demand imports 
+                strys.(['M_F_' sreg]) = strys.(['M_F_' sreg]) + strys.(['M_F_' ssubsec '_' sreg]) * strys.(['P_M_'  ssubsec])/strys.(['P_F_'  sreg]);
+                
+                % compute subsectroal regional imports 
+                strys.(['M_I_' ssubsec '_' sreg]) = strpar.(['phiM_I_' ssubsec '_' sreg '_p']) * (strpar.Q0_p-strys.PE *strpar.E0_p)/strys.(['P_M_'  ssubsec]);                
+                
+                % compute regional intermediate imports 
+                strys.(['MEXP_I_' sreg]) = strys.(['MEXP_I_' sreg]) + strys.(['M_I_' ssubsec '_' sreg]) * strys.(['P_M_'  ssubsec]);
+                
+                strys.(['Q_D_' ssubsec '_' sreg])  = 0;
+                for icoregn = 1:strpar.inbregions_p
+                    sregn = num2str(icoregn);
+                    % aggregate sector demand
+                    strys.(['Q_D_' ssubsec '_' sreg]) = strys.(['Q_D_' ssubsec '_' sreg]) + (strys.(['Q_D_' ssubsec '_' sreg '_' sregn]) * strys.(['P_Q_' ssubsec '_' sregn]))/strys.(['P_D_' ssubsec '_' sreg]);
+                end
+                strys.(['Q_D_' ssubsec '_' sreg]) = strys.(['Q_D_' ssubsec '_' sreg]) + (strys.(['M_I_' ssubsec '_' sreg]) * strys.(['P_M_' ssubsec]))/strys.(['P_D_' ssubsec '_' sreg]);
+                
+                % update exports share parameter
+                strpar.(['D_X_' ssubsec '_' sreg '_p']) = strys.(['X_' ssubsec '_' sreg])/strys.(['X_' sreg]) * ((strys.(['P_Q_' ssubsec '_' sreg]) + strpar.(['kappaE_' ssubsec '_' sreg '_p']) * strpar.(['lEndoQ_' ssubsec '_' sreg '_p']) * strys.(['PE_' sreg]))/strys.(['P_M_' ssubsec]))^(strpar.etaX_p) ;
+                
+                % compute sectroal regional imports 
+                strys.(['M_A_F_' ssec '_' sreg]) = strys.(['M_A_F_' ssec '_' sreg]) + strys.(['M_F_' ssubsec '_' sreg]) * strys.(['P_M_' ssubsec])/strys.(['P_M_A_' ssec '_' sreg]);                
+
+                strys.(['M_' sreg]) = strys.(['M_' sreg]) + (strys.(['M_F_' ssubsec '_' sreg])+strys.(['M_I_' ssubsec '_' sreg]))*strys.(['P_M_' ssubsec]);
+            end
+            
+        end
+        strys.M = strys.M + strys.(['M_' sreg]);
+    end
+    
+    strys.E = 0;
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);
+        strys.(['E_' sreg]) = 0;
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);   
+            % initialize sectoral aggregate price level
+            if strpar.(['etaQA' '_' ssec '_p'])==1
+                strys.(['Q_A_' ssec '_' sreg]) = 1;
+            else
+                strys.(['Q_A_' ssec '_' sreg]) = 0;                
+            end
+            for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                ssubsec = num2str(icosubsec);
+                if strpar.(['etaQA' '_' ssec '_p']) ==1
+                    % aggregate  sectoral output
+                    strys.(['Q_A_' ssec '_' sreg]) = strys.(['Q_A_' ssec '_' sreg]) * strys.(['Q_D_' ssubsec '_' sreg])^strpar.(['omegaQ_' ssubsec '_' sreg '_p']);
+                else
+                    
+                    % aggregate  sectoral output
+                    strys.(['Q_A_' ssec '_' sreg]) = strys.(['Q_A_' ssec '_' sreg]) + strpar.(['omegaQ_' ssubsec '_' sreg '_p'])^(1/strpar.(['etaQA' '_' ssec '_p'])) * strys.(['Q_D_' ssubsec '_' sreg])^((strpar.(['etaQA' '_' ssec '_p'])-1)/strpar.(['etaQA' '_' ssec '_p']));
+                end
+                strys.(['E_' sreg]) = strys.(['E_' sreg]) + strys.(['E_' ssubsec '_' sreg]);
+                for icosecm = 1:strpar.inbsectors_p
+                    ssecm = num2str(icosecm);
+                    strys.(['E_' sreg]) = strys.(['E_' sreg]) + strys.(['E_I_' ssubsec '_' sreg '_' ssecm]);
+                end               
+            end
+            
+            if strpar.(['etaQA' '_' ssec '_p']) ~=1
+                % aggregate  sectoral price level
+                strys.(['Q_A_' ssec '_' sreg]) = strys.(['Q_A_' ssec '_' sreg])^(strpar.(['etaQA_' ssec '_p'])/(strpar.(['etaQA' '_' ssec '_p']) - 1));    
+            end
+        end
+        strys.E = strys.E + strys.(['E_' sreg]);
+    end
+    
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);    
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);
+            strys.(['Q_A_I_' ssec '_' sreg]) = 0;
+            for icosecm = 1:strpar.inbsectors_p
+                ssecm = num2str(icosecm);
+                for icosubsec = strpar.(['substart_' ssecm '_p']):strpar.(['subend_' ssecm '_p'])
+                    ssubsec = num2str(icosubsec);
+                    strys.(['Q_A_I_' ssec '_' sreg]) = strys.(['Q_A_I_' ssec '_' sreg]) + strys.(['Q_I_' ssubsec '_' sreg '_' ssec]) * (strys.(['P_A_' ssec '_' sreg]) + strpar.(['kappaEI_' ssubsec '_' sreg '_' ssec '_p'])*strys.(['sF_' sreg]) * strpar.(['lEndoQ_' ssubsec '_' sreg '_p'])* strys.(['PE_' sreg])) / strys.(['P_A_' ssec '_' sreg]);
+                end
+            end
+            strys.(['Q_A_F_' ssec '_' sreg]) = strys.(['Q_A_' ssec '_' sreg]) - strys.(['Q_A_I_' ssec '_' sreg]) - strpar.(['sH_' sreg '_p']) * strys.Y / strys.(['P_A_' ssec '_' sreg]) * (icosec == strpar.iSecHouse_p);
+        end
+    end
+    
+    
+    % net exports 
+    strys.NX = strys.X - strys.M;
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);
+        strpar.(['NX0_' sreg '_p']) = strys.(['NX_' sreg])/strys.(['Y_' sreg]);
+    end
+    
+    strpar.NX0_p = strys.NX/strys.Y;
+    
+    % compute tax income
+    [strys,strpar, strexo] = TaxIncome(strys,strpar, strexo);  
+    
+    % aggregate debt
+    strys.B = 0;
+    
+    %aggregate used products
+    strys.Q_U = 0;
+       
+    % initiliaze housing expenditures
+    HousingExpenditures = 0;
+   
+    % init cap and trade revenue
+    strys.CapTradeRev = 0;
+    
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);   
+        
+        % regional output
+        strys.(['Q_' sreg]) = 0;
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);
+            for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                ssubsec = num2str(icosubsec);
+                strys.(['Q_' sreg]) = strys.(['Q_' sreg]) + strys.(['Q_' ssubsec '_' sreg]) * strys.(['P_Q_' ssubsec '_' sreg]);
+            end
+        end
+                
+        % regional exports
+        strys.(['X_' sreg]) = 0;
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);
+            for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                ssubsec = num2str(icosubsec);
+                strys.(['X_' sreg]) = strys.(['X_' sreg]) + strys.(['X_' ssubsec '_' sreg]) * strys.(['P_Q_' ssubsec '_' sreg]);
+            end
+        end
+        
+        strys.(['Q_U_' sreg]) = 0;
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);
+            strys.(['Q_U_' sreg]) = strys.(['Q_U_' sreg]) + strys.(['Q_A_F_' ssec '_' sreg]) * strys.(['P_A_' ssec '_' sreg]) / strys.(['P_D_' sreg]);
+        end
+
+        strys.Q_U = strys.Q_U + strys.(['Q_U_' sreg]) * strys.(['P_D_' sreg]);
+        
+        % regional net exports
+        strys.(['NX_' sreg]) = strys.(['X_' sreg]) - strys.(['M_' sreg]);
+
+        % foreign debt / (B > 0 debitor vs. B < 0 creditor)
+        strys.(['B_' sreg]) = -strys.(['NX_' sreg])/(strys.rf) - strys.(['BG_' sreg]);
+
+        % compute exchange rate
+        strys.(['s_' sreg]) = exp(-strpar.phiB_p*strpar.deltaB_p * strys.(['B_' sreg]));
+        
+        % set 
+        strpar.(['s0_' sreg '_p']) = strys.(['s_' sreg]);
+        
+        strys.B = strys.B + strys.(['B_' sreg]);
+        if strpar.inbregions_p > 1
+            for icoregm = 1:strpar.inbregions_p
+                sregm = num2str(icoregm);
+                strys.(['NX_' sreg '_' sregm]) =0;
+                for icosec = 1:strpar.inbsectors_p
+                    ssec = num2str(icosec);
+                    for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                        ssubsec = num2str(icosubsec);
+                        strys.(['NX_' sreg '_' sregm]) = strys.(['NX_' sreg '_' sregm]) + (strys.(['Q_D_' ssubsec '_' sregm '_' sreg]) * strys.(['P_Q_' ssubsec '_' sreg]) - strys.(['Q_D_' ssubsec '_' sreg '_' sregm]) * strys.(['P_Q_' ssubsec '_' sregm]));
+                    end
+                end
+                strys.(['B_' sreg '_' sregm]) = -strys.(['NX_' sreg '_' sregm])/(strys.rf) - strys.(['BG_' sreg]);
+            end
+        end
+        
+        % lagrange multiplier for houses
+        strys.(['omegaH_' sreg]) = strys.(['PH_' sreg]) * (1 + strys.(['tauH_' sreg]));
+        
+        % house prices
+        strys.(['PH_' sreg]) = strpar.(['sH_' sreg '_p'])*strys.(['PoP_' sreg])/strys.PoP * strys.Y / (strpar.deltaH_p * strys.(['H_' sreg]) * (1 + strys.(['tauH_' sreg])));
+        
+        % aggregate housing expenditures 
+        HousingExpenditures = HousingExpenditures + strys.(['PH_' sreg]) * strys.(['H_' sreg]) * strpar.deltaH_p;
+        
+        % compute regional captial and labour income
+        capincometax = 0;
+        labincometax = 0;
+        invreg = 0;
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);
+            for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                ssubsec = num2str(icosubsec);  
+                % interest rate including taxes 
+                rkgross = strys.(['r_' ssubsec '_' sreg]) * (strys.(['tauKH_' sreg]) + strys.(['tauKF_'  ssubsec '_' sreg]));
+
+                invreg = invreg  + strys.(['I_' ssubsec '_' sreg]) * strys.(['P_' ssubsec '_' sreg]);                           
+                
+                capincometax = capincometax + strys.(['K_' ssubsec '_' sreg]) * strys.(['P_' ssubsec '_' sreg]) / strys.(['P_' sreg]) * rkgross;
+                
+                labincometax = labincometax + strys.(['W_' ssubsec '_' sreg]) * strys.(['N_' ssubsec '_' sreg]) * strys.(['LF_' sreg]) * strys.(['tauNH_' sreg]);
+            end
+        end
+        
+        % regional demand for intermediate input
+        strys.(['Q_I_' sreg]) = 0;
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);
+            for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                ssubsec = num2str(icosubsec);
+                strys.(['Q_I_' sreg]) = strys.(['Q_I_' sreg]) + strys.(['Q_I_' ssubsec '_' sreg]) * strys.(['P_I_' ssubsec '_' sreg]);
+            end
+        end
+        
+        strys.(['NXD_' sreg]) = 0;
+        if strpar.inbregions_p > 1
+            for icoregm = 1:strpar.inbregions_p
+                sregm = num2str(icoregm);
+                strys.(['NXD_' sreg]) = strys.(['NXD_' sreg]) + strys.(['NX_' sreg '_' sregm]);
+            end
+        end
+       
+        strys.(['CapTradeRev_' sreg]) = 0;
+         
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);
+            for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                ssubsec = num2str(icosubsec);
+                strys.(['CapTradeRev_' sreg]) = strys.(['CapTradeRev_' sreg]) + strys.(['E_' ssubsec '_' sreg]) * strys.(['PE_' sreg]) * strpar.(['lEndoQ_' ssubsec '_' sreg '_p']);
+                for icosecm = 1:strpar.inbsectors_p
+                    ssecm = num2str(icosecm);
+                    strys.(['CapTradeRev_' sreg]) = strys.(['CapTradeRev_' sreg]) + strys.(['E_I_' ssubsec '_' sreg '_' ssecm]) * strys.(['PE_' sreg]) * strpar.(['lEndoQ_' ssubsec '_' sreg '_p']);
+                end
+            end
+        end
+        
+        strys.CapTradeRev = strys.CapTradeRev + strys.(['CapTradeRev_' sreg]);
+        
+        % consumption
+        strys.(['C_' sreg]) = (strys.(['Q_' sreg]) - strys.(['Q_I_' sreg]) - labincometax - capincometax - invreg - strys.(['CapTradeRev_' sreg]) - strys.(['NX_' sreg]) - strys.(['NXD_' sreg]) - strys.(['PH_' sreg]) * strys.(['H_' sreg]) * strpar.deltaH_p * (1 + strys.(['tauH_' sreg])))/(strys.(['P_' sreg]) * (1 + strys.(['tauC_' sreg])));
+        
+       
+        % auxiliary variable to compute gamma
+        tempgam = (1-strpar.beta_p * strpar.h_p) * strys.(['H_' sreg]) * strys.(['PH_' sreg]) * (1 + strys.(['tauH_' sreg])) / ((1-strpar.h_p)*strys.(['C_' sreg]) * strys.(['P_' sreg]) * (1 + strys.(['tauC_' sreg]))) *  (1 - strpar.beta_p * (1 - strpar.deltaH_p)) / (strpar.beta_p);
+
+        % preference parameter for houses to ensure housing share
+        strpar.(['gamma_' sreg '_p']) = tempgam / (1 + tempgam);   
+
+        % house price level
+        strpar.(['PH0_' sreg '_p']) = strys.(['PH_' sreg]);
+
+        % damages to houses induced by climate change
+        strys.(['DH_' sreg]) = strexo.(['exo_DH_' sreg]) * strpar.Y0_p /strys.(['PH_' sreg]);
+
+        % Lagrange multiplier of budget constraint HH
+        strys.(['lambda_' sreg]) = (1-strpar.(['gamma_' sreg '_p'])) * (1-strpar.beta_p * strpar.h_p) * ((1-strpar.h_p)*strys.(['C_' sreg])/strys.(['PoP_' sreg]))^(-strpar.(['gamma_' sreg '_p'])) * (strys.(['H_' sreg])/strys.(['PoP_' sreg]))^strpar.(['gamma_' sreg '_p']) * (((1-strpar.h_p)*strys.(['C_' sreg])/strys.(['PoP_' sreg]))^(1-strpar.(['gamma_' sreg '_p'])) * (strys.(['H_' sreg])/strys.(['PoP_' sreg]))^strpar.(['gamma_' sreg '_p']))^(-strpar.sigmaC_p) / (strys.(['P_' sreg]) * (1 + strys.(['tauC_' sreg])));
+
+        % investment into housing 
+        strys.(['IH_' sreg]) = strpar.deltaH_p * strys.(['H_' sreg]);
+
+        % consumption
+        strys.C = strys.C + strys.(['P_' sreg]) * strys.(['C_' sreg]);
+        
+        % government expenditure
+        strys.G = strys.G + strys.(['P_' sreg]) * strys.(['G_' sreg]);
+    end
+
+    % consumption
+    %strys.C = ((strys.Q - strys.NX - strys.Q_I - strys.CapTradeRev  - strys.I - strys.wagetax  - strys.capitaltax - HousingExpenditures * (1 + strys.(['tauH_' sreg])) + (strys.rf - strpar.deltaB_p) * strys.BG) / (1 + strys.(['tauC_' sreg])));
+   
+    % government expenditure
+    % strys.G = (strys.wagetax + strys.capitaltax + strys.(['tauC_' sreg]) * strys.C + strys.(['tauH_' sreg]) * HousingExpenditures) - (strys.rf - strpar.deltaB_p) * strys.BG - strys.adaptationcost + strys.CapTradeRev;
+    
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);     
+        % regional government expenditure
+        strys.(['G_' sreg]) = strys.(['Q_U_' sreg]) * strys.(['P_D_' sreg]) / strys.(['P_' sreg]) + strys.(['M_F_' sreg]) * strys.(['P_F_' sreg]) / strys.(['P_' sreg]) - strys.(['C_' sreg]) - strys.(['I_' sreg]) - (strpar.iSecHouse_p == 0)*strys.(['PH_' sreg]) / strys.(['P_' sreg]) * strys.(['IH_' sreg]);
+
+        % public capital stock
+        strys.(['KG_' sreg]) = strys.(['G_' sreg]) / strpar.deltaKG_p;
+    end
+
+    
+    % initial emissions
+    strpar.E0_p = strys.E;
+    
+    % compute foreign interest rate
+    strpar.rf0_p = (1/strpar.beta_p-1+strpar.deltaB_p);
+    %% compute labour disutlity parameters
+    denominator = 0;
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);
+        denominator = denominator + strys.(['LF_' sreg]) * (strys.(['W_' sreg]))^(-strpar.etaLF_p);
+    end
+    
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);
+        strpar.(['omegaLF0_' sreg '_p']) = strys.(['LF_' sreg]) *  strys.(['W_' sreg])^(-strpar.etaLF_p) / denominator;
+    end
+
+    
+    for icosec = 1:strpar.inbsectors_p
+        ssec = num2str(icosec);
+                
+        for icoreg = 1:strpar.inbregions_p
+            sreg = num2str(icoreg);
+                       
+            for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                ssubsec = num2str(icosubsec);
+                
+                strpar.(['phiL_' ssubsec '_' sreg '_p']) =  (1 - strys.(['tauNH_' sreg])) * strys.(['W_' ssubsec '_' sreg]) * strys.(['LF_' sreg]) / strys.(['PoP_' sreg]) * strys.(['lambda_' sreg]) / (strys.(['A_N_' ssubsec '_' sreg]) *strys.(['N_' ssubsec '_' sreg])^(strpar.sigmaL_p));
+                
+                strpar.(['A_' ssubsec '_' sreg '_p']) = strys.(['A_' ssubsec '_' sreg]) ./ (strys.(['KG_' sreg])^strpar.phiG_p * exp(strexo.(['exo_' ssubsec '_' sreg])));
+                
+            end
+        end
+
+    end
+    % check initial guess for price levle and implied one
+    fval_vec = nan(strpar.inbregions_p*strpar.(['subend_' num2str(strpar.inbsectors_p) '_p']), 1);
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);
+        for icosec = 1:strpar.inbsectors_p
+            ssec = num2str(icosec);
+            for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                ssubsec = num2str(icosubsec);
+                icovec = icosubsec + (icoreg-1) * strpar.(['subend_' num2str(strpar.inbsectors_p) '_p']);
+                rhs = strys.(['P_Q_' ssubsec '_' sreg]) - strpar.(['kappaE_' ssubsec '_' sreg '_p']) * strpar.(['lEndoQ_' ssubsec '_' sreg '_p']) * strys.(['PE_' sreg]);
+                
+                if strpar.(['etaI_' ssubsec '_p']) == 1
+                    lhs = (strys.(['P_I_' ssubsec '_' sreg]) / strpar.(['omegaQI_' ssubsec '_' sreg '_p']))^strpar.(['omegaQI_' ssubsec '_' sreg '_p']) *...
+                          (strys.(['P_' ssubsec '_' sreg]) / (1 - strpar.(['omegaQI_' ssubsec '_' sreg '_p'])))^(1 - strpar.(['omegaQI_' ssubsec '_' sreg '_p']));
+                else
+                    lhs = (strys.(['P_I_' ssubsec '_' sreg])^(1 - strpar.(['etaI_' ssubsec '_p'])) * strpar.(['omegaQI_' ssubsec '_' sreg '_p']) + ...
+                          strys.(['P_' ssubsec '_' sreg])^(1 - strpar.(['etaI_' ssubsec '_p'])) * (1 - strpar.(['omegaQI_' ssubsec '_' sreg '_p'])))^(1 / (1 - strpar.(['etaI_' ssubsec '_p'])));
+                end
+                
+                fval_vec(icovec) = 1 - lhs/rhs;
+            end
+        end
+    end
+end
