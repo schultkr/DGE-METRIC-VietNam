@@ -8,7 +8,7 @@ title: Technical model documentation
 
 
 
-\# Technical model documentation
+# Technical model documentation
 
 
 
@@ -16,11 +16,11 @@ This page provides a technical overview of the DGE model structure as implemente
 
 
 
-\## 1. Model overview
+## 1. Model overview
 
-\*\*Type:\*\* Dynamic general equilibrium model implemented in Dynare with MATLAB steady-state/calibration routines.  
+**Type:** Dynamic general equilibrium model implemented in Dynare with MATLAB steady-state/calibration routines.  
 
-\*\*Core objects:\*\* households, firms (multiple sectors), government, external sector, and (optional) emissions/energy blocks.
+**Core objects:** households, firms (multiple sectors), government, external sector, and (optional) emissions/energy blocks.
 
 
 
@@ -28,69 +28,69 @@ This page provides a technical overview of the DGE model structure as implemente
 
 
 
-\## 2. Agents and blocks (conceptual)
+## 2. Agents and blocks (conceptual)
 
-\### Households
+### Households
 
-\- Preferences over consumption and leisure
+- Preferences over consumption and leisure
 
-\- Budget constraint including wages, capital income, transfers/taxes
+- Budget constraint including wages, capital income, transfers/taxes
 
-\- (Optional) heterogeneity / aggregation, depending on the `.mod` version
-
-
-
-\### Firms
-
-\- Production by sector with nested CES/Cobb-Douglas structures (as implemented)
-
-\- Input demands (labor, capital, energy / intermediates)
-
-\- Price-setting / wage-setting blocks if included in the `.mod`
+- (Optional) heterogeneity / aggregation, depending on the `.mod` version
 
 
 
-\### Government
+### Firms
 
-\- Tax instruments, spending rules, budget constraint
+- Production by sector with nested CES/Cobb-Douglas structures (as implemented)
 
-\- Closure rules (e.g., keep deficit fixed, adjust tax rate, etc.)
+- Input demands (labor, capital, energy / intermediates)
 
-
-
-\### External sector
-
-\- Imports/exports, trade balance closure
-
-\- Exchange rate / numeraire conventions (document your choice)
+- Price-setting / wage-setting blocks if included in the `.mod`
 
 
 
-\## 3. Where the equations live in the repo
+### Government
 
-\- \*\*Dynare model files:\*\* `ModFiles/` (and/or `DGE\_CRED\_Model/\*.mod`)
+- Tax instruments, spending rules, budget constraint
 
-\- \*\*Steady state code:\*\* `DGE\_CRED\_Model/\*steadystate\*.m` and `Functions/`
-
-\- \*\*Calibration inputs:\*\* `ExcelFiles/` and MATLAB `.mat` bundles
+- Closure rules (e.g., keep deficit fixed, adjust tax rate, etc.)
 
 
 
-\## 4. Steady state and calibration
+### External sector
 
-\### Steady state
+- Imports/exports, trade balance closure
 
-\- Computed in MATLAB, then passed into Dynare
-
-\- Key objects: prices, quantities, shares, and market-clearing residuals
+- Exchange rate / numeraire conventions (document your choice)
 
 
 
-\### Calibration
+## 3. Where the equations live in the repo
 
-\- Parameter values: (i) literature, (ii) accounting identities, (iii) targets (shares/ratios), (iv) scenario assumptions  
+- **Dynare model files:** `ModFiles/` (and/or `DGE\_CRED\_Model/*.mod`)
 
-\- If you use a saved workspace (e.g., `matlab.mat`), document:
+- **Steady state code:** `DGE\_CRED\_Model/*steadystate*.m` and `Functions/`
+
+- **Calibration inputs:** `ExcelFiles/` and MATLAB `.mat` bundles
+
+
+
+## 4. Steady state and calibration
+
+### Steady state
+
+- Computed in MATLAB, then passed into Dynare
+
+- Key objects: prices, quantities, shares, and market-clearing residuals
+
+
+
+### Calibration
+
+- Parameter values: (i) literature, (ii) accounting identities, (iii) targets (shares/ratios), (iv) scenario assumptions  
+
+- If you use a saved workspace (e.g., `matlab.mat`), document:
 
 &nbsp; - which variables are “inputs”
 
@@ -100,55 +100,55 @@ This page provides a technical overview of the DGE model structure as implemente
 
 
 
-\## 5. Scenarios and shocks
+## 5. Scenarios and shocks
 
 Document here how your scenarios are implemented, for example:
 
-\- energy transition: technology shares, fuel switching, capacity paths
+- energy transition: technology shares, fuel switching, capacity paths
 
-\- climate impacts: productivity shocks, capital destruction, land loss, etc.
+- climate impacts: productivity shocks, capital destruction, land loss, etc.
 
-\- policy closures: carbon tax, transfers, investment subsidies
-
-
-
-\*\*Implementation locations:\*\*
-
-\- scenario switches in `.mod` files (parameters, `shocks; end;`, `initval; end;`)
-
-\- MATLAB scripts that load scenario assumptions and write parameter sets
+- policy closures: carbon tax, transfers, investment subsidies
 
 
 
-\## 6. Outputs
+**Implementation locations:**
+
+- scenario switches in `.mod` files (parameters, `shocks; end;`, `initval; end;`)
+
+- MATLAB scripts that load scenario assumptions and write parameter sets
+
+
+
+## 6. Outputs
 
 Typical outputs produced by the workflow:
 
-\- IRFs or simulated paths for macro variables
+- IRFs or simulated paths for macro variables
 
-\- sectoral decomposition tables/figures
+- sectoral decomposition tables/figures
 
-\- scenario comparison plots (percent deviations from baseline)
+- scenario comparison plots (percent deviations from baseline)
 
 
 
 Point readers to:
 
-\- `SimulationResults\*.mlx/.pdf`
+- `SimulationResults*.mlx/.pdf`
 
-\- any export folder you use (recommended: `results/`)
+- any export folder you use (recommended: `results/`)
 
 
 
-\## 7. Reproducibility checklist (recommended)
+## 7. Reproducibility checklist (recommended)
 
-\- \[ ] One “main” script that runs everything end-to-end
+- [ ] One “main” script that runs everything end-to-end
 
-\- \[ ] A pinned Dynare version + MATLAB version
+- [ ] A pinned Dynare version + MATLAB version
 
-\- \[ ] A single configuration file for scenario selection
+- [ ] A single configuration file for scenario selection
 
-\- \[ ] Clear separation of \*\*inputs\*\* vs \*\*generated outputs\*\*
+- [ ] Clear separation of **inputs** vs **generated outputs**
 
 
 
