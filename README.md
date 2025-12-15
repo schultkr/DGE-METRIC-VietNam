@@ -10,10 +10,10 @@ This repository contains my working implementation of a **Dynamic General Equili
 ## 📘 Documentation Overview
 
 - 🏠 [Home](docs/index.md)
-- 🧮 [Model](model.md)
-- 🧭 [Scenarios](scenario.md)
-- 🔧 [Calibration](calibration.md)
-- ▶️ [Running](running.md)
+- 🧮 [Model](docs/model.md)
+- 🧭 [Scenarios](docs/scenario.md)
+- 🔧 [Calibration](docs/calibration.md)
+- ▶️ [Running](docs/running.md)
 
 ---
 ## What’s in this repository?
