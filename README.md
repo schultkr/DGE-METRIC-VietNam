@@ -9,7 +9,7 @@ This repository contains my working implementation of a **Dynamic General Equili
 
 ## 📘 Documentation Overview
 
-- 🏠 [Home](index.md)
+- 🏠 [Home](docs/index.md)
 - 🧮 [Model](model.md)
 - 🧭 [Scenarios](scenario.md)
 - 🔧 [Calibration](calibration.md)
