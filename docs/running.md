@@ -8,17 +8,17 @@ title: Running the model
 
 
 
-\# Running the model
+# Running the model
 
 
 
-\## Requirements
+## Requirements
 
-\- MATLAB + Dynare installed and on the MATLAB path.
+- MATLAB + Dynare installed and on the MATLAB path.
 
 
 
-\## Typical run
+## Typical run
 
 From the repository root in MATLAB:
 
