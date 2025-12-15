@@ -1,5 +1,3 @@
-```md
-
 ---
 
 layout: default
