@@ -69,9 +69,7 @@ Each scenario uses a consistent name across MATLAB scripts, Dynare runs, and out
 Typical scenario names include:
 - `Baseline`
 - `NZ`
-- `NZ_constInt`
-- `NZ_constEE`
-- `NZ_constEEInt`
+- ...
 
 All scenarios are solved from the same initial steady state to ensure comparability.
 
@@ -79,15 +77,15 @@ All scenarios are solved from the same initial steady state to ensure comparabil
 
 ## 5. Running the Model
 
-1. Identify the main Dynare model file in:
+1. The main Dynare model file is 'DGE_CRED_Model.mod' and suses mod files in:
    ```
    ModFiles/
    ```
-   (e.g. `model_main.mod`).
+   (e.g. `DGE_CRED_Model_Equations.mod`).
 
 2. Run the model from MATLAB:
    ```matlab
-   dynare ModFiles/model_main.mod
+   dynare DGE_CRED_Model.mod
    ```
 
 After a successful run, Dynare stores results in memory (`oo_`, `M_`, `options_`).
