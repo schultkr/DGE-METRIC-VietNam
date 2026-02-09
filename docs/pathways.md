@@ -82,7 +82,56 @@ RTS supplies a fraction of household electricity demand directly, thereby reduci
 
 Final energy demand for sector $s$ in region $r$ satisfies the CES demand condition:
 
-$$ \frac{P^{A}_{s,r}}{P^{D}_{r}}=\omega^{1/\eta_Q}_{s,r}\,A^{(\eta_Q-1)/\eta_Q}_{F,s,r}\left(\frac{Q^{A,F}_{s,r}}{Q^{U}_{r}}\right)^{-1/\eta_Q} $$
+## Household Rooftop Solar (RTS) and Final Energy Consumption
+
+### Objective
+Household rooftop solar supplies a share of electricity demand directly, reducing **grid-supplied final energy consumption** by x%.
+
+---
+
+### Baseline Final Energy Demand
+
+Final energy demand for sector s in region r satisfies:
+
+P^A_{s,r} / P^D_r
+= ω_{s,r}^{1/η_Q} · A_{F,s,r}^{(η_Q−1)/η_Q}
+  · ( Q^{A,F}_{s,r} / Q^U_r )^{−1/η_Q}
+
+---
+
+### RTS-Adjusted Final Energy Demand
+
+Let χ^{RTS}_r ∈ [0,1] denote the share of household electricity demand met by rooftop solar.
+
+Grid-supplied final energy demand becomes:
+
+(1 − χ^{RTS}_r) · Q^{A,F}_{s,r}
+
+The modified demand condition is:
+
+P^A_{s,r} / P^D_r
+= ω_{s,r}^{1/η_Q} · A_{F,s,r}^{(η_Q−1)/η_Q}
+  · ( (1 − χ^{RTS}_r) · Q^{A,F}_{s,r} / Q^U_r )^{−1/η_Q}
+
+---
+
+### Interpretation
+- χ^{RTS}_r increases → grid electricity demand falls
+- A reduction of x% corresponds to χ^{RTS}_r = x / 100
+- RTS acts as a **quantity wedge**, not a price distortion
+
+---
+
+### Scenario Use
+In Scenario A (Accelerated DER), χ^{RTS}_r follows an exogenous adoption path reflecting rapid rooftop PV diffusion.
+
+---
+
+### Notes
+- Self-consumption only; no export/net-metering unless modeled separately
+- Avoid double-counting with other electricity demand shocks
+- Apply χ^{RTS}_r only to household electricity components if sectors are mixed
+
 where:
 
 - $P^{A}_{s,r}$ is the price of final energy input $s$
