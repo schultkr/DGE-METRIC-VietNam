@@ -82,7 +82,7 @@ RTS supplies a fraction of household electricity demand directly, thereby reduci
 
 Final energy demand for sector $s$ in region $r$ satisfies the CES demand condition:
 
-$$\frac{P^{A}_{s,r}}{P^{D}_{r}}=\omega^{1/\eta_Q}_{s,r}\,A^{(\eta_Q-1)/\eta_Q}_{F,s,r}\left(\frac{Q^{A,F}_{s,r}}{Q^{U}_{r}}\right)^{-1/\eta_Q}$$
+$$ \frac{P^{A}_{s,r}}{P^{D}_{r}}=\omega^{1/\eta_Q}_{s,r}\,A^{(\eta_Q-1)/\eta_Q}_{F,s,r}\left(\frac{Q^{A,F}_{s,r}}{Q^{U}_{r}}\right)^{-1/\eta_Q} $$
 where:
 
 - $P^{A}_{s,r}$ is the price of final energy input $s$
