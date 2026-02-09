@@ -10,238 +10,75 @@ The scenarios are not mutually exclusive technology pathways, but distinct **sys
 ## Scenario A: Accelerated Distributed Energy Resources (DER)
 
 ### Narrative
-Electric vehicles (EVs), rooftop solar PV, and battery storage (and other distributed energy resources, DERs) scale up faster than in official plans.  
-Households, firms, and service providers rapidly adopt DER technologies.  
-Large-scale renewable energy continues to expand, but the power system increasingly relies on a **mix of distributed and utility-scale generation**, improving diversification, reducing fossil fuel dependence, and enhancing system resilience.
+Electric vehicles (EVs), rooftop solar PV, and battery storage scale up faster than in official plans.  
+Households and firms rapidly adopt distributed energy resources (DERs), while utility-scale renewables continue to expand.  
+The power system increasingly relies on a mix of distributed and centralized generation, improving resilience and reducing fossil fuel dependence.
 
 ---
 
 ### Core Modeling Channels
-- Final electricity demand from the grid declines relative to baseline
-- Electricity demand becomes more flexible (load shifting, self-consumption)
+- Decline in grid-supplied final electricity demand
+- Increased demand flexibility (self-consumption, load shifting)
 - Capital deepening in household and firm energy assets
-- Transport electrification raises electricity demand but reduces fossil fuel demand
+- Transport electrification increases electricity demand and reduces fossil fuel use
 
 ---
 
-### Key Assumptions and Required Inputs
-
-#### 1. Rooftop Solar PV
-- Installed rooftop PV trajectory:
-  - MW installed **or**
-  - Share of households adopting PV
-- Adoption path relative to PDP8 (faster diffusion)
-
-#### 2. Electricity Demand from the Grid
-- Reduction in grid electricity demand by households due to rooftop PV
-- Treatment of surplus generation:
-  - Self-consumed vs exported to grid
-  - Net-metering vs feed-in tariffs vs zero-export assumptions
-
-#### 3. Battery Storage
-- Share of PV-adopting households with battery storage
-- Assumed storage duration (hours)
-- Impact on:
-  - Peak load reduction
-  - Intra-day load shifting
-
-#### 4. Electric Vehicles
-- EV penetration path (% of vehicle stock)
-- Electricity demand per EV (kWh/year)
-- Charging behavior assumptions (unmanaged vs smart charging)
-
-#### 5. Investment and Cost Assumptions
-- DER capital costs:
-  - Rooftop PV CAPEX trajectory
-  - Battery CAPEX trajectory
-- Learning rates and cost declines
-- Subsidies, concessional finance, or tax incentives (if any)
-- Financing split (households vs firms vs public support)
+### Key Assumptions
+- Faster rooftop PV adoption than PDP8
+- Partial self-consumption of rooftop generation (no net-metering by default)
+- Battery storage reduces peak load and shifts demand intra-day
+- Rising EV penetration with assumed charging behavior
+- Declining DER capital costs (learning effects, possible subsidies)
 
 ---
 
-### Implementation Notes
-- Can be implemented as:
-  - Sector-specific productivity shocks in electricity use
-  - Reductions in effective electricity demand elasticities
-  - Explicit DER capital stocks owned by households/firms
-- Important to avoid double-counting:
-  - Reduced grid demand vs increased electricity use from EVs
-- System-level consistency requires:
-  - Adjusting electricity market clearing conditions
-  - Explicit accounting of self-generation vs grid supply
-
+## Rooftop Solar (RTS) and Final Energy Demand
 
 ### Objective
-We explicitly model the reduction in **final energy consumption purchased from the grid** due to increased household rooftop solar (RTS) adoption.  
-RTS supplies a fraction of household electricity demand directly, thereby reducing grid-based final energy demand by **$x\%$**.
-
----
-
-### Baseline Final Energy Demand Condition
-
-Final energy demand for sector $s$ in region $r$ satisfies the CES demand condition:
-
-## Household Rooftop Solar (RTS) and Final Energy Consumption
-
-### Objective
-Household rooftop solar supplies a share of electricity demand directly, reducing **grid-supplied final energy consumption** by x%.
+Household rooftop solar (RTS) supplies part of electricity demand directly, reducing **grid-purchased final energy consumption** by *x%*.  
+This effect is implemented through the **final energy demand shifter** \(A^F\).
 
 ---
 
 ### Baseline Final Energy Demand
+Final energy demand for sector `s` in region `r` satisfies:
 
-Final energy demand for sector s in region r satisfies:
+P^A_{s,r,t} / P^D_{r,t}  
+= ω_{s,r}^{1/η_Q} · (A^F_{s,r,t})^{(η_Q−1)/η_Q} · ( Q^{A,F}_{s,r,t} / Q^U_{r,t} )^{−1/η_Q}
 
-$$ P^A_{s,r} / P^D_r = ω_{s,r}^{1/η_Q} · A_{F,s,r}^{(η_Q−1)/η_Q} · ( Q^{A,F}_{s,r} / Q^U_r )^{−1/η_Q} $$
-
----
-
-### RTS-Adjusted Final Energy Demand
-
-## Household Rooftop Solar (RTS) and Final Energy Consumption
-
-### Objective
-Household rooftop solar supplies a share of electricity demand directly, reducing **grid-supplied final energy consumption** by x%.
+where Q^{A,F}_{s,r,t} denotes grid-purchased final energy.
 
 ---
 
-### Baseline Final Energy Demand
+### RTS Adjustment via A^F
 
-Final energy demand for sector s in region r satisfies:
-
-P^A_{s,r} / P^D_r
-= ω_{s,r}^{1/η_Q} · A_{F,s,r}^{(η_Q−1)/η_Q}
-  · ( Q^{A,F}_{s,r} / Q^U_r )^{−1/η_Q}
-
----
-
-### RTS-Adjusted Final Energy Demand
-
-## Rooftop Solar (RTS) and the Final Energy Demand Shifter A^F
-
-### Objective
-Household rooftop solar (RTS) investment reduces the amount of **grid-supplied final energy** required to deliver a given level of energy services.  
-In the model, this effect is captured by an increase in the **final-energy demand shifter** A^F_{s,r,t}, interpreted as energy-augmenting efficiency / self-supply.
-
----
-
-### Baseline Final Energy Demand
-
-Final energy demand for sector s in region r satisfies:
-
-P^A_{s,r,t} / P^D_{r,t}
-= ω_{s,r}^{1/η_Q} · (A^F_{s,r,t})^{(η_Q−1)/η_Q}
-  · ( Q^{A,F}_{s,r,t} / Q^U_{r,t} )^{−1/η_Q}
-
-where Q^{A,F}_{s,r,t} denotes **grid-purchased final energy**.
-
----
-
-### RTS-Driven Shift in A^F_{s,r,t}
-
-Let χ^{RTS}_{r,t} ∈ [0,1] denote the share of household electricity demand met by rooftop solar in region r at time t.  
-A reduction in grid final energy consumption by x% corresponds to:
+Let χ^{RTS}_{r,t} ∈ [0,1] be the share of household electricity demand met by rooftop solar.  
+A reduction in grid final energy consumption by x% implies:
 
 χ^{RTS}_{r,t} = x / 100
 
-RTS affects final energy demand through the shifter A^F_{s,r,t}:
+RTS affects final energy demand through:
 
-A^F_{s,r,t}
+A^F_{s,r,t}  
 = Ā^F_{s,r} · (1 − χ^{RTS}_{r,t})^{ 1 / (η_Q − 1) }
 
-This mapping ensures that an increase in RTS adoption lowers required grid-supplied final energy in a manner consistent with the CES structure.
+This formulation ensures consistency with the CES demand structure.
 
 ---
 
 ### Interpretation
-
-- Higher χ^{RTS}_{r,t} raises A^F_{s,r,t}
+- Higher χ^{RTS}_{r,t} increases A^F_{s,r,t}
 - For a given level of energy services Q^U_{r,t}, grid final energy demand Q^{A,F}_{s,r,t} declines
-- RTS operates as a **quantity-equivalent efficiency wedge**, not a price distortion
+- RTS acts as a **quantity-equivalent efficiency / self-supply wedge**, not a price distortion
 
 ---
 
-### Scenario Implementation
-
-- In the Accelerated DER scenario, χ^{RTS}_{r,t} follows an exogenous adoption path reflecting rapid diffusion of rooftop PV.
-- The adjustment to A^F_{s,r,t} applies only to **household electricity final energy** (not industrial or transport fuels).
-
----
-
-### Modeling Notes
-
-- RTS is implemented exclusively through A^F_{s,r,t}; no additional quantity wedge should be applied to Q^{A,F}_{s,r,t}.
-- Self-consumption only is captured. Export of rooftop electricity (net-metering) requires an explicit supply-side extension.
-- Applying RTS via A^F preserves market-clearing and avoids double-counting with other demand-side shocks.
-
----
-### Notes
-- Self-consumption only; no export/net-metering unless modeled separately
-- Avoid double-counting with other electricity demand shocks
-- Apply χ^{RTS}_r only to household electricity components if sectors are mixed
-
-where:
-
-- $P^{A}_{s,r}$ is the price of final energy input $s$
-- $P^{D}_{r}$ is the price of the final demand composite
-- $Q^{A,F}_{s,r}$ is grid-supplied final energy consumption
-- $Q^{U}_{r}$ is aggregate utility / energy services
-- $A_{F,s,r}$ is a final-energy demand shifter
-- $\eta_Q$ is the elasticity of substitution across final energy inputs
-
----
-
-### RTS-Adjusted Final Energy Demand
-
-Let $\chi^{RTS}_{r} \in [0,1]$ denote the **share of household electricity demand met by rooftop solar** in region $r$.
-
-Grid-supplied final energy demand is then reduced to:
-
-\[
-(1 - \chi^{RTS}_{r}) \, Q^{A,F}_{s,r}
-\]
-
-The modified final energy demand condition becomes:
-
-\[
-\frac{P^{A}_{s,r}}{P^{D}_{r}}
-=
-\omega^{1/\eta_Q}_{s,r}
-\,
-A^{(\eta_Q-1)/\eta_Q}_{F,s,r}
-\left(
-\frac{(1 - \chi^{RTS}_{r}) \, Q^{A,F}_{s,r}}{Q^{U}_{r}}
-\right)^{-1/\eta_Q}
-\]
-
----
-
-### Interpretation
-- An increase in $\chi^{RTS}_{r}$ lowers the quantity of **grid-purchased final energy** required to deliver a given level of energy services $Q^{U}_{r}$.
-- A reduction of final energy consumption by $x\%$ corresponds to:
-  \[
-  \chi^{RTS}_{r} = \frac{x}{100}
-  \]
-- RTS enters the model as a **quantity wedge**, not a price distortion.
-
----
-
-### Scenario Implementation
-- In Scenario A (Accelerated DER), $\chi^{RTS}_{r}$ follows an exogenous adoption path reflecting rapid diffusion of rooftop PV.
-- $\chi^{RTS}_{r}$ may be:
-  - time-varying,
-  - region-specific,
-  - or linked to rooftop PV capital accumulation in an extended model version.
-
----
-
-### Modeling Notes
-- This formulation captures **self-consumption only**.  
-  Export of rooftop electricity to the grid (net-metering) is not modeled unless explicitly introduced on the supply side.
-- To avoid double counting, RTS-induced demand reduction should not be combined with a separate negative shock to household electricity demand.
-- If $s$ includes non-household final energy uses, $\chi^{RTS}_{r}$ should be applied only to the household electricity component.
-
+### Scenario Implementation Notes
+- χ^{RTS}_{r,t} follows an exogenous adoption path in Scenario A
+- The adjustment applies only to **household electricity final energy**
+- RTS is implemented exclusively through A^F to avoid double counting
+- Net-metering or exports require an explicit supply-side extension
 
 ---
 
