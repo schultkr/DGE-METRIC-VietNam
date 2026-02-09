@@ -99,7 +99,7 @@ $$ P^A_{s,r} / P^D_r = ω_{s,r}^{1/η_Q} · A_{F,s,r}^{(η_Q−1)/η_Q} · ( Q^{
 
 ### RTS-Adjusted Final Energy Demand
 
-Let χ^{RTS}_r ∈ [0,1] denote the share of household electricity demand met by rooftop solar.
+Let $χ^{RTS}_r \in [0,1]$ denote the share of household electricity demand met by rooftop solar.
 
 Grid-supplied final energy demand becomes:
 
