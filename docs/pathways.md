@@ -93,7 +93,7 @@ Household rooftop solar supplies a share of electricity demand directly, reducin
 
 Final energy demand for sector s in region r satisfies:
 
-$ P^A_{s,r} / P^D_r = ω_{s,r}^{1/η_Q} · A_{F,s,r}^{(η_Q−1)/η_Q} · ( Q^{A,F}_{s,r} / Q^U_r )^{−1/η_Q} $
+$$ P^A_{s,r} / P^D_r = ω_{s,r}^{1/η_Q} · A_{F,s,r}^{(η_Q−1)/η_Q} · ( Q^{A,F}_{s,r} / Q^U_r )^{−1/η_Q} $$
 
 ---
 
