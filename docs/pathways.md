@@ -31,7 +31,6 @@ Large-scale renewable energy continues to expand, but the power system increasin
   - MW installed **or**
   - Share of households adopting PV
 - Adoption path relative to PDP8 (faster diffusion)
-- Capacity factors by region (if regionalized)
 
 #### 2. Electricity Demand from the Grid
 - Reduction in grid electricity demand by households due to rooftop PV
@@ -71,6 +70,90 @@ Large-scale renewable energy continues to expand, but the power system increasin
 - System-level consistency requires:
   - Adjusting electricity market clearing conditions
   - Explicit accounting of self-generation vs grid supply
+
+
+### Objective
+We explicitly model the reduction in **final energy consumption purchased from the grid** due to increased household rooftop solar (RTS) adoption.  
+RTS supplies a fraction of household electricity demand directly, thereby reducing grid-based final energy demand by **$x\%$**.
+
+---
+
+### Baseline Final Energy Demand Condition
+
+Final energy demand for sector $s$ in region $r$ satisfies the CES demand condition:
+
+\[
+\frac{P^{A}_{s,r}}{P^{D}_{r}}
+=
+\omega^{1/\eta_Q}_{s,r}
+\,
+A^{(\eta_Q-1)/\eta_Q}_{F,s,r}
+\left(
+\frac{Q^{A,F}_{s,r}}{Q^{U}_{r}}
+\right)^{-1/\eta_Q}
+\]
+
+where:
+
+- $P^{A}_{s,r}$ is the price of final energy input $s$
+- $P^{D}_{r}$ is the price of the final demand composite
+- $Q^{A,F}_{s,r}$ is grid-supplied final energy consumption
+- $Q^{U}_{r}$ is aggregate utility / energy services
+- $A_{F,s,r}$ is a final-energy demand shifter
+- $\eta_Q$ is the elasticity of substitution across final energy inputs
+
+---
+
+### RTS-Adjusted Final Energy Demand
+
+Let $\chi^{RTS}_{r} \in [0,1]$ denote the **share of household electricity demand met by rooftop solar** in region $r$.
+
+Grid-supplied final energy demand is then reduced to:
+
+\[
+(1 - \chi^{RTS}_{r}) \, Q^{A,F}_{s,r}
+\]
+
+The modified final energy demand condition becomes:
+
+\[
+\frac{P^{A}_{s,r}}{P^{D}_{r}}
+=
+\omega^{1/\eta_Q}_{s,r}
+\,
+A^{(\eta_Q-1)/\eta_Q}_{F,s,r}
+\left(
+\frac{(1 - \chi^{RTS}_{r}) \, Q^{A,F}_{s,r}}{Q^{U}_{r}}
+\right)^{-1/\eta_Q}
+\]
+
+---
+
+### Interpretation
+- An increase in $\chi^{RTS}_{r}$ lowers the quantity of **grid-purchased final energy** required to deliver a given level of energy services $Q^{U}_{r}$.
+- A reduction of final energy consumption by $x\%$ corresponds to:
+  \[
+  \chi^{RTS}_{r} = \frac{x}{100}
+  \]
+- RTS enters the model as a **quantity wedge**, not a price distortion.
+
+---
+
+### Scenario Implementation
+- In Scenario A (Accelerated DER), $\chi^{RTS}_{r}$ follows an exogenous adoption path reflecting rapid diffusion of rooftop PV.
+- $\chi^{RTS}_{r}$ may be:
+  - time-varying,
+  - region-specific,
+  - or linked to rooftop PV capital accumulation in an extended model version.
+
+---
+
+### Modeling Notes
+- This formulation captures **self-consumption only**.  
+  Export of rooftop electricity to the grid (net-metering) is not modeled unless explicitly introduced on the supply side.
+- To avoid double counting, RTS-induced demand reduction should not be combined with a separate negative shock to household electricity demand.
+- If $s$ includes non-household final energy uses, $\chi^{RTS}_{r}$ should be applied only to the household electricity component.
+
 
 ---
 
