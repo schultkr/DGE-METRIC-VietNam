@@ -1,3 +1,6 @@
+# Purpose
+The purpose of this document is to provide a short introduction to the logic of scenario building with the DGE-CRED model, and to outline how alternative energy transition narratives can be translated into consistent model inputs and implementation steps.
+
 # Energy Transition Scenario Implementation Guide
 
 This document describes how to implement alternative energy transition scenarios in a macro-energy model (e.g. DGE-METRC / DGE-CRED).  
