@@ -12,6 +12,21 @@ The scenarios are not mutually exclusive technology pathways, but distinct **sys
 
 ## PDP 8 Scenario: Baseline Scenario representing the Revised PDP 8 scenario
 
+The PDP8 baseline represents a high-growth transition pathway with rapid structural and energy system transformation.
+
+GDP growth is strong in the late 2020s and 2030s, then gradually stabilizes toward a lower long-run rate.
+
+Renewable energy share increases rapidly, reaching around 80–90% by mid-century.
+
+Renewable capital investment surges between 2035 and 2055, driving the energy transition.
+
+Fossil energy production peaks early and declines sharply after the 2030s.
+
+Emissions rise slightly in the near term, peak in the early 2030s, and fall significantly by 2050.
+
+The economy undergoes structural transformation, with declining agriculture and manufacturing shares in value added.
+
+Overall, the PDP8 baseline reflects a front-loaded, investment-driven decarbonization pathway with strong renewable expansion and substantial emissions reduction by mid-century.
 
 ## Scenario A: Accelerated Distributed Energy Resources (DER)
 
