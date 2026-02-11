@@ -72,6 +72,51 @@ This formulation ensures consistency with the CES demand structure.
 - For a given level of energy services Q^U_{r,t}, grid final energy demand Q^{A,F}_{s,r,t} declines
 - RTS acts as a **quantity-equivalent efficiency / self-supply wedge**, not a price distortion
 
+
+# RTS / PV as an Extra Durable Stock Embedded in Housing
+*(Goal: introduce an **additional PV stock** as its own durable good, while ensuring it enters the **entire economic accounting** through the **housing stock / housing services** channel and reduces **grid electricity demand** via the retailer.)*
+
+---
+
+# Rooftop Solar (RTS) Minimal Extension
+## PV as an Additional Household Durable Stock Embedded in Housing Accumulation (DGE-METRIC / Dynare)
+
+This note documents the **minimal, accounting-consistent** implementation of rooftop PV (RTS) in the model:
+
+- I introduce a **separate PV durable stock** `K_PV`.
+- PV investment `I_PV` is treated as a **housing-embedded retrofit** and is therefore **added to housing accumulation**.
+- This ensures PV **enters the full economic accounting system** through the existing housing stock channel (resource use, accumulation, steady state bookkeeping).
+- Any **impact on grid electricity demand** is handled later via the retailer/electricity block (not included here by design).
+
+---
+
+### PV durable stock
+PV is a household-owned durable stock that accumulates via investment:
+
+\[
+K^{PV}_{t+1} = (1-\delta_{PV})K^{PV}_t + I^{PV}_t
+\]
+
+### Housing accumulation with PV embedded
+Housing is the existing durable stock. I treat PV investment as a housing-embedded improvement that **adds to the housing stock accumulation**:
+
+\[
+H_{t+1} = (1-\delta_H)H_t + I^H_t + I^{PV}_t
+\]
+
+**Interpretation:**  
+- `K_PV` is the explicit PV stock you can reference later in electricity/services blocks.  
+- `I_PV` is also counted as part of the housing accumulation for economy-wide accounting consistency (PV is “installed on/into housing”).
+- `deltaPV_@{reg}` : PV depreciation rate  
+
+---
+
+## 3) Dynare implementation (copy-paste)
+
+### 3.1 Declarations
+Add to your `var` list (or macro-generated lists):
+```dynare
+var K_PV_@{reg} I_PV_@{reg};
 ---
 
 ### Scenario Implementation Notes
