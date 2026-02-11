@@ -62,30 +62,35 @@ This effect is implemented through the **final energy demand shifter** \(A^F\).
 
 ---
 
-### Baseline Final Energy Demand
-Final energy demand for sector `s` in region `r` satisfies:
 
-P^A_{s,r,t} / P^D_{r,t}  
-= ω_{s,r}^{1/η_Q} · (A^F_{s,r,t})^{(η_Q−1)/η_Q} · ( Q^{A,F}_{s,r,t} / Q^U_{r,t} )^{−1/η_Q}
+\[
+Q_A = CES(Q_{D,subsec})
+\]
 
-where Q^{A,F}_{s,r,t} denotes grid-purchased final energy.
+where `Q_D_subsec` are subsector quantities.
 
----
+We want:
 
-### RTS Adjustment via A^F
+- PV to reduce the *paid grid electricity* entering this aggregator
+- Only for the electricity subsector
+- Other subsectors unaffected
 
-Let χ^{RTS}_{r,t} ∈ [0,1] be the share of household electricity demand met by rooftop solar.  
-A reduction in grid final energy consumption by x% implies:
+So we define an **effective subsector quantity**:
 
-χ^{RTS}_{r,t} = x / 100
+\[
+Q^{eff}_{D,subsec} =
+\begin{cases}
+Q_{D,subsec} & \text{if subsec ≠ ELEC} \\
+\dfrac{Q_{D,ELEC}}{1 + \phi^{RTS}\dfrac{K_{PV}}{H}} & \text{if subsec = ELEC}
+\end{cases}
+\]
 
-RTS affects final energy demand through:
+Interpretation:
 
-A^F_{s,r,t}  
-= Ā^F_{s,r} · (1 − χ^{RTS}_{r,t})^{ 1 / (η_Q − 1) }
-
-This formulation ensures consistency with the CES demand structure.
-
+- As PV stock increases relative to housing,
+- Electricity efficiency improves,
+- Fewer paid kWh are required,
+- Grid electricity demand declines.
 ---
 
 ### Interpretation
