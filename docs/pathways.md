@@ -10,6 +10,9 @@ The scenarios are not mutually exclusive technology pathways, but distinct **sys
 
 ---
 
+## PDP 8 Scenario: Baseline Scenario representing the Revised PDP 8 scenario
+
+
 ## Scenario A: Accelerated Distributed Energy Resources (DER)
 
 ### Narrative
