@@ -232,7 +232,7 @@ We report results as deviations from the baseline (no additional RTS rollout bey
 
 ---
 
-### 6.3 Results tables (to fill with your simulation output)
+### 6.3 Results tables
 
 #### Table 1: Rooftop PV scale and implied grid-demand reduction
 | Year | PDP8 RTS (TWh) | Fast RTS (TWh) | Δ Grid purchases PDP8 (TWh) | Δ Grid purchases Fast (TWh) |
@@ -265,15 +265,15 @@ We report results as deviations from the baseline (no additional RTS rollout bey
 
 ---
 
-### 6.4 Figures (recommended)
+### 6.4 Figures
 
 Add the following plots to visually compare the two rollout paths:
 
 - **Figure 1:** Rooftop PV generation `Q_PV` (TWh) — PDP8 vs Fast  
-- **Figure 2:** Grid electricity purchases `Q_E^grid` (TWh) — PDP8 vs Fast  
+- **Figure 2:** Energy purchases `Q_E^Market` (TWh) — PDP8 vs Fast  
 - **Figure 3:** RTS investment `I_PV` (% of GDP or bn USD) — PDP8 vs Fast  
 - **Figure 4:** GDP deviation from baseline (%) — PDP8 vs Fast  
-- **Figure 5:** Electricity price deviation (%) — PDP8 vs Fast (if applicable)
+- **Figure 5:** Energy price deviation (%) — PDP8 vs Fast (if applicable)
 
 > **Markdown placeholders for figures (replace file paths):**
 - ![RTS generation path](figures/rts_generation_pdp8_vs_fast.png)
