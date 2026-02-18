@@ -1,130 +1,261 @@
-# Viet Nam – Rooftop PV calibration note (TWh) for grid-demand reduction scenarios
-
-This note tabulates **current energy demand**, **electricity demand**, **rooftop PV (installed + production)**, and **potential**, and translates these into **scenario calibration targets** for reducing **final energy demand supplied by the grid** (i.e., grid electricity purchases).
-
----
-
-## 1) Core data (latest public, rounded)
-
-| Metric | Unit | Value | Source / comment |
-|---|---:|---:|---|
-| Total final energy consumption (TFEC), 2023 | ktoe | **75,122** | National estimate in 2023 country report. :contentReference[oaicite:0]{index=0} |
-| Total final energy consumption (TFEC), 2023 | TWh (eq.) | **~874** | Conversion: 1 toe = 11.63 MWh ⇒ 75,122 ktoe × 11.63 GWh/ktoe ≈ 874 TWh. (Derived from TFEC above.) :contentReference[oaicite:1]{index=1} |
-| Electricity consumption, 2023 | TWh | **277.5** | Net electricity consumption. :contentReference[oaicite:2]{index=2} |
-| Rooftop PV installed capacity, end-2024 | GW | **~9.5** | “Over 9,500 MW” rooftop PV. :contentReference[oaicite:3]{index=3} |
-| Grid-connected solar capacity (all solar), Nov-2025 | GW | **~17** | Grid operator figure reported. :contentReference[oaicite:4]{index=4} |
-| Rooftop share of solar capacity | % | **~46%** | Rooftop share of the ~17 GW solar capacity. :contentReference[oaicite:5]{index=5} |
+# Viet Nam – Rooftop PV and Grid Demand Reduction  
+## Calibration Note for DGE Scenario Design
 
 ---
 
-## 2) Conversions and working assumptions (transparent, model-friendly)
+## 1. Rooftop PV today: contribution to final energy demand
 
-### 2.1 Convert TFEC to TWh-equivalent
-- Using the standard energy unit conversion: **1 toe = 11.63 MWh**  
-  ⇒ **1 ktoe = 11.63 GWh**  
-  ⇒ **TFEC (TWh) = TFEC (ktoe) × 11.63 / 1,000**.
+Rooftop solar (RTS) photovoltaic systems already make a measurable contribution to Vietnam’s final energy demand by directly supplying electricity services behind the meter and thereby reducing grid purchases.
 
-### 2.2 Rooftop PV generation from capacity
-Public sources often report rooftop PV **capacity** more reliably than **annual generation**. For calibration, estimate generation from:
+As of end-2024:
 
-- **Annual PV generation (TWh) ≈ Capacity (GW) × 8.76 × Capacity Factor (CF)**  
-- Use a **Vietnam-reasonable CF = 0.16–0.18** (typical range for PV in tropical/subtropical climates; choose a single value for baseline sensitivity).
+- **Installed rooftop PV capacity:** ~9.5 GW  
+- Estimated annual generation: ~14 TWh  
+- National electricity consumption (2023): 277.5 TWh  
+- Total final energy consumption (TFEC): ~874 TWh (all fuels)
 
-Rule of thumb at **CF = 0.17**:
-- **1 GW rooftop PV ≈ 8.76 × 0.17 = 1.49 TWh/year**
+### Current contribution
 
-So with **9.5 GW** rooftop PV:
-- **Rooftop PV generation ≈ 9.5 × 1.49 = 14.1 TWh/year** (baseline estimate)
+| Indicator | Value | Interpretation |
+|------------|--------|----------------|
+| RTS generation | ~14 TWh/year | Electricity produced behind-the-meter |
+| Share of electricity demand | ~5% | 14 / 277.5 |
+| Share of total final energy demand | ~1.6% | 14 / 874 |
 
-> Note: This is a *calibration estimate* for macro modeling; actual realized generation depends on curtailment, self-consumption, outages, and location mix.
+Thus, rooftop PV currently reduces **grid-supplied electricity demand by roughly 5% annually**, and accounts for approximately **1.6% of Vietnam’s total final energy consumption**.
 
----
-
-## 3) Tabulation in TWh (what you can plug into scenarios)
-
-### 3.1 Demand and current rooftop PV contribution (TWh/year)
-
-| Item | Symbol (example) | TWh/year | How to interpret in the model |
-|---|---|---:|---|
-| Total final energy demand | `FE` | **~874** | All fuels + electricity (energy-balance concept) |
-| Final electricity demand (grid supplied) | `E_grid_total` | **277.5** | Electricity purchased from grid (economy-wide) |
-| Rooftop PV generation (estimated) | `E_PV` | **~14** | Electricity services produced “behind-the-meter” |
-| Grid-demand reduction from rooftop PV | `ΔE_grid` | **~14** | If PV offsets grid purchases one-for-one (annual) |
-| Rooftop PV share of electricity demand |  | **~5.1%** | 14 / 277.5 |
-| Rooftop PV share of total final energy |  | **~1.6%** | 14 / 874 |
-
-Electricity demand source: :contentReference[oaicite:6]{index=6}  
-TFEC source: :contentReference[oaicite:7]{index=7}  
-Rooftop capacity source: :contentReference[oaicite:8]{index=8}
+In a DGE context, this implies that initial calibration should set rooftop PV to cover approximately **1.6% of final energy demand** in the base year.
 
 ---
 
-## 4) Potential (technical upper bound) and why you still need “deployable” scenarios
+## 2. Macroeconomic magnitude: value of installed rooftop solar panels
 
-A commonly cited national **technical rooftop PV potential** is **~963 GW**. :contentReference[oaicite:9]{index=9}
+Instead of measuring RTS relative to GDP via annual electricity value, we approximate the **capital value of installed rooftop solar panels** and compare it to GDP and annual investment.
 
-Convert this to annual electricity (illustrative upper bound):
-- Using CF = 0.17:  
-  **E_PV_potential ≈ 963 × 1.49 ≈ 1,435 TWh/year**
+### Assumptions
 
-| Potential concept | Capacity (GW) | TWh/year (CF=0.17) | Interpretation |
-|---|---:|---:|---|
-| Rooftop PV technical potential (upper bound) | **963** | **~1,435** | Purely technical roof-area potential; not economically or grid-feasibility constrained :contentReference[oaicite:10]{index=10} |
-| “Deployable” medium-term envelope (example) | 20–40 | ~30–60 | Practical scenario range for policy + grid + finance constraints (recommended for macro scenarios) |
+- Installed RTS capacity: 9.5 GW  
+- Investment cost per kW (all-in rooftop system cost): ~800 USD/kW  
+  (Conservative estimate consistent with recent ASEAN residential/commercial PV costs)
 
-**Why not calibrate to the technical maximum?**  
-Because 963 GW would exceed current annual electricity demand by a very large margin. For DGE scenario analysis, it’s usually better to define **deployable potentials** (e.g., 20/30/40 GW rooftop) and treat the technical maximum as a *ceiling* for long-run feasibility discussions.
+### Total capital value of installed rooftop PV
 
----
+\[
+9.5 \text{ GW} = 9.5 \times 10^6 \text{ kW}
+\]
 
-## 5) Scenario calibration targets (directly usable for “reduce grid final energy demand”)
+\[
+9.5 \times 10^6 \times 800 \approx 7.6 \text{ billion USD}
+\]
 
-Assume annual electricity demand is held fixed at 277.5 TWh for calibration (or you can let it grow endogenously). Then define:
+### Relative to GDP
 
-- `E_eff = E_grid + E_PV` (electricity services)
-- **Grid purchases** (what the electricity sector must produce/sell):  
-  `E_grid = max(0, E_eff - E_PV)`  
-- In annual accounting, the **reduction in grid-supplied final electricity** is approximately `ΔE_grid ≈ E_PV` if services demand is unchanged.
+Vietnam GDP ≈ 430 billion USD.
 
-### 5.1 Rooftop PV expansion scenarios (capacity → TWh)
+\[
+7.6 / 430 \approx 1.8\%
+\]
 
-Using CF = 0.17 (1 GW → 1.49 TWh):
+Thus, the installed rooftop PV capital stock corresponds to roughly:
 
-| Scenario | Rooftop PV (GW) | Rooftop PV (TWh) | Grid electricity reduction (TWh) | % of current electricity demand |
-|---|---:|---:|---:|---:|
-| Current baseline | 9.5 | ~14 | ~14 | ~5% |
-| Moderate rollout | 20 | ~30 | ~30 | ~11% |
-| Strong rollout | 30 | ~45 | ~45 | ~16% |
-| High rollout | 40 | ~60 | ~60 | ~22% |
+> **~1.8% of GDP**
 
-> Interpretation: in the model, you can implement these as **paths for `Q_PV_reg`** (annual TWh equivalent) that reduce **grid demand** one-for-one.
+### Relative to annual gross investment
 
----
+Vietnam’s gross capital formation is approximately 30% of GDP:
 
-## 6) How to map this into your DGE demand system (conceptual)
+\[
+0.30 \times 430 \approx 129 \text{ billion USD/year}
+\]
 
-To avoid breaking the resource constraint:
+Therefore:
 
-1. Keep **market absorption** (`Q_U_reg`) based on **grid electricity purchases**.
-2. Create **effective electricity services** used in the CES nest:  
-   `Q_E_eff = Q_E_grid + Q_PV`
-3. Electricity sector market clearing uses **grid purchases only**:  
-   `Y_E = Q_E_grid + ...` (other grid users)
+\[
+7.6 / 129 \approx 5.9\%
+\]
 
-This ensures rooftop PV reduces **final energy provided by the grid** without requiring additional production in the economy-wide resource constraint.
+So the **current rooftop PV capital stock** is equivalent to roughly:
+
+> **~6% of one year of national gross investment**
+
+This confirms that rooftop PV is macroeconomically non-trivial in capital terms, even though its energy share remains modest.
 
 ---
 
-## 7) Recommended reporting lines for your scenario write-up
+## 3. PDP8 expansion trajectory (10× rooftop PV)
 
-- **Today:** rooftop PV is ~9.5 GW installed, plausibly delivering ~14 TWh/year, reducing grid-supplied electricity demand by ~5% on an annual basis. :contentReference[oaicite:11]{index=11}  
-- **Potential:** technical rooftop potential is cited around 963 GW (very large ceiling), which would correspond to >1,000 TWh/year at typical PV capacity factors. :contentReference[oaicite:12]{index=12}  
-- **Scenarios:** a practical macro-relevant deployable range is 20–40 GW (≈30–60 TWh/year), implying ~11–22% reductions in grid-supplied final electricity demand at current demand levels.
+Vietnam’s Power Development Plan 8 (PDP8) foresees a substantial expansion of rooftop solar capacity.
+
+Relative to the current ~9.5 GW installed base, PDP8 implies approximately:
+
+> **A tenfold increase in rooftop PV capacity**
+
+This corresponds to:
+
+- ~95 GW rooftop PV  
+- ~140 TWh annual generation (at unchanged capacity factor)
+
+At current electricity demand levels:
+
+\[
+140 / 277.5 \approx 50\%
+\]
+
+Under this scaling, rooftop PV could offset roughly **half of today’s grid electricity demand** (abstracting from demand growth and curtailment).
+
+### Capital stock implication
+
+\[
+95 \text{ GW} \times 800 \text{ USD/kW} \approx 76 \text{ billion USD}
+\]
+
+This would correspond to:
+
+- ~18% of GDP  
+- ~59% of one year’s gross investment  
+
+This scale implies a major structural capital reallocation toward distributed solar assets.
 
 ---
 
-### Appendix: Quick conversions
-- **TFEC (TWh)** = `TFEC (ktoe) × 11.63 / 1000`
-- **PV generation (TWh)** = `PV capacity (GW) × 8.76 × CF`
-- **PV share of electricity demand** = `E_PV / E_grid_total`
+## 4. Extended scenario: 20× rooftop PV expansion
 
+For stress-testing energy transition pathways, we simulate an even more ambitious rollout:
+
+> **20× expansion relative to today**
+
+This implies:
+
+- ~190 GW rooftop PV  
+- ~280 TWh annual generation  
+
+At current electricity demand levels:
+
+\[
+280 / 277.5 \approx 100\%
+\]
+
+This scale would approximately match today’s entire electricity consumption on an annual basis.
+
+### Capital implication
+
+\[
+190 \text{ GW} \times 800 \text{ USD/kW} \approx 152 \text{ billion USD}
+\]
+
+Which corresponds to approximately:
+
+- ~35% of GDP  
+- ~118% of one year’s gross investment  
+
+This is clearly a long-run transformation scenario rather than a near-term policy trajectory.
+
+---
+
+## 5. Implications for DGE modeling
+
+In the model, rooftop PV should:
+
+1. Increase effective electricity services:
+   \[
+   Q_E^{eff} = Q_E^{grid} + Q_{PV}
+   \]
+
+2. Reduce grid demand one-for-one (annual accounting approximation):
+   \[
+   Q_E^{grid} = Q_E^{eff} - Q_{PV}
+   \]
+
+3. Enter as a capital stock in the economy:
+   \[
+   K_{PV,t+1} = (1-\delta_{PV})K_{PV,t} + I_{PV,t}
+   \]
+
+This ensures:
+- Proper resource constraint treatment  
+- Explicit capital accumulation  
+- Transparent investment requirements for transition scenarios  
+
+---
+
+# Appendix: Derivation of All Numbers
+
+---
+
+## A1. Converting TFEC to TWh
+
+Given:
+- TFEC (2023) = 75,122 ktoe  
+- 1 toe = 11.63 MWh  
+- 1 ktoe = 11.63 GWh  
+
+\[
+TFEC (TWh) = 75,122 \times 11.63 / 1000
+\]
+
+\[
+\approx 874 \text{ TWh}
+\]
+
+---
+
+## A2. Rooftop PV generation from installed capacity
+
+Formula:
+
+\[
+E_{PV} = \text{Capacity (GW)} \times 8.76 \times CF
+\]
+
+Assume:
+- Capacity factor CF = 0.17  
+
+\[
+1 \text{ GW} \rightarrow 8.76 \times 0.17 = 1.49 \text{ TWh/year}
+\]
+
+### Current:
+
+\[
+9.5 \times 1.49 \approx 14.1 \text{ TWh}
+\]
+
+---
+
+## A3. Share calculations
+
+Electricity demand:
+
+\[
+14 / 277.5 \approx 5.1\%
+\]
+
+Total final energy:
+
+\[
+14 / 874 \approx 1.6\%
+\]
+
+---
+
+## A4. Capital stock valuation
+
+\[
+\text{Capital value} = \text{Capacity (kW)} \times \text{Cost per kW}
+\]
+
+\[
+9.5 \times 10^6 \times 800 = 7.6 \text{ billion USD}
+\]
+
+---
+
+## A5. 10× and 20× expansion
+
+| Scenario | Capacity (GW) | TWh/year | Capital (bn USD) |
+|------------|---------------|----------|-------------------|
+| Today | 9.5 | 14 | 7.6 |
+| 10× | 95 | 140 | 76 |
+| 20× | 190 | 280 | 152 |
+
+All generation calculated with CF = 0.17 and capital cost = 800 USD/kW.
