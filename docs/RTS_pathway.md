@@ -42,7 +42,7 @@ Instead of measuring RTS relative to GDP via annual electricity value, we approx
 
 $9.5 \text{ GW} = 9.5 \times 10^6 \text{ kW}$
 
-$9.5 \times 10^6 \times 800 \approx 7.6 \text{ billion USD}
+$9.5 \times 10^6 \times 800 \approx 7.6 \text{ billion USD}$
 
 ### Relative to GDP
 
