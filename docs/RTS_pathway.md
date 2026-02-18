@@ -163,7 +163,7 @@ We report results as deviations from the baseline (no additional RTS rollout bey
 
 ### 6.3 Results tables
 
-#### Table 1: Rooftop PV scale and implied grid-demand reduction
+#### Table 1: Rooftop PV scale and implied energy-demand reduction
 | Year | PDP8 RTS (TWh) | Fast RTS (TWh) | Δ Grid purchases PDP8 (TWh) | Δ Grid purchases Fast (TWh) |
 |---:|---:|---:|---:|---:|
 | t0 |  |  |  |  |
@@ -271,22 +271,15 @@ TFEC (TWh) = 75,122 \times 11.63 / 1000
 
 Formula:
 
-\[
-E_{PV} = \text{Capacity (GW)} \times 8.76 \times CF
-\]
+$E_{PV} = \text{Capacity (GW)} \times 8.76 \times CF$
 
 Assume:
 - Capacity factor CF = 0.17  
 
-\[
-1 \text{ GW} \rightarrow 8.76 \times 0.17 = 1.49 \text{ TWh/year}
-\]
+$1 \text{ GW} \rightarrow 8.76 \times 0.17 = 1.49 \text{ TWh/year}$
 
 ### Current:
-
-\[
-9.5 \times 1.49 \approx 14.1 \text{ TWh}
-\]
+$9.5 \times 1.49 \approx 14.1 \text{ TWh}$
 
 ---
 
@@ -294,27 +287,19 @@ Assume:
 
 Electricity demand:
 
-\[
-14 / 277.5 \approx 5.1\%
-\]
+$14 / 277.5 \approx 5.1\%$
 
 Total final energy:
 
-\[
-14 / 874 \approx 1.6\%
-\]
+$14 / 874 \approx 1.6\%$
 
 ---
 
 ## A4. Capital stock valuation
 
-\[
-\text{Capital value} = \text{Capacity (kW)} \times \text{Cost per kW}
-\]
+$\text{Capital value} = \text{Capacity (kW)} \times \text{Cost per kW}$
 
-\[
-9.5 \times 10^6 \times 800 = 7.6 \text{ billion USD}
-\]
+$9.5 \times 10^6 \times 800 = 7.6 \text{ billion USD}$
 
 ---
 
