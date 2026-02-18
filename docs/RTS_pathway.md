@@ -40,47 +40,19 @@ Instead of measuring RTS relative to GDP via annual electricity value, we approx
 
 ### Total capital value of installed rooftop PV
 
-\[
-9.5 \text{ GW} = 9.5 \times 10^6 \text{ kW}
-\]
+$9.5 \text{ GW} = 9.5 \times 10^6 \text{ kW}$
 
-\[
-9.5 \times 10^6 \times 800 \approx 7.6 \text{ billion USD}
-\]
+$9.5 \times 10^6 \times 800 \approx 7.6 \text{ billion USD}
 
 ### Relative to GDP
 
 Vietnam GDP ≈ 430 billion USD.
 
-\[
-7.6 / 430 \approx 1.8\%
-\]
+$7.6 / 430 \approx 1.8\%$
 
 Thus, the installed rooftop PV capital stock corresponds to roughly:
 
 > **~1.8% of GDP**
-
-### Relative to annual gross investment
-
-Vietnam’s gross capital formation is approximately 30% of GDP:
-
-\[
-0.30 \times 430 \approx 129 \text{ billion USD/year}
-\]
-
-Therefore:
-
-\[
-7.6 / 129 \approx 5.9\%
-\]
-
-So the **current rooftop PV capital stock** is equivalent to roughly:
-
-> **~6% of one year of national gross investment**
-
-This confirms that rooftop PV is macroeconomically non-trivial in capital terms, even though its energy share remains modest.
-
----
 
 ## 3. PDP8 expansion trajectory (10× rooftop PV)
 
@@ -95,30 +67,11 @@ This corresponds to:
 - ~95 GW rooftop PV  
 - ~140 TWh annual generation (at unchanged capacity factor)
 
-At current electricity demand levels:
-
-\[
-140 / 277.5 \approx 50\%
-\]
+At current electricity demand levels: $140 / 277.5 \approx 50\%$
 
 Under this scaling, rooftop PV could offset roughly **half of today’s grid electricity demand** (abstracting from demand growth and curtailment).
 
-### Capital stock implication
-
-\[
-95 \text{ GW} \times 800 \text{ USD/kW} \approx 76 \text{ billion USD}
-\]
-
-This would correspond to:
-
-- ~18% of GDP  
-- ~59% of one year’s gross investment  
-
-This scale implies a major structural capital reallocation toward distributed solar assets.
-
----
-
-## 4. Extended scenario: 20× rooftop PV expansion
+## 3. Extended scenario: 20× rooftop PV expansion
 
 For stress-testing energy transition pathways, we simulate an even more ambitious rollout:
 
@@ -129,47 +82,23 @@ This implies:
 - ~190 GW rooftop PV  
 - ~280 TWh annual generation  
 
-At current electricity demand levels:
-
-\[
-280 / 277.5 \approx 100\%
-\]
+At current electricity demand levels: $280 / 277.5 \approx 100\%$
 
 This scale would approximately match today’s entire electricity consumption on an annual basis.
 
-### Capital implication
-
-\[
-190 \text{ GW} \times 800 \text{ USD/kW} \approx 152 \text{ billion USD}
-\]
-
-Which corresponds to approximately:
-
-- ~35% of GDP  
-- ~118% of one year’s gross investment  
-
-This is clearly a long-run transformation scenario rather than a near-term policy trajectory.
-
----
 
 ## 5. Implications for DGE modeling
 
 In the model, rooftop PV should:
 
 1. Increase effective electricity services:
-   \[
-   Q_E^{eff} = Q_E^{grid} + Q_{PV}
-   \]
+   $Q_E^{eff} = Q_E^{grid} + Q_{PV}$
 
 2. Reduce grid demand one-for-one (annual accounting approximation):
-   \[
-   Q_E^{grid} = Q_E^{eff} - Q_{PV}
-   \]
+   $Q_E^{grid} = Q_E^{eff} - Q_{PV}$
 
 3. Enter as a capital stock in the economy:
-   \[
-   K_{PV,t+1} = (1-\delta_{PV})K_{PV,t} + I_{PV,t}
-   \]
+   $K_{PV,t+1} = (1-\delta_{PV})K_{PV,t} + I_{PV,t}$
 
 This ensures:
 - Proper resource constraint treatment  
