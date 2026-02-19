@@ -38,8 +38,8 @@ Instead of measuring RTS relative to GDP via annual electricity value, we approx
 - Investment cost per kW (all-in rooftop system cost): ~800 USD/kW  
   (Conservative estimate consistent with recent ASEAN residential/commercial PV costs)
   <p align="center">
-  <img src="figures/RTS/RTS_Production.pdf" width="600">
-</p>
+    <img src="figures/RTS/RTS_Production.png" style="width:80%;">
+  </p>
 - ![RTS generation path](figures/RTS/RTS_Production.png)
 ### Total capital value of installed rooftop PV
 
