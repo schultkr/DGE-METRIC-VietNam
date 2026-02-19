@@ -37,7 +37,10 @@ Instead of measuring RTS relative to GDP via annual electricity value, we approx
 - Installed RTS capacity: 9.5 GW  
 - Investment cost per kW (all-in rooftop system cost): ~800 USD/kW  
   (Conservative estimate consistent with recent ASEAN residential/commercial PV costs)
-
+  <p align="center">
+  <img src="figures/RTS/RTS_Production.png" width="350">
+</p>
+- ![RTS generation path](figures/RTS/RTS_Production.png)
 ### Total capital value of installed rooftop PV
 
 $9.5 \text{ GW} = 9.5 \times 10^6 \text{ kW}$
@@ -161,40 +164,7 @@ We report results as deviations from the baseline (no additional RTS rollout bey
 
 ---
 
-### 6.3 Results tables
-
-#### Table 1: Rooftop PV scale and implied energy-demand reduction
-| Year | PDP8 RTS (TWh) | Fast RTS (TWh) | Δ Grid purchases PDP8 (TWh) | Δ Grid purchases Fast (TWh) |
-|---:|---:|---:|---:|---:|
-| t0 |  |  |  |  |
-| t5 |  |  |  |  |
-| t10 |  |  |  |  |
-| t20 |  |  |  |  |
-| t30 |  |  |  |  |
-
-> Interpretation: `Δ Grid purchases ≈ Q_PV` if electricity-services demand is held fixed; otherwise report model-implied `Q_E^grid`.
-
-#### Table 2: Macroeconomic effects (deviation from baseline)
-| Year | GDP PDP8 (%) | GDP Fast (%) | Cons. PDP8 (%) | Cons. Fast (%) | Total Inv. PDP8 (%) | Total Inv. Fast (%) |
-|---:|---:|---:|---:|---:|---:|---:|
-| t0 |  |  |  |  |  |  |
-| t5 |  |  |  |  |  |  |
-| t10 |  |  |  |  |  |  |
-| t20 |  |  |  |  |  |  |
-| t30 |  |  |  |  |  |  |
-
-#### Table 3: Electricity sector outcomes
-| Year | Grid output PDP8 (%) | Grid output Fast (%) | Elec. price PDP8 (%) | Elec. price Fast (%) |
-|---:|---:|---:|---:|---:|
-| t0 |  |  |  |  |
-| t5 |  |  |  |  |
-| t10 |  |  |  |  |
-| t20 |  |  |  |  |
-| t30 |  |  |  |  |
-
----
-
-### 6.4 Figures
+### 6.3 Figures
 
 Add the following plots to visually compare the two rollout paths:
 
@@ -205,11 +175,12 @@ Add the following plots to visually compare the two rollout paths:
 - **Figure 5:** Energy price deviation (%) — PDP8 vs Fast (if applicable)
 
 > **Markdown placeholders for figures (replace file paths):**
-- ![RTS generation path](figures/rts_generation_pdp8_vs_fast.png)
-- ![Grid purchases](figures/grid_purchases_pdp8_vs_fast.png)
-- ![RTS investment](figures/rts_investment_pdp8_vs_fast.png)
-- ![GDP effects](figures/gdp_pdp8_vs_fast.png)
-- ![Electricity price](figures/elec_price_pdp8_vs_fast.png)
+
+- ![Grid purchases](figures/RTS/Energy_Production.png)
+- ![RTS investment](figures/RTS/rts_investment_pdp8_vs_fast.png)
+- ![Annual GDP growth](figures/RTS/GDP_Growth.png)
+- ![GDP effects](figures/RTS/GDP_Effect.png)
+- ![Energy Prices](figures/RTS/Energy_Prices.png)
 
 ---
 
