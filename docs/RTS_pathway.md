@@ -72,7 +72,11 @@ Instead of measuring RTS relative to GDP via annual electricity value, we approx
   <p align="center">
     <img src="figures/RTS/EnergyPrices.png" style="width:80%;">
   </p>
-- Energy prices fall by 3 percent relative to the PDP 8 and more under a CAP and Trade than under a emission tax. The impact on GDP growth is psotitve but small and greater under Cap and Trade than under an emission tax. 
+- Energy prices fall by 3 percent relative to the PDP 8 and more under a CAP and Trade than under a emission tax. The impact on GDP growth is positive but small and greater under Cap and Trade than under an emission tax.
+  <p align="center">
+    <img src="figures/RTS/Energy_Production.png" style="width:80%;">
+  </p>
+- Energy consumption purchased on the market falls by 6 percent relative to the PDP 8 and more under a CAP and Trade than under a emission tax. The impact on GDP growth is psotitive but small and greater 
 ### Total capital value of installed rooftop PV
 
 $9.5 \text{ GW} = 9.5 \times 10^6 \text{ kW}$
