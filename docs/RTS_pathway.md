@@ -14,6 +14,11 @@ As of end-2024:
 - National electricity consumption (2023): 277.5 TWh  
 - Total final energy consumption (TFEC): ~874 TWh (all fuels)
 
+Scenario	Description	Carbon Policy Instrument	Rooftop Solar Deployment	Role in Analysis
+PDP 8 (Revised)	Implementation of the revised Power Development Plan 8 without additional climate policy instruments.	None	According to official PDP8 targets	Baseline reference pathway for generation, emissions, and macroeconomic outcomes
+Rooftop Solar + Cap-and-Trade	Accelerated rooftop solar expansion combined with an emissions trading system.	Quantity-based (emissions cap with tradable permits)	Faster expansion than PDP8	Evaluates interaction between distributed solar growth and market-based carbon regulation
+Rooftop Solar + Emission Tax	Accelerated rooftop solar expansion combined with a carbon tax on fossil energy use.	Price-based (carbon tax per unit of emissions)	Faster expansion than PDP8	Assesses effectiveness of carbon pricing with distributed solar deployment
+
 ### Current contribution
 
 | Indicator | Value | Interpretation |
@@ -40,7 +45,19 @@ Instead of measuring RTS relative to GDP via annual electricity value, we approx
   <p align="center">
     <img src="figures/RTS/RTS_Production.png" style="width:80%;">
   </p>
-- ![RTS generation path](figures/RTS/RTS_Production.png)
+- RTS PV production will increase from today about 14 TWh to 140 TWh and 280 TWh under PDP8 and the RTS scenario.
+  <p align="center">
+    <img src="figures/RTS/RTS_Investment.png" style="width:80%;">
+  </p>
+- In order to achieve these investment figures annual investments will increase from less tahn 10 billion USD today to more than 30 and 70 billion USD.
+  <p align="center">
+    <img src="figures/RTS/GDP.png" style="width:80%;">
+  </p>
+- The impact on GDP growth is psotitve but small and greater under Cap and Trade than under an emission tax. 
+  <p align="center">
+    <img src="figures/RTS/EnergyPrices.png" style="width:80%;">
+  </p>
+- Energy prices fall by 3 percent relative to the PDP 8 and more under a CAP and Trade than under a emission tax. The impact on GDP growth is psotitve but small and greater under Cap and Trade than under an emission tax. 
 ### Total capital value of installed rooftop PV
 
 $9.5 \text{ GW} = 9.5 \times 10^6 \text{ kW}$
