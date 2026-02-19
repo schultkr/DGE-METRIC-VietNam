@@ -205,7 +205,7 @@ Add the following plots to visually compare the two rollout paths:
 - **Figure 5:** Energy price deviation (%) — PDP8 vs Fast (if applicable)
 
 > **Markdown placeholders for figures (replace file paths):**
-- ![RTS generation path](figures/rts_generation_pdp8_vs_fast.png)
+- ![RTS generation path](figures/RTS/RTS_Production.png)
 - ![Grid purchases](figures/grid_purchases_pdp8_vs_fast.png)
 - ![RTS investment](figures/rts_investment_pdp8_vs_fast.png)
 - ![GDP effects](figures/gdp_pdp8_vs_fast.png)
