@@ -14,11 +14,26 @@ As of end-2024:
 - National electricity consumption (2023): 277.5 TWh  
 - Total final energy consumption (TFEC): ~874 TWh (all fuels)
 
-Scenario	Description	Carbon Policy Instrument	Rooftop Solar Deployment	Role in Analysis
-PDP 8 (Revised)	Implementation of the revised Power Development Plan 8 without additional climate policy instruments.	None	According to official PDP8 targets	Baseline reference pathway for generation, emissions, and macroeconomic outcomes
-Rooftop Solar + Cap-and-Trade	Accelerated rooftop solar expansion combined with an emissions trading system.	Quantity-based (emissions cap with tradable permits)	Faster expansion than PDP8	Evaluates interaction between distributed solar growth and market-based carbon regulation
-Rooftop Solar + Emission Tax	Accelerated rooftop solar expansion combined with a carbon tax on fossil energy use.	Price-based (carbon tax per unit of emissions)	Faster expansion than PDP8	Assesses effectiveness of carbon pricing with distributed solar deployment
+## Overview of Scenarios
 
+| Scenario | Description | Carbon Policy Instrument | Rooftop Solar Deployment | Role in Analysis |
+|-----------|-------------|--------------------------|---------------------------|------------------|
+| **PDP 8 (Revised)** | Implementation of the revised Power Development Plan 8 without additional carbon pricing instruments. | None | According to official PDP8 targets | Serves as the baseline reference pathway for electricity generation, emissions, and macroeconomic outcomes. |
+| **Rooftop Solar + Cap-and-Trade** | Accelerated rooftop solar expansion combined with an economy-wide emissions trading system. | Quantity-based instrument (binding emissions cap with tradable permits). | Faster expansion than PDP8 trajectory. | Evaluates the interaction between distributed solar growth and market-based carbon regulation. |
+| **Rooftop Solar + Emission Tax** | Accelerated rooftop solar expansion combined with a carbon tax on fossil energy use. | Price-based instrument (carbon tax per unit of emissions). | Faster expansion than PDP8 trajectory. | Assesses the effectiveness of carbon pricing alongside distributed solar deployment. |
+
+---
+
+## Conceptual Differences
+
+- **PDP 8 (Revised)** represents the officially planned electricity expansion pathway.
+- **Cap-and-Trade** ensures emissions are limited by a fixed quantity target, with the carbon price determined endogenously.
+- **Emission Tax** fixes the carbon price directly, allowing emissions to adjust endogenously.
+- Both rooftop solar scenarios assume stronger distributed solar deployment relative to the official PDP8 trajectory.
+
+---
+
+*All scenarios are simulated within the same macroeconomic general equilibrium framework to ensure comparability.*
 ### Current contribution
 
 | Indicator | Value | Interpretation |
