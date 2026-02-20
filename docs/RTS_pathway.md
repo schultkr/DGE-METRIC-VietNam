@@ -58,7 +58,7 @@ For calibration in the DGE model, the base-year rooftop PV contribution is set t
 - Accelerated rollout reaches about **280 TWh (20×)** in the stress-test case.
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 1. Rooftop PV production increases strongly under both pathways, with a steeper profile under accelerated rollout.</em></figcaption>
+  <figcaption><em>Figure 1. Rooftop PV production.</em></figcaption>
   <img src="figures/RTS/RTS_Production.png" alt="Rooftop PV production pathways" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
@@ -67,7 +67,7 @@ For calibration in the DGE model, the base-year rooftop PV contribution is set t
 - This is a large but manageable macroeconomic shift when spread over time and supported by policy design.
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 2. Faster rooftop deployment requires earlier and higher annual investment.</em></figcaption>
+  <figcaption><em>Figure 2. Rooftop investment.</em></figcaption>
   <img src="figures/RTS/RTS_Investment.png" alt="Rooftop PV investment pathways" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
@@ -77,27 +77,27 @@ For calibration in the DGE model, the base-year rooftop PV contribution is set t
 - **All GDP components shown below (GDP, investment, consumption, government expenditure, and trade balance) are expressed relative to PDP8 GDP.**
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 3. GDP impacts are positive but moderate; policy design influences magnitude.</em></figcaption>
+  <figcaption><em>Figure 3. GDP.</em></figcaption>
   <img src="figures/RTS/GDP.png" alt="GDP impacts under rooftop scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 4. Investment increases initially and then declines.</em></figcaption>
+  <figcaption><em>Figure 4. Investment.</em></figcaption>
   <img src="figures/RTS/Investment.png" alt="GDP impacts under rooftop scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 5. Consumption first declines and then increases.</em></figcaption>
+  <figcaption><em>Figure 5. Consumption.</em></figcaption>
   <img src="figures/RTS/Consumption.png" alt="GDP impacts under rooftop scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 6. Government expenditures first decline and then increase.</em></figcaption>
+  <figcaption><em>Figure 6. Government expenditure.</em></figcaption>
   <img src="figures/RTS/Government.png" alt="Government expenditure impacts under rooftop scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 7. Trade balance impacts under different scenarios.</em></figcaption>
+  <figcaption><em>Figure 7. Trade balance.</em></figcaption>
   <img src="figures/RTS/TradeBalance.png" alt="Trade balance expenditure impacts under rooftop scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
@@ -109,12 +109,12 @@ For calibration in the DGE model, the base-year rooftop PV contribution is set t
 - Market energy purchases decline as behind-the-meter supply substitutes for grid demand.
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 8. Energy prices are lower than in the PDP8-only reference pathway.</em></figcaption>
+  <figcaption><em>Figure 8. Energy prices.</em></figcaption>
   <img src="figures/RTS/EnergyPrices.png" alt="Energy price impacts" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 9. Market-purchased energy declines as rooftop generation expands.</em></figcaption>
+  <figcaption><em>Figure 9. Energy purchases.</em></figcaption>
   <img src="figures/RTS/Energy.png" alt="Market energy demand impacts" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
@@ -124,7 +124,7 @@ For calibration in the DGE model, the base-year rooftop PV contribution is set t
 - A carbon tax allows price certainty and lowers emissions combined with RTS rollout.
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 10. Price for emissions.</em></figcaption>
+  <figcaption><em>Figure 10. Emission price.</em></figcaption>
   <img src="figures/RTS/Emissionprice.png" alt="Emission price impacts" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
