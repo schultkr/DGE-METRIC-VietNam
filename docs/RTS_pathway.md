@@ -41,7 +41,7 @@ For calibration in the DGE model, the base-year rooftop PV contribution is set t
 
 | Scenario | Carbon policy | Rooftop deployment | Intended use |
 |---|---|---|---|
-| PDP8 (revised) | None | Official PDP8 rooftop trajectory | Baseline policy pathway |
+| PDP8 (revised) | Rooftop + emissions tax | Official PDP8 rooftop trajectory | Baseline policy pathway |
 | Rooftop + cap-and-trade | Emissions cap with permit trading | Faster than PDP8 | Tests quantity-based carbon control with strong rooftop rollout |
 | Rooftop + emissions tax | Carbon tax per unit emissions | Faster than PDP8 | Tests price-based carbon control with strong rooftop rollout |
 
