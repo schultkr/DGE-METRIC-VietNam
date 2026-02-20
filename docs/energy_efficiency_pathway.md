@@ -94,81 +94,84 @@ $$
   <img src="figures/EE//FinalEnergyDemand.png" alt="Final energy demand pathways" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
-### 3) Sector energy demand compared with baseline
-- Sector-level profiles show where demand reduction is strongest relative to PDP8.
-- These comparisons support targeting efficiency policy by sector.
-
-<figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 3. Agriculture energy demand.</em></figcaption>
-  <img src="figures/EE//EnergyAgriculture.png" alt="Agriculture energy demand compared with baseline" style="width:88%; max-width:980px; border-radius:6px;" />
-</figure>
-
-<figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 4. Industry energy demand.</em></figcaption>
-  <img src="figures/EE//EnergyIndustry.png" alt="Industry energy demand compared with baseline" style="width:88%; max-width:980px; border-radius:6px;" />
-</figure>
-
-<figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 5. Services energy demand.</em></figcaption>
-  <img src="figures/EE//EnergyServices.png" alt="Services energy demand compared with baseline" style="width:88%; max-width:980px; border-radius:6px;" />
-</figure>
-
-### 4) GDP effects are positive but modest
+### 3) GDP effects are positive but modest
 - Annual investment needs are modest in macro terms (about **0.076% of GDP** for quantified sectors).
 - This supports positive but moderate GDP effects through lower energy intensity and productivity improvements.
 - **All GDP components shown below (GDP, investment, consumption, government expenditure, and trade balance) are expressed relative to PDP8 GDP.**
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 6. GDP.</em></figcaption>
+  <figcaption><em>Figure 3. GDP.</em></figcaption>
   <img src="figures/EE//GDP.png" alt="GDP effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 7. Investment.</em></figcaption>
+  <figcaption><em>Figure 4. Investment.</em></figcaption>
   <img src="figures/EE//Investment.png" alt="Investment effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 8. Consumption.</em></figcaption>
+  <figcaption><em>Figure 5. Consumption.</em></figcaption>
   <img src="figures/EE//Consumption.png" alt="Consumption effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 9. Government expenditure.</em></figcaption>
+  <figcaption><em>Figure 6. Government expenditure.</em></figcaption>
   <img src="figures/EE//Government.png" alt="Government effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 10. Trade balance.</em></figcaption>
+  <figcaption><em>Figure 7. Trade balance.</em></figcaption>
   <img src="figures/EE//TradeBalance.png" alt="Trade balance effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
-### 5) Energy prices and expenditures decline
+### 4) Energy prices and expenditures decline
 - Lower demand pressure reduces energy price and expenditure growth versus baseline.
 - Benefits are stronger when investment is implemented early in high-use sectors.
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 11. Energy prices.</em></figcaption>
+  <figcaption><em>Figure 8. Energy prices.</em></figcaption>
   <img src="figures/EE//EnergyPrices.png" alt="Energy price effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 12. Energy expenditure.</em></figcaption>
+  <figcaption><em>Figure 9. Energy expenditure.</em></figcaption>
   <img src="figures/EE//EnergyExpenditure.png" alt="Energy expenditure effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
-### 6) Emissions and carbon prices
+### 5) Emissions and carbon prices
 - Efficiency reduces emissions directly through lower fuel use.
 - Carbon policy determines whether adjustment is led more by quantity (cap) or price (tax).
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 13. Emission price.</em></figcaption>
+  <figcaption><em>Figure 10. Emission price.</em></figcaption>
   <img src="figures/EE//EmissionPrice.png" alt="Emission price effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 14. Emissions.</em></figcaption>
+  <figcaption><em>Figure 11. Emissions.</em></figcaption>
   <img src="figures/EE//Emissions.png" alt="Emissions effects" style="width:88%; max-width:980px; border-radius:6px;" />
+</figure>
+
+### 6) Sector energy demand compared with baseline
+- Sector-level profiles show where demand reduction is strongest relative to PDP8.
+- Mechanism: higher efficiency first reduces required energy input for a given output level.
+- As efficiency lowers system energy demand, equilibrium energy prices fall, which supports additional production and demand.
+- A rebound effect is visible: stronger efficiency raises productivity and GDP, and this additional activity partly offsets direct energy savings.
+- In this case, higher GDP growth dominates part of the direct efficiency effect on total sectoral energy demand.
+
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <figcaption><em>Figure 12. Agriculture energy demand.</em></figcaption>
+  <img src="figures/EE//EnergyAgriculture.png" alt="Agriculture energy demand compared with baseline" style="width:88%; max-width:980px; border-radius:6px;" />
+</figure>
+
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <figcaption><em>Figure 13. Industry energy demand.</em></figcaption>
+  <img src="figures/EE//EnergyIndustry.png" alt="Industry energy demand compared with baseline" style="width:88%; max-width:980px; border-radius:6px;" />
+</figure>
+
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <figcaption><em>Figure 14. Services energy demand.</em></figcaption>
+  <img src="figures/EE//EnergyServices.png" alt="Services energy demand compared with baseline" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 ---
@@ -184,28 +187,65 @@ $$
 
 ## DGE implementation note (technical, short)
 
-One practical representation is an energy-efficiency wedge that raises effective energy services per unit of purchased energy:
+The efficiency channel is implemented directly in intermediate input demand using the updated model wedge:
+
+```none
+#lhsSupplySubsecSec_3_@{subsec}_@{reg}_@{secm} = A_I_@{subsec}_@{reg}_@{secm};
+#rhsSupplySubsecSec_3_@{subsec}_@{reg}_@{secm} = exp(A_I_Eff_@{subsec}_@{reg}_@{secm})*(EE_@{reg})^((@{secm}==iSecEnergy_p));
+```
+
+Interpretation:
+- `exp(A_I_Eff_...)` is a multiplicative efficiency shifter in intermediate demand.
+- `(EE_@{reg})^((@{secm}==iSecEnergy_p))` applies the regional efficiency factor only when the supplying sector is energy (`iSecEnergy_p`); otherwise the exponent is zero and the term equals 1.
+- This means the policy shock targets the energy input margin rather than all intermediate inputs.
+
+The sectoral intermediate-input demand condition is:
+
+For subsector $u$, region $r$, and intermediate input $m$:
 
 $$
-Q_E^{eff} = \eta_t \cdot Q_E^{market}, \qquad \eta_t \uparrow
+P_{A,m,r}
++ \kappa^{EI}_{u,r,m}\,e^{\text{exoEI}_{u,r,m}}
+\left(\frac{Q^{D}_{\text{fossil},r}}{Q^{A}_{\text{energy},r}}\right)
+PE_r\,lEndoQ_{u,r}
+=
+\omega^{1/\eta^{IA}_u}_{u,r,m}
+\,A_{I,u,r,m}^{\frac{\eta^{IA}_u-1}{\eta^{IA}_u}}
+\left(\frac{Q_{I,u,r,m}}{Q_{I,u,r}}\right)^{-1/\eta^{IA}_u}
+P_{I,u,r}.
 $$
 
-Equivalent demand form:
+Interpretation of this demand equation:
+- The left-hand side is the effective marginal cost of using input `@{secm}`, including the direct price term `P_A_...` plus an emissions-cost component.
+- The emissions-cost component scales with `kappaEI`, the exogenous intensity shifter `exp(exo_EI_...)`, fossil share `(Q_D_fossil/Q_A_energy)`, and permit/carbon price `PE_@{reg}`.
+- The right-hand side is the CES demand condition: relative input demand responds to the efficiency-adjusted input shifter `A_I_...`, substitution elasticity `etaIA`, and relative composite-input price `P_I_...`.
+- When `A_I_Eff` and `EE_@{reg}` increase the energy-input efficiency term, the model requires less purchased energy input for a given production level (ceteris paribus), while price-mediated general-equilibrium effects can generate partial rebound.
+
+Government investments that drive sector efficiency gains are represented as sector-specific public spending and capital accumulation:
 
 $$
-Q_E^{market} = \frac{Q_E^{eff}}{\eta_t}
+K^{A}_{u,r,t} = \text{exoGA}_{u,r,t}\,Y0_p
 $$
 
-If efficiency capital is modeled explicitly:
-
 $$
-K_{EE,t+1} = (1-\delta_{EE})K_{EE,t} + I_{EE,t}, \qquad \eta_t = \eta(K_{EE,t})
+K^{A}_{u,r,t} = (1-\delta^{KA}_{u,r})K^{A}_{u,r,t-1} + G^{A}_{u,r,t}
 $$
 
-Recommended implementation:
-- Calibrate sector wedges to match ETP 2030 savings rates (industry 7.4%, services 5.1%, households 11.6%).
-- Map annual efficiency investment to the resource constraint using USD 361 million/year (quantified sectors).
-- Keep agriculture as a separate sensitivity block until quantified investment and savings inputs are available.
+where $G^{A}_{u,r,t}$ is government expenditure for sector-specific adaptation/efficiency investment, and $K^{A}_{u,r,t}$ is the resulting sector capital stock.
+
+In the transformed model form used for numerical stability, these conditions are implemented as:
+
+$$
+\frac{K^{A}_{u,r,t}+1}{\text{exoGA}_{u,r,t}\,Y0_p+1}=1,
+\qquad
+\frac{K^{A}_{u,r,t}+1}{(1-\delta^{KA}_{u,r})K^{A}_{u,r,t-1}+G^{A}_{u,r,t}+1}=1.
+$$
+
+Calibration logic:
+- For a given substitution elasticity in the production nest, increase `A_I_Eff` and `EE_@{reg}` so that, ceteris paribus, firm energy demand declines to the target levels.
+- Match target savings rates by 2030 (industry 7.4%, services 5.1%, households 11.6%).
+- Use government efficiency investment paths (USD 361 million/year across quantified sectors) to discipline the time profile of `A_I_Eff` and `EE_@{reg}`.
+- Keep agriculture in sensitivity analysis until a quantified agriculture savings-investment mapping is available.
 
 ---
 
