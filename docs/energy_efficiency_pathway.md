@@ -233,14 +233,6 @@ $$
 
 where $G^{A}_{u,r,t}$ is government expenditure for sector-specific adaptation/efficiency investment, and $K^{A}_{u,r,t}$ is the resulting sector capital stock.
 
-In the transformed model form used for numerical stability, these conditions are implemented as:
-
-$$
-\frac{K^{A}_{u,r,t}+1}{\text{exoGA}_{u,r,t}\,Y0_p+1}=1,
-\qquad
-\frac{K^{A}_{u,r,t}+1}{(1-\delta^{KA}_{u,r})K^{A}_{u,r,t-1}+G^{A}_{u,r,t}+1}=1.
-$$
-
 Calibration logic:
 - For a given substitution elasticity in the production nest, increase $A^{Eff}_{I,u,r,m}$ and $EE_r$ so that, ceteris paribus, firm energy demand declines to the target levels.
 - Match target savings rates by 2030 (industry 7.4%, services 5.1%, households 11.6%).
