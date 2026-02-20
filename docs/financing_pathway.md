@@ -61,7 +61,7 @@ Financing design is a key determinant of transition speed and cost:
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 1. Public financing rate.</em></figcaption>
-  <img src="figures/Financing/PublicInterestRate.png" alt="Public investment financing rates across scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/finance/PublicInterestRate.png" alt="Public investment financing rates across scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 ### 2) Renewable capital accumulation
@@ -70,7 +70,7 @@ Financing design is a key determinant of transition speed and cost:
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 2. Renewable capital stock.</em></figcaption>
-  <img src="figures/Financing/RenewableCapital.png" alt="Renewable capital stock pathways" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/finance/RenewableCapital.png" alt="Renewable capital stock pathways" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 ### 3) Investment and growth
@@ -80,17 +80,17 @@ Financing design is a key determinant of transition speed and cost:
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 3. GDP growth.</em></figcaption>
-  <img src="figures/Financing/GDP_Growth.png" alt="GDP growth effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/finance/GDP_Growth.png" alt="GDP growth effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 4. GDP.</em></figcaption>
-  <img src="figures/Financing/GDP.png" alt="GDP level effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/finance/GDP.png" alt="GDP level effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 5. Total investment.</em></figcaption>
-  <img src="figures/Financing/Investment.png" alt="Investment effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/finance/Investment.png" alt="Investment effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 ### 4) Fiscal and carbon-market channels
@@ -99,12 +99,12 @@ Financing design is a key determinant of transition speed and cost:
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 6. Emission tax revenues.</em></figcaption>
-  <img src="figures/Financing/EmissionTaxRevenue.png" alt="Emission tax revenue pathways" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/finance/EmissionTaxRevenue.png" alt="Emission tax revenue pathways" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 7. Recycled renewable investment.</em></figcaption>
-  <img src="figures/Financing/RecycledInvestment.png" alt="Renewable investment financed by recycled revenues" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/finance/RecycledInvestment.png" alt="Renewable investment financed by recycled revenues" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 ### 5) Emissions and energy-system outcomes
@@ -113,12 +113,12 @@ Financing design is a key determinant of transition speed and cost:
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 8. Emissions.</em></figcaption>
-  <img src="figures/Financing/Emissions.png" alt="Emissions pathways under financing scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/finance/Emissions.png" alt="Emissions pathways under financing scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 9. Renewable generation.</em></figcaption>
-  <img src="figures/Financing/RenewableGeneration.png" alt="Renewable generation effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/finance/RenewableGeneration.png" alt="Renewable generation effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 ---
