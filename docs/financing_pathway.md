@@ -41,8 +41,8 @@ Financing design is a key determinant of transition speed and cost:
 |---|---|---:|---|---|
 | **PDP8-Base** | PDP8 | 8% | No | Baseline under planned pathway |
 | **NZ-Base** | Net Zero | 8 | No | Baseline under decarbonization pathway |
-| **PDP8-Concessional** | PDP8 | 3% (5pp lower) | No | Isolates concessional loan effect under PDP8 |
-| **NZ-Concessional** | Net Zero | 3% (5pp lower) | No | Isolates concessional loan effect under NZ |
+| **PDP8-Concessional** | PDP8 | 5% (3pp lower) | No | Isolates concessional loan effect under PDP8 |
+| **NZ-Concessional** | Net Zero | 5% (3pp lower) | No | Isolates concessional loan effect under NZ |
 | **PDP8-Recycle** | PDP8 | 5% | Yes | Isolates tax-recycling investment channel under PDP8 |
 | **NZ-Recycle** | Net Zero | 5% | Yes | Isolates tax-recycling investment channel under NZ |
 
@@ -134,47 +134,23 @@ Financing design is a key determinant of transition speed and cost:
 
 ## DGE implementation note (technical, short)
 
-Let $b$ denote baseline emissions pathway ($b \in \{\text{PDP8},\text{NZ}\}$), and $s$ financing scenario.
+The financing block is defined by two rules only:
 
-### Public financing rate rule
-
-$$
-r^{G}_{s,t} = r^{G,base}_{b,t} - \Delta r^{G}_{s,t}
-$$
-
-with
+1. **Full recycling of cap-and-trade revenues to renewable subsidies**
 
 $$
-r^{G,base}_{b,t}=0.05,
-\qquad
-\Delta r^{G}_{s,t}=0.05\;\text{for concessional scenarios, else }0.
+	au^{K,F}_{\text{Renewable},t}=Rev^{\text{C\&T}}_t,
 $$
 
-### Revenue recycling into renewable capital
+so all revenues from cap-and-trade are fully used to finance subsidies to the renewable industry.
 
-Let $Rev^{ET}_{b,t}$ be emission-tax revenue and $\rho^{rec}_{s,t}$ the recycling share:
-
-$$
-I^{RE,rec}_{s,t}=\rho^{rec}_{s,t}\,Rev^{ET}_{b,t},
-\qquad
-\rho^{rec}_{s,t}=1\;\text{in recycling scenarios, else }0.
-$$
-
-Renewable capital accumulation:
+2. **Lower borrowing cost for renewable public investment**
 
 $$
-K^{RE}_{s,t+1}=(1-\delta^{RE})K^{RE}_{s,t}+I^{RE,base}_{s,t}+I^{RE,rec}_{s,t}.
+r^{G}_{\text{Renewable},t}<r^{G}_{t},
 $$
 
-### Comparison metric
-
-Report outcomes as deviations from pathway-specific baselines:
-
-$$
-\Delta X^{PDP8}_{s,t}=\frac{X_{s,t}-X_{\text{PDP8-Base},t}}{X_{\text{PDP8-Base},t}}\times 100,
-\quad
-\Delta X^{NZ}_{s,t}=\frac{X_{s,t}-X_{\text{NZ-Base},t}}{X_{\text{NZ-Base},t}}\times 100.
-$$
+so public investments in the renewable sector can be conducted at a lower interest rate.
 
 ---
 
