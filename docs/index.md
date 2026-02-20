@@ -22,6 +22,7 @@ Welcome — this site documents the DGE implementation used to analyze macroecon
 - **Scenario design & assumptions:** [Scenarios](scenario.md)
 - **Scenario brief (rooftop solar):** [RTS pathway](RTS_pathway.md)
 - **Scenario brief (energy efficiency):** [Energy efficiency pathway](energy_efficiency_pathway.md)
+- **Scenario brief (financing):** [Financing pathway](financing_pathway.md)
 - **Calibration & data sources:** [Calibration](calibration.md)
 - **How to run the model:** [Running the model](running.md)
 
