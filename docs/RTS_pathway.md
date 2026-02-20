@@ -90,6 +90,18 @@ For calibration in the DGE model, the base-year rooftop PV contribution is set t
   <figcaption><em>Figure 5. Consumption first declines and then increases.</em></figcaption>
 </figure>
 
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <img src="figures/RTS/Government.png" alt="Government expenditure impacts under rooftop scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
+  <figcaption><em>Figure 5. Government expenditures first declines and then increases.</em></figcaption>
+</figure>
+
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <img src="figures/RTS/TradeBalance.png" alt="Trade balance expenditure impacts under rooftop scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
+  <figcaption><em>Figure 5. Trade balance impact under different scenarios.</em></figcaption>
+</figure>
+
+
+
 
 ### 4) Energy prices and market purchases decline
 - Energy prices fall relative to PDP8 in the accelerated rooftop scenarios.
@@ -111,7 +123,7 @@ For calibration in the DGE model, the base-year rooftop PV contribution is set t
 - A carbon tax allows price certainty and lowers emissions combined with RTS rollout.
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <img src="figures/RTS/EmissionPrices.png" alt="Emission price impacts" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/RTS/EmissionPrice.png" alt="Emission price impacts" style="width:88%; max-width:980px; border-radius:6px;" />
   <figcaption><em>Figure 8. Price for emissions.</em></figcaption>
 </figure>
 
