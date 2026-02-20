@@ -94,61 +94,80 @@ $$
   <img src="figures/EE//FinalEnergyDemand.png" alt="Final energy demand pathways" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
-### 3) GDP effects are positive but modest
+### 3) Sector energy demand compared with baseline
+- Sector-level profiles show where demand reduction is strongest relative to PDP8.
+- These comparisons support targeting efficiency policy by sector.
+
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <figcaption><em>Figure 3. Agriculture energy demand.</em></figcaption>
+  <img src="figures/EE//EnergyAgriculture.png" alt="Agriculture energy demand compared with baseline" style="width:88%; max-width:980px; border-radius:6px;" />
+</figure>
+
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <figcaption><em>Figure 4. Industry energy demand.</em></figcaption>
+  <img src="figures/EE//EnergyIndustry.png" alt="Industry energy demand compared with baseline" style="width:88%; max-width:980px; border-radius:6px;" />
+</figure>
+
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <figcaption><em>Figure 5. Services energy demand.</em></figcaption>
+  <img src="figures/EE//EnergyServices.png" alt="Services energy demand compared with baseline" style="width:88%; max-width:980px; border-radius:6px;" />
+</figure>
+
+### 4) GDP effects are positive but modest
 - Annual investment needs are modest in macro terms (about **0.076% of GDP** for quantified sectors).
 - This supports positive but moderate GDP effects through lower energy intensity and productivity improvements.
 - **All GDP components shown below (GDP, investment, consumption, government expenditure, and trade balance) are expressed relative to PDP8 GDP.**
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 3. GDP.</em></figcaption>
+  <figcaption><em>Figure 6. GDP.</em></figcaption>
   <img src="figures/EE//GDP.png" alt="GDP effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 4. Investment.</em></figcaption>
+  <figcaption><em>Figure 7. Investment.</em></figcaption>
   <img src="figures/EE//Investment.png" alt="Investment effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 5. Consumption.</em></figcaption>
+  <figcaption><em>Figure 8. Consumption.</em></figcaption>
   <img src="figures/EE//Consumption.png" alt="Consumption effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 6. Government expenditure.</em></figcaption>
+  <figcaption><em>Figure 9. Government expenditure.</em></figcaption>
   <img src="figures/EE//Government.png" alt="Government effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 7. Trade balance.</em></figcaption>
+  <figcaption><em>Figure 10. Trade balance.</em></figcaption>
   <img src="figures/EE//TradeBalance.png" alt="Trade balance effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
-### 4) Energy prices and expenditures decline
+### 5) Energy prices and expenditures decline
 - Lower demand pressure reduces energy price and expenditure growth versus baseline.
 - Benefits are stronger when investment is implemented early in high-use sectors.
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 8. Energy prices.</em></figcaption>
+  <figcaption><em>Figure 11. Energy prices.</em></figcaption>
   <img src="figures/EE//EnergyPrices.png" alt="Energy price effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 9. Energy expenditure.</em></figcaption>
+  <figcaption><em>Figure 12. Energy expenditure.</em></figcaption>
   <img src="figures/EE//EnergyExpenditure.png" alt="Energy expenditure effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
-### 5) Emissions and carbon prices
+### 6) Emissions and carbon prices
 - Efficiency reduces emissions directly through lower fuel use.
 - Carbon policy determines whether adjustment is led more by quantity (cap) or price (tax).
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 10. Emission price.</em></figcaption>
+  <figcaption><em>Figure 13. Emission price.</em></figcaption>
   <img src="figures/EE//EmissionPrice.png" alt="Emission price effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 11. Emissions.</em></figcaption>
+  <figcaption><em>Figure 14. Emissions.</em></figcaption>
   <img src="figures/EE//Emissions.png" alt="Emissions effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
