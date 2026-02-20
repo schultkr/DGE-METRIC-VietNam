@@ -80,19 +80,46 @@ For calibration in the DGE model, the base-year rooftop PV contribution is set t
   <figcaption><em>Figure 3. GDP impacts are positive but moderate; policy design influences magnitude.</em></figcaption>
 </figure>
 
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <img src="figures/RTS/Investment.png" alt="GDP impacts under rooftop scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
+  <figcaption><em>Figure 4. Investment increases initially and then declines.</em></figcaption>
+</figure>
+
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <img src="figures/RTS/Consumption.png" alt="GDP impacts under rooftop scenarios" style="width:88%; max-width:980px; border-radius:6px;" />
+  <figcaption><em>Figure 5. Consumption first declines and then increases.</em></figcaption>
+</figure>
+
+
 ### 4) Energy prices and market purchases decline
 - Energy prices fall relative to PDP8 in the accelerated rooftop scenarios.
 - Market energy purchases decline as behind-the-meter supply substitutes for grid demand.
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <img src="figures/RTS/EnergyPrices.png" alt="Energy price impacts" style="width:88%; max-width:980px; border-radius:6px;" />
-  <figcaption><em>Figure 4. Energy prices are lower than in the PDP8-only reference pathway.</em></figcaption>
+  <figcaption><em>Figure 6. Energy prices are lower than in the PDP8-only reference pathway.</em></figcaption>
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <img src="figures/RTS/Energy_Production.png" alt="Market energy demand impacts" style="width:88%; max-width:980px; border-radius:6px;" />
-  <figcaption><em>Figure 5. Market-purchased energy declines as rooftop generation expands.</em></figcaption>
+  <img src="figures/RTS/Energy.png" alt="Market energy demand impacts" style="width:88%; max-width:980px; border-radius:6px;" />
+  <figcaption><em>Figure 7. Market-purchased energy declines as rooftop generation expands.</em></figcaption>
 </figure>
+
+
+### 5) Emissions and prices for emissions
+- Cap and Trade rules out effect on emissions, but lowers price pressure.
+- A carbon tax allows price certainty and lowers emissions combined with RTS rollout.
+
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <img src="figures/RTS/EmissionPrices.png" alt="Emission price impacts" style="width:88%; max-width:980px; border-radius:6px;" />
+  <figcaption><em>Figure 8. Price for emissions.</em></figcaption>
+</figure>
+
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <img src="figures/RTS/Emissions.png" alt="Emissions" style="width:88%; max-width:980px; border-radius:6px;" />
+  <figcaption><em>Figure 9. Emissions.</em></figcaption>
+</figure>
+
 
 ---
 
