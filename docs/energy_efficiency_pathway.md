@@ -74,7 +74,7 @@ $$
 
 ---
 
-## Main results in plain language
+## Main results
 
 ### 1) Energy intensity improves
 - By 2030, energy savings potential is highest in **households (11.6%)**, followed by **industry (7.4%)** and **services (5.1%)**.
