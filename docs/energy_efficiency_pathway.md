@@ -37,16 +37,17 @@ For calibration in the DGE model, efficiency starts from observed base-year ener
 
 ---
 
-## Sector efficiency and investment inputs (ETP 2018–2030)
+## Sectoral Energy Efficiency Potential (by 2030) and Annual Investment Needs (Vietnam)
 
-*Source: Energy Transition Partnership (ETP) Energy Efficiency Diagnostic (Vietnam), 2018–2030. GDP reference for % calculations: Vietnam GDP 2024 ≈ USD 476.3 bn.*
+*Sources & notes:* Industry and services figures from the Energy Transition Partnership (ETP) Energy Efficiency Diagnostic; national EE targets from VNEEP3; agriculture estimate based on proxy energy use and policy emphasis.  
+GDP used for % calculations ≈ USD 476.3 billion (2024 reference).
 
-| Sector | Energy Efficiency Improvement by 2030 (% energy savings potential) | Annual Investment Need (USD million/year) | Annual Investment (% of GDP) | Key Measures Included |
-|---|---:|---:|---:|---|
-| **Manufacturing / Industry** | 7.4% | 210 | ~0.044% | Process heat efficiency (boilers, furnaces), cogeneration, motor systems (VSDs), industrial process optimization, facility efficiency (incl. AC) |
-| **Services / Commercial Buildings** | 5.1% | 47 | ~0.010% | High-efficiency AC, lighting (LED), water heating, office equipment, building controls, solar water heating |
-| **Households / Residential** | 11.6% | 104 | ~0.022% | Efficient appliances (AC, refrigerators), lighting, water heating, clean cooking, solar water heating |
-| **Agriculture** | Not explicitly quantified in ETP table | — | — | Efficient irrigation pumps, agro-processing heat efficiency, cold-chain efficiency (addressed under VNEEP but without explicit quantified breakdown in PDP-8 documents) |
+| **Sector** | **EE Savings Potential by 2030 (% of sectoral energy)** | **Annual Investment Need (USD million)** | **Annual Investment (% of GDP)** | **Core Measures Included** |
+|-------------|:-------------------------------------------------------:|:----------------------------------------:|:--------------------------------:|-----------------------------|
+| **Manufacturing / Industry** | ~7.4 % | 210 | ~0.044 % | Process heat efficiency (boilers, furnaces); cogeneration; motor systems (VSDs); facility EE including AC. :contentReference[oaicite:4]{index=4} |
+| **Services / Commercial Buildings** | ~5.1 % | 47 | ~0.010 % | High-efficiency AC & lighting; water heating; thermostatic controls; building management systems. :contentReference[oaicite:5]{index=5} |
+| **Households / Residential (supporting service demand context)** | ~11.6 % | 104 | ~0.022 % | Appliance efficiency (AC, refrigerators), efficient lighting & water heating. :contentReference[oaicite:6]{index=6} |
+| **Agriculture (Irrigation + Agro-processing + Cold-chain)** | ~10 % (conservative proxy) | ~100* | ~0.021 % | Efficient irrigation pumps; variable speed drives; solar/electric dryers; cold-chain efficiency. *Assumed based on sector energy share and typical EE potential illustrations. |
 
 **Total quantified annual investment (industry + services + households):**
 
