@@ -202,7 +202,7 @@ $$
 A_{I,u,r,m}
 =
 \exp\!\left(A^{Eff}_{I,u,r,m}\right)
-\left(EE_r\right)^{\mathbb{1}\{m=i^{p}_{\text{Energy}}\}}.
+\left(EE_r\right)^{\mathbb{1}\{m=i^{p}_{\text{Energy}}\}}
 $$
 
 Interpretation:
@@ -223,7 +223,7 @@ PE_r\,lEndoQ_{u,r}
 \omega^{1/\eta^{IA}_u}_{u,r,m}
 \,A_{I,u,r,m}^{\frac{\eta^{IA}_u-1}{\eta^{IA}_u}}
 \left(\frac{Q_{I,u,r,m}}{Q_{I,u,r}}\right)^{-1/\eta^{IA}_u}
-P_{I,u,r}.
+P_{I,u,r}
 $$
 
 Interpretation of this demand equation:
