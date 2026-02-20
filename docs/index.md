@@ -20,6 +20,8 @@ Welcome — this site documents the DGE implementation used to analyze macroecon
 - **Project overview:** [Home](index.md)
 - **Model structure & equations:** [Model documentation](model.md)
 - **Scenario design & assumptions:** [Scenarios](scenario.md)
+- **Scenario brief (rooftop solar):** [RTS pathway](RTS_pathway.md)
+- **Scenario brief (energy efficiency):** [Energy efficiency pathway](energy_efficiency_pathway.md)
 - **Calibration & data sources:** [Calibration](calibration.md)
 - **How to run the model:** [Running the model](running.md)
 

@@ -97,6 +97,38 @@ Purpose:
 
 ---
 
+## Pathway Modules for Policy Analysis
+
+In addition to the core NZ decomposition above, this project includes two policy-facing pathway modules that can be layered onto the scenario architecture.
+
+### A. Rooftop Solar (RTS) Pathway
+
+- Full pathway note: [RTS pathway](RTS_pathway.md)
+- Focus: behind-the-meter rooftop PV expansion and its effects on grid demand, prices, investment, and macro outcomes.
+- Policy variants documented in the pathway note:
+  - PDP8-aligned rooftop rollout,
+  - accelerated rooftop rollout,
+  - interactions with cap-and-trade and emissions tax settings.
+- Role in scenario system: a distributed supply-side transition channel that shifts electricity purchases away from the grid.
+
+### B. Energy Demand Efficiency Pathway
+
+- Full pathway note: [Energy efficiency pathway](energy_efficiency_pathway.md)
+- Focus: sectoral efficiency gains in industry, services, and households, with explicit annual investment needs and GDP-share framing.
+- Uses ETP-based efficiency and investment inputs to calibrate demand-side improvements.
+- Role in scenario system: a demand-side transition channel that lowers purchased energy per unit of delivered energy services.
+
+### How these modules connect to the core scenario set
+
+- **Baseline (PDP8):** provides the reference trajectory for both pathway comparisons.
+- **NZ and constrained NZ variants:** provide the carbon-policy and technology-counterfactual context.
+- **RTS pathway module:** can be run as an overlay that modifies electricity demand/supply composition under baseline or carbon-policy variants.
+- **Efficiency pathway module:** can be run as an overlay that modifies energy productivity trajectories and energy service demand translation.
+
+Together, these pathway notes provide implementation-ready assumptions and communication-focused outputs that complement the core scenario decomposition.
+
+---
+
 ## Implementation Details
 
 ### Scenario Switching
