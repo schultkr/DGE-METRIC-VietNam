@@ -199,10 +199,7 @@ The efficiency channel is implemented directly in intermediate input demand usin
 For subsector $u$, region $r$, and input sector $m$:
 
 $$
-A_{I,u,r,m}
-=
-\exp\!\left(A^{Eff}_{I,u,r,m}\right)
-\left(EE_r\right)^{\mathbb{1}\{m=i^{p}_{\text{Energy}}\}}
+A_{I,u,r,m}=\exp\!\left(A^{Eff}_{I,u,r,m}\right)\left(EE_r\right)^{\mathbb{1}\{m=i^{p}_{\text{Energy}}\}}
 $$
 
 Interpretation:
