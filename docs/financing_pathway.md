@@ -139,7 +139,7 @@ The financing block is defined by two rules only:
 1. **Full recycling of cap-and-trade revenues to renewable subsidies**
 
 $$
-	au^{K,F}_{\text{Renewable},t}=Rev^{\text{C and T}}_t,
+	\tau^{K,F}_{\text{Renewable},t}=Rev^{\text{C and T}}_t,
 $$
 
 so all revenues from cap-and-trade are fully used to finance subsidies to the renewable industry.
