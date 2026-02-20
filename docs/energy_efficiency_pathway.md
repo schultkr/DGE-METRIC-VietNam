@@ -82,7 +82,7 @@ $$
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 1. Energy intensity.</em></figcaption>
-  <img src="figures/EE/Efficiency/EnergyIntensity.png" alt="Energy intensity pathways" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/EE//EnergyIntensity.png" alt="Energy intensity pathways" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 ### 2) Final energy demand declines relative to baseline
@@ -91,7 +91,7 @@ $$
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 2. Final energy demand.</em></figcaption>
-  <img src="figures/EE/Efficiency/FinalEnergyDemand.png" alt="Final energy demand pathways" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/EE//FinalEnergyDemand.png" alt="Final energy demand pathways" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 ### 3) GDP effects are positive but modest
@@ -101,27 +101,27 @@ $$
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 3. GDP.</em></figcaption>
-  <img src="figures/EE/Efficiency/GDP.png" alt="GDP effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/EE//GDP.png" alt="GDP effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 4. Investment.</em></figcaption>
-  <img src="figures/EE/Efficiency/Investment.png" alt="Investment effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/EE//Investment.png" alt="Investment effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 5. Consumption.</em></figcaption>
-  <img src="figures/EE/Efficiency/Consumption.png" alt="Consumption effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/EE//Consumption.png" alt="Consumption effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 6. Government expenditure.</em></figcaption>
-  <img src="figures/EE/Efficiency/Government.png" alt="Government effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/EE//Government.png" alt="Government effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 7. Trade balance.</em></figcaption>
-  <img src="figures/EE/Efficiency/TradeBalance.png" alt="Trade balance effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/EE//TradeBalance.png" alt="Trade balance effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 ### 4) Energy prices and expenditures decline
@@ -130,12 +130,12 @@ $$
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 8. Energy prices.</em></figcaption>
-  <img src="figures/EE/Efficiency/EnergyPrices.png" alt="Energy price effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/EE//EnergyPrices.png" alt="Energy price effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 9. Energy expenditure.</em></figcaption>
-  <img src="figures/EE/Efficiency/EnergyExpenditure.png" alt="Energy expenditure effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/EE//EnergyExpenditure.png" alt="Energy expenditure effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 ### 5) Emissions and carbon prices
@@ -144,12 +144,12 @@ $$
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 10. Emission price.</em></figcaption>
-  <img src="figures/EE/Efficiency/EmissionPrice.png" alt="Emission price effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/EE//EmissionPrice.png" alt="Emission price effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
   <figcaption><em>Figure 11. Emissions.</em></figcaption>
-  <img src="figures/EE/Efficiency/Emissions.png" alt="Emissions effects" style="width:88%; max-width:980px; border-radius:6px;" />
+  <img src="figures/EE//Emissions.png" alt="Emissions effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 ---
