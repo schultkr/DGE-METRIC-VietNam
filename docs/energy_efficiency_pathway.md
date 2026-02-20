@@ -97,30 +97,37 @@ $$
 ### 3) GDP effects are positive but modest
 - Annual investment needs are modest in macro terms (about **0.076% of GDP** for quantified sectors).
 - This supports positive but moderate GDP effects through lower energy intensity and productivity improvements.
+- Energy-efficiency measures can help reach GDP growth targets in the near term by reducing energy costs and raising productivity.
+- In the long run, GDP growth rates can moderate due to base effects, while GDP levels remain higher than baseline.
 - **All GDP components shown below (GDP, investment, consumption, government expenditure, and trade balance) are expressed relative to PDP8 GDP.**
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 3. GDP.</em></figcaption>
+  <figcaption><em>Figure 3. GDP growth.</em></figcaption>
+  <img src="figures/EE//GDP_Growth.png" alt="GDP growth effects" style="width:88%; max-width:980px; border-radius:6px;" />
+</figure>
+
+<figure style="text-align:center; margin: 1.2rem 0;">
+  <figcaption><em>Figure 4. GDP.</em></figcaption>
   <img src="figures/EE//GDP.png" alt="GDP effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 4. Investment.</em></figcaption>
+  <figcaption><em>Figure 5. Investment.</em></figcaption>
   <img src="figures/EE//Investment.png" alt="Investment effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 5. Consumption.</em></figcaption>
+  <figcaption><em>Figure 6. Consumption.</em></figcaption>
   <img src="figures/EE//Consumption.png" alt="Consumption effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 6. Government expenditure.</em></figcaption>
+  <figcaption><em>Figure 7. Government expenditure.</em></figcaption>
   <img src="figures/EE//Government.png" alt="Government effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 7. Trade balance.</em></figcaption>
+  <figcaption><em>Figure 8. Trade balance.</em></figcaption>
   <img src="figures/EE//TradeBalance.png" alt="Trade balance effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
@@ -129,12 +136,12 @@ $$
 - Benefits are stronger when investment is implemented early in high-use sectors.
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 8. Energy prices.</em></figcaption>
+  <figcaption><em>Figure 9. Energy prices.</em></figcaption>
   <img src="figures/EE//EnergyPrices.png" alt="Energy price effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 9. Energy expenditure.</em></figcaption>
+  <figcaption><em>Figure 10. Energy expenditure.</em></figcaption>
   <img src="figures/EE//EnergyExpenditure.png" alt="Energy expenditure effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
@@ -143,12 +150,12 @@ $$
 - Carbon policy determines whether adjustment is led more by quantity (cap) or price (tax).
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 10. Emission price.</em></figcaption>
+  <figcaption><em>Figure 11. Emission price.</em></figcaption>
   <img src="figures/EE//EmissionPrice.png" alt="Emission price effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 11. Emissions.</em></figcaption>
+  <figcaption><em>Figure 12. Emissions.</em></figcaption>
   <img src="figures/EE//Emissions.png" alt="Emissions effects" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
@@ -160,17 +167,17 @@ $$
 - In this case, higher GDP growth dominates part of the direct efficiency effect on total sectoral energy demand.
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 12. Agriculture energy demand.</em></figcaption>
+  <figcaption><em>Figure 13. Agriculture energy demand.</em></figcaption>
   <img src="figures/EE//EnergyAgriculture.png" alt="Agriculture energy demand compared with baseline" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 13. Industry energy demand.</em></figcaption>
+  <figcaption><em>Figure 14. Industry energy demand.</em></figcaption>
   <img src="figures/EE//EnergyIndustry.png" alt="Industry energy demand compared with baseline" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
 <figure style="text-align:center; margin: 1.2rem 0;">
-  <figcaption><em>Figure 14. Services energy demand.</em></figcaption>
+  <figcaption><em>Figure 15. Services energy demand.</em></figcaption>
   <img src="figures/EE//EnergyServices.png" alt="Services energy demand compared with baseline" style="width:88%; max-width:980px; border-radius:6px;" />
 </figure>
 
@@ -189,14 +196,18 @@ $$
 
 The efficiency channel is implemented directly in intermediate input demand using the updated model wedge:
 
-```none
-#lhsSupplySubsecSec_3_@{subsec}_@{reg}_@{secm} = A_I_@{subsec}_@{reg}_@{secm};
-#rhsSupplySubsecSec_3_@{subsec}_@{reg}_@{secm} = exp(A_I_Eff_@{subsec}_@{reg}_@{secm})*(EE_@{reg})^((@{secm}==iSecEnergy_p));
-```
+For subsector $u$, region $r$, and input sector $m$:
+
+$$
+A_{I,u,r,m}
+=
+\exp\!\left(A^{Eff}_{I,u,r,m}\right)
+\left(EE_r\right)^{\mathbb{1}\{m=i^{p}_{\text{Energy}}\}}.
+$$
 
 Interpretation:
-- `exp(A_I_Eff_...)` is a multiplicative efficiency shifter in intermediate demand.
-- `(EE_@{reg})^((@{secm}==iSecEnergy_p))` applies the regional efficiency factor only when the supplying sector is energy (`iSecEnergy_p`); otherwise the exponent is zero and the term equals 1.
+- $\exp(A^{Eff}_{I,u,r,m})$ is a multiplicative efficiency shifter in intermediate demand.
+- $\left(EE_r\right)^{\mathbb{1}\{m=i^{p}_{\text{Energy}}\}}$ applies the regional efficiency factor only when the supplying sector is energy; otherwise the indicator is zero and the term equals 1.
 - This means the policy shock targets the energy input margin rather than all intermediate inputs.
 
 The sectoral intermediate-input demand condition is:
@@ -216,10 +227,10 @@ P_{I,u,r}.
 $$
 
 Interpretation of this demand equation:
-- The left-hand side is the effective marginal cost of using input `@{secm}`, including the direct price term `P_A_...` plus an emissions-cost component.
-- The emissions-cost component scales with `kappaEI`, the exogenous intensity shifter `exp(exo_EI_...)`, fossil share `(Q_D_fossil/Q_A_energy)`, and permit/carbon price `PE_@{reg}`.
-- The right-hand side is the CES demand condition: relative input demand responds to the efficiency-adjusted input shifter `A_I_...`, substitution elasticity `etaIA`, and relative composite-input price `P_I_...`.
-- When `A_I_Eff` and `EE_@{reg}` increase the energy-input efficiency term, the model requires less purchased energy input for a given production level (ceteris paribus), while price-mediated general-equilibrium effects can generate partial rebound.
+- The left-hand side is the effective marginal cost of using input $m$, including the direct price term $P_{A,m,r}$ plus an emissions-cost component.
+- The emissions-cost component scales with $\kappa^{EI}_{u,r,m}$, the exogenous intensity shifter $e^{\mathrm{exoEI}_{u,r,m}}$, fossil share $Q^{D}_{\mathrm{fossil},r}/Q^{A}_{\mathrm{energy},r}$, and permit price $PE_r$.
+- The right-hand side is the CES demand condition: relative input demand responds to the efficiency-adjusted shifter $A_{I,u,r,m}$, substitution elasticity $\eta^{IA}_u$, and composite-input price $P_{I,u,r}$.
+- When $A^{Eff}_{I,u,r,m}$ and $EE_r$ increase the energy-input efficiency term, the model requires less purchased energy input for a given production level (ceteris paribus), while price-mediated general-equilibrium effects can generate partial rebound.
 
 Government investments that drive sector efficiency gains are represented as sector-specific public spending and capital accumulation:
 
@@ -242,9 +253,9 @@ $$
 $$
 
 Calibration logic:
-- For a given substitution elasticity in the production nest, increase `A_I_Eff` and `EE_@{reg}` so that, ceteris paribus, firm energy demand declines to the target levels.
+- For a given substitution elasticity in the production nest, increase $A^{Eff}_{I,u,r,m}$ and $EE_r$ so that, ceteris paribus, firm energy demand declines to the target levels.
 - Match target savings rates by 2030 (industry 7.4%, services 5.1%, households 11.6%).
-- Use government efficiency investment paths (USD 361 million/year across quantified sectors) to discipline the time profile of `A_I_Eff` and `EE_@{reg}`.
+- Use government efficiency investment paths (USD 361 million/year across quantified sectors) to discipline the time profile of $A^{Eff}_{I,u,r,m}$ and $EE_r$.
 - Keep agriculture in sensitivity analysis until a quantified agriculture savings-investment mapping is available.
 
 ---
