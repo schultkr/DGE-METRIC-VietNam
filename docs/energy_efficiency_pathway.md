@@ -212,15 +212,7 @@ The sectoral intermediate-input demand condition is:
 For subsector $u$, region $r$, and intermediate input $m$:
 
 $$
-P_{A,m,r}
-+ \kappa^{EI}_{u,r,m}\,e^{\text{exoEI}_{u,r,m}}
-\left(\frac{Q^{D}_{\text{fossil},r}}{Q^{A}_{\text{energy},r}}\right)
-PE_r\,lEndoQ_{u,r}
-=
-\omega^{1/\eta^{IA}_u}_{u,r,m}
-\,A_{I,u,r,m}^{\frac{\eta^{IA}_u-1}{\eta^{IA}_u}}
-\left(\frac{Q_{I,u,r,m}}{Q_{I,u,r}}\right)^{-1/\eta^{IA}_u}
-P_{I,u,r}
+P_{A,m,r} = \omega^{1/\eta^{IA}_u}_{u,r,m} \,A_{I,u,r,m}^{\frac{\eta^{IA}_u-1}{\eta^{IA}_u}} \left(\frac{Q_{I,u,r,m}}{Q_{I,u,r}}\right)^{-1/\eta^{IA}_u} P_{I,u,r}
 $$
 
 Interpretation of this demand equation:
