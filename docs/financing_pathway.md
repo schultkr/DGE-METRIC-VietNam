@@ -40,11 +40,11 @@ Financing design is a key determinant of transition speed and cost:
 | Scenario ID | Emissions pathway | Public financing rate | Emission-tax revenue recycling | Role in analysis |
 |---|---|---:|---|---|
 | **PDP8-Base** | PDP8 | 8% | No | Baseline under planned pathway |
-| **NZ-Base** | Net Zero | 8 | No | Baseline under decarbonization pathway |
+| **NZ-Base** | Net Zero | 8% | No | Baseline under decarbonization pathway |
 | **PDP8-Concessional** | PDP8 | 5% (3pp lower) | No | Isolates concessional loan effect under PDP8 |
 | **NZ-Concessional** | Net Zero | 5% (3pp lower) | No | Isolates concessional loan effect under NZ |
-| **PDP8-Recycle** | PDP8 | 5% | Yes | Isolates tax-recycling investment channel under PDP8 |
-| **NZ-Recycle** | Net Zero | 5% | Yes | Isolates tax-recycling investment channel under NZ |
+| **PDP8-Recycle** | PDP8 | 8% | Yes | Isolates tax-recycling investment channel under PDP8 |
+| **NZ-Recycle** | Net Zero | 8% | Yes | Isolates tax-recycling investment channel under NZ |
 
 **Comparison principle:**
 - Concessional scenarios are compared against the corresponding base case with the same emissions pathway.
@@ -151,27 +151,3 @@ r^{G}_{\text{Renewable},t}<r^{G}_{t},
 $$
 
 so public investments in the renewable sector can be conducted at a lower interest rate.
-
----
-
-## Annex: reporting checklist
-
-### A1. Core indicators
-- Public financing rate (%).
-- Emission-tax revenue (bn USD, % GDP).
-- Recycled renewable investment (bn USD, % GDP).
-- Renewable capital stock and generation.
-- GDP growth and GDP level effects.
-- Emissions pathway comparison.
-
-### A2. Minimum figure package
-- Financing rate path.
-- Renewable investment and capital stock.
-- GDP growth and GDP level.
-- Emission-tax revenue and recycling flows.
-- Emissions and renewable generation.
-
-### A3. Notes for final calibration
-- Confirm whether concessional-rate shock is modeled as deterministic level shift or time-bounded program.
-- Confirm recycling share ($\rho^{rec}$) and any lag between revenue collection and investment disbursement.
-- Confirm whether revenue recycling applies under PDP8 only, NZ only, or both (current draft assumes both for symmetry).
