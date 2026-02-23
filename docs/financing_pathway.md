@@ -28,8 +28,8 @@ Financing design is a key determinant of transition speed and cost:
 | Indicator | Value | Policy interpretation |
 |---|---:|---|
 | Emissions pathways | PDP8 and Net Zero | Two policy environments for financing assessment |
-| Public investment financing rate (baseline) | 5% | Reference cost of government capital |
-| Concessional financing shock | -5 percentage points | Effective public financing rate reduced to 0% in the scenario design |
+| Public investment financing rate (baseline) | 8% | Reference cost of government capital |
+| Concessional financing shock | -3 percentage points | Effective public financing rate reduced to 0% in the scenario design |
 | Revenue recycling baseline | None | Emission tax revenues are not earmarked for renewable investment |
 | Renewable investment financing variant | Tax-recycling rule | Emission-tax revenue redirected to renewable capital accumulation |
 
