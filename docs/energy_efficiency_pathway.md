@@ -44,9 +44,9 @@ GDP used for % calculations ≈ USD 476.3 billion (2024 reference).
 
 | **Sector** | **EE Savings Potential by 2030 (% of sectoral energy)** | **Annual Investment Need (USD million)** | **Annual Investment (% of GDP)** | **Core Measures Included** |
 |-------------|:-------------------------------------------------------:|:----------------------------------------:|:--------------------------------:|-----------------------------|
-| **Manufacturing / Industry** | ~7.4 % | 210 | ~0.044 % | Process heat efficiency (boilers, furnaces); cogeneration; motor systems (VSDs); facility EE including AC. :contentReference[oaicite:4]{index=4} |
-| **Services / Commercial Buildings** | ~5.1 % | 47 | ~0.010 % | High-efficiency AC & lighting; water heating; thermostatic controls; building management systems. :contentReference[oaicite:5]{index=5} |
-| **Households / Residential (supporting service demand context)** | ~11.6 % | 104 | ~0.022 % | Appliance efficiency (AC, refrigerators), efficient lighting & water heating. :contentReference[oaicite:6]{index=6} |
+| **Manufacturing / Industry** | ~7.4 % | 210 | ~0.044 % | Process heat efficiency (boilers, furnaces); cogeneration; motor systems (VSDs); facility EE including AC.|
+| **Services / Commercial Buildings** | ~5.1 % | 47 | ~0.010 % | High-efficiency AC & lighting; water heating; thermostatic controls; building management systems.|
+| **Households / Residential (supporting service demand context)** | ~11.6 % | 104 | ~0.022 % | Appliance efficiency (AC, refrigerators), efficient lighting & water heating.|
 | **Agriculture (Irrigation + Agro-processing + Cold-chain)** | ~10 % (conservative proxy) | ~100* | ~0.021 % | Efficient irrigation pumps; variable speed drives; solar/electric dryers; cold-chain efficiency. *Assumed based on sector energy share and typical EE potential illustrations. |
 
 **Total quantified annual investment (industry + services + households):**
