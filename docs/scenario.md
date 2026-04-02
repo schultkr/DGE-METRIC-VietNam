@@ -37,6 +37,12 @@ The following scenarios are implemented and compared:
 - Carbon prices remain low and do not induce strong structural change.
 - Energy efficiency and emission intensity follow exogenous baseline trends.
 
+Interpretation note:
+- The model tracks **total energy-related emissions**, not a separately reported power-sector emissions account.
+- Even so, the PDP8 baseline still reflects electricity-sector decarbonization because the electricity pathway changes the composition of energy supply between the **fossil** and **renewable** energy sectors.
+- In the calibration, direct energy-related emissions are assigned to the fossil energy block, while renewable energy carries zero direct emissions. As PDP8 expands renewables and reduces fossil generation over time, the model records this as a decline in aggregate energy-related emissions.
+- The electricity sector should therefore be interpreted as affecting emissions **indirectly through fuel mix and average emission intensity**, rather than through a stand-alone electricity-emissions variable.
+
 This scenario serves as the reference path for all indexed comparisons.
 
 ---
