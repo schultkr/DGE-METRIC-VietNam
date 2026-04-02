@@ -39,8 +39,7 @@ For calibration in the DGE model, efficiency starts from observed base-year ener
 
 ## Sectoral Energy Efficiency Potential (by 2030) and Annual Investment Needs (Vietnam)
 
-*Sources & notes:* Industry and services figures from the Energy Transition Partnership (ETP) Energy Efficiency Diagnostic; national EE targets from VNEEP3; agriculture estimate based on proxy energy use and policy emphasis.  
-GDP used for % calculations ≈ USD 476.3 billion (2024 reference).
+
 
 | **Sector** | **EE Savings Potential by 2030 (% of sectoral energy)** | **Annual Investment Need (USD million)** | **Annual Investment (% of GDP)** | **Core Measures Included** |
 |-------------|:-------------------------------------------------------:|:----------------------------------------:|:--------------------------------:|-----------------------------|
@@ -48,7 +47,8 @@ GDP used for % calculations ≈ USD 476.3 billion (2024 reference).
 | **Services / Commercial Buildings** | ~5.1 % | 47 | ~0.010 % | High-efficiency AC & lighting; water heating; thermostatic controls; building management systems.|
 | **Households / Residential (supporting service demand context)** | ~11.6 % | 104 | ~0.022 % | Appliance efficiency (AC, refrigerators), efficient lighting & water heating.|
 | **Agriculture (Irrigation + Agro-processing + Cold-chain)** | ~10 % (conservative proxy) | ~100* | ~0.021 % | Efficient irrigation pumps; variable speed drives; solar/electric dryers; cold-chain efficiency. *Assumed based on sector energy share and typical EE potential illustrations. |
-
+*Sources & notes:* Industry and services figures from the Energy Transition Partnership (ETP) Energy Efficiency Diagnostic; national EE targets from VNEEP3; agriculture estimate based on proxy energy use and policy emphasis.  
+GDP used for % calculations ≈ USD 476.3 billion (2024 reference).
 **Total quantified annual investment (industry + services + households):**
 
 $$
