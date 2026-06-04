@@ -27,9 +27,6 @@ Below is the intended navigation by folder. (Names reflect what you see in the r
 - `DGE_CRED_Model/`  
   Main model workspace: Dynare model files, steady-state routines, and scripts to run simulations and produce results.
 
-- `+DGE_CRED_Model/`  
-  MATLAB package folder (namespace `DGE_CRED_Model.*`) for more structured code (helpers, class-like organization).
-
 - `ModFiles/`  
   Dynare `.mod` files (model equations, shocks, closures, scenario switches).
 

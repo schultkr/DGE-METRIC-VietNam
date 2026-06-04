@@ -2,11 +2,11 @@
 % === Find initial and terminal conditions ===
 % ============================================
 imaxsec_p = eval(['subend_' num2str(inbsectors_p) '_p']); 
-if isequal(sScenario, 'Baseline')
+if contains(sScenario, 'Baseline')
     options_.initval_file = false;
     oo_.exo_steady_state(:) = 0;
     M_.params(ismember(M_.param_names, 'lCalibration_p')) = 1;
-    [oo_.steady_state, params, ~, oo_.exo_steady_state] = DGE_CRED_Model_steadystate(oo_.steady_state, oo_.exo_steady_state,M_,options_);
+    [oo_.steady_state, params, ~, oo_.exo_steady_state] = DGE_Model_steadystate(oo_.steady_state, oo_.exo_steady_state,M_,options_);
     M_.params = params;
     steady;
     options_.qz_zero_threshold =  1e-22;
