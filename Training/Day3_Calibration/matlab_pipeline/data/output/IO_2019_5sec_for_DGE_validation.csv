@@ -1,0 +1,6 @@
+check,passed
+fossil_aggregation_output,TRUE
+output_total_conservation,TRUE
+import_split_conservation_total,TRUE
+import_split_conservation_by_sector,TRUE
+non_negative_core,TRUE
