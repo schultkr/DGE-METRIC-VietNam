@@ -15,7 +15,7 @@ Use `addpath(genpath(fullfile(pwd(), 'Functions')))` from the repository root be
 - `Excel/create_raw_excel_input_file.m` generates Excel input templates and runs `Excel/define_sheets_input_file.m`.
 - `Excel/define_sheets_input_file.m` constructs sheet layouts and calls `Excel/add_sub_sheet.m` and `Excel/define_sheets_input_file_help1.m`.
 - `Excel/update_data_excel.m` syncs calibration inputs from `IO_Data` and `Trade_Flows` into Data named ranges, then propagates those values to parameter sheets. See `ExcelFiles/README.md` for the full workflow.
-- `Excel/update_baseline_excel.m` refreshes the split `ModelBaseline` workbook by recalculating `Baseline_Implied` and copying a values-only hardcoded sheet to `Baseline`. If `Baseline_Implied` is missing, it can bootstrap the split workbook from the legacy combined workbook. `scripts/maintenance/UpdateBaselineSheet.m` is the entry point.
+- `Excel/update_baseline_excel.m` refreshes the split `ModelBaseline` workbook by recalculating `Baseline_Implied` and copying a values-only hardcoded sheet to `Baseline`. If `Baseline_Implied` is missing, it can bootstrap the split workbook from the legacy combined workbook. In this repository, run `Excel/update_baseline_excel.m` directly (no `scripts/maintenance/UpdateBaselineSheet.m` wrapper is present).
 - `Simulation/load_exogenous.m` and `Simulation/load_growth_rates.m` are called by `simulation_model_refactored.m`.
 - `Simulation/audit_baseline_gdp_growth.m` writes post-run CSV checks comparing Excel `gY_*` targets with simulated real and price-weighted value-added growth in the model numeraire.
 - `ModelSetup/change_mod_file.m` updates macroprocessor settings before model runs.
