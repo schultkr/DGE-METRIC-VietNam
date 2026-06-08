@@ -25,6 +25,6 @@ cfg.dge_output_xlsx = fullfile(cfg.pipeline_root, "data", "output", "IO_2019_5se
 cfg.dge_output_csv = fullfile(cfg.pipeline_root, "data", "output", "IO_2019_5sec_for_DGE_IO_Data.csv");
 cfg.dge_validation_csv = fullfile(cfg.pipeline_root, "data", "output", "IO_2019_5sec_for_DGE_validation.csv");
 cfg.dge_audit_csv = fullfile(cfg.pipeline_root, "data", "output", "IO_2019_5sec_for_DGE_audit.csv");
-cfg.dge_output_workbook_copy = fullfile(cfg.pipeline_root, "data", "output", "ModelSimulationandCalibration5Sectorsand1Regions_IO_Data_Replaced.xlsx");
+cfg.dge_output_workbook_copy = fullfile(cfg.pipeline_root, "data", "output", "ModelCalibration5Sectorsand1Regions_IO_Data_Replaced.xlsx");
 end
 

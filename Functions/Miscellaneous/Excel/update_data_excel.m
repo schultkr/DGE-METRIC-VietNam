@@ -1,6 +1,6 @@
 % update_data_excel  —  Sync calibration inputs and propagate to parameter sheets.
 %
-% Workflow (three stages), all operating on ModelCalibration*.xlsx:
+% Workflow (two stages), all operating on ModelCalibration*.xlsx:
 %
 %  1. IO_Data → Data named ranges
 %     Reads the IO_Data sheet (intermediate input matrix, export/import/labour/
@@ -8,20 +8,11 @@
 %     named ranges in the Data sheet.  All column/row positions are auto-detected
 %     from header text; no indices are hardcoded.
 %
-%  2. Trade_Flows → Data named ranges
-%     Reads bilateral export DESTINATION SHARES from Trade_Flows.
-%     Layout: rows = (source subsector, source region); columns = destination
-%     regions; each row sums to 1.  The absolute bilateral flow written to Data is
-%       phiX_{srcSub}_{srcReg}_{dstReg}_p = gamma_{s,r,r2} * phiX_{s,r}
-%     where phiX_{s,r} comes from IO_Data.  New destination regions are added by
-%     inserting a new column in Trade_Flows with the ISO code as the header — no
-%     MATLAB changes needed.
-%
-%  3. Data named ranges → Start and Structural Parameters sheets
+%  2. Data named ranges → Start and Structural Parameters sheets
 %     Two-pass propagation (open–write–save–close–reopen) so that formula-driven
 %     cells in the Data sheet recalculate before the second propagation pass reads
 %     them.  Any sheet whose row 1 contains "Parameter" and "Value" column headers
-%     is processed; IO_Data, Trade_Flows, Data, Content, and Damage Functions are
+%     is processed; IO_Data, Data, Content, and Damage Functions are
 %     excluded.  Cells in the target sheet whose Parameter name is not a named
 %     range in Data are silently skipped.
 %
@@ -406,149 +397,10 @@ end
 
 if inbWarn == 0; fprintf('  All IO_Data checks passed.\n'); end
 
-%% Sync Trade_Flows → Data named ranges
-% Trade_Flows layout (auto-detected from single header row 2):
-%   Col A : source region  |  Col B : aggregate sector  |  Col C : subsector
-%   Cols D+ : one column per explicitly modelled destination region (ISO code)
-%   Second-to-last col : ROW residual (formula = 1 - SUM dest cols)
-%   Last col           : Check (formula = SUM all cols incl. ROW; should = 1)
-%
-% Cell values are destination SHARES (rows sum to 1).
-% Named-range target: phiX_{srcSub}_{srcReg}_{dstReg}_p
-%   Value written = gamma_{s,r,r2} * phiX_{s,r}  (absolute share of Q0)
-%   where gamma = destination share from this sheet, phiX = IO_Data value.
-
-wsTF     = exlFile.Sheets.Item('Trade_Flows');
-wsTFData = exlFile.Sheets.Item('Data');
-
-iTFHdr     = 2;   % single header row
-iSrcRegCol = 1;   % col A: source region ISO code
-iSrcSubCol = 3;   % col C: source subsector name
-
-inbTFCols = wsTF.UsedRange.Columns.Count;
-inbTFRows = wsTF.UsedRange.Rows.Count;
-
-% ── Read and clean header row ─────────────────────────────────────────────────
-caTFHdr = wsTF.Range(['A' num2str(iTFHdr) ':' ...
-    get_excel_column(inbTFCols) num2str(iTFHdr)]).Value;
-caTFHdrClean = cell(1, inbTFCols);
-for ic = 1:inbTFCols
-    h = caTFHdr{ic};
-    if ischar(h)
-        caTFHdrClean{ic} = strtrim(regexprep(h, '[\r\n]+', ' '));
-    else
-        caTFHdrClean{ic} = '';
-    end
-end
-
-% ── Map header columns → destination region indices ───────────────────────────
-% Columns after the three fixed source cols are treated as destination regions
-% unless they match the ROW or Check labels.
-caTFDestRegCols  = [];   % [col, dstRegIdx]
-caTFDestRegNames = {};
-iTFColROW   = 0;
-iTFColCheck = 0;
-iDstRegIdx  = 0;
-for ic = iSrcSubCol + 1 : inbTFCols
-    sHdr = caTFHdrClean{ic};
-    if isempty(sHdr); continue; end
-    if contains(sHdr, 'ROW') || contains(lower(sHdr), 'rest')
-        iTFColROW = ic;
-    elseif contains(lower(sHdr), 'check') || contains(lower(sHdr), 'sum')
-        iTFColCheck = ic;
-    else
-        iDstRegIdx = iDstRegIdx + 1;
-        caTFDestRegCols(end+1, :)  = [ic, iDstRegIdx]; %#ok
-        caTFDestRegNames{end+1}    = sHdr;              %#ok
-    end
-end
-
-% ── Scan source data rows ─────────────────────────────────────────────────────
-for irow = iTFHdr + 1 : inbTFRows
-    valA = wsTF.Range([get_excel_column(iSrcRegCol) num2str(irow)]).Value;
-    valC = wsTF.Range([get_excel_column(iSrcSubCol) num2str(irow)]).Value;
-    if ~ischar(valA) || ~ischar(valC); continue; end
-    if isempty(strtrim(valA)); continue; end
-
-    iSrcSub = find(strcmp(caSubsecNames, strtrim(valC)), 1);
-    if isempty(iSrcSub); continue; end
-    iSrcReg = ireg;
-    sIdxSrc = [num2str(iSrcSub) '_' num2str(iSrcReg)];
-
-    % phiX_{s,r} absolute export share for this subsector (from IO_Data checks)
-    phiX_abs = daPhiX(iSrcSub);
-
-    % Write phiX_{srcSub}_{srcReg}_{dstReg}_p = gamma * phiX_{s,r}
-    for id = 1:size(caTFDestRegCols, 1)
-        icol    = caTFDestRegCols(id, 1);
-        iDstReg = caTFDestRegCols(id, 2);
-        gamma   = wsTF.Range([get_excel_column(icol) num2str(irow)]).Value;
-        if ~isnumeric(gamma) || isnan(gamma); continue; end
-        sName = ['phiX_' sIdxSrc '_' num2str(iDstReg) '_p'];
-        try
-            wsTFData.Range(sName).Value = gamma * phiX_abs;
-        catch
-        end
-    end
-end
-
-%% Consistency checks — Trade_Flows
-fprintf('\n=== Trade_Flows consistency checks ===\n');
-fprintf('  Destination regions detected: %s\n', strjoin(caTFDestRegNames, ', '));
-inbWarnTF = 0;
-
-for irow = iTFHdr + 1 : inbTFRows
-    valA = wsTF.Range([get_excel_column(iSrcRegCol) num2str(irow)]).Value;
-    valC = wsTF.Range([get_excel_column(iSrcSubCol) num2str(irow)]).Value;
-    if ~ischar(valA) || ~ischar(valC); continue; end
-    if isempty(strtrim(valA)); continue; end
-    iSrcSub = find(strcmp(caSubsecNames, strtrim(valC)), 1);
-    if isempty(iSrcSub); continue; end
-    sRowLabel = sprintf('%s / %s', strtrim(valA), caSubsecNames{iSrcSub});
-
-    % 1 — Row must sum to 1 (Check column = 1)
-    if iTFColCheck > 0
-        valCheck = wsTF.Range([get_excel_column(iTFColCheck) num2str(irow)]).Value;
-        if isnumeric(valCheck) && abs(valCheck - 1) > 1e-4
-            fprintf('  WARN  [%s] destination shares sum to %.6f (expected 1.0, gap = %+.2e)\n', ...
-                sRowLabel, valCheck, valCheck - 1);
-            inbWarnTF = inbWarnTF + 1;
-        end
-    end
-
-    % 2 — ROW residual >= 0 (modelled destination shares <= 1)
-    if iTFColROW > 0
-        valROW = wsTF.Range([get_excel_column(iTFColROW) num2str(irow)]).Value;
-        if isnumeric(valROW) && valROW < -tol_chk
-            fprintf('  WARN  [%s] ROW = %.6f < 0 (modelled dest shares exceed 1)\n', ...
-                sRowLabel, valROW);
-            inbWarnTF = inbWarnTF + 1;
-        end
-    end
-
-    % 3 — Each destination share in [0, 1]
-    for id = 1:size(caTFDestRegCols, 1)
-        icol   = caTFDestRegCols(id, 1);
-        sRegDst = caTFDestRegNames{id};
-        gamma   = wsTF.Range([get_excel_column(icol) num2str(irow)]).Value;
-        if ~isnumeric(gamma); continue; end
-        if gamma < -tol_chk
-            fprintf('  WARN  [%s -> %s] share = %.6f (negative)\n', sRowLabel, sRegDst, gamma);
-            inbWarnTF = inbWarnTF + 1;
-        elseif gamma > 1 + tol_chk
-            fprintf('  WARN  [%s -> %s] share = %.6f > 1\n', sRowLabel, sRegDst, gamma);
-            inbWarnTF = inbWarnTF + 1;
-        end
-    end
-end
-
-if inbWarnTF == 0; fprintf('  All Trade_Flows checks passed.\n'); end
-
 % ── Overall summary ────────────────────────────────────────────────────────────
 fprintf('\n=== Consistency summary ===\n');
 fprintf('  IO_Data:     %d warning(s)\n', inbWarn);
-fprintf('  Trade_Flows: %d warning(s)\n', inbWarnTF);
-if inbWarn + inbWarnTF == 0
+if inbWarn == 0
     fprintf('  All checks passed — proceeding to propagate values.\n\n');
 else
     fprintf('  Review WARN messages above before relying on this calibration.\n\n');

@@ -332,84 +332,7 @@ else
 
 
     end
-end
-
-function eqLabel = get_static_eq_label(M_, eqIndex)
-    % Resolve equation label from Dynare equation tags.
-    eqLabel = 'unknown equation';
-    if ~isfinite(eqIndex)
-        return
-    end
-
-    % Preferred source requested by user.
-    if isfield(M_, 'eq_tags') && ~isempty(M_.eq_tags)
-        label = lookup_label_in_tags(M_.eq_tags, eqIndex);
-        if ~isempty(label)
-            eqLabel = label;
-            return
-        end
-    end
-
-    % Fallback for Dynare variants that store tags here.
-    if isfield(M_, 'equations_tags') && ~isempty(M_.equations_tags)
-        label = lookup_label_in_tags(M_.equations_tags, eqIndex);
-        if ~isempty(label)
-            eqLabel = label;
-        end
-    end
-end
-
-function label = lookup_label_in_tags(tags, eqIndex)
-    label = '';
-    if ~iscell(tags)
-        return
-    end
-
-    nRows = size(tags, 1);
-    nCols = size(tags, 2);
-
-    % Format A: {eqIndex, 'equation name'}
-    if nCols >= 2
-        for i = 1:nRows
-            rowEq = parse_eq_index(tags{i, 1});
-            if isfinite(rowEq) && rowEq == eqIndex
-                candidate = tags{i, 2};
-                if ischar(candidate) || isstring(candidate)
-                    label = char(candidate);
-                    return
-                end
-            end
-        end
-    end
-
-    % Format B (Dynare): {eqIndex, 'name', 'equation name'}
-    if nCols >= 3
-        for i = 1:nRows
-            rowEq = parse_eq_index(tags{i, 1});
-            if ~(isfinite(rowEq) && rowEq == eqIndex)
-                continue
-            end
-            key = tags{i, 2};
-            val = tags{i, 3};
-            if (ischar(key) || isstring(key)) && strcmpi(char(key), 'name') && (ischar(val) || isstring(val))
-                label = char(val);
-                return
-            end
-        end
-    end
-end
-
-function idx = parse_eq_index(raw)
-    idx = NaN;
-    if isnumeric(raw) && isscalar(raw)
-        idx = double(raw);
-        return
-    end
-    if ischar(raw) || isstring(raw)
-        idx = str2double(char(raw));
-    end
-end
-    
+end    
 
 %% =================================
 %  Export Results
@@ -462,6 +385,7 @@ function oo_ = apply_baseline_shock_structure(oo_, structScenarioResults,...
         oo_.exo_simul(:, posIdx.iposdeltaBShock) = baselineSim(posIdx.iposdeltaB,:)';
         oo_.exo_simul(:, posIdx.iposPriceHShock) = log(baselineSim(posIdx.iposPH,:) ./ baselineSim(posIdx.iposPH,1))';
         oo_.exo_simul(:, posIdx.iposkapEShock) = (baselineSim(posIdx.iposkappaE,:) - baselineSim(posIdx.iposkappaE,1))';
+        oo_.exo_simul(:, posIdx.iposkapENOETSShock) = (baselineSim(posIdx.iposkappaENOETS,:) - baselineSim(posIdx.iposkappaENOETS,1))';
     
         oo_.exo_simul(:, posIdx.iposProdShocksN) = log(baselineSim(posIdx.iposANVars,:))';
         oo_.exo_simul(:, posIdx.iposAIShock)     = log(baselineSim(posIdx.iposAIVars,:))';
@@ -552,6 +476,7 @@ function oo_ = apply_baseline_step_shocks(oo_, iaTargetGrowthRates, iaTargetGrow
     oo_.exo_simul(:, posIdx.iposFossilExpShocks)  = oo_.exo_simul_start(:, posIdx.iposFossilExpShocks) .* stepFrac;
     oo_.exo_simul(:, posIdx.iposProdIShocks)     = oo_.exo_simul_start(:, posIdx.iposProdIShocks) .* stepFrac;
     oo_.exo_simul(:, posIdx.iposKGShocks)     = oo_.exo_simul_start(:, posIdx.iposKGShocks) .* stepFrac;
+    oo_.exo_simul(:, posIdx.iposrGShocks)  = oo_.exo_simul_start(:, posIdx.iposrGShocks) .* stepFrac;
     oo_.exo_simul(:, posIdx.iposGAShocks)     = oo_.exo_simul_start(:, posIdx.iposGAShocks) .* stepFrac;
     oo_.exo_simul(:, posIdx.iposphiGShocks)   = oo_.exo_simul_start(:, posIdx.iposphiGShocks) .* stepFrac;
     oo_.exo_simul(:, posIdx.iposPVShocks)  = oo_.exo_simul_start(:, posIdx.iposPVShocks) .* stepFrac;
@@ -569,7 +494,6 @@ function oo_ = apply_baseline_step_shocks(oo_, iaTargetGrowthRates, iaTargetGrow
     if any(posIdx.iposREShocks ~=0)
         oo_.exo_simul(:, posIdx.iposREShocks) = oo_.exo_simul_start(:, posIdx.iposREShocks) .* (icostep / iStep);
     end
-    % oo_.exo_simul(:, posIdx.iposkapEShock)     = oo_.exo_simul_start(:, posIdx.iposkapEShock) .* stepFrac;
 
     oo_ = scale_exo_from_start(oo_, scaleVars, stepFrac);
 
@@ -610,7 +534,7 @@ function oo_ = apply_climate_step_shocks(oo_, icostep, iStep, lCapandTrade_p, po
     baseVars = [posIdx.iposPERegShocks,posIdx.iposkapEShock, posIdx.iposEERegShocks,...
             posIdx.iposUShocks, posIdx.iposPVShocks, posIdx.ipossGShocks, posIdx.iposKGShocks, posIdx.iposrGShocks ,...
             posIdx.iposphiKShocks, posIdx.iposTauSShocks, posIdx.iposkapEShock, posIdx.iposPKShocks, posIdx.iposGAShocks,...
-            posIdx.iposLFDIShareShocks,posIdx.iposLIGShareShocks];
+            posIdx.iposLFDIShareShocks,posIdx.iposLIGShareShocks,posIdx.iposWedgeShocks,posIdx.iposFossilExpShocks];
     
     oo_ = scale_exo_from_base(oo_,baseVars , stepFrac);
 end
@@ -746,4 +670,81 @@ function oo_ = apply_additional_shocks_from_start(oo_, AdditionalShocks, lSteady
     disp('=== All Additional Shocks Applied Successfully ===');
     disp('========================================================');
     disp(' ');
+end
+
+
+function eqLabel = get_static_eq_label(M_, eqIndex)
+    % Resolve equation label from Dynare equation tags.
+    eqLabel = 'unknown equation';
+    if ~isfinite(eqIndex)
+        return
+    end
+
+    % Preferred source requested by user.
+    if isfield(M_, 'eq_tags') && ~isempty(M_.eq_tags)
+        label = lookup_label_in_tags(M_.eq_tags, eqIndex);
+        if ~isempty(label)
+            eqLabel = label;
+            return
+        end
+    end
+
+    % Fallback for Dynare variants that store tags here.
+    if isfield(M_, 'equations_tags') && ~isempty(M_.equations_tags)
+        label = lookup_label_in_tags(M_.equations_tags, eqIndex);
+        if ~isempty(label)
+            eqLabel = label;
+        end
+    end
+end
+
+function label = lookup_label_in_tags(tags, eqIndex)
+    label = '';
+    if ~iscell(tags)
+        return
+    end
+
+    nRows = size(tags, 1);
+    nCols = size(tags, 2);
+
+    % Format A: {eqIndex, 'equation name'}
+    if nCols >= 2
+        for i = 1:nRows
+            rowEq = parse_eq_index(tags{i, 1});
+            if isfinite(rowEq) && rowEq == eqIndex
+                candidate = tags{i, 2};
+                if ischar(candidate) || isstring(candidate)
+                    label = char(candidate);
+                    return
+                end
+            end
+        end
+    end
+
+    % Format B (Dynare): {eqIndex, 'name', 'equation name'}
+    if nCols >= 3
+        for i = 1:nRows
+            rowEq = parse_eq_index(tags{i, 1});
+            if ~(isfinite(rowEq) && rowEq == eqIndex)
+                continue
+            end
+            key = tags{i, 2};
+            val = tags{i, 3};
+            if (ischar(key) || isstring(key)) && strcmpi(char(key), 'name') && (ischar(val) || isstring(val))
+                label = char(val);
+                return
+            end
+        end
+    end
+end
+
+function idx = parse_eq_index(raw)
+    idx = NaN;
+    if isnumeric(raw) && isscalar(raw)
+        idx = double(raw);
+        return
+    end
+    if ischar(raw) || isstring(raw)
+        idx = str2double(char(raw));
+    end
 end

@@ -8,6 +8,7 @@
 %% Prologue
 clearvars;
 sPathWD = pwd();
+chunkSize = 250;
 
 %% Define version to create
 sversion = '';
@@ -35,12 +36,50 @@ sWorkBookName = ['ModelCalibration' num2str(inbsubsectors_p) 'Sectorsand' num2st
 
 addpath(genpath(fullfile(sPathWD, 'Functions')))
 sThisFolder = fileparts(mfilename('fullpath'));
+sRepoRoot = fileparts(fileparts(fileparts(sThisFolder)));
+sExcelOutputFolder = fullfile(sRepoRoot, 'ExcelFiles');
 run(fullfile(sThisFolder, 'define_sheets_calibration.m'));
 
-sExcelFileName = [pwd() '\ExcelFiles\' sWorkBookName];
+if ~exist(sExcelOutputFolder, 'dir')
+    mkdir(sExcelOutputFolder);
+end
+
+sExcelFileName = fullfile(sExcelOutputFolder, sWorkBookName);
+
+% Close any running Excel workbook with the same target name before recreating it.
+[~, sTgtStem, sTgtExt] = fileparts(sExcelFileName);
+sTgtFile = [sTgtStem sTgtExt];
+bPreflightClosed = false;
+try
+    hExl = actxGetRunningServer('Excel.Application');
+    for iWb = hExl.Workbooks.Count : -1 : 1
+        [~, sWbStem, sWbExt] = fileparts(hExl.Workbooks.Item(iWb).FullName);
+        if strcmpi([sWbStem sWbExt], sTgtFile)
+            hExl.Workbooks.Item(iWb).Close(false);
+            bPreflightClosed = true;
+        end
+    end
+catch
+end
+if bPreflightClosed
+    pause(1.5);
+end
+
 if exist(sExcelFileName, 'file')
     delete(sExcelFileName)
 end
+
+tempProbe = fullfile(sExcelOutputFolder, ['.__write_probe__' char(java.util.UUID.randomUUID()) '.tmp']);
+fid = fopen(tempProbe, 'w');
+if fid == -1
+    error(['create_calibration_excel_file: cannot create or overwrite workbook.\n' ...
+           '  Path: %s\n' ...
+           '  Close the file in Excel (or any other application) and re-run.'], ...
+        sExcelFileName);
+end
+fclose(fid);
+delete(tempProbe);
+
 writecell({' '}, sExcelFileName);
 
 % Put Content sheet first
@@ -100,13 +139,9 @@ for icosheet = 1:size(strSheet,2)
                 dat_range = [get_excel_column(icocol) '1:' get_excel_column(icocol) '1'];
                 rngObj = exlSheet1.Range(dat_range);
                 rngObj.Value = strSheet(icosheet).Categories(1, icocol);
-                dat_range = [get_excel_column(icocol) '2:' get_excel_column(icocol) num2str(inbrow)];
-                rngObj = exlSheet1.Range(dat_range);
-                rngObj.Formula = strSheet(icosheet).Categories(2:end, icocol);
+                write_column_chunks(exlSheet1, icocol, 2, strSheet(icosheet).Categories(2:end, icocol), true, chunkSize);
             else
-                dat_range = [get_excel_column(icocol) '1:' get_excel_column(icocol) num2str(inbrow)];
-                rngObj = exlSheet1.Range(dat_range);
-                rngObj.Value = strSheet(icosheet).Categories(:, icocol);
+                write_column_chunks(exlSheet1, icocol, 1, strSheet(icosheet).Categories(:, icocol), false, chunkSize);
             end
         end
         invoke(exl.Selection.Columns,'Autofit');
@@ -128,3 +163,78 @@ end
 exlFile.Save
 exl.Quit
 exl.release
+
+function write_column_chunks(exlSheet, icol, startRow, values, useFormula, chunkSize)
+nRows = size(values, 1);
+
+for iStart = 1:chunkSize:nRows
+    iEnd = min(iStart + chunkSize - 1, nRows);
+    rowStart = startRow + iStart - 1;
+    rowEnd = startRow + iEnd - 1;
+    dat_range = [get_excel_column(icol) num2str(rowStart) ':' get_excel_column(icol) num2str(rowEnd)];
+    rngObj = exlSheet.Range(dat_range);
+    payload = values(iStart:iEnd, :);
+    try
+        if useFormula
+            rngObj.Formula = payload;
+        else
+            rngObj.Value = payload;
+        end
+    catch
+        write_column_cells(exlSheet, icol, rowStart, payload, useFormula);
+    end
+end
+end
+
+function write_column_cells(exlSheet, icol, startRow, values, useFormula)
+nRows = size(values, 1);
+
+for iRow = 1:nRows
+    cellAddress = [get_excel_column(icol) num2str(startRow + iRow - 1)];
+    rngObj = exlSheet.Range(cellAddress);
+    [payload, writeAsFormula] = normalize_excel_payload(values{iRow, 1}, useFormula);
+    if writeAsFormula
+        rngObj.Formula = payload;
+    else
+        rngObj.Value = payload;
+    end
+end
+end
+
+function [payload, writeAsFormula] = normalize_excel_payload(payload, defaultFormulaMode)
+writeAsFormula = defaultFormulaMode;
+
+if isempty(payload)
+    payload = '';
+    writeAsFormula = false;
+    return
+end
+
+if isstring(payload)
+    payload = char(payload);
+end
+
+if islogical(payload)
+    payload = double(payload);
+end
+
+if isnumeric(payload)
+    if isscalar(payload)
+        return
+    end
+    payload = payload(1);
+    return
+end
+
+if ischar(payload)
+    if startsWith(payload, '=')
+        writeAsFormula = true;
+    end
+    return
+end
+
+payload = char(string(payload));
+if startsWith(payload, '=')
+    writeAsFormula = true;
+end
+end

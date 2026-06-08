@@ -7,6 +7,7 @@ Operational helpers for workbook regeneration and rebuild-readiness checks.
 - `CreateModelWorkbooks.m`: creates `ModelBaseline`, `ModelCalibration`, and `ModelScenarios` workbook templates.
 - `ValidateExcelRebuildPrereqs.m`: validates required files for either template-only rebuilds or full-reference parity checks.
 - `REBUILD_GAP_CHECKLIST.md`: static comparison checklist against the reference repository (`DGE-METRIC`) for the Excel rebuild pipeline.
+- `USER_GUIDE_EXCEL_REBUILD.md`: end-to-end step-by-step user guide to run and validate rebuilds.
 
 ## Supported Workflow Modes
 

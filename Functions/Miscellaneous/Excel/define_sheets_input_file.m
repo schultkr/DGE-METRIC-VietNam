@@ -221,7 +221,7 @@ strSheet(icosheet).Categories = casCategories;
 
 %% Define Content Sheet
 icosheet = icosheet + 1;
-casSheets = cellfun(@(x) ['=HYPERLINK("#''' x '''!A1";"' x '")'], {strSheet.Name}', 'UniformOutput', false);
+casSheets = {strSheet.Name}';
 casSheetDescriptions = {strSheet.Description}';
 strSheet(icosheet).Name = 'Content';
 casContentSheet = [{'Sheets', '', ''};...

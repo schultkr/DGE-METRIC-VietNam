@@ -9,6 +9,7 @@ This repository contains the implementation of a **Dynamic General Equilibrium (
 - 🧭 [Scenarios](docs/scenario.md)
 - 🔧 [Calibration](docs/calibration.md)
 - ▶️ [Running](docs/running.md)
+- 🛠️ [Excel Rebuild Guide](scripts/maintenance/USER_GUIDE_EXCEL_REBUILD.md)
 
 ---
 ## What’s in this repository?

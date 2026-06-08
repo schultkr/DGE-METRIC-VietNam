@@ -87,17 +87,17 @@ if exist(sWorkbookCalibration, 'file')
     sFieldScenario = strrep(sScenario, '.csv', '');
     if exist(['structScenarioResults' sSensitivity '.mat'], 'file')
         load(['structScenarioResults' sSensitivity '.mat'], 'structScenarioResults')
+        structScenarioResults.(sVersion).(sFieldScenario).oo_ = oo_;
+        structScenarioResults.(sVersion).(sFieldScenario).M_ = M_;
+        structScenarioResults.(sVersion).(sFieldScenario).options_ = options_;    
+        save(['structScenarioResults' sSensitivity '.mat'], 'structScenarioResults', '-append')
     else
         structScenarioResults = [];
+        structScenarioResults.(sVersion).(sFieldScenario).oo_ = oo_;
+        structScenarioResults.(sVersion).(sFieldScenario).M_ = M_;
+        structScenarioResults.(sVersion).(sFieldScenario).options_ = options_; 
+        save(['structScenarioResults' sSensitivity '.mat'], 'structScenarioResults')
     end
-    structScenarioResults.(sVersion).(sFieldScenario).oo_ = oo_;
-    structScenarioResults.(sVersion).(sFieldScenario).M_ = M_;
-    structScenarioResults.(sVersion).(sFieldScenario).options_ = options_;    
-    save(['structScenarioResults' sSensitivity '.mat'], 'structScenarioResults', '-append')
-    structScenarioResults.(sVersion).(sFieldScenario).oo_ = oo_;
-    structScenarioResults.(sVersion).(sFieldScenario).M_ = M_;
-    structScenarioResults.(sVersion).(sFieldScenario).options_ = options_; 
-    save(['structScenarioResults' sSensitivity '.mat'], 'structScenarioResults')
 else
     disp(['Create ' sWorkbookCalibration])
 end

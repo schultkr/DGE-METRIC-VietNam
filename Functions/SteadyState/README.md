@@ -17,4 +17,4 @@ Core steady-state computation pipeline. Functions here are called by steady-stat
 - compute_capital.m calls functions in computeCapital/ and setupInitialState/ to update prices, production, aggregates, and residuals.
 - setup_initial_state.m calls setupInitialState/ functions to assemble sectoral/regional accounts and evaluate price consistency.
 
-This folder contains the implementation used by both `steadystate_model.m` and wrappers in `Functions/steady_state/`.
+This folder contains the implementation used by both `SteadyState_Model.m` and wrappers in `Functions/steady_state/`.
