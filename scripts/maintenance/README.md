@@ -1,37 +1,20 @@
 # Maintenance Scripts
 
-Operational helpers for workbook regeneration and rebuild-readiness checks.
+Operational helpers for creating and updating baseline/scenario workbooks.
 
 ## Current Files
 
-- `CreateModelWorkbooks.m`: creates `ModelBaseline`, `ModelCalibration`, and `ModelScenarios` workbook templates.
-- `ValidateExcelRebuildPrereqs.m`: validates required files for either template-only rebuilds or full-reference parity checks.
-- `REBUILD_GAP_CHECKLIST.md`: static comparison checklist against the reference repository (`DGE-METRIC`) for the Excel rebuild pipeline.
-- `USER_GUIDE_EXCEL_REBUILD.md`: end-to-end step-by-step user guide to run and validate rebuilds.
-
-## Supported Workflow Modes
-
-- **Template-only rebuild (supported in this repository)**
-	- Generates blank/runnable workbook templates using in-repo sheet-definition scripts.
-- **Full-reference parity rebuild (not fully present in this repository)**
-	- Requires additional maintenance scripts and processed expert-input files (`ExcelFiles/Input/ExpertClean/*`) that exist in the reference repository.
-	- Raw expert workbooks and scenario path-definition workbooks are treated as optional under this processed-only policy.
+- `CreateModelWorkbooks.m`: creates `ModelBaseline`, `ModelCalibration`, and `ModelScenarios` workbooks.
+- `CreateEEScenariosFromExpertInputs.m`: generates EE + BESS scenario sheets from expert-input workbooks.
+- `CreateGreenFinanceScenarios.m`: generates green-finance scenario sheets (PDP8_GF_* and NZ_GF_*).
 
 ## Usage
 
-Run from repository root:
+Run from repository root (or use full script path):
 
 ```matlab
 setup_paths;
-
-% 1) Validate template-only prerequisites
-ValidateExcelRebuildPrereqs('template-only');
-
-% 2) Build baseline/calibration/scenario workbook templates
 run('scripts/maintenance/CreateModelWorkbooks.m');
-
-% 3) Optional: check parity with full reference workflow
-ValidateExcelRebuildPrereqs('full-reference');
+run('scripts/maintenance/CreateEEScenariosFromExpertInputs.m');
+run('scripts/maintenance/CreateGreenFinanceScenarios.m');
 ```
-
-If `full-reference` mode reports missing files, use `REBUILD_GAP_CHECKLIST.md` as the transfer list.
