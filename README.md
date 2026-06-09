@@ -30,4 +30,3 @@ Below is the intended navigation by folder. (Names reflect what you see in the r
 - `Functions/`MATLAB helper functions (steady state blocks, aggregation, plotting, IO routines).
 - `ExcelFiles/`Input data and calibration sheets (assumptions, sector/region mappings, scenario parameters).
 - `matlab.mat`, `structScenarioResults*.mat`
--
