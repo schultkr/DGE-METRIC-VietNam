@@ -109,9 +109,10 @@
             [name = 'regional subsector emissions not covered by ETS']
             (lhsEmissionsSubsecSec_2_@{subsec}_@{reg}+1) / (rhsEmissionsSubsecSec_2_@{subsec}_@{reg}+1) = 1;
             [name = 'regional subsector emission intensity']
-            (lEndogenousY_p == 1) * kappaE_@{subsec}_@{reg} + (lEndogenousY_p == 0) * E_@{subsec}_@{reg} = (lEndogenousY_p ==1) *(kappaE_@{subsec}_@{reg}_p + exo_kappaE_@{subsec}_@{reg}) + (lEndogenousY_p == 0) *exp(exo_E_@{subsec}_@{reg}) * E0_@{reg}_p * sE_@{subsec}_@{reg}_p;
+            (lEndogenousY_p) * kappaE_@{subsec}_@{reg} + (1-lEndogenousY_p) * E_@{subsec}_@{reg} = (lEndogenousY_p) * (kappaE_@{subsec}_@{reg}_p + exo_kappaE_@{subsec}_@{reg}) + (1 - lEndogenousY_p) * exp(exo_E_@{subsec}_@{reg}) * E0_@{reg}_p * sE_@{subsec}_@{reg}_p;
+            #kappaE_NOETS_Target_@{subsec}_@{reg} = exp(exo_E_NOETS_@{subsec}_@{reg}) * E0_NOETS_@{reg}_p * sE_NOETS_@{subsec}_@{reg}_p / (Q_@{subsec}_@{reg} + 1e-12);
             [name = 'regional subsector emission intensity not covered by ETS']
-            kappaE_NOETS_@{subsec}_@{reg} = kappaE_NOETS_@{subsec}_@{reg}_p * exp(exo_E_NOETS_@{subsec}_@{reg});
+            (lEndogenousY_p) * kappaE_NOETS_@{subsec}_@{reg} + (1-lEndogenousY_p) * E_NOETS_@{subsec}_@{reg} = (lEndogenousY_p) * ((1 - exo_lE_NOETS_Target_@{subsec}_@{reg}) * (kappaE_NOETS_@{subsec}_@{reg}_p  + exo_kappaE_NOETS_@{subsec}_@{reg}) + exo_lE_NOETS_Target_@{subsec}_@{reg} * kappaE_NOETS_Target_@{subsec}_@{reg}) + (1 - lEndogenousY_p) * exp(exo_E_NOETS_@{subsec}_@{reg}) * E0_NOETS_@{reg}_p  * sE_NOETS_@{subsec}_@{reg}_p;
 
         @# endfor
     @# endfor

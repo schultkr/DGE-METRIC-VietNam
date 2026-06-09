@@ -243,8 +243,9 @@ function [strys, strpar, strexo] = compute_production_factors_and_output(strys, 
                 end
 
                 strys.(['E_' ssubsec '_' sreg]) = strys.(['kappaE_' ssubsec '_' sreg]) * strys.(['Q_' ssubsec '_' sreg]);
-                strys.(['kappaE_NOETS_' ssubsec '_' sreg]) = strpar.(['kappaE_NOETS_' ssubsec '_' sreg '_p']) * exp(strexo.(['exo_E_NOETS_' ssubsec '_' sreg]));
+                
                 strys.(['E_NOETS_' ssubsec '_' sreg]) = strys.(['kappaE_NOETS_' ssubsec '_' sreg]) * strys.(['Q_' ssubsec '_' sreg]);
+                
                 for icosecm = 1:strpar.inbsectors_p
                     ssecm = num2str(icosecm);
                     PAgrosstemp = strys.(['P_A_' ssecm '_' sreg]) + strpar.(['kappaEI_' ssubsec '_' sreg '_' ssecm '_p']) * strys.(['sF_' sreg]) * exp(strexo.(['exo_EI_' ssubsec '_' sreg '_' ssecm])) * strpar.(['lEndoQ_' ssubsec '_' sreg '_p']) * strys.(['PE_' sreg]);
@@ -265,17 +266,6 @@ function [strys, strpar, strexo] = compute_production_factors_and_output(strys, 
                 strys.(['mu_' ssubsec '_' sreg]) = exp(strexo.(['exo_mu_' ssubsec '_' sreg]));
                 strys.(['omegaI_' ssubsec '_' sreg]) = 1;
                 
-                % if isfield(strexo, ['exo_lFDIShare_' ssubsec '_' sreg]) && strexo.(['exo_lFDIShare_' ssubsec '_' sreg]) == 1
-                %     % Share mode: K_FDI is a fixed fraction of total K
-                %     K_FDI_val = strexo.(['exo_sFDIShare_' ssubsec '_' sreg]) * strys.(['K_' ssubsec '_' sreg]);
-                %     strys.(['K_FDI_' ssubsec '_' sreg]) = K_FDI_val;
-                %     strys.(['I_FDI_' ssubsec '_' sreg]) = strpar.(['delta_' ssubsec '_' sreg '_p']) * K_FDI_val;
-                %     strys.(['r_FDI_' ssubsec '_' sreg]) = strpar.rf0_p + strexo.(['exo_r_FDI_' ssubsec '_' sreg]);
-                % elseif strexo.(['exo_lKRGTarget_' ssubsec '_' sreg]) == 0
-                %     strys.(['K_FDI_' ssubsec '_' sreg]) = 0;
-                %     strys.(['I_FDI_' ssubsec '_' sreg]) = 0;
-                %     strys.(['r_FDI_' ssubsec '_' sreg]) = strpar.rf0_p + strexo.(['exo_r_FDI_' ssubsec '_' sreg]);
-                % end
                 % When K-target is ON, K_FDI_, I_FDI_, r_FDI_ were set by set_K_target_and_backout_rG.
                     strys.(['I_' ssubsec '_' sreg]) = strys.(['I_H_' ssubsec '_' sreg]) + strys.(['I_FDI_' ssubsec '_' sreg]);
 

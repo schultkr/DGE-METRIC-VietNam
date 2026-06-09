@@ -120,7 +120,7 @@
             [name = 'scenario sector specific public capital / investment share']
             (lhsExoSubsec_14_@{reg}_@{subsec}+1)/(rhsExoSubsec_14_@{reg}_@{subsec}+1) = 1;
 
-            # lhsExoSubsec_15_@{reg}_@{subsec} = r_FDI_@{subsec}_@{reg};
+            # lhsExoSubsec_15_@{reg}_@{subsec} = r_FDI_@{subsec}_@{reg} * (P_K_@{subsec}_@{reg}/P_INV_@{subsec}_@{reg}(-1))^(exo_lIGShare_@{subsec}_@{reg});
             # rhsExoSubsec_15_@{reg}_@{subsec} = (exo_r_FDI_@{subsec}_@{reg} + rf0_p);
             [name = 'FDI rental rate (returns to foreign investors)']
             (lhsExoSubsec_15_@{reg}_@{subsec}+1)/(rhsExoSubsec_15_@{reg}_@{subsec}+1) = 1;

@@ -122,9 +122,11 @@
             #rhsSupplySubsec_11_@{reg}_@{subsec} = phiL_@{subsec}_@{reg}_p * A_N_@{subsec}_@{reg} * (N_@{subsec}_@{reg})^sigmaL_p * lEndoN_@{subsec}_@{reg}_p + (1-lEndoN_@{subsec}_@{reg}_p) * phiN0_@{subsec}_@{reg}_p * N0_@{reg}_p;
             [name = 'HH FOC labour @{subsec} @{reg} ']
             (lhsSupplySubsec_11_@{reg}_@{subsec}+1) / (rhsSupplySubsec_11_@{reg}_@{subsec}+1) = 1;
-
+            
+            #lhsSupplySubsec_wedge12_@{reg}_@{subsec} = wedgeKE_@{subsec}_@{reg};
+            #rhsSupplySubsec_wedge12_@{reg}_@{subsec} = (phiKE_p) * kappaE_@{subsec}_@{reg} * beta_p * (1 - delta_@{subsec}_@{reg}) / (1 - beta_p * (1 - delta_@{subsec}_@{reg})) + exo_wedgeKE_@{subsec}_@{reg};
             [name = 'SRI emission-intensity-based capital rental wedge']
-            wedgeKE_@{subsec}_@{reg} = (phiKE_p + exo_wedgeKE_@{subsec}_@{reg}) * kappaE_@{subsec}_@{reg} * beta_p * (1 - delta_@{subsec}_@{reg}) / (1 - beta_p * (1 - delta_@{subsec}_@{reg}));
+            (lhsSupplySubsec_wedge12_@{reg}_@{subsec}+1) = (rhsSupplySubsec_wedge12_@{reg}_@{subsec}+1);            
         @# endfor
     @# endfor
     @# if Regions > 0

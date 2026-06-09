@@ -75,10 +75,10 @@ function [ys,params,check,exo] = DGE_Model_steadystate(ys,exo,M_,options_)
             options = optimset('Display', 'iter', 'TolFun', 1e-16, 'TolX', 1e-12, 'MaxFunEval', 100000);
         end
 
+        
         [xstart_vec, strys, strpar] = ss_build_initial_guess(strys, strexo, strpar, 'fullSS');
         
-        % [Fval_vec, strys, strexo] = ss_compute_capital(xstart_vec, strys, strexo, strpar);
-        [Fval_vec, ~, ~] = ss_compute_capital(xstart_vec, strys, strexo, strpar);
+        [Fval_vec, strys, strexo] = ss_compute_capital(xstart_vec, strys, strexo, strpar);
 
         if max(abs(Fval_vec(:))) > 1e-8
             computeCapitalTemp = @(x) ss_compute_capital(x, strys, strexo, strpar);

@@ -102,6 +102,7 @@ function [strys, strpar] = compute_expenditure_assignments(strys, strpar, strexo
                 strpar.(['kappaE_' ssubsec '_' sreg '_p']) = strpar.(['sE_' ssubsec '_' sreg '_p']) * strpar.E0_p / (strys.(['QEXP_' ssubsec '_' sreg]) / strys.(['P_Q_' ssubsec '_' sreg]));
                 strys.(['kappaE_' ssubsec '_' sreg]) = strpar.(['kappaE_' ssubsec '_' sreg '_p']);
 
+
                 % SRI capital rental wedge (phiKE_p = 0 by default, backward compatible)
                 strys.(['wedgeKE_' ssubsec '_' sreg]) = (strpar.phiKE_p + strexo.(['exo_wedgeKE_' ssubsec '_' sreg])) * strys.(['kappaE_' ssubsec '_' sreg]) ...
                     * strpar.beta_p * (1 - strpar.(['delta_' ssubsec '_' sreg '_p'])) / (1 - strpar.beta_p * (1 - strpar.(['delta_' ssubsec '_' sreg '_p'])));

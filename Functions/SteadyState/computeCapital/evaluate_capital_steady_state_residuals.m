@@ -296,5 +296,21 @@ function [fval_vec, strys] = evaluate_capital_steady_state_residuals(strys, strp
             fval_vec_11 = [fval_vec_11; 1-lhs/rhs];%#ok
         end
         fval_vec = [fval_vec(:); fval_vec_11(:)];
+
+        fval_vec_12 = [];
+        for icoreg = 1:strpar.inbregions_p
+            sreg = num2str(icoreg);
+            for icosec = 1:strpar.inbsectors_p
+                ssec = num2str(icosec);
+                for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                    ssubsec = num2str(icosubsec);
+                    lhs = strys.(['E_NOETS_' ssubsec '_' sreg'])+1;
+                    E0secreg = strpar.(['E0_NOETS_' sreg' '_p']) * strpar.(['sE_NOETS_' ssubsec '_' sreg' '_p']);
+                    rhs = E0secreg * exp(strexo.(['exo_E_NOETS_' ssubsec '_'  sreg]))+1;
+                    fval_vec_12 = [fval_vec_12; 1-lhs/rhs];%#ok
+                end
+            end
+        end
+        fval_vec = [fval_vec(:); fval_vec_12(:)];
     end
 end

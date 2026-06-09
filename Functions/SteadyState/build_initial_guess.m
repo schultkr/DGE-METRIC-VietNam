@@ -67,6 +67,7 @@ function [xstart_vec, strys, strpar] = build_initial_guess(strys, strexo, strpar
                                 %strpar.InitGuess.(['Q_I_' ssubsec '_' sreg]) = strys.(['Q_I_' ssubsec '_' sreg]);   
                                 strpar.InitGuess.(['D_X_' ssubsec '_' sreg]) = strys.(['D_X_' ssubsec '_' sreg]);                                
                                 strpar.InitGuess.(['kappaE_' ssubsec '_' sreg]) = strys.(['kappaE_' ssubsec '_' sreg]);                                
+                                strpar.InitGuess.(['kappaE_NOETS_' ssubsec '_' sreg]) = strys.(['kappaE_NOETS_' ssubsec '_' sreg]);                                
                         end
                         strpar.InitGuess.(['P_Q_' ssubsec '_' sreg]) = strys.(['P_Q_' ssubsec '_' sreg]);
                     end

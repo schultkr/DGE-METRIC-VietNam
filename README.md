@@ -6,15 +6,15 @@ This repository contains the implementation of a **Dynamic General Equilibrium (
 
 - 🏠 [Home](docs/index.md)
 - 🧮 [Model](docs/model.md)
-- 🧭 [Scenarios](docs/scenario.md)
-- 🔧 [Calibration](docs/calibration.md)
 - ▶️ [Running](docs/running.md)
-- 🛠️ [Excel Rebuild Guide](scripts/maintenance/USER_GUIDE_EXCEL_REBUILD.md)
+- ⚙️ [Dynare Install (MATLAB, Octave, MATLAB Online)](docs/running.md#install-dynare)
 
 ---
+
 ## What’s in this repository?
 
 At a high level, we use:
+
 - **Dynare** to define and solve the dynamic model (`.mod`).
 - **MATLAB** to compute/calibrate the steady state, assemble parameters, and run scenario workflows.
 - **Excel** files as curated inputs/assumptions (as needed).
@@ -25,27 +25,9 @@ At a high level, we use:
 
 Below is the intended navigation by folder. (Names reflect what you see in the repo; adjust descriptions if you rename anything.)
 
-- `DGE_CRED_Model/`  
-  Main model workspace: Dynare model files, steady-state routines, and scripts to run simulations and produce results.
-
-- `ModFiles/`  
-  Dynare `.mod` files (model equations, shocks, closures, scenario switches).
-
-- `Functions/`  
-  MATLAB helper functions (steady state blocks, aggregation, plotting, IO routines).
-
-- `ExcelFiles/`  
-  Input data and calibration sheets (assumptions, sector/region mappings, scenario parameters).
-
-- `CheckResults.m`  
-  Quick consistency checks / sanity checks for outputs.
-
-- `RunSimulationsSSP185.m` (and similar scripts)  
-  End-to-end scripts: load calibration → solve steady state → run scenarios → export figures/tables.
-
-- `SimulationResults*.mlx/.pdf`  
-  Outputs / reports (generated).
-
-- `matlab.mat`, `structScenarioResults*.mat`  
-  Saved MATLAB workspaces / result structures (generated artifacts).
----
+- `DGE_CRED_Model/`Main model workspace: Dynare model files, steady-state routines, and scripts to run simulations and produce results.
+- `ModFiles/`Dynare `.mod` files (model equations, shocks, closures, scenario switches).
+- `Functions/`MATLAB helper functions (steady state blocks, aggregation, plotting, IO routines).
+- `ExcelFiles/`Input data and calibration sheets (assumptions, sector/region mappings, scenario parameters).
+- `matlab.mat`, `structScenarioResults*.mat`
+-

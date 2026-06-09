@@ -154,6 +154,23 @@ function [strys,strpar, strexo] = assign_predetermined_variables(strys,strpar, s
                 strys.(['u_K_' ssubsec '_' sreg]) = exp(strexo.(['exo_u_K_' ssubsec '_' sreg]));
                 if strpar.lCalibration_p ~= 2
                     strys.(['kappaE_' ssubsec '_' sreg]) = strpar.(['kappaE_' ssubsec '_' sreg '_p']) + strexo.(['exo_kappaE_' ssubsec '_' sreg]);
+                    lNOETSTarget = 0;
+                    lNOETSTargetKey = ['exo_lE_NOETS_Target_' ssubsec '_' sreg];
+                    if isfield(strexo, lNOETSTargetKey) && isfinite(strexo.(lNOETSTargetKey))
+                        lNOETSTarget = strexo.(lNOETSTargetKey);
+                    end
+
+                    if lNOETSTarget >= 0.5
+                        E0secregNOETS = strpar.(['E0_NOETS_' sreg '_p']) * strpar.(['sE_NOETS_' ssubsec '_' sreg '_p']);
+                        ETargetNOETS = E0secregNOETS * exp(strexo.(['exo_E_NOETS_' ssubsec '_' sreg]));
+                        qDen = strys.(['Q_' ssubsec '_' sreg]);
+                        if ~isfinite(qDen) || abs(qDen) < 1e-12
+                            qDen = sign(qDen) * 1e-12 + (qDen == 0) * 1e-12;
+                        end
+                        strys.(['kappaE_NOETS_' ssubsec '_' sreg]) = ETargetNOETS / qDen;
+                    else
+                        strys.(['kappaE_NOETS_' ssubsec '_' sreg]) = strpar.(['kappaE_NOETS_' ssubsec '_' sreg '_p']) + strexo.(['exo_kappaE_NOETS_' ssubsec '_' sreg]);
+                    end
                 end
                 strys.(['wedgeKE_' ssubsec '_' sreg]) = (strpar.phiKE_p + strexo.(['exo_wedgeKE_' ssubsec '_' sreg])) * strys.(['kappaE_' ssubsec '_' sreg]) ...
                     * strpar.beta_p * (1 - strpar.(['delta_' ssubsec '_' sreg '_p'])) / (1 - strpar.beta_p * (1 - strpar.(['delta_' ssubsec '_' sreg '_p'])));

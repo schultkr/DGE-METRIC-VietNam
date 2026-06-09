@@ -1,0 +1,5 @@
+Hands-on 2 baseline-vs-scenario summary
+Baseline: Baseline
+Scenario: PDP8_GF_C (Assigned Scenario)
+Years compared: 2025-2050
+Core output table: C:\Users\schul\Documents\GitHub\DGE-METRIC-VietNam\Figures\ScenarioComparisons\HandsOn2\PDP8_GF_C\core_outputs_comparison.csv

@@ -58,6 +58,8 @@ specs = {
     'exo_A_I_',   [imaxsec_p, inbregions_p, 0], 'exo', 'casAIShocks',    'lSelectProdShocksAI', 'iposAIShock'
     'exo_A_D_',   [imaxsec_p, inbregions_p, 0], 'exo', 'casADShocks',    'lSelectProdShocksAD', 'iposADShock'
     'exo_kappaE_', [imaxsec_p, inbregions_p, 0], 'exo', 'caskapEShocks', 'lSelectkappaEShocks', 'iposkapEShock'
+    'exo_kappaE_NOETS_', [imaxsec_p, inbregions_p, 0], 'exo', 'caskapENOETSShocks', 'lSelectkappaENOETSShocks', 'iposkapENOETSShock'
+    'exo_E_NOETS_', [imaxsec_p, inbregions_p, 0], 'exo', 'casENOETSShocks', 'lSelectENOETSShocks', 'iposENOETSShocks'
     'wedgeKE_',    [imaxsec_p, inbregions_p, 0], 'endo', 'casWedgeVars',   'lSelectWedgeVars',   'iposWedgeVars'
     'exo_wedgeKE_',[imaxsec_p, inbregions_p, 0], 'exo',  'casWedgeShocks', 'lSelectWedgeShocks', 'iposWedgeShocks'
 
@@ -111,6 +113,7 @@ specs = {
     'exo_X_',  [imaxsec_p, inbregions_p, 0], 'exo', 'casExpShocks',   'lSelectExpShocks', 'iposExpShocks'
     'exo_E_',  [imaxsec_p, inbregions_p, 0], 'exo', 'casEmiShocks2d', 'lSelectEmShocks',  'iposEmShocks'
     'kappaE_', [imaxsec_p, inbregions_p, 0], 'endo', 'casEmiIntVars', 'lSelectkappaE', 'iposkappaE'
+    'kappaE_NOETS_', [imaxsec_p, inbregions_p, 0], 'endo', 'casEmiIntNOETSVars', 'lSelectkappaENOETS', 'iposkappaENOETS'
 
     % tax and interest rate shocks
     'exo_tauKH_', [imaxsec_p, inbregions_p, 0], 'exo', 'castauKHShocks',  'lSelecttauKFShocks',  'ipostauKHShocks'

@@ -108,7 +108,7 @@ phiY_p = 1/2;
     PH0_@{reg}_p = 1;
     N0_@{reg}_p = 0.15;
     PoP0_@{reg}_p = 0.95;
-    LF0_@{reg}_p = 0.5 * PoP0_@{reg}_p;
+    LF0_@{reg}_p = 0.8 * PoP0_@{reg}_p;
     omegaLF0_@{reg}_p = LF0_@{reg}_p;
     @# for z in ClimateVarsRegional
         @{z}0_@{reg}_p = 0;

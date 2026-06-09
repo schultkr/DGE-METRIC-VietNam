@@ -159,8 +159,11 @@ function exlFile = rebuild_content(exlFile, exl)
     for ico = 2 : exlFile.Sheets.Count
         sName = exlFile.Sheets.Item(ico).Name;
         wsContent.Range(['A' num2str(ico)]).Value = sName;
-        wsContent.Range(['B' num2str(ico)]).Formula = ...
-            ['=HYPERLINK("#''' sName '''!A1","' sName '")'];
+        if ~excel_write_formula_with_fallback(wsContent.Range(['B' num2str(ico)]), ...
+                ['=HYPERLINK("#''' sName '''!A1","' sName '")'])
+            error('migrate_to_split_workbooks:FormulaWriteFailed', ...
+                'Unable to write Content hyperlink for sheet "%s".', sName);
+        end
     end
     wsContent.Columns.AutoFit;
 end

@@ -130,7 +130,7 @@
 
             @# if lEndoUtilization == 0
                 #lhsSupplySubsec_12_@{subsec}_@{reg} = u_K_@{subsec}_@{reg};
-                #rhsSupplySubsec_12_@{subsec}_@{reg} = exp(exo_u_K_@{subsec}_@{reg});                
+                #rhsSupplySubsec_12_@{subsec}_@{reg} = exp(exo_u_K_@{subsec}_@{reg}) + (exo_lIGShare_@{subsec}_@{reg}) * (rf0_p + exo_r_G_@{subsec}_@{reg});                
 
                 [name = 'regional subsector utilization rate']
                 (lhsSupplySubsec_12_@{subsec}_@{reg}+1) / (rhsSupplySubsec_12_@{subsec}_@{reg}+1) = 1;

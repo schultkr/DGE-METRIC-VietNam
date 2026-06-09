@@ -115,12 +115,15 @@ for icosheet = 1:size(strSheet,2)
                 rngObj = exlSheet1.Range(dat_range);
                 tempvals = cellfun(@(x) str2double(x), strSheet(icosheet).Categories(2:end, icocol), 'UniformOutput', false);               
                 tempvals(cellfun(@(x) isempty(x), tempvals)) = {nan};
-                rngObj.Formula = strSheet(icosheet).Categories(2:end, icocol); 
+                if ~excel_write_formula_with_fallback(rngObj, strSheet(icosheet).Categories(2:end, icocol))
+                    error('create_raw_excel_input_file:FormulaWriteFailed', ...
+                        'Unable to write formulas in sheet "%s" column %d.', strSheet(icosheet).Name, icocol);
+                end
             else
                 dat_range = [get_excel_column(icocol) '1:' get_excel_column(icocol) num2str(inbrow)]; % Example range
                                 dat_range = [get_excel_column(icocol) '1:' get_excel_column(icocol) num2str(inbrow)]; % Example range
                 rngObj = exlSheet1.Range(dat_range);                
-                rngObj.Value = strSheet(icosheet).Categories(:, icocol);        
+                excel_write_value_or_formula_with_fallback(rngObj, strSheet(icosheet).Categories(:, icocol));
             end
         end
         invoke(exl.Selection.Columns,'Autofit');
