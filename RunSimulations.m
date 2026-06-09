@@ -41,7 +41,7 @@ scenarioGroups.GF_NZ = {...
 
 % Select which groups to run.
 % Default group set:
-activeScenarioGroups = {'Reference', 'EE', 'GF_PDP8', 'GF_NZ'};%, 'NZ_Sensitivity'};
+activeScenarioGroups = {'Reference'};%, 'EE', 'GF_PDP8', 'GF_NZ'};%, 'NZ_Sensitivity'};
 
 % activeScenarioGroups = {'GF_PDP8'};
 % Optional override via environment variable, e.g.:
@@ -140,7 +140,7 @@ for icoScenario = iposstart:min(iposend,size(casScenarioNames,2))
                                'NZ_GF_A', 'NZ_GF_B', 'NZ_GF_C'})
         sBaseline = 'NZ';
         sSimulation = '20';
-        sExoNX = '0';% define whether net exports to GDP are constant
+        sExoNX = '0';% define whether net expors to GDP are constant
         sCapandTrade = '1';
     elseif ismember(sScenario, {'PDP8_GF_A', 'PDP8_GF_B', 'PDP8_GF_C'})
         sBaseline = 'Baseline';
