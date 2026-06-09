@@ -1,6 +1,46 @@
 # Model
 
-## Purpose
+## Model structure in plain language
+
+DGE-METRIC is a **5-sector, 1-region dynamic general equilibrium model** calibrated to Vietnam. It simulates the economy over a 25-year deterministic transition path (2026–2050) using forward-looking rational expectations solved by Dynare.
+
+### Five sectors
+
+| # | Label | Economic role |
+|---|---|---|
+| 1 | Non-energy aggregate | General production; residual macro sector |
+| 2 | Fossil energy | Coal, gas, oil generation; declining under NZ |
+| 3 | Renewable energy | Solar, wind, hydro, storage; expanding under all transition scenarios |
+| 4 | Industry | Manufacturing; major energy user, EE target sector |
+| 5 | Services | Commercial and public services; secondary energy user |
+
+Capital and labor move across sectors in response to relative prices. Energy sectors supply intermediate inputs to sectors 1, 4, and 5.
+
+### Key model extensions beyond a standard DGE
+
+| Feature | What it adds | Key variables |
+|---|---|---|
+| Input-output structure | Sectors buy intermediate goods from each other | `Q^I_{s,k}` intermediate demand matrix |
+| Energy as intermediate input | Energy demand is derived from production decisions | `Q_A_{s,1}`, `Q_PV_1` |
+| Emission coefficients | Each fossil fuel unit generates CO₂ | `e_s` emission intensity |
+| Emissions trading system (ETS) | Carbon permit market with endogenous price | `E_ETS_1`, `P_E`, `xi_s` coverage rate |
+| Energy efficiency shocks | Reduces energy per unit of output over time | `exo_AI_s` |
+| Renewable capital accumulation | PV and grid investment paths | `exo_PVEff_1`, `exo_GA_s` |
+| Climate damages | Temperature shocks reduce capital and housing | `D^K_{s,t}`, `D^H_t` |
+| Green finance channels | Lower cost of capital for energy investment | `exo_r_G_s`, `exo_r_FDI_s`, `exo_P_K_s` |
+| Housing as durable capital | Household wealth and climate exposure | `H_{t+1}`, `I^H_t` |
+
+### Agent diagram
+
+![Model Overview](figures/ModelDiagram.jpg)
+
+### Calibration
+
+The model is calibrated to a Vietnam 2026 baseline using GSO IO tables, EVN annual reports, IEA WEO 2025, and EDGAR 2024 emissions data. See [Calibration](calibration.md) and [Data sources](data_sources.md).
+
+---
+
+## Technical implementation
 
 The repository implements a deterministic multi-sector DGE workflow that combines:
 

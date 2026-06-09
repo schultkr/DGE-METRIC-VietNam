@@ -1,17 +1,41 @@
 # DGE-METRIC Documentation
 
-This page is the entry point for the repository documentation.
+DGE-METRIC (**D**ynamic **G**eneral **E**quilibrium for **M**acroeconomic **E**nergy **T**ransition **I**ncorporating **C**arbon markets) is a multi-sector macroeconomic model for evaluating energy transition pathways, green finance instruments, and carbon-pricing policies — applied to Vietnam.
 
-## Sections
+---
 
-- [Model](model.md): model architecture, main files, and execution flow.
-- [Scenarios](scenario.md): scenario groups and baseline/scenario mechanics.
-- [Calibration](calibration.md): calibration workbook generation and update workflow.
-- [Running](running.md): practical run order and commands.
+## New to the model? Start here
 
-## Current Repository Map
+1. [What is DGE-METRIC?](overview.md) — plain-language overview, agent structure, policy questions
+2. [Vietnam energy transition context](vietnam_context.md) — PDP8, net-zero targets, the financing gap
+3. [Scenarios at a glance](scenarios_overview.md) — all scenario families in one table
 
-Main top-level components in this version:
+**Use cases with results:**
+- [Energy Efficiency scenarios](use_cases_ee.md) — EE_PDP8, EE_Directive10, BESS counterfactuals
+- [Green Finance scenarios](use_cases_finance.md) — GF_A/B/C, WACC and GDP effects
+
+---
+
+## Technical reference
+
+- [Model architecture and equations](model.md)
+- [Scenario design and implementation](scenario.md)
+- [Calibration workflow](calibration.md)
+- [Running the model](running.md)
+- [Calibration data sources](data_sources.md)
+
+---
+
+## Scenario-specific docs
+
+- [Energy efficiency scenario design](ee_scenario_design.md)
+- [EE simulation results](ee_simulation_scenarios_results.md)
+- [Green finance instruments feasibility](finance_instruments_comments_feasibility.md)
+- [Grid investment scenario design](grid_investment_scenario_design.md)
+
+---
+
+## Repository map
 
 - `DGE_Model.mod`: Dynare model entry file.
 - `RunSimulations.m`: batch scenario runner.
@@ -20,11 +44,10 @@ Main top-level components in this version:
 - `Functions/`: steady-state, simulation, model setup, and Excel helpers.
 - `ModFiles/`: model declarations, equations, parameters, and LaTeX output includes.
 - `ExcelFiles/`: calibration/baseline/scenario workbooks and output files.
-- `scripts/maintenance/`: workbook maintenance scripts (currently includes `CreateBaselineFromPathDefinitionLite.m`).
+- `scripts/maintenance/`: workbook maintenance scripts.
 - `Training/`: training assets and calibration resources.
 
 ## Important Notes
 
-- The root README links an Excel rebuild guide at `scripts/maintenance/USER_GUIDE_EXCEL_REBUILD.md`, but this file is not present in the current repository state.
 - Current scenario execution defaults are defined in `RunSimulations.m`.
 - Current calibration workbook generation logic is in `Functions/Miscellaneous/Excel/create_calibration_excel_file.m`.

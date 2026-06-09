@@ -2,12 +2,24 @@
 
 This repository contains the implementation of a **Dynamic General Equilibrium (DGE)** model (DGE-CRED / DGE-METRIC variant) used to simulate macroeconomic and sectoral impacts under alternative climate and energy-transition pathways. The codebase combines **Dynare `.mod` files**, **MATLAB steady-state/calibration routines**, and supporting **Excel inputs**.
 
-## 📘 Documentation Overview
+## Documentation
 
-- 🏠 [Home](docs/index.md)
-- 🧮 [Model](docs/model.md)
-- ▶️ [Running](docs/running.md)
-- ⚙️ [Dynare Install (MATLAB, Octave, MATLAB Online)](docs/running.md#install-dynare)
+**New to the model?** Start here:
+- [What is DGE-METRIC?](docs/overview.md) — plain-language overview, agent structure, policy questions
+- [Vietnam energy transition context](docs/vietnam_context.md) — PDP8, net-zero targets, financing gap
+- [Scenarios at a glance](docs/scenarios_overview.md) — all scenario families in one table
+
+**Use cases with results:**
+- [Energy Efficiency scenarios](docs/use_cases_ee.md) — EE_PDP8, EE_Directive10, BESS counterfactuals
+- [Green Finance scenarios](docs/use_cases_finance.md) — GF_A/B/C, WACC and GDP effects
+
+**Technical reference:**
+- [Full documentation index](docs/index.md)
+- [Model architecture](docs/model.md)
+- [Scenario design](docs/scenario.md)
+- [Calibration](docs/calibration.md)
+- [Running the model](docs/running.md)
+- [Dynare Install (MATLAB, Octave, MATLAB Online)](docs/running.md#install-dynare)
 
 ---
 
