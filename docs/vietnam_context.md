@@ -18,9 +18,9 @@ These targets create a compressed timeline: the transition from a coal-heavy sys
 
 ---
 
-## Power Development Plan 8 (PDP8) as the model baseline
+## Power Development Plan 8 (PDP8) revised as the model baseline
 
-PDP8 is Vietnam's official long-term electricity planning document. In the model, **PDP8 serves as the reference (baseline) scenario** — the trajectory the economy follows if current energy and climate policies are maintained.
+PDP8 revised is Vietnam's official long-term electricity planning document. In the model, **revised PDP8 serves as the reference (baseline) scenario** — the trajectory the economy follows if current energy and climate policies are maintained.
 
 Key PDP8 features modeled:
 
@@ -35,7 +35,7 @@ PDP8 is ambitious relative to current implementation capacity. The model treats 
 
 ## Investment scale
 
-The IWH Investment Needs Assessment (2025) estimates that **meeting PDP8 targets requires cumulative investment of approximately USD 136 billion** between 2026 and 2050 in the energy sector alone. This breaks down across:
+The IWH Investment Needs Assessment (2025) estimates that **meeting PDP8 targets requires cumulative investment of approximately USD 1 trillion** between 2026 and 2050 in the energy sector alone. This breaks down across:
 
 - Renewable energy capacity (solar, wind, storage)
 - Grid reinforcement and transmission infrastructure
