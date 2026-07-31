@@ -18,11 +18,12 @@ DGE-METRIC (**D**ynamic **G**eneral **E**quilibrium for **M**acroeconomic **E**n
 
 ## Technical reference
 
-- [Model architecture and equations](model.md)
-- [Scenario design and implementation](scenario.md)
-- [Calibration workflow](calibration.md)
-- [Running the model](running.md)
-- [Calibration data sources](data_sources.md)
+- [Model architecture and equations](reference/model.md)
+- [Scenario design and implementation](reference/scenario.md)
+- [Calibration workflow](reference/calibration.md)
+- [Running the model](reference/running.md)
+- [Calibration data sources](reference/data_sources.md)
+- [Structural parameters source audit](reference/structural_parameters_source_audit.md)
 
 ---
 
@@ -30,8 +31,14 @@ DGE-METRIC (**D**ynamic **G**eneral **E**quilibrium for **M**acroeconomic **E**n
 
 - [Energy efficiency scenario design](ee_scenario_design.md)
 - [EE simulation results](ee_simulation_scenarios_results.md)
-- [Green finance instruments feasibility](finance_instruments_comments_feasibility.md)
+- [Green finance instruments feasibility](scenario_notes/finance_instruments_comments_feasibility.md)
 - [Grid investment scenario design](grid_investment_scenario_design.md)
+
+---
+
+## Implementation plans
+
+- [Capital targeting trial and error](implementation_plans/capital_targeting_trial_and_error.md)
 
 ---
 
