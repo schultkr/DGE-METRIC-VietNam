@@ -1,0 +1,962 @@
+"","Year","Tech","CAPEX_kUSD_MW","CAPEX_kUSD_MW_lwr","CAPEX_kUSD_MW_upr"
+"1",2020,"Coal subcritical",1622,NA,NA
+"2",2020,"Coal supercritical",1789,1634,1944
+"3",2020,"Coal ultra-supercritical",2027,1897,2157
+"4",2020,"Coal AUSC",NA,NA,NA
+"5",2020,"Coal CCS",4307,NA,NA
+"6",2020,"SteamTur-Super-NH3",2270,NA,NA
+"7",2020,"Nuclear – PWR",7370,5470,9270
+"8",2020,"Nuclear – SMR",6640,4740,8540
+"9",2020,"CCGT - LNG",875,725,1025
+"10",2020,"CCGT – H2",1065,915,1215
+"11",2020,"CCGT- CCS- LNG",2643,2493,2793
+"12",2020,"SCGT",665,515,815
+"13",2020,"RICE",633,NA,NA
+"14",2020,"Geothermal",5236,4236,6236
+"15",2020,"Biomass",1990,1690,2290
+"16",2020,"MSW",6404,NA,NA
+"17",2020,"Coal_conv_biomassNH3_PVC",370,170,570
+"18",2020,"Coal_CFB",1530,985,2075
+"19",2020,"Coal_conv_biomassNH3_CFB",0,0,0
+"20",2020,"Biomass_MSW",3906.90269716627,3737.18607033117,4076.61932400137
+"21",2020,"Small hydro",1528,828,2228
+"22",2020,"Onshore Wind",1625,1525,1725
+"23",2020,"Near shore Wind",2287,2187,2387
+"24",2020,"Wind offshore (fixed base)",3702,3452,3952
+"25",2020,"Wind offshore (floating base)",6464,6214,6714
+"26",2020,"Solar PV (Utility scale)",880,780,980
+"27",2020,"Solar PV (Rooftop)",1027,927,1127
+"28",2020,"Solar PV (Floating)",1026,926,1126
+"29",2020,"Tidal",7227,NA,NA
+"30",2020,"Solar PV (Weighted)",952.12053347222,852.12053347222,1052.12053347222
+"31",2020,"Battery",1670,1670,1670
+"32",2021,"Coal subcritical",1622,NA,NA
+"33",2021,"Coal supercritical",1789,1634,1944
+"34",2021,"Coal ultra-supercritical",2027,1897,2157
+"35",2021,"Coal AUSC",NA,NA,NA
+"36",2021,"Coal CCS",4307,NA,NA
+"37",2021,"SteamTur-Super-NH3",2270,NA,NA
+"38",2021,"Nuclear – PWR",7370,5470,9270
+"39",2021,"Nuclear – SMR",6640,4740,8540
+"40",2021,"CCGT - LNG",875,725,1025
+"41",2021,"CCGT – H2",1065,915,1215
+"42",2021,"CCGT- CCS- LNG",2643,2493,2793
+"43",2021,"SCGT",665,515,815
+"44",2021,"RICE",633,NA,NA
+"45",2021,"Geothermal",5236,4236,6236
+"46",2021,"Biomass",1990,1690,2290
+"47",2021,"MSW",6404,NA,NA
+"48",2021,"Coal_conv_biomassNH3_PVC",370,170,570
+"49",2021,"Coal_CFB",1530,985,2075
+"50",2021,"Coal_conv_biomassNH3_CFB",0,0,0
+"51",2021,"Biomass_MSW",3906.90269716627,3737.18607033117,4076.61932400137
+"52",2021,"Small hydro",1528,828,2228
+"53",2021,"Onshore Wind",1625,1525,1725
+"54",2021,"Near shore Wind",2287,2187,2387
+"55",2021,"Wind offshore (fixed base)",3702,3452,3952
+"56",2021,"Wind offshore (floating base)",6464,6214,6714
+"57",2021,"Solar PV (Utility scale)",880,780,980
+"58",2021,"Solar PV (Rooftop)",1027,927,1127
+"59",2021,"Solar PV (Floating)",1026,926,1126
+"60",2021,"Tidal",7227,NA,NA
+"61",2021,"Solar PV (Weighted)",952.12053347222,852.12053347222,1052.12053347222
+"62",2021,"Battery",1670,1670,1670
+"63",2022,"Coal subcritical",1622,NA,NA
+"64",2022,"Coal supercritical",1789,1634,1944
+"65",2022,"Coal ultra-supercritical",2027,1897,2157
+"66",2022,"Coal AUSC",NA,NA,NA
+"67",2022,"Coal CCS",4307,NA,NA
+"68",2022,"SteamTur-Super-NH3",2270,NA,NA
+"69",2022,"Nuclear – PWR",7370,5470,9270
+"70",2022,"Nuclear – SMR",6640,4740,8540
+"71",2022,"CCGT - LNG",875,725,1025
+"72",2022,"CCGT – H2",1065,915,1215
+"73",2022,"CCGT- CCS- LNG",2643,2493,2793
+"74",2022,"SCGT",665,515,815
+"75",2022,"RICE",633,NA,NA
+"76",2022,"Geothermal",5236,4236,6236
+"77",2022,"Biomass",1990,1690,2290
+"78",2022,"MSW",6404,NA,NA
+"79",2022,"Coal_conv_biomassNH3_PVC",370,170,570
+"80",2022,"Coal_CFB",1530,985,2075
+"81",2022,"Coal_conv_biomassNH3_CFB",0,0,0
+"82",2022,"Biomass_MSW",3906.90269716627,3737.18607033117,4076.61932400137
+"83",2022,"Small hydro",1528,828,2228
+"84",2022,"Onshore Wind",1625,1525,1725
+"85",2022,"Near shore Wind",2287,2187,2387
+"86",2022,"Wind offshore (fixed base)",3702,3452,3952
+"87",2022,"Wind offshore (floating base)",6464,6214,6714
+"88",2022,"Solar PV (Utility scale)",880,780,980
+"89",2022,"Solar PV (Rooftop)",1027,927,1127
+"90",2022,"Solar PV (Floating)",1026,926,1126
+"91",2022,"Tidal",7227,NA,NA
+"92",2022,"Solar PV (Weighted)",952.12053347222,852.12053347222,1052.12053347222
+"93",2022,"Battery",1670,1670,1670
+"94",2023,"Coal subcritical",1622,NA,NA
+"95",2023,"Coal supercritical",1789,1634,1944
+"96",2023,"Coal ultra-supercritical",2027,1897,2157
+"97",2023,"Coal AUSC",NA,NA,NA
+"98",2023,"Coal CCS",4307,NA,NA
+"99",2023,"SteamTur-Super-NH3",2270,NA,NA
+"100",2023,"Nuclear – PWR",7370,5470,9270
+"101",2023,"Nuclear – SMR",6640,4740,8540
+"102",2023,"CCGT - LNG",875,725,1025
+"103",2023,"CCGT – H2",1065,915,1215
+"104",2023,"CCGT- CCS- LNG",2643,2493,2793
+"105",2023,"SCGT",665,515,815
+"106",2023,"RICE",633,NA,NA
+"107",2023,"Geothermal",5236,4236,6236
+"108",2023,"Biomass",1990,1690,2290
+"109",2023,"MSW",6404,NA,NA
+"110",2023,"Coal_conv_biomassNH3_PVC",370,170,570
+"111",2023,"Coal_CFB",1530,985,2075
+"112",2023,"Coal_conv_biomassNH3_CFB",0,0,0
+"113",2023,"Biomass_MSW",3906.90269716627,3737.18607033117,4076.61932400137
+"114",2023,"Small hydro",1528,828,2228
+"115",2023,"Onshore Wind",1625,1525,1725
+"116",2023,"Near shore Wind",2287,2187,2387
+"117",2023,"Wind offshore (fixed base)",3702,3452,3952
+"118",2023,"Wind offshore (floating base)",6464,6214,6714
+"119",2023,"Solar PV (Utility scale)",880,780,980
+"120",2023,"Solar PV (Rooftop)",1027,927,1127
+"121",2023,"Solar PV (Floating)",1026,926,1126
+"122",2023,"Tidal",7227,NA,NA
+"123",2023,"Solar PV (Weighted)",952.12053347222,852.12053347222,1052.12053347222
+"124",2023,"Battery",1670,1670,1670
+"125",2024,"Coal subcritical",1622,NA,NA
+"126",2024,"Coal supercritical",1789,1634,1944
+"127",2024,"Coal ultra-supercritical",2027,1897,2157
+"128",2024,"Coal AUSC",NA,NA,NA
+"129",2024,"Coal CCS",4307,NA,NA
+"130",2024,"SteamTur-Super-NH3",2270,NA,NA
+"131",2024,"Nuclear – PWR",7370,5470,9270
+"132",2024,"Nuclear – SMR",6640,4740,8540
+"133",2024,"CCGT - LNG",875,725,1025
+"134",2024,"CCGT – H2",1065,915,1215
+"135",2024,"CCGT- CCS- LNG",2643,2493,2793
+"136",2024,"SCGT",665,515,815
+"137",2024,"RICE",633,NA,NA
+"138",2024,"Geothermal",5236,4236,6236
+"139",2024,"Biomass",1990,1690,2290
+"140",2024,"MSW",6404,NA,NA
+"141",2024,"Coal_conv_biomassNH3_PVC",370,170,570
+"142",2024,"Coal_CFB",1530,985,2075
+"143",2024,"Coal_conv_biomassNH3_CFB",0,0,0
+"144",2024,"Biomass_MSW",3906.90269716627,3737.18607033117,4076.61932400137
+"145",2024,"Small hydro",1528,828,2228
+"146",2024,"Onshore Wind",1625,1525,1725
+"147",2024,"Near shore Wind",2287,2187,2387
+"148",2024,"Wind offshore (fixed base)",3702,3452,3952
+"149",2024,"Wind offshore (floating base)",6464,6214,6714
+"150",2024,"Solar PV (Utility scale)",880,780,980
+"151",2024,"Solar PV (Rooftop)",1027,927,1127
+"152",2024,"Solar PV (Floating)",1026,926,1126
+"153",2024,"Tidal",7227,NA,NA
+"154",2024,"Solar PV (Weighted)",952.12053347222,852.12053347222,1052.12053347222
+"155",2024,"Battery",1670,1670,1670
+"156",2025,"Coal subcritical",1622,NA,NA
+"157",2025,"Coal supercritical",1789,1634,1944
+"158",2025,"Coal ultra-supercritical",2027,1897,2157
+"159",2025,"Coal AUSC",NA,NA,NA
+"160",2025,"Coal CCS",4307,NA,NA
+"161",2025,"SteamTur-Super-NH3",2270,NA,NA
+"162",2025,"Nuclear – PWR",7370,5470,9270
+"163",2025,"Nuclear – SMR",6640,4740,8540
+"164",2025,"CCGT - LNG",875,725,1025
+"165",2025,"CCGT – H2",1065,915,1215
+"166",2025,"CCGT- CCS- LNG",2643,2493,2793
+"167",2025,"SCGT",665,515,815
+"168",2025,"RICE",633,NA,NA
+"169",2025,"Geothermal",5236,4236,6236
+"170",2025,"Biomass",1990,1690,2290
+"171",2025,"MSW",6404,NA,NA
+"172",2025,"Coal_conv_biomassNH3_PVC",370,170,570
+"173",2025,"Coal_CFB",1530,985,2075
+"174",2025,"Coal_conv_biomassNH3_CFB",0,0,0
+"175",2025,"Biomass_MSW",3906.90269716627,3737.18607033117,4076.61932400137
+"176",2025,"Small hydro",1528,828,2228
+"177",2025,"Onshore Wind",1506,1406,1606
+"178",2025,"Near shore Wind",2001,1901,2101
+"179",2025,"Wind offshore (fixed base)",3115,2865,3365
+"180",2025,"Wind offshore (floating base)",4660,4410,4910
+"181",2025,"Solar PV (Utility scale)",759,659,859
+"182",2025,"Solar PV (Rooftop)",880,780,980
+"183",2025,"Solar PV (Floating)",894,794,994
+"184",2025,"Tidal",7227,NA,NA
+"185",2025,"Solar PV (Weighted)",818.364520749242,718.364520749242,918.364520749242
+"186",2025,"Battery",1670,1670,1670
+"187",2026,"Coal subcritical",1622,NA,NA
+"188",2026,"Coal supercritical",1789,1634,1944
+"189",2026,"Coal ultra-supercritical",2027,1897,2157
+"190",2026,"Coal AUSC",NA,NA,NA
+"191",2026,"Coal CCS",4307,NA,NA
+"192",2026,"SteamTur-Super-NH3",2270,NA,NA
+"193",2026,"Nuclear – PWR",7370,5470,9270
+"194",2026,"Nuclear – SMR",6640,4740,8540
+"195",2026,"CCGT - LNG",875,725,1025
+"196",2026,"CCGT – H2",1065,915,1215
+"197",2026,"CCGT- CCS- LNG",2643,2493,2793
+"198",2026,"SCGT",665,515,815
+"199",2026,"RICE",633,NA,NA
+"200",2026,"Geothermal",5236,4236,6236
+"201",2026,"Biomass",1990,1690,2290
+"202",2026,"MSW",6404,NA,NA
+"203",2026,"Coal_conv_biomassNH3_PVC",370,170,570
+"204",2026,"Coal_CFB",1530,985,2075
+"205",2026,"Coal_conv_biomassNH3_CFB",0,0,0
+"206",2026,"Biomass_MSW",3906.90269716627,3737.18607033117,4076.61932400137
+"207",2026,"Small hydro",1528,828,2228
+"208",2026,"Onshore Wind",1506,1406,1606
+"209",2026,"Near shore Wind",2001,1901,2101
+"210",2026,"Wind offshore (fixed base)",3115,2865,3365
+"211",2026,"Wind offshore (floating base)",4660,4410,4910
+"212",2026,"Solar PV (Utility scale)",759,659,859
+"213",2026,"Solar PV (Rooftop)",880,780,980
+"214",2026,"Solar PV (Floating)",894,794,994
+"215",2026,"Tidal",7227,NA,NA
+"216",2026,"Solar PV (Weighted)",818.364520749242,718.364520749242,918.364520749242
+"217",2026,"Battery",1670,1670,1670
+"218",2027,"Coal subcritical",1622,NA,NA
+"219",2027,"Coal supercritical",1789,1634,1944
+"220",2027,"Coal ultra-supercritical",2027,1897,2157
+"221",2027,"Coal AUSC",NA,NA,NA
+"222",2027,"Coal CCS",4307,NA,NA
+"223",2027,"SteamTur-Super-NH3",2270,NA,NA
+"224",2027,"Nuclear – PWR",7370,5470,9270
+"225",2027,"Nuclear – SMR",6640,4740,8540
+"226",2027,"CCGT - LNG",875,725,1025
+"227",2027,"CCGT – H2",1065,915,1215
+"228",2027,"CCGT- CCS- LNG",2643,2493,2793
+"229",2027,"SCGT",665,515,815
+"230",2027,"RICE",633,NA,NA
+"231",2027,"Geothermal",5236,4236,6236
+"232",2027,"Biomass",1990,1690,2290
+"233",2027,"MSW",6404,NA,NA
+"234",2027,"Coal_conv_biomassNH3_PVC",370,170,570
+"235",2027,"Coal_CFB",1530,985,2075
+"236",2027,"Coal_conv_biomassNH3_CFB",0,0,0
+"237",2027,"Biomass_MSW",3906.90269716627,3737.18607033117,4076.61932400137
+"238",2027,"Small hydro",1528,828,2228
+"239",2027,"Onshore Wind",1506,1406,1606
+"240",2027,"Near shore Wind",2001,1901,2101
+"241",2027,"Wind offshore (fixed base)",3115,2865,3365
+"242",2027,"Wind offshore (floating base)",4660,4410,4910
+"243",2027,"Solar PV (Utility scale)",759,659,859
+"244",2027,"Solar PV (Rooftop)",880,780,980
+"245",2027,"Solar PV (Floating)",894,794,994
+"246",2027,"Tidal",7227,NA,NA
+"247",2027,"Solar PV (Weighted)",818.364520749242,718.364520749242,918.364520749242
+"248",2027,"Battery",1670,1670,1670
+"249",2028,"Coal subcritical",1622,NA,NA
+"250",2028,"Coal supercritical",1789,1634,1944
+"251",2028,"Coal ultra-supercritical",2027,1897,2157
+"252",2028,"Coal AUSC",NA,NA,NA
+"253",2028,"Coal CCS",4307,NA,NA
+"254",2028,"SteamTur-Super-NH3",2270,NA,NA
+"255",2028,"Nuclear – PWR",7370,5470,9270
+"256",2028,"Nuclear – SMR",6640,4740,8540
+"257",2028,"CCGT - LNG",875,725,1025
+"258",2028,"CCGT – H2",1065,915,1215
+"259",2028,"CCGT- CCS- LNG",2643,2493,2793
+"260",2028,"SCGT",665,515,815
+"261",2028,"RICE",633,NA,NA
+"262",2028,"Geothermal",5236,4236,6236
+"263",2028,"Biomass",1990,1690,2290
+"264",2028,"MSW",6404,NA,NA
+"265",2028,"Coal_conv_biomassNH3_PVC",370,170,570
+"266",2028,"Coal_CFB",1530,985,2075
+"267",2028,"Coal_conv_biomassNH3_CFB",0,0,0
+"268",2028,"Biomass_MSW",3906.90269716627,3737.18607033117,4076.61932400137
+"269",2028,"Small hydro",1528,828,2228
+"270",2028,"Onshore Wind",1506,1406,1606
+"271",2028,"Near shore Wind",2001,1901,2101
+"272",2028,"Wind offshore (fixed base)",3115,2865,3365
+"273",2028,"Wind offshore (floating base)",4660,4410,4910
+"274",2028,"Solar PV (Utility scale)",759,659,859
+"275",2028,"Solar PV (Rooftop)",880,780,980
+"276",2028,"Solar PV (Floating)",894,794,994
+"277",2028,"Tidal",7227,NA,NA
+"278",2028,"Solar PV (Weighted)",818.364520749242,718.364520749242,918.364520749242
+"279",2028,"Battery",1670,1670,1670
+"280",2029,"Coal subcritical",1622,NA,NA
+"281",2029,"Coal supercritical",1789,1634,1944
+"282",2029,"Coal ultra-supercritical",2027,1897,2157
+"283",2029,"Coal AUSC",NA,NA,NA
+"284",2029,"Coal CCS",4307,NA,NA
+"285",2029,"SteamTur-Super-NH3",2270,NA,NA
+"286",2029,"Nuclear – PWR",7370,5470,9270
+"287",2029,"Nuclear – SMR",6640,4740,8540
+"288",2029,"CCGT - LNG",875,725,1025
+"289",2029,"CCGT – H2",1065,915,1215
+"290",2029,"CCGT- CCS- LNG",2643,2493,2793
+"291",2029,"SCGT",665,515,815
+"292",2029,"RICE",633,NA,NA
+"293",2029,"Geothermal",5236,4236,6236
+"294",2029,"Biomass",1990,1690,2290
+"295",2029,"MSW",6404,NA,NA
+"296",2029,"Coal_conv_biomassNH3_PVC",370,170,570
+"297",2029,"Coal_CFB",1530,985,2075
+"298",2029,"Coal_conv_biomassNH3_CFB",0,0,0
+"299",2029,"Biomass_MSW",3906.90269716627,3737.18607033117,4076.61932400137
+"300",2029,"Small hydro",1528,828,2228
+"301",2029,"Onshore Wind",1506,1406,1606
+"302",2029,"Near shore Wind",2001,1901,2101
+"303",2029,"Wind offshore (fixed base)",3115,2865,3365
+"304",2029,"Wind offshore (floating base)",4660,4410,4910
+"305",2029,"Solar PV (Utility scale)",759,659,859
+"306",2029,"Solar PV (Rooftop)",880,780,980
+"307",2029,"Solar PV (Floating)",894,794,994
+"308",2029,"Tidal",7227,NA,NA
+"309",2029,"Solar PV (Weighted)",818.364520749242,718.364520749242,918.364520749242
+"310",2029,"Battery",1670,1670,1670
+"311",2030,"Coal subcritical",1608,NA,NA
+"312",2030,"Coal supercritical",1698,1543,1853
+"313",2030,"Coal ultra-supercritical",1893,1763,2023
+"314",2030,"Coal AUSC",NA,NA,NA
+"315",2030,"Coal CCS",3885,NA,NA
+"316",2030,"SteamTur-Super-NH3",2121,NA,NA
+"317",2030,"Nuclear – PWR",6680,4780,8580
+"318",2030,"Nuclear – SMR",5760,3860,7660
+"319",2030,"CCGT - LNG",789,639,939
+"320",2030,"CCGT – H2",979,829,1129
+"321",2030,"CCGT- CCS- LNG",2543,2393,2693
+"322",2030,"SCGT",642,492,792
+"323",2030,"RICE",633,NA,NA
+"324",2030,"Geothermal",4843,3843,5843
+"325",2030,"Biomass",1831,1531,2131
+"326",2030,"MSW",5947,NA,NA
+"327",2030,"Coal_conv_biomassNH3_PVC",370,170,570
+"328",2030,"Coal_CFB",1520,1030,2010
+"329",2030,"Coal_conv_biomassNH3_CFB",0,0,0
+"330",2030,"Biomass_MSW",1990,1690,2290
+"331",2030,"Small hydro",1528,828,2228
+"332",2030,"Onshore Wind",1387,1287,1487
+"333",2030,"Near shore Wind",1670,1570,1770
+"334",2030,"Wind offshore (fixed base)",2459,2209,2709
+"335",2030,"Wind offshore (floating base)",3031,2781,3281
+"336",2030,"Solar PV (Utility scale)",633,533,733
+"337",2030,"Solar PV (Rooftop)",730,630,830
+"338",2030,"Solar PV (Floating)",733,633,833
+"339",2030,"Tidal",6714,NA,NA
+"340",2030,"Solar PV (Weighted)",664.220869904428,564.220869904428,764.220869904428
+"341",2030,"Battery",910,910,910
+"342",2031,"Coal subcritical",1608,NA,NA
+"343",2031,"Coal supercritical",1698,1543,1853
+"344",2031,"Coal ultra-supercritical",1893,1763,2023
+"345",2031,"Coal AUSC",NA,NA,NA
+"346",2031,"Coal CCS",3885,NA,NA
+"347",2031,"SteamTur-Super-NH3",2121,NA,NA
+"348",2031,"Nuclear – PWR",6680,4780,8580
+"349",2031,"Nuclear – SMR",5760,3860,7660
+"350",2031,"CCGT - LNG",789,639,939
+"351",2031,"CCGT – H2",979,829,1129
+"352",2031,"CCGT- CCS- LNG",2543,2393,2693
+"353",2031,"SCGT",642,492,792
+"354",2031,"RICE",633,NA,NA
+"355",2031,"Geothermal",4843,3843,5843
+"356",2031,"Biomass",1831,1531,2131
+"357",2031,"MSW",5947,NA,NA
+"358",2031,"Coal_conv_biomassNH3_PVC",370,170,570
+"359",2031,"Coal_CFB",1520,1030,2010
+"360",2031,"Coal_conv_biomassNH3_CFB",0,0,0
+"361",2031,"Biomass_MSW",1990,1690,2290
+"362",2031,"Small hydro",1528,828,2228
+"363",2031,"Onshore Wind",1387,1287,1487
+"364",2031,"Near shore Wind",1670,1570,1770
+"365",2031,"Wind offshore (fixed base)",2459,2209,2709
+"366",2031,"Wind offshore (floating base)",3031,2781,3281
+"367",2031,"Solar PV (Utility scale)",633,533,733
+"368",2031,"Solar PV (Rooftop)",730,630,830
+"369",2031,"Solar PV (Floating)",733,633,833
+"370",2031,"Tidal",6714,NA,NA
+"371",2031,"Solar PV (Weighted)",664.220869904428,564.220869904428,764.220869904428
+"372",2031,"Battery",910,910,910
+"373",2032,"Coal subcritical",1608,NA,NA
+"374",2032,"Coal supercritical",1698,1543,1853
+"375",2032,"Coal ultra-supercritical",1893,1763,2023
+"376",2032,"Coal AUSC",NA,NA,NA
+"377",2032,"Coal CCS",3885,NA,NA
+"378",2032,"SteamTur-Super-NH3",2121,NA,NA
+"379",2032,"Nuclear – PWR",6680,4780,8580
+"380",2032,"Nuclear – SMR",5760,3860,7660
+"381",2032,"CCGT - LNG",789,639,939
+"382",2032,"CCGT – H2",979,829,1129
+"383",2032,"CCGT- CCS- LNG",2543,2393,2693
+"384",2032,"SCGT",642,492,792
+"385",2032,"RICE",633,NA,NA
+"386",2032,"Geothermal",4843,3843,5843
+"387",2032,"Biomass",1831,1531,2131
+"388",2032,"MSW",5947,NA,NA
+"389",2032,"Coal_conv_biomassNH3_PVC",370,170,570
+"390",2032,"Coal_CFB",1520,1030,2010
+"391",2032,"Coal_conv_biomassNH3_CFB",0,0,0
+"392",2032,"Biomass_MSW",1990,1690,2290
+"393",2032,"Small hydro",1528,828,2228
+"394",2032,"Onshore Wind",1387,1287,1487
+"395",2032,"Near shore Wind",1670,1570,1770
+"396",2032,"Wind offshore (fixed base)",2459,2209,2709
+"397",2032,"Wind offshore (floating base)",3031,2781,3281
+"398",2032,"Solar PV (Utility scale)",633,533,733
+"399",2032,"Solar PV (Rooftop)",730,630,830
+"400",2032,"Solar PV (Floating)",733,633,833
+"401",2032,"Tidal",6714,NA,NA
+"402",2032,"Solar PV (Weighted)",664.220869904428,564.220869904428,764.220869904428
+"403",2032,"Battery",910,910,910
+"404",2033,"Coal subcritical",1608,NA,NA
+"405",2033,"Coal supercritical",1698,1543,1853
+"406",2033,"Coal ultra-supercritical",1893,1763,2023
+"407",2033,"Coal AUSC",NA,NA,NA
+"408",2033,"Coal CCS",3885,NA,NA
+"409",2033,"SteamTur-Super-NH3",2121,NA,NA
+"410",2033,"Nuclear – PWR",6680,4780,8580
+"411",2033,"Nuclear – SMR",5760,3860,7660
+"412",2033,"CCGT - LNG",789,639,939
+"413",2033,"CCGT – H2",979,829,1129
+"414",2033,"CCGT- CCS- LNG",2543,2393,2693
+"415",2033,"SCGT",642,492,792
+"416",2033,"RICE",633,NA,NA
+"417",2033,"Geothermal",4843,3843,5843
+"418",2033,"Biomass",1831,1531,2131
+"419",2033,"MSW",5947,NA,NA
+"420",2033,"Coal_conv_biomassNH3_PVC",370,170,570
+"421",2033,"Coal_CFB",1520,1030,2010
+"422",2033,"Coal_conv_biomassNH3_CFB",0,0,0
+"423",2033,"Biomass_MSW",1990,1690,2290
+"424",2033,"Small hydro",1528,828,2228
+"425",2033,"Onshore Wind",1387,1287,1487
+"426",2033,"Near shore Wind",1670,1570,1770
+"427",2033,"Wind offshore (fixed base)",2459,2209,2709
+"428",2033,"Wind offshore (floating base)",3031,2781,3281
+"429",2033,"Solar PV (Utility scale)",633,533,733
+"430",2033,"Solar PV (Rooftop)",730,630,830
+"431",2033,"Solar PV (Floating)",733,633,833
+"432",2033,"Tidal",6714,NA,NA
+"433",2033,"Solar PV (Weighted)",664.220869904428,564.220869904428,764.220869904428
+"434",2033,"Battery",910,910,910
+"435",2034,"Coal subcritical",1608,NA,NA
+"436",2034,"Coal supercritical",1698,1543,1853
+"437",2034,"Coal ultra-supercritical",1893,1763,2023
+"438",2034,"Coal AUSC",NA,NA,NA
+"439",2034,"Coal CCS",3885,NA,NA
+"440",2034,"SteamTur-Super-NH3",2121,NA,NA
+"441",2034,"Nuclear – PWR",6680,4780,8580
+"442",2034,"Nuclear – SMR",5760,3860,7660
+"443",2034,"CCGT - LNG",789,639,939
+"444",2034,"CCGT – H2",979,829,1129
+"445",2034,"CCGT- CCS- LNG",2543,2393,2693
+"446",2034,"SCGT",642,492,792
+"447",2034,"RICE",633,NA,NA
+"448",2034,"Geothermal",4843,3843,5843
+"449",2034,"Biomass",1831,1531,2131
+"450",2034,"MSW",5947,NA,NA
+"451",2034,"Coal_conv_biomassNH3_PVC",370,170,570
+"452",2034,"Coal_CFB",1520,1030,2010
+"453",2034,"Coal_conv_biomassNH3_CFB",0,0,0
+"454",2034,"Biomass_MSW",1990,1690,2290
+"455",2034,"Small hydro",1528,828,2228
+"456",2034,"Onshore Wind",1387,1287,1487
+"457",2034,"Near shore Wind",1670,1570,1770
+"458",2034,"Wind offshore (fixed base)",2459,2209,2709
+"459",2034,"Wind offshore (floating base)",3031,2781,3281
+"460",2034,"Solar PV (Utility scale)",633,533,733
+"461",2034,"Solar PV (Rooftop)",730,630,830
+"462",2034,"Solar PV (Floating)",733,633,833
+"463",2034,"Tidal",6714,NA,NA
+"464",2034,"Solar PV (Weighted)",664.220869904428,564.220869904428,764.220869904428
+"465",2034,"Battery",910,910,910
+"466",2035,"Coal subcritical",1608,NA,NA
+"467",2035,"Coal supercritical",1698,1543,1853
+"468",2035,"Coal ultra-supercritical",1893,1763,2023
+"469",2035,"Coal AUSC",1925,NA,NA
+"470",2035,"Coal CCS",3885,NA,NA
+"471",2035,"SteamTur-Super-NH3",2121,NA,NA
+"472",2035,"Nuclear – PWR",6680,4780,8580
+"473",2035,"Nuclear – SMR",5760,3860,7660
+"474",2035,"CCGT - LNG",789,639,939
+"475",2035,"CCGT – H2",979,829,1129
+"476",2035,"CCGT- CCS- LNG",2543,2393,2693
+"477",2035,"SCGT",642,492,792
+"478",2035,"RICE",633,NA,NA
+"479",2035,"Geothermal",4843,3843,5843
+"480",2035,"Biomass",1831,1531,2131
+"481",2035,"MSW",5947,NA,NA
+"482",2035,"Coal_conv_biomassNH3_PVC",370,170,570
+"483",2035,"Coal_CFB",1520,1030,2010
+"484",2035,"Coal_conv_biomassNH3_CFB",0,0,0
+"485",2035,"Biomass_MSW",1990,1690,2290
+"486",2035,"Small hydro",1528,828,2228
+"487",2035,"Onshore Wind",1387,1287,1487
+"488",2035,"Near shore Wind",1670,1570,1770
+"489",2035,"Wind offshore (fixed base)",2459,2209,2709
+"490",2035,"Wind offshore (floating base)",3031,2781,3281
+"491",2035,"Solar PV (Utility scale)",633,533,733
+"492",2035,"Solar PV (Rooftop)",730,630,830
+"493",2035,"Solar PV (Floating)",733,633,833
+"494",2035,"Tidal",6714,NA,NA
+"495",2035,"Solar PV (Weighted)",664.220869904428,564.220869904428,764.220869904428
+"496",2035,"Battery",910,910,910
+"497",2036,"Coal subcritical",1608,NA,NA
+"498",2036,"Coal supercritical",1698,1543,1853
+"499",2036,"Coal ultra-supercritical",1893,1763,2023
+"500",2036,"Coal AUSC",1925,NA,NA
+"501",2036,"Coal CCS",3885,NA,NA
+"502",2036,"SteamTur-Super-NH3",2121,NA,NA
+"503",2036,"Nuclear – PWR",6680,4780,8580
+"504",2036,"Nuclear – SMR",5760,3860,7660
+"505",2036,"CCGT - LNG",789,639,939
+"506",2036,"CCGT – H2",979,829,1129
+"507",2036,"CCGT- CCS- LNG",2543,2393,2693
+"508",2036,"SCGT",642,492,792
+"509",2036,"RICE",633,NA,NA
+"510",2036,"Geothermal",4843,3843,5843
+"511",2036,"Biomass",1831,1531,2131
+"512",2036,"MSW",5947,NA,NA
+"513",2036,"Coal_conv_biomassNH3_PVC",370,170,570
+"514",2036,"Coal_CFB",1520,1030,2010
+"515",2036,"Coal_conv_biomassNH3_CFB",0,0,0
+"516",2036,"Biomass_MSW",1990,1690,2290
+"517",2036,"Small hydro",1528,828,2228
+"518",2036,"Onshore Wind",1387,1287,1487
+"519",2036,"Near shore Wind",1670,1570,1770
+"520",2036,"Wind offshore (fixed base)",2459,2209,2709
+"521",2036,"Wind offshore (floating base)",3031,2781,3281
+"522",2036,"Solar PV (Utility scale)",633,533,733
+"523",2036,"Solar PV (Rooftop)",730,630,830
+"524",2036,"Solar PV (Floating)",733,633,833
+"525",2036,"Tidal",6714,NA,NA
+"526",2036,"Solar PV (Weighted)",633,533,733
+"527",2036,"Battery",910,910,910
+"528",2037,"Coal subcritical",1608,NA,NA
+"529",2037,"Coal supercritical",1698,1543,1853
+"530",2037,"Coal ultra-supercritical",1893,1763,2023
+"531",2037,"Coal AUSC",1925,NA,NA
+"532",2037,"Coal CCS",3885,NA,NA
+"533",2037,"SteamTur-Super-NH3",2121,NA,NA
+"534",2037,"Nuclear – PWR",6680,4780,8580
+"535",2037,"Nuclear – SMR",5760,3860,7660
+"536",2037,"CCGT - LNG",789,639,939
+"537",2037,"CCGT – H2",979,829,1129
+"538",2037,"CCGT- CCS- LNG",2543,2393,2693
+"539",2037,"SCGT",642,492,792
+"540",2037,"RICE",633,NA,NA
+"541",2037,"Geothermal",4843,3843,5843
+"542",2037,"Biomass",1831,1531,2131
+"543",2037,"MSW",5947,NA,NA
+"544",2037,"Coal_conv_biomassNH3_PVC",370,170,570
+"545",2037,"Coal_CFB",1520,1030,2010
+"546",2037,"Coal_conv_biomassNH3_CFB",0,0,0
+"547",2037,"Biomass_MSW",1990,1690,2290
+"548",2037,"Small hydro",1528,828,2228
+"549",2037,"Onshore Wind",1387,1287,1487
+"550",2037,"Near shore Wind",1670,1570,1770
+"551",2037,"Wind offshore (fixed base)",2459,2209,2709
+"552",2037,"Wind offshore (floating base)",3031,2781,3281
+"553",2037,"Solar PV (Utility scale)",633,533,733
+"554",2037,"Solar PV (Rooftop)",730,630,830
+"555",2037,"Solar PV (Floating)",733,633,833
+"556",2037,"Tidal",6714,NA,NA
+"557",2037,"Solar PV (Weighted)",633,533,733
+"558",2037,"Battery",910,910,910
+"559",2038,"Coal subcritical",1608,NA,NA
+"560",2038,"Coal supercritical",1698,1543,1853
+"561",2038,"Coal ultra-supercritical",1893,1763,2023
+"562",2038,"Coal AUSC",1925,NA,NA
+"563",2038,"Coal CCS",3885,NA,NA
+"564",2038,"SteamTur-Super-NH3",2121,NA,NA
+"565",2038,"Nuclear – PWR",6680,4780,8580
+"566",2038,"Nuclear – SMR",5760,3860,7660
+"567",2038,"CCGT - LNG",789,639,939
+"568",2038,"CCGT – H2",979,829,1129
+"569",2038,"CCGT- CCS- LNG",2543,2393,2693
+"570",2038,"SCGT",642,492,792
+"571",2038,"RICE",633,NA,NA
+"572",2038,"Geothermal",4843,3843,5843
+"573",2038,"Biomass",1831,1531,2131
+"574",2038,"MSW",5947,NA,NA
+"575",2038,"Coal_conv_biomassNH3_PVC",370,170,570
+"576",2038,"Coal_CFB",1520,1030,2010
+"577",2038,"Coal_conv_biomassNH3_CFB",0,0,0
+"578",2038,"Biomass_MSW",1990,1690,2290
+"579",2038,"Small hydro",1528,828,2228
+"580",2038,"Onshore Wind",1387,1287,1487
+"581",2038,"Near shore Wind",1670,1570,1770
+"582",2038,"Wind offshore (fixed base)",2459,2209,2709
+"583",2038,"Wind offshore (floating base)",3031,2781,3281
+"584",2038,"Solar PV (Utility scale)",633,533,733
+"585",2038,"Solar PV (Rooftop)",730,630,830
+"586",2038,"Solar PV (Floating)",733,633,833
+"587",2038,"Tidal",6714,NA,NA
+"588",2038,"Solar PV (Weighted)",633,533,733
+"589",2038,"Battery",910,910,910
+"590",2039,"Coal subcritical",1608,NA,NA
+"591",2039,"Coal supercritical",1698,1543,1853
+"592",2039,"Coal ultra-supercritical",1893,1763,2023
+"593",2039,"Coal AUSC",1925,NA,NA
+"594",2039,"Coal CCS",3885,NA,NA
+"595",2039,"SteamTur-Super-NH3",2121,NA,NA
+"596",2039,"Nuclear – PWR",6680,4780,8580
+"597",2039,"Nuclear – SMR",5760,3860,7660
+"598",2039,"CCGT - LNG",789,639,939
+"599",2039,"CCGT – H2",979,829,1129
+"600",2039,"CCGT- CCS- LNG",2543,2393,2693
+"601",2039,"SCGT",642,492,792
+"602",2039,"RICE",633,NA,NA
+"603",2039,"Geothermal",4843,3843,5843
+"604",2039,"Biomass",1831,1531,2131
+"605",2039,"MSW",5947,NA,NA
+"606",2039,"Coal_conv_biomassNH3_PVC",370,170,570
+"607",2039,"Coal_CFB",1520,1030,2010
+"608",2039,"Coal_conv_biomassNH3_CFB",0,0,0
+"609",2039,"Biomass_MSW",1990,1690,2290
+"610",2039,"Small hydro",1528,828,2228
+"611",2039,"Onshore Wind",1387,1287,1487
+"612",2039,"Near shore Wind",1670,1570,1770
+"613",2039,"Wind offshore (fixed base)",2459,2209,2709
+"614",2039,"Wind offshore (floating base)",3031,2781,3281
+"615",2039,"Solar PV (Utility scale)",633,533,733
+"616",2039,"Solar PV (Rooftop)",730,630,830
+"617",2039,"Solar PV (Floating)",733,633,833
+"618",2039,"Tidal",6714,NA,NA
+"619",2039,"Solar PV (Weighted)",633,533,733
+"620",2039,"Battery",910,910,910
+"621",2040,"Coal subcritical",1608,NA,NA
+"622",2040,"Coal supercritical",1698,1543,1853
+"623",2040,"Coal ultra-supercritical",1893,1763,2023
+"624",2040,"Coal AUSC",1925,NA,NA
+"625",2040,"Coal CCS",3885,NA,NA
+"626",2040,"SteamTur-Super-NH3",2121,NA,NA
+"627",2040,"Nuclear – PWR",6680,4780,8580
+"628",2040,"Nuclear – SMR",5760,3860,7660
+"629",2040,"CCGT - LNG",789,639,939
+"630",2040,"CCGT – H2",979,829,1129
+"631",2040,"CCGT- CCS- LNG",2543,2393,2693
+"632",2040,"SCGT",642,492,792
+"633",2040,"RICE",633,NA,NA
+"634",2040,"Geothermal",4843,3843,5843
+"635",2040,"Biomass",1831,1531,2131
+"636",2040,"MSW",5947,NA,NA
+"637",2040,"Coal_conv_biomassNH3_PVC",370,170,570
+"638",2040,"Coal_CFB",1520,1030,2010
+"639",2040,"Coal_conv_biomassNH3_CFB",0,0,0
+"640",2040,"Biomass_MSW",1990,1690,2290
+"641",2040,"Small hydro",1528,828,2228
+"642",2040,"Onshore Wind",1279,1179,1379
+"643",2040,"Near shore Wind",1558,1458,1658
+"644",2040,"Wind offshore (fixed base)",2201,1951,2451
+"645",2040,"Wind offshore (floating base)",2659,2409,2909
+"646",2040,"Solar PV (Utility scale)",556,456,656
+"647",2040,"Solar PV (Rooftop)",632,532,732
+"648",2040,"Solar PV (Floating)",645,545,745
+"649",2040,"Tidal",6714,NA,NA
+"650",2040,"Solar PV (Weighted)",556,456,656
+"651",2040,"Battery",910,910,910
+"652",2041,"Coal subcritical",1608,NA,NA
+"653",2041,"Coal supercritical",1698,1543,1853
+"654",2041,"Coal ultra-supercritical",1893,1763,2023
+"655",2041,"Coal AUSC",1925,NA,NA
+"656",2041,"Coal CCS",3885,NA,NA
+"657",2041,"SteamTur-Super-NH3",2121,NA,NA
+"658",2041,"Nuclear – PWR",6680,4780,8580
+"659",2041,"Nuclear – SMR",5760,3860,7660
+"660",2041,"CCGT - LNG",789,639,939
+"661",2041,"CCGT – H2",979,829,1129
+"662",2041,"CCGT- CCS- LNG",2543,2393,2693
+"663",2041,"SCGT",642,492,792
+"664",2041,"RICE",633,NA,NA
+"665",2041,"Geothermal",4843,3843,5843
+"666",2041,"Biomass",1831,1531,2131
+"667",2041,"MSW",5947,NA,NA
+"668",2041,"Coal_conv_biomassNH3_PVC",370,170,570
+"669",2041,"Coal_CFB",1520,1030,2010
+"670",2041,"Coal_conv_biomassNH3_CFB",0,0,0
+"671",2041,"Biomass_MSW",1990,1690,2290
+"672",2041,"Small hydro",1528,828,2228
+"673",2041,"Onshore Wind",1279,1179,1379
+"674",2041,"Near shore Wind",1558,1458,1658
+"675",2041,"Wind offshore (fixed base)",2201,1951,2451
+"676",2041,"Wind offshore (floating base)",2659,2409,2909
+"677",2041,"Solar PV (Utility scale)",556,456,656
+"678",2041,"Solar PV (Rooftop)",632,532,732
+"679",2041,"Solar PV (Floating)",645,545,745
+"680",2041,"Tidal",6714,NA,NA
+"681",2041,"Solar PV (Weighted)",556,456,656
+"682",2041,"Battery",910,910,910
+"683",2042,"Coal subcritical",1608,NA,NA
+"684",2042,"Coal supercritical",1698,1543,1853
+"685",2042,"Coal ultra-supercritical",1893,1763,2023
+"686",2042,"Coal AUSC",1925,NA,NA
+"687",2042,"Coal CCS",3885,NA,NA
+"688",2042,"SteamTur-Super-NH3",2121,NA,NA
+"689",2042,"Nuclear – PWR",6680,4780,8580
+"690",2042,"Nuclear – SMR",5760,3860,7660
+"691",2042,"CCGT - LNG",789,639,939
+"692",2042,"CCGT – H2",979,829,1129
+"693",2042,"CCGT- CCS- LNG",2543,2393,2693
+"694",2042,"SCGT",642,492,792
+"695",2042,"RICE",633,NA,NA
+"696",2042,"Geothermal",4843,3843,5843
+"697",2042,"Biomass",1831,1531,2131
+"698",2042,"MSW",5947,NA,NA
+"699",2042,"Coal_conv_biomassNH3_PVC",370,170,570
+"700",2042,"Coal_CFB",1520,1030,2010
+"701",2042,"Coal_conv_biomassNH3_CFB",0,0,0
+"702",2042,"Biomass_MSW",1990,1690,2290
+"703",2042,"Small hydro",1528,828,2228
+"704",2042,"Onshore Wind",1279,1179,1379
+"705",2042,"Near shore Wind",1558,1458,1658
+"706",2042,"Wind offshore (fixed base)",2201,1951,2451
+"707",2042,"Wind offshore (floating base)",2659,2409,2909
+"708",2042,"Solar PV (Utility scale)",556,456,656
+"709",2042,"Solar PV (Rooftop)",632,532,732
+"710",2042,"Solar PV (Floating)",645,545,745
+"711",2042,"Tidal",6714,NA,NA
+"712",2042,"Solar PV (Weighted)",556,456,656
+"713",2042,"Battery",910,910,910
+"714",2043,"Coal subcritical",1608,NA,NA
+"715",2043,"Coal supercritical",1698,1543,1853
+"716",2043,"Coal ultra-supercritical",1893,1763,2023
+"717",2043,"Coal AUSC",1925,NA,NA
+"718",2043,"Coal CCS",3885,NA,NA
+"719",2043,"SteamTur-Super-NH3",2121,NA,NA
+"720",2043,"Nuclear – PWR",6680,4780,8580
+"721",2043,"Nuclear – SMR",5760,3860,7660
+"722",2043,"CCGT - LNG",789,639,939
+"723",2043,"CCGT – H2",979,829,1129
+"724",2043,"CCGT- CCS- LNG",2543,2393,2693
+"725",2043,"SCGT",642,492,792
+"726",2043,"RICE",633,NA,NA
+"727",2043,"Geothermal",4843,3843,5843
+"728",2043,"Biomass",1831,1531,2131
+"729",2043,"MSW",5947,NA,NA
+"730",2043,"Coal_conv_biomassNH3_PVC",370,170,570
+"731",2043,"Coal_CFB",1520,1030,2010
+"732",2043,"Coal_conv_biomassNH3_CFB",0,0,0
+"733",2043,"Biomass_MSW",1990,1690,2290
+"734",2043,"Small hydro",1528,828,2228
+"735",2043,"Onshore Wind",1279,1179,1379
+"736",2043,"Near shore Wind",1558,1458,1658
+"737",2043,"Wind offshore (fixed base)",2201,1951,2451
+"738",2043,"Wind offshore (floating base)",2659,2409,2909
+"739",2043,"Solar PV (Utility scale)",556,456,656
+"740",2043,"Solar PV (Rooftop)",632,532,732
+"741",2043,"Solar PV (Floating)",645,545,745
+"742",2043,"Tidal",6714,NA,NA
+"743",2043,"Solar PV (Weighted)",556,456,656
+"744",2043,"Battery",910,910,910
+"745",2044,"Coal subcritical",1608,NA,NA
+"746",2044,"Coal supercritical",1698,1543,1853
+"747",2044,"Coal ultra-supercritical",1893,1763,2023
+"748",2044,"Coal AUSC",1925,NA,NA
+"749",2044,"Coal CCS",3885,NA,NA
+"750",2044,"SteamTur-Super-NH3",2121,NA,NA
+"751",2044,"Nuclear – PWR",6680,4780,8580
+"752",2044,"Nuclear – SMR",5760,3860,7660
+"753",2044,"CCGT - LNG",789,639,939
+"754",2044,"CCGT – H2",979,829,1129
+"755",2044,"CCGT- CCS- LNG",2543,2393,2693
+"756",2044,"SCGT",642,492,792
+"757",2044,"RICE",633,NA,NA
+"758",2044,"Geothermal",4843,3843,5843
+"759",2044,"Biomass",1831,1531,2131
+"760",2044,"MSW",5947,NA,NA
+"761",2044,"Coal_conv_biomassNH3_PVC",370,170,570
+"762",2044,"Coal_CFB",1520,1030,2010
+"763",2044,"Coal_conv_biomassNH3_CFB",0,0,0
+"764",2044,"Biomass_MSW",1990,1690,2290
+"765",2044,"Small hydro",1528,828,2228
+"766",2044,"Onshore Wind",1279,1179,1379
+"767",2044,"Near shore Wind",1558,1458,1658
+"768",2044,"Wind offshore (fixed base)",2201,1951,2451
+"769",2044,"Wind offshore (floating base)",2659,2409,2909
+"770",2044,"Solar PV (Utility scale)",556,456,656
+"771",2044,"Solar PV (Rooftop)",632,532,732
+"772",2044,"Solar PV (Floating)",645,545,745
+"773",2044,"Tidal",6714,NA,NA
+"774",2044,"Solar PV (Weighted)",556,456,656
+"775",2044,"Battery",910,910,910
+"776",2045,"Coal subcritical",1608,NA,NA
+"777",2045,"Coal supercritical",1698,1543,1853
+"778",2045,"Coal ultra-supercritical",1893,1763,2023
+"779",2045,"Coal AUSC",1925,NA,NA
+"780",2045,"Coal CCS",3885,NA,NA
+"781",2045,"SteamTur-Super-NH3",2121,NA,NA
+"782",2045,"Nuclear – PWR",6680,4780,8580
+"783",2045,"Nuclear – SMR",5760,3860,7660
+"784",2045,"CCGT - LNG",789,639,939
+"785",2045,"CCGT – H2",979,829,1129
+"786",2045,"CCGT- CCS- LNG",2543,2393,2693
+"787",2045,"SCGT",642,492,792
+"788",2045,"RICE",633,NA,NA
+"789",2045,"Geothermal",4843,3843,5843
+"790",2045,"Biomass",1831,1531,2131
+"791",2045,"MSW",5947,NA,NA
+"792",2045,"Coal_conv_biomassNH3_PVC",370,170,570
+"793",2045,"Coal_CFB",1520,1030,2010
+"794",2045,"Coal_conv_biomassNH3_CFB",0,0,0
+"795",2045,"Biomass_MSW",1990,1690,2290
+"796",2045,"Small hydro",1528,828,2228
+"797",2045,"Onshore Wind",1279,1179,1379
+"798",2045,"Near shore Wind",1558,1458,1658
+"799",2045,"Wind offshore (fixed base)",2201,1951,2451
+"800",2045,"Wind offshore (floating base)",2659,2409,2909
+"801",2045,"Solar PV (Utility scale)",556,456,656
+"802",2045,"Solar PV (Rooftop)",632,532,732
+"803",2045,"Solar PV (Floating)",645,545,745
+"804",2045,"Tidal",6714,NA,NA
+"805",2045,"Solar PV (Weighted)",556,456,656
+"806",2045,"Battery",910,910,910
+"807",2046,"Coal subcritical",1608,NA,NA
+"808",2046,"Coal supercritical",1698,1543,1853
+"809",2046,"Coal ultra-supercritical",1893,1763,2023
+"810",2046,"Coal AUSC",1925,NA,NA
+"811",2046,"Coal CCS",3885,NA,NA
+"812",2046,"SteamTur-Super-NH3",2121,NA,NA
+"813",2046,"Nuclear – PWR",6680,4780,8580
+"814",2046,"Nuclear – SMR",5760,3860,7660
+"815",2046,"CCGT - LNG",789,639,939
+"816",2046,"CCGT – H2",979,829,1129
+"817",2046,"CCGT- CCS- LNG",2543,2393,2693
+"818",2046,"SCGT",642,492,792
+"819",2046,"RICE",633,NA,NA
+"820",2046,"Geothermal",4843,3843,5843
+"821",2046,"Biomass",1831,1531,2131
+"822",2046,"MSW",5947,NA,NA
+"823",2046,"Coal_conv_biomassNH3_PVC",370,170,570
+"824",2046,"Coal_CFB",1520,1030,2010
+"825",2046,"Coal_conv_biomassNH3_CFB",0,0,0
+"826",2046,"Biomass_MSW",1990,1690,2290
+"827",2046,"Small hydro",1528,828,2228
+"828",2046,"Onshore Wind",1279,1179,1379
+"829",2046,"Near shore Wind",1558,1458,1658
+"830",2046,"Wind offshore (fixed base)",2201,1951,2451
+"831",2046,"Wind offshore (floating base)",2659,2409,2909
+"832",2046,"Solar PV (Utility scale)",556,456,656
+"833",2046,"Solar PV (Rooftop)",632,532,732
+"834",2046,"Solar PV (Floating)",645,545,745
+"835",2046,"Tidal",6714,NA,NA
+"836",2046,"Solar PV (Weighted)",556,456,656
+"837",2046,"Battery",910,910,910
+"838",2047,"Coal subcritical",1608,NA,NA
+"839",2047,"Coal supercritical",1698,1543,1853
+"840",2047,"Coal ultra-supercritical",1893,1763,2023
+"841",2047,"Coal AUSC",1925,NA,NA
+"842",2047,"Coal CCS",3885,NA,NA
+"843",2047,"SteamTur-Super-NH3",2121,NA,NA
+"844",2047,"Nuclear – PWR",6680,4780,8580
+"845",2047,"Nuclear – SMR",5760,3860,7660
+"846",2047,"CCGT - LNG",789,639,939
+"847",2047,"CCGT – H2",979,829,1129
+"848",2047,"CCGT- CCS- LNG",2543,2393,2693
+"849",2047,"SCGT",642,492,792
+"850",2047,"RICE",633,NA,NA
+"851",2047,"Geothermal",4843,3843,5843
+"852",2047,"Biomass",1831,1531,2131
+"853",2047,"MSW",5947,NA,NA
+"854",2047,"Coal_conv_biomassNH3_PVC",370,170,570
+"855",2047,"Coal_CFB",1520,1030,2010
+"856",2047,"Coal_conv_biomassNH3_CFB",0,0,0
+"857",2047,"Biomass_MSW",1990,1690,2290
+"858",2047,"Small hydro",1528,828,2228
+"859",2047,"Onshore Wind",1279,1179,1379
+"860",2047,"Near shore Wind",1558,1458,1658
+"861",2047,"Wind offshore (fixed base)",2201,1951,2451
+"862",2047,"Wind offshore (floating base)",2659,2409,2909
+"863",2047,"Solar PV (Utility scale)",556,456,656
+"864",2047,"Solar PV (Rooftop)",632,532,732
+"865",2047,"Solar PV (Floating)",645,545,745
+"866",2047,"Tidal",6714,NA,NA
+"867",2047,"Solar PV (Weighted)",556,456,656
+"868",2047,"Battery",910,910,910
+"869",2048,"Coal subcritical",1608,NA,NA
+"870",2048,"Coal supercritical",1698,1543,1853
+"871",2048,"Coal ultra-supercritical",1893,1763,2023
+"872",2048,"Coal AUSC",1925,NA,NA
+"873",2048,"Coal CCS",3885,NA,NA
+"874",2048,"SteamTur-Super-NH3",2121,NA,NA
+"875",2048,"Nuclear – PWR",6680,4780,8580
+"876",2048,"Nuclear – SMR",5760,3860,7660
+"877",2048,"CCGT - LNG",789,639,939
+"878",2048,"CCGT – H2",979,829,1129
+"879",2048,"CCGT- CCS- LNG",2543,2393,2693
+"880",2048,"SCGT",642,492,792
+"881",2048,"RICE",633,NA,NA
+"882",2048,"Geothermal",4843,3843,5843
+"883",2048,"Biomass",1831,1531,2131
+"884",2048,"MSW",5947,NA,NA
+"885",2048,"Coal_conv_biomassNH3_PVC",370,170,570
+"886",2048,"Coal_CFB",1520,1030,2010
+"887",2048,"Coal_conv_biomassNH3_CFB",0,0,0
+"888",2048,"Biomass_MSW",1990,1690,2290
+"889",2048,"Small hydro",1528,828,2228
+"890",2048,"Onshore Wind",1279,1179,1379
+"891",2048,"Near shore Wind",1558,1458,1658
+"892",2048,"Wind offshore (fixed base)",2201,1951,2451
+"893",2048,"Wind offshore (floating base)",2659,2409,2909
+"894",2048,"Solar PV (Utility scale)",556,456,656
+"895",2048,"Solar PV (Rooftop)",632,532,732
+"896",2048,"Solar PV (Floating)",645,545,745
+"897",2048,"Tidal",6714,NA,NA
+"898",2048,"Solar PV (Weighted)",556,456,656
+"899",2048,"Battery",910,910,910
+"900",2049,"Coal subcritical",1608,NA,NA
+"901",2049,"Coal supercritical",1698,1543,1853
+"902",2049,"Coal ultra-supercritical",1893,1763,2023
+"903",2049,"Coal AUSC",1925,NA,NA
+"904",2049,"Coal CCS",3885,NA,NA
+"905",2049,"SteamTur-Super-NH3",2121,NA,NA
+"906",2049,"Nuclear – PWR",6680,4780,8580
+"907",2049,"Nuclear – SMR",5760,3860,7660
+"908",2049,"CCGT - LNG",789,639,939
+"909",2049,"CCGT – H2",979,829,1129
+"910",2049,"CCGT- CCS- LNG",2543,2393,2693
+"911",2049,"SCGT",642,492,792
+"912",2049,"RICE",633,NA,NA
+"913",2049,"Geothermal",4843,3843,5843
+"914",2049,"Biomass",1831,1531,2131
+"915",2049,"MSW",5947,NA,NA
+"916",2049,"Coal_conv_biomassNH3_PVC",370,170,570
+"917",2049,"Coal_CFB",1520,1030,2010
+"918",2049,"Coal_conv_biomassNH3_CFB",0,0,0
+"919",2049,"Biomass_MSW",1990,1690,2290
+"920",2049,"Small hydro",1528,828,2228
+"921",2049,"Onshore Wind",1279,1179,1379
+"922",2049,"Near shore Wind",1558,1458,1658
+"923",2049,"Wind offshore (fixed base)",2201,1951,2451
+"924",2049,"Wind offshore (floating base)",2659,2409,2909
+"925",2049,"Solar PV (Utility scale)",556,456,656
+"926",2049,"Solar PV (Rooftop)",632,532,732
+"927",2049,"Solar PV (Floating)",645,545,745
+"928",2049,"Tidal",6714,NA,NA
+"929",2049,"Solar PV (Weighted)",556,456,656
+"930",2049,"Battery",910,910,910
+"931",2050,"Coal subcritical",1568,NA,NA
+"932",2050,"Coal supercritical",1674,1519,1829
+"933",2050,"Coal ultra-supercritical",1880,1750,2010
+"934",2050,"Coal AUSC",1800,NA,NA
+"935",2050,"Coal CCS",3409,NA,NA
+"936",2050,"SteamTur-Super-NH3",2110,NA,NA
+"937",2050,"Nuclear – PWR",6190,4290,8090
+"938",2050,"Nuclear – SMR",5260,3360,7160
+"939",2050,"CCGT - LNG",778,628,928
+"940",2050,"CCGT – H2",979,829,1129
+"941",2050,"CCGT- CCS- LNG",2443,2293,2593
+"942",2050,"SCGT",608,458,758
+"943",2050,"RICE",633,NA,NA
+"944",2050,"Geothermal",4424,3424,5424
+"945",2050,"Biomass",1598,1298,1898
+"946",2050,"MSW",5278,NA,NA
+"947",2050,"Coal_conv_biomassNH3_PVC",370,170,570
+"948",2050,"Coal_CFB",1500,1010,1990
+"949",2050,"Coal_conv_biomassNH3_CFB",0,0,0
+"950",2050,"Biomass_MSW",1831,1531,2131
+"951",2050,"Small hydro",1528,828,2228
+"952",2050,"Onshore Wind",1170,1070,1270
+"953",2050,"Near shore Wind",1452,1352,1552
+"954",2050,"Wind offshore (fixed base)",1944,1694,2194
+"955",2050,"Wind offshore (floating base)",2306,2056,2556
+"956",2050,"Solar PV (Utility scale)",479,379,579
+"957",2050,"Solar PV (Rooftop)",534,434,634
+"958",2050,"Solar PV (Floating)",548,448,648
+"959",2050,"Tidal",6335,NA,NA
+"960",2050,"Solar PV (Weighted)",479,379,579
+"961",2050,"Battery",520,520,520
