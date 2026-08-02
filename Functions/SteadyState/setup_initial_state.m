@@ -63,9 +63,13 @@ function [fval_vec, strpar, strys] = setup_initial_state(x, strys, strexo, strpa
     [strys, strpar, strexo] = compute_tax_income(strys, strpar, strexo);
     
     %% VII. Aggregate initialization and regional macro variables
-    [strys, strpar, ~] = compute_regional_economic_accounts(strys, strpar, strexo);
+    [strys, strpar, strexo] = compute_regional_economic_accounts(strys, strpar, strexo);
     strys = compute_government_expenditure_and_capital(strys, strpar);
-    
+    for icoreg = 1:strpar.inbregions_p
+        sreg = num2str(icoreg);
+        strpar.(['GY0_' sreg '_p']) = strys.(['G_' sreg]) / strys.(['Y_' sreg]);
+    end
+
     %% VIII. Final parameter adjustments from initialization
     strpar = finalize_calibration_parameters(strys, strpar, strexo);
     

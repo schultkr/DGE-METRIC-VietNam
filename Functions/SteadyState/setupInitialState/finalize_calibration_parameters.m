@@ -44,15 +44,11 @@ function strpar = finalize_calibration_parameters(strys, strpar, strexo)
                 ssubsec = num2str(icosubsec);
 
                 % Calibrate targetIY0_p = I_SS / Y_reg_SS (investment share of total regional GDP)
-                % Used as the investment-to-GDP target when lTargetInv_p = 1 (baseline mode).
+                % Used as the investment-to-GDP target when exo_ltargetIY = 1 (baseline mode).
                 if isfield(strys, ['I_' ssubsec '_' sreg]) && isfield(strys, ['Y_' sreg]) && strys.(['Y_' sreg]) > 0
                     strpar.(['targetIY0_' ssubsec '_' sreg '_p']) = ...
                         strys.(['I_' ssubsec '_' sreg]) * strys.(['P_K_' ssubsec '_' sreg]) / (strys.(['Y_' sreg]) * strys.(['P_' sreg]));
                 end
-
-                % phiKP0: base-period I_P / Y0 ratio. Zero by default so the steady state
-                % has no private investment until exo_I_P is activated in the baseline/scenario.
-                strpar.(['phiKP0_' ssubsec '_' sreg '_p']) = 0;
 
                 % Labor disutility scaling parameter
                 strpar.(['phiL_' ssubsec '_' sreg '_p']) = ...

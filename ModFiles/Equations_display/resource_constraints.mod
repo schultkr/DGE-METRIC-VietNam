@@ -5,11 +5,6 @@
     #lhsAggReg_@{reg}_21 = Q_@{reg};
     #rhsAggReg_@{reg}_21 =
     P_@{reg} * (G_@{reg} + I_G_@{reg} + C_@{reg} + I_@{reg} + IH_@{reg} * PH_@{reg}/P_@{reg}) + I_PV_@{reg} + Q_I_@{reg} + NX_@{reg}
-    @# for sec in 1:Sectors
-        @# for subsec in Subsecstart[sec]:Subsecend[sec]
-            + I_P_@{subsec}_@{reg}
-        @# endfor
-    @# endfor
     @# if Regions > 0
         @# for regm in 1:Regions
              + NX_@{reg}_@{regm}

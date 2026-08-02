@@ -46,16 +46,12 @@ function [xstart_vec, strys, strpar] = build_initial_guess(strys, strexo, strpar
 
                         switch mode
                             case 'fullSS'
-                                if strexo.(['exo_lKRGTarget_' ssubsec '_' sreg]) == 0
-                                    strpar.InitGuess.(['K_' ssubsec '_' sreg]) = strys.(['K_' ssubsec '_' sreg]);
-                                end
+                                strpar.InitGuess.(['K_' ssubsec '_' sreg]) = strys.(['K_' ssubsec '_' sreg]);
                                 strpar.InitGuess.(['Q_I_' ssubsec '_' sreg]) = strys.(['Q_I_' ssubsec '_' sreg]);
                                 strpar.InitGuess.(['X_' ssubsec '_' sreg]) = strys.(['X_' ssubsec '_' sreg]);
                             case 'hybrid'
                                 if strpar.(['etaNK_' ssubsec '_' sreg '_p']) ~= 1
-                                    if strexo.(['exo_lKRGTarget_' ssubsec '_' sreg]) == 0
-                                        strpar.InitGuess.(['K_' ssubsec '_' sreg]) = strys.(['K_' ssubsec '_' sreg]);
-                                    end
+                                    strpar.InitGuess.(['K_' ssubsec '_' sreg]) = strys.(['K_' ssubsec '_' sreg]);
                                 else
                                     if strpar.lEndogenousN_p == 1
                                         strpar.InitGuess.(['N_' ssubsec '_' sreg]) = strys.(['N_' ssubsec '_' sreg]);
@@ -65,9 +61,9 @@ function [xstart_vec, strys, strpar] = build_initial_guess(strys, strexo, strpar
                                 end
                                 % strpar.InitGuess.(['A_I_' ssubsec '_' sreg]) = strys.(['A_I_' ssubsec '_' sreg]);
                                 %strpar.InitGuess.(['Q_I_' ssubsec '_' sreg]) = strys.(['Q_I_' ssubsec '_' sreg]);   
-                                strpar.InitGuess.(['D_X_' ssubsec '_' sreg]) = strys.(['D_X_' ssubsec '_' sreg]);                                
-                                strpar.InitGuess.(['kappaE_' ssubsec '_' sreg]) = strys.(['kappaE_' ssubsec '_' sreg]);                                
-                                strpar.InitGuess.(['kappaE_NOETS_' ssubsec '_' sreg]) = strys.(['kappaE_NOETS_' ssubsec '_' sreg]);                                
+                                strpar.InitGuess.(['D_X_' ssubsec '_' sreg]) = strys.(['D_X_' ssubsec '_' sreg]);
+                                strpar.InitGuess.(['kappaE_' ssubsec '_' sreg]) = strys.(['kappaE_' ssubsec '_' sreg]);
+                                strpar.InitGuess.(['kappaE_NOETS_' ssubsec '_' sreg]) = strys.(['kappaE_NOETS_' ssubsec '_' sreg]);
                         end
                         strpar.InitGuess.(['P_Q_' ssubsec '_' sreg]) = strys.(['P_Q_' ssubsec '_' sreg]);
                     end
@@ -83,6 +79,7 @@ function [xstart_vec, strys, strpar] = build_initial_guess(strys, strexo, strpar
                     case 'hybrid'
                         strpar.InitGuess.(['Q_U_' sreg]) = strys.(['Q_U_' sreg]);
                         strpar.InitGuess.(['EE_' sreg]) = strys.(['EE_' sreg]);
+                        strpar.InitGuess.(['tauCEndo_' sreg]) = strys.(['tauCEndo_' sreg]);
                 end
             end
 

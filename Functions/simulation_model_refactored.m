@@ -42,7 +42,7 @@ if ~isequal(sScenario, 'Baseline')
         sBaseline = 'Baseline';
     end
     
-    oo_ = apply_baseline_shock_structure(oo_, structScenarioResults, sVersion, lCapandTrade_p, posIdx, sBaseline);
+    oo_ = apply_baseline_shock_structure(oo_, structScenarioResults, sVersion, lCapandTrade_p, posIdx, sBaseline, M_);
 
     % Parameter adjustments
     M_ = apply_parameter_adjustments(M_, lExoNX_p, lCapandTrade_p, sScenario, lEndoMig_p);
@@ -52,20 +52,40 @@ end
 %% Simulation Options and Initialization
 iStep = options_.iStepSimulation;
 options_.simul.maxit = 20;
+if exist('iStepSimulationOverride_p', 'var') && ...
+        isfinite(iStepSimulationOverride_p) && iStepSimulationOverride_p >= 1
+    options_.iStepSimulation = round(iStepSimulationOverride_p);
+    iStep = options_.iStepSimulation;
+    disp(['[Solver options] Using candidate simulation steps: ' num2str(iStep)]);
+end
+if exist('iPerfectForesightMaxit_p', 'var') && ...
+        isfinite(iPerfectForesightMaxit_p) && iPerfectForesightMaxit_p >= 1
+    options_.simul.maxit = round(iPerfectForesightMaxit_p);
+    disp(['[Solver options] Using perfect-foresight Newton maxit: ' ...
+        num2str(options_.simul.maxit)]);
+end
 imaxTermination_p = 100;
 iminTermination_p = 100;
 imaxsec_p = eval(['subend_' num2str(inbsectors_p) '_p']);
 options_.periods = 1000;
 options_.stack_solve_algo = 0;
 lBaselineBackward = exist('lBaselineBackward_p', 'var') && lBaselineBackward_p == 1;
+lBaselineWarmStartLoaded = false;
 
 if isequal(sScenario, 'Baseline')
     oo_ = perfect_foresight_setup(M_, options_, oo_);
     % Warm-start endo_simul from a reference Baseline candidate if sBaselineWarmRef is set.
     % sBaselineWarmRef must equal the sSensitivity suffix used for that reference run
     % (e.g. '' for the plain reference Baseline, '_Cand01' for the first candidate).
-    % Set it in RunSimulations.m before calling dynare; leave unset or '' to skip.
-    if exist('sBaselineWarmRef', 'var') && ~isempty(sBaselineWarmRef)
+    % Set lBaselineWarmStart_p in RunSimulations.m before calling dynare.
+    lUseBaselineWarmStart = exist('lBaselineWarmStart_p', 'var') && lBaselineWarmStart_p;
+    if ~lUseBaselineWarmStart && exist('sBaselineWarmRef', 'var') && ~isempty(sBaselineWarmRef)
+        lUseBaselineWarmStart = true;
+    end
+    if lUseBaselineWarmStart
+        if ~exist('sBaselineWarmRef', 'var')
+            sBaselineWarmRef = '';
+        end
         refMat = ['structScenarioResults' sBaselineWarmRef '.mat'];
         if isfile(refMat)
             refData  = load(refMat, 'structScenarioResults');
@@ -73,14 +93,21 @@ if isequal(sScenario, 'Baseline')
             if isfield(refData.structScenarioResults, sVersionRef) && ...
                isfield(refData.structScenarioResults.(sVersionRef), 'Baseline')
                 refEndo = refData.structScenarioResults.(sVersionRef).Baseline.oo_.endo_simul;
-                T = min(size(refEndo, 2), size(oo_.endo_simul, 2));
-                oo_.endo_simul(:, 1:T) = refEndo(:, 1:T);
-                disp(['[Warm-start] Baseline endo_simul seeded from structScenarioResults' sBaselineWarmRef '.mat']);
+                if size(refEndo, 1) == size(oo_.endo_simul, 1)
+                    T = min(size(refEndo, 2), size(oo_.endo_simul, 2));
+                    oo_.endo_simul(:, 1:T) = refEndo(:, 1:T);
+                    lBaselineWarmStartLoaded = true;
+                    disp(['[Warm-start] Baseline endo_simul seeded from structScenarioResults' sBaselineWarmRef '.mat']);
+                else
+                    disp(['[Warm-start] Reference Baseline has ' num2str(size(refEndo, 1)) ...
+                        ' endogenous rows but current model has ' num2str(size(oo_.endo_simul, 1)) ...
+                        ' - using default initial path.']);
+                end
             else
-                disp(['[Warm-start] Reference Baseline not found in structScenarioResults' sBaselineWarmRef '.mat — using default initial path.']);
+                disp(['[Warm-start] Reference Baseline not found in structScenarioResults' sBaselineWarmRef '.mat - using default initial path.']);
             end
         else
-            disp(['[Warm-start] File not found: ' refMat ' — using default initial path.']);
+            disp(['[Warm-start] File not found: ' refMat ' - using default initial path.']);
         end
     end
 end
@@ -91,12 +118,260 @@ oo_ = load_exogenous_twice(sWorkbookBaseline, sWorkbookScenarios, sScenario, oo_
 oo_.endo_simul_start = oo_.endo_simul;
 oo_.exo_simul_start = oo_.exo_simul;
 
-% Baseline: activate endogenous wedge targeting (exo_lTargetInv = 1 during transition).
-
-
+% Target growth rates (gY_<subsec>_<reg>) are needed both by the baseline
+% homotopy loop below AND by the PDP8 I/K reconciliation just below, so this
+% is computed once, up front, and reused (moved earlier than its original
+% position further down in this file).
 nPeriods = size(oo_.exo_simul, 1);
 [iaTargetGrowthRates, iaTargetGrowthRatesN, iTermination_p] = build_target_growth_rates(...
     sWorkbookBaseline, M_, nPeriods, sBaselineSheet);
+
+% Reshuffle initial-period investment (by activity and source), and the
+% consumption/government/net-export/debt flows it implies, to match
+% calibration targets. Two ways to supply targets from RunSimulations.m:
+%   - set sInvestmentTargetsCsv to a GSO investment_gdp_by_ownership_and_sector.csv
+%     path to build tabtargets automatically (build_investment_targets_from_gso.m).
+%     Optionally also set sInvestmentTargetsIoTableXlsx (+ sInvestmentTargetsIoTableSheet)
+%     to rescale those targets to the IO table's non-housing investment ratio, or
+%   - define 'tabtargets' directly (see reshuffle_initial_period.m for the field convention).
+% If neither is set, the reshuffle is a no-op.
+if isequal(sScenario, 'Baseline') && lReshuffleInitial_p == 1
+    if exist('sInvestmentTargetsCsv', 'var') && ~isempty(sInvestmentTargetsCsv)
+        if ~exist('sInvestmentTargetsIoTableXlsx', 'var')
+            sInvestmentTargetsIoTableXlsx = '';
+        end
+        if ~exist('sInvestmentTargetsIoTableSheet', 'var')
+            sInvestmentTargetsIoTableSheet = '';
+        end
+        tabtargets = build_investment_targets_from_gso(sInvestmentTargetsCsv, M_, '1', ...
+            sInvestmentTargetsIoTableXlsx, sInvestmentTargetsIoTableSheet);
+    elseif ~exist('tabtargets', 'var')
+        tabtargets = struct();
+    end
+
+    % Optional: reconcile fossil/renewables (subsector 2/3) investment
+    % against the initial I_0/K_0 ratio solved from the FULL PDP8 horizon
+    % (2025:2050) via the capital-accumulation identity, so the implied real
+    % investment path reproduces PDP8's terminal/initial physical capacity
+    % ratio exactly -- conditional on PDP8's own relative investment-price
+    % development (CAPEX_kUSD_MW trend). K is held fixed (see
+    % reshuffle_initial_period.m step 1b). deltaMaintFossil/deltaMaintRenewable
+    % are read from the COMPILED model parameters (delta_2_1_p/delta_3_1_p),
+    % not re-read from Excel, so this stays consistent with whatever
+    % maintenance-depreciation rate is actually calibrated into M_ -- and
+    % with exo_targetIY_2_1/exo_targetIY_3_1, which share the same
+    % New+Maintenance numerator.
+    %
+    % The (s_t/s_0)*(Y_t/Y_0) term in compute_pdp8_capital_investment_ratio.m's
+    % derivation is built from the ACTUAL model/Baseline data, not
+    % re-derived from PDP8's own dollar figures:
+    %   - s_t = exo_targetIY_2_1/exo_targetIY_3_1, read directly from
+    %     oo_.exo_simul (the target path that will actually drive the muI
+    %     wedge), not a re-derivation of it.
+    %   - Y_t = the regional nominal-GDP path implied by the Baseline
+    %     scenario's own gY_<subsec>_1 growth targets (iaTargetGrowthRates,
+    %     already computed above), aggregated with INITIAL value-added
+    %     shares Y_<subsec>_1(0)/Y_1(0) as weights and anchored at the
+    %     model's own calibrated Y_1(0) -- not an independent PDP8 GDP
+    %     assumption.
+    if exist('lReshuffleIK_p', 'var') && lReshuffleIK_p == 1
+        deltaFossilIK = M_.params(ismember(M_.param_names, 'delta_2_1_p'));
+        deltaRenewIK  = M_.params(ismember(M_.param_names, 'delta_3_1_p'));
+
+        yearsPDP8 = 2025:2050;
+        nPDP8 = numel(yearsPDP8);
+
+        exoNamesLocal = cellstr(M_.exo_names);
+        idxFossilTargetIY = find(strcmp(exoNamesLocal, 'exo_targetIY_2_1'), 1);
+        idxRenewTargetIY  = find(strcmp(exoNamesLocal, 'exo_targetIY_3_1'), 1);
+        if isempty(idxFossilTargetIY) || isempty(idxRenewTargetIY)
+            error('simulation_model_refactored:MissingTargetIYExo', ...
+                'exo_targetIY_2_1/exo_targetIY_3_1 not found in M_.exo_names.');
+        end
+        sFossilPath    = oo_.exo_simul(1:nPDP8, idxFossilTargetIY)';
+        sRenewablePath = oo_.exo_simul(1:nPDP8, idxRenewTargetIY)';
+
+        endoNamesLocal = cellstr(M_.endo_names);
+        idxYReg = find(strcmp(endoNamesLocal, 'Y_1'), 1);
+        if isempty(idxYReg)
+            error('simulation_model_refactored:MissingYReg', 'Y_1 not found in M_.endo_names.');
+        end
+        Y0_agg = oo_.endo_simul(idxYReg, 1);
+        Y0_sub = nan(1, imaxsec_p);
+        for iSubsecLocal = 1:imaxsec_p
+            idxYSub = find(strcmp(endoNamesLocal, ['Y_' num2str(iSubsecLocal) '_1']), 1);
+            idxPSub = find(strcmp(endoNamesLocal, ['P_' num2str(iSubsecLocal) '_1']), 1);
+            if isempty(idxYSub)
+                error('simulation_model_refactored:MissingYSubsec', ...
+                    'Y_%d_1 not found in M_.endo_names.', iSubsecLocal);
+            end
+            Y0_sub(iSubsecLocal) = oo_.endo_simul(idxYSub, 1) .* oo_.endo_simul(idxPSub, 1);
+        end
+        subsecShares = Y0_sub / Y0_agg;
+
+        % exo_targetIY_<stemp> is structurally 0 at the steady state
+        % (investment_wedge.mod: "SS: exo_ltargetIY = 0, exo_targetIY = 0"
+        % -- targeting is a dynamic-path mechanism, not meaningful at the
+        % calibrated initial state), so oo_.exo_simul(1, idx) is NOT the
+        % empirically observed period-1 investment/GDP ratio, just an unset
+        % placeholder. Substitute the actual empirically observed ratio at
+        % period 1: the model's current (pre-reshuffle) nominal
+        % investment/GDP ratio for fossil/renewables -- exactly the
+        % nominalOld anchor reshuffle_initial_period.m step 1b uses.
+        endoName2 = @(nm) find(strcmp(endoNamesLocal, nm), 1);
+        idxI2 = endoName2('I_2_1'); idxIG2 = endoName2('I_G_2_1'); idxPINV2 = endoName2('P_INV_2_1');
+        idxI3 = endoName2('I_3_1'); idxIG3 = endoName2('I_G_3_1'); idxPINV3 = endoName2('P_INV_3_1');
+        if isempty(idxI2) || isempty(idxIG2) || isempty(idxPINV2) || isempty(idxI3) || isempty(idxIG3) || isempty(idxPINV3)
+            error('simulation_model_refactored:MissingInvestmentEndo', ...
+                'I_2_1/I_G_2_1/P_INV_2_1/I_3_1/I_G_3_1/P_INV_3_1 not all found in M_.endo_names.');
+        end
+        sFossilPath(1) = (oo_.endo_simul(idxI2, 1) + oo_.endo_simul(idxIG2, 1)) ...
+            * oo_.endo_simul(idxPINV2, 1) / Y0_agg;
+        sRenewablePath(1) = (oo_.endo_simul(idxI3, 1) + oo_.endo_simul(idxIG3, 1)) ...
+            * oo_.endo_simul(idxPINV3, 1) / Y0_agg;
+
+        weightedindex = cumprod(iaTargetGrowthRates(1:nPDP8, 1:imaxsec_p)) * subsecShares';
+        yPath = nan(1, nPDP8);
+        yPath = Y0_agg .* weightedindex;
+
+        % Population path (PoP_1), needed because the model's capital LOM is
+        % per-capita (see compute_pdp8_capital_investment_ratio.m). Anchored
+        % at the model's own calibrated PoP_1(0); for t=2..nPDP8, built from
+        % exo_LF_1/exo_NLF_1 (read from oo_.exo_simul, same timing as
+        % sFossilPath/yPath above) combined with the calibration parameters
+        % LF0_1_p/PoP0_1_p, matching regional_identities_demographics.mod's
+        % own LF_reg/PoP_reg equations.
+        LF0_1_p  = M_.params(ismember(M_.param_names, 'LF0_1_p'));
+        PoP0_1_p = M_.params(ismember(M_.param_names, 'PoP0_1_p'));
+        lEndoMig_p_local = M_.params(ismember(M_.param_names, 'lEndoMig_p'));
+
+        idxPoP1 = find(strcmp(endoNamesLocal, 'PoP_1'), 1);
+        if isempty(idxPoP1)
+            error('simulation_model_refactored:MissingPoPReg', 'PoP_1 not found in M_.endo_names.');
+        end
+        popPath = nan(1, nPDP8);
+        popPath(1) = oo_.endo_simul(idxPoP1, 1);
+
+        if lEndoMig_p_local == 1 && inbregions_p > 1
+            % Migration is endogenous (wage-gravity) across multiple regions
+            % in this case, so LF_1 cannot be approximated exogenously from
+            % exo_LF_1 alone -- fall back to a flat population path (today's
+            % implicit no-correction behaviour) rather than use a wrong one.
+            warning('simulation_model_refactored:PopPathApproximation', ...
+                ['lEndoMig_p==1 with inbregions_p>1: the exogenous LF_1 approximation used for the ' ...
+                 'PDP8 I/K population correction is not valid (migration is endogenous); falling back ' ...
+                 'to a flat population path.']);
+            popPath(:) = popPath(1);
+        else
+            idxExoLF1  = find(strcmp(exoNamesLocal, 'exo_LF_1'), 1);
+            idxExoNLF1 = find(strcmp(exoNamesLocal, 'exo_NLF_1'), 1);
+            if isempty(idxExoLF1) || isempty(idxExoNLF1)
+                error('simulation_model_refactored:MissingLFExo', 'exo_LF_1/exo_NLF_1 not found in M_.exo_names.');
+            end
+            for t = 2:nPDP8
+                LFt = LF0_1_p * exp(oo_.exo_simul(t, idxExoLF1));
+                popPath(t) = LFt + (PoP0_1_p - LF0_1_p) * exp(oo_.exo_simul(t, idxExoNLF1));
+            end
+        end
+
+        % compute_pdp8_capital_investment_ratio.m now solves I_0/K_0
+        % ITERATIVELY by forward-simulating the model's OWN capital-goods
+        % supply-price equation (investment_adjustment.mod, lCapPrice==1)
+        % period by period -- not a closed-form/exogenous-price-index
+        % approximation. It needs the same inputs that equation uses:
+        % K_<stemp>(1) (untouched), PINVbase (P0_<stemp>_p, matching
+        % lCapGoodsSecPrice_p's active branch), etaKS_p, and the
+        % exo_I_<stemp> path (held at its calibrated/baseline value
+        % throughout -- the solve does NOT introduce a separate price shift
+        % mechanism; P_INV emerges endogenously from the supply curve).
+        lCapGoodsSecPrice_p_local = M_.params(ismember(M_.param_names, 'lCapGoodsSecPrice_p'));
+        etaKS_p = M_.params(ismember(M_.param_names, 'etaKS_p'));
+
+        idxK2 = endoName2('K_2_1');
+        idxK3 = endoName2('K_3_1');
+        if isempty(idxK2) || isempty(idxK3)
+            error('simulation_model_refactored:MissingKSubsec', 'K_2_1/K_3_1 not found in M_.endo_names.');
+        end
+
+        if lCapGoodsSecPrice_p_local == 1
+            PINVbaseFossil    = M_.params(ismember(M_.param_names, 'P0_2_1_p'));
+            PINVbaseRenewable = M_.params(ismember(M_.param_names, 'P0_3_1_p'));
+        else
+            PINVbaseFossil    = oo_.endo_simul(endoName2('P_2_1'), 1);
+            PINVbaseRenewable = oo_.endo_simul(endoName2('P_3_1'), 1);
+        end
+
+        idxExoI2 = find(strcmp(exoNamesLocal, 'exo_I_2_1'), 1);
+        idxExoI3 = find(strcmp(exoNamesLocal, 'exo_I_3_1'), 1);
+        if isempty(idxExoI2) || isempty(idxExoI3)
+            error('simulation_model_refactored:MissingExoI', 'exo_I_2_1/exo_I_3_1 not found in M_.exo_names.');
+        end
+
+        fossilParamsIK = struct('K1', oo_.endo_simul(idxK2, 1), 'PINVbase', PINVbaseFossil, ...
+            'exoIPath', oo_.exo_simul(1:nPDP8, idxExoI2)');
+        renewParamsIK = struct('K1', oo_.endo_simul(idxK3, 1), 'PINVbase', PINVbaseRenewable, ...
+            'exoIPath', oo_.exo_simul(1:nPDP8, idxExoI3)');
+
+        pdp8IKRatios = compute_pdp8_capital_investment_ratio(repoRoot, deltaFossilIK, deltaRenewIK, ...
+            sFossilPath, sRenewablePath, yPath, popPath, etaKS_p, fossilParamsIK, renewParamsIK, yearsPDP8);
+        tabtargets.IK_2_1 = pdp8IKRatios.Fossil;
+        tabtargets.IK_3_1 = pdp8IKRatios.Renewable;
+
+        % Optional manual shortcut: user-specified multipliers for IK_2_1/IK_3_1.
+        % Default behavior is unchanged unless these variables are defined.
+        manualScaleIK2 = 0.72; % value coming from: pdp8IKRatios.FossilCapacityRatio / (K_2_1(25)./K_2_1(1))
+        manualScaleIK3 = 0.65; % value coming from: pdp8IKRatios.RenewableCapacityRatio / (K_3_1(25)./K_3_1(1))
+        if exist('manualScaleIK2_p', 'var') && isfinite(manualScaleIK2_p) && manualScaleIK2_p > 0
+            manualScaleIK2 = manualScaleIK2_p;
+        end
+        if exist('manualScaleIK3_p', 'var') && isfinite(manualScaleIK3_p) && manualScaleIK3_p > 0
+            manualScaleIK3 = manualScaleIK3_p;
+        end
+        if manualScaleIK2 ~= 1 || manualScaleIK3 ~= 1
+            ik2Old = tabtargets.IK_2_1;
+            ik3Old = tabtargets.IK_3_1;
+            tabtargets.IK_2_1 = tabtargets.IK_2_1 * manualScaleIK2;
+            tabtargets.IK_3_1 = tabtargets.IK_3_1 * manualScaleIK3;
+            fprintf(['[simulation_model_refactored] Manual IK shortcut applied: ' ...
+                'IK_2_1 %.6f -> %.6f (x%.6f), IK_3_1 %.6f -> %.6f (x%.6f)\n'], ...
+                ik2Old, tabtargets.IK_2_1, manualScaleIK2, ...
+                ik3Old, tabtargets.IK_3_1, manualScaleIK3);
+        end
+
+        % PINVIndex is now the P_INV(t)/P_INV(1) path implied by the model's
+        % OWN supply-curve equation (a byproduct of the forward simulation
+        % above), not PDP8's CAPEX_kUSD_MW trend -- see
+        % reshuffle_initial_period.m step 1b for how it's applied.
+        tabtargets.PINVIndex_2_1 = pdp8IKRatios.FossilPriceIndex;
+        tabtargets.PINVIndex_3_1 = pdp8IKRatios.RenewablePriceIndex;
+        fprintf(['[simulation_model_refactored] PDP8 I0/K0 targets (years %s): fossil=%.4f ' ...
+            '(K_T/K_0 target=%.3f, realized=%.3f) renewable=%.4f (K_T/K_0 target=%.3f, realized=%.3f) ' ...
+            'popRatio=%.3f\n'], ...
+            mat2str(pdp8IKRatios.Years([1 end])), pdp8IKRatios.Fossil, pdp8IKRatios.FossilCapacityRatio, ...
+            pdp8IKRatios.FossilRealizedRatio, pdp8IKRatios.Renewable, pdp8IKRatios.RenewableCapacityRatio, ...
+            pdp8IKRatios.RenewableRealizedRatio, popPath(end) / popPath(1));
+    end
+
+    oo_ = reshuffle_initial_period(oo_, M_, posIdx, inbregions_p, imaxsec_p, tabtargets);
+    oo_.endo_simul_start(:, 1) = oo_.endo_simul(:, 1);
+    % reshuffle_initial_period.m's step 1b shifts exo_I_<subsec>_<reg> (the
+    % posIdx.iposProdIShocks group) across the whole oo_.exo_simul path, but
+    % oo_.exo_simul_start was captured above BEFORE the reshuffle ran. Every
+    % homotopy step in apply_baseline_step_shocks() below re-derives
+    % oo_.exo_simul(:, posIdx.iposProdIShocks) from that stale
+    % oo_.exo_simul_start (scaled by stepFrac), which would silently revert
+    % the reshuffle's price-level shift -- including on the final step,
+    % where stepFrac==1 reproduces the stale value exactly. Re-sync it here
+    % so the shift survives the homotopy loop and reaches the terminal
+    % steady state.
+    oo_.exo_simul_start(:, posIdx.iposProdIShocks) = oo_.exo_simul(:, posIdx.iposProdIShocks);
+end
+
+% Baseline: activate endogenous wedge targeting (exo_ltargetIY = 1 during transition).
+% (nPeriods/iaTargetGrowthRates/iaTargetGrowthRatesN/iTermination_p are
+% computed earlier, right after oo_.exo_simul_start is captured, since the
+% PDP8 I/K reconciliation above also needs iaTargetGrowthRates.)
+
 exo_temp = zeros(size(oo_.exo_simul));
 
 %% =================================
@@ -213,7 +488,7 @@ if isequal(sScenario, 'Baseline')
             end
 
             % Steady-state computation
-            [yst, ~, ~, ~] = DGE_Model_steadystate(oo_.endo_simul(:, end), oo_.exo_simul(end,:), M_, options_);
+            [yst, ~, ~, exo] = DGE_Model_steadystate(oo_.endo_simul(:, end), oo_.exo_simul(end,:), M_, options_);
 
             % Validate static residuals of the current candidate and retry once if needed.
             exoCandidate = oo_.exo_simul(end, :)';
@@ -230,10 +505,13 @@ if isequal(sScenario, 'Baseline')
             if ~isfinite(maxStaticRes) || maxStaticRes > staticTol
                 eqLabel = get_static_eq_label(M_, maxResEq);
                 disp(['Static residual check failed (eq ' num2str(maxResEq) ' - ' eqLabel ', max abs resid = ' num2str(maxStaticRes, '%.3e') '). Retrying DGE_Model_steadystate once...']);
-                [yst, ~, ~, ~] = DGE_Model_steadystate(yst, oo_.exo_simul(end,:), M_, options_);
+                [yst, ~, ~, exo] = DGE_Model_steadystate(yst, oo_.exo_simul(end,:), M_, options_);
             end
             
-            if icostep == 1
+            if icostep == 1 && lBaselineWarmStartLoaded
+                oo_.endo_simul(:, end) = yst;
+                disp('[Warm-start] Preserving seeded Baseline path for first candidate solve.');
+            elseif icostep == 1
                 oo_.endo_simul(:, 2:end) = repmat(yst, 1, size(oo_.endo_simul, 2) - 1);
             else
                 oo_.endo_simul(:, end) = yst;
@@ -360,9 +638,20 @@ else
     tabvars = array2table([iaYear_vec oo_.endo_simul(:,1:iDisplay)']);
     tabvars.Properties.VariableNames = [{'Year'}; cellstr(M_.endo_names)];
 
-    outputPath = ['ExcelFiles/Output/' sScenario];
+    outputDir = fullfile('ExcelFiles', 'Output');
+    outputSubfolderEnv = strtrim(getenv('DGE_OUTPUT_SUBFOLDER'));
+    if ~isempty(outputSubfolderEnv)
+        outputDir = fullfile(outputDir, outputSubfolderEnv);
+    elseif exist('sOutputSubfolder', 'var') && ~isempty(sOutputSubfolder)
+        outputDir = fullfile(outputDir, sOutputSubfolder);
+    end
+    if ~exist(outputDir, 'dir')
+        mkdir(outputDir);
+    end
+
+    outputPath = fullfile(outputDir, sScenario);
     if ~contains(sScenario, '.csv')
-        outputPath = ['ExcelFiles/Output/' sSensitivity sScenario '.csv'];
+        outputPath = fullfile(outputDir, [sScenario sSensitivity '.csv']);
     end
     writetable(tabvars, outputPath);
 end
@@ -372,10 +661,11 @@ end
 %  ==============================
 
 function oo_ = apply_baseline_shock_structure(oo_, structScenarioResults,...
-               sVersion, lCapandTrade_p, posIdx, sBaseline)
+               sVersion, lCapandTrade_p, posIdx, sBaseline, M_)
 
     % Build baseline-aligned exogenous shocks and base paths.
 
+    scenarioExo = oo_.exo_simul;
     baselineSim = structScenarioResults.(sVersion).(sBaseline).oo_.endo_simul;
     if isequal(sBaseline, 'Baseline')
         oo_.exo_simul(:, posIdx.iposProdShocks)  = log(baselineSim(posIdx.iposAVars,:) ./ baselineSim(posIdx.iposAVars,1))';
@@ -401,7 +691,56 @@ function oo_ = apply_baseline_shock_structure(oo_, structScenarioResults,...
         if ~isempty(posIdx.iposWedgeVars) && ~isempty(posIdx.iposWedgeShocks)
             oo_.exo_simul(:, posIdx.iposWedgeShocks) = baselineSim(posIdx.iposWedgeVars, :)';
         end
+
+        % Transfer baseline muI path to exo_muI and disable I/Y targeting for scenarios.
+        % In Baseline muI is endogenous (exo_ltargetIY=1); outside Baseline it must be
+        % exogenous (exo_ltargetIY=0) using the path muI solved during the Baseline run.
+        if ~isempty(posIdx.iposMuIVars) && ~isempty(posIdx.iposMuIShocks)
+            oo_.exo_simul(:, posIdx.iposMuIShocks) = baselineSim(posIdx.iposMuIVars, :)';
+        end
+        if isfield(posIdx, 'iposLMAmountShocks') && ~isempty(posIdx.iposLMAmountShocks)
+            oo_.exo_simul(:, posIdx.iposLMAmountShocks) = scenarioExo(:, posIdx.iposLMAmountShocks);
+        end
+        if isfield(posIdx, 'iposMAmountShocks') && ~isempty(posIdx.iposMAmountShocks)
+            oo_.exo_simul(:, posIdx.iposMAmountShocks) = scenarioExo(:, posIdx.iposMAmountShocks);
+        end
+        if ~isempty(posIdx.iposLTargetIYShocks)
+            oo_.exo_simul(:, posIdx.iposLTargetIYShocks) = 0;
+        end
+        if ~isempty(posIdx.iposTargetIYShocks)
+            oo_.exo_simul(:, posIdx.iposTargetIYShocks) = 0;
+        end
+
+        % Transfer baseline tauCEndo path to exo_tauC for scenarios. tauCEndo mirrors
+        % EE_reg: no runtime switch to force off (the Baseline-vs-scenario branch is a
+        % compile-time macro, BaselineScenario, in government.mod). exo_tauC carries the
+        % baseline-required path; exo_tauCScen remains free for scenario-specific
+        % additional tauC shocks layered on top (see government.mod).
+        if ~isempty(posIdx.iposTauCEndoVars) && ~isempty(posIdx.iposTauCShocks) && ~isempty(posIdx.iposTauCParams)
+            tauCParamVals = M_.params(posIdx.iposTauCParams);
+            oo_.exo_simul(:, posIdx.iposTauCShocks) = (baselineSim(posIdx.iposTauCEndoVars, :) - tauCParamVals)';
+        end
+
+        % Transfer baseline s_reg path to exo_s and disable NX targeting for scenarios.
+        % In Baseline s_reg is endogenous (exo_lNXTarget=1, solved so net exports hit
+        % NX0_p/Y0_p+exo_NX); outside Baseline it must follow its own AR(1)
+        %   s(t) = rhos_p*s(t-1) + (1-rhos_p)*s0_p*exp(exo_s(t))
+        % so exo_s is back-solved to make that AR(1) reproduce the exact s_reg path
+        % solved during the Baseline run.
+        if ~isempty(posIdx.iposSVars) && ~isempty(posIdx.iposFXShock)
+            sTarget = baselineSim(posIdx.iposSVars, :);
+            sLag = [sTarget(:,1), sTarget(:,1:end-1)];
+            s0Vals = M_.params(posIdx.iposS0Params);
+            rhos_p_val = M_.params(ismember(M_.param_names, 'rhos_p'));
+            oo_.exo_simul(:, posIdx.iposFXShock) = ...
+                log((sTarget - rhos_p_val .* sLag) ./ ((1 - rhos_p_val) .* s0Vals))';
+        end
+        if ~isempty(posIdx.iposLNXTargetShocks)
+            oo_.exo_simul(:, posIdx.iposLNXTargetShocks) = 0;
+        end
+
         if lCapandTrade_p == 1
+            % oo_.exo_base(:, posIdx.iposERegShocks) = log(baselineSim(posIdx.iposEETSReg,:)./baselineSim(posIdx.iposEETSReg,1))';
             oo_.exo_base(:, posIdx.iposERegShocks) = log(baselineSim(posIdx.iposEReg,:)./baselineSim(posIdx.iposEReg,1))';
             oo_.exo_simul(:, posIdx.iposERegShocks) = oo_.exo_base(:, posIdx.iposERegShocks);
         end
@@ -485,6 +824,7 @@ function oo_ = apply_baseline_step_shocks(oo_, iaTargetGrowthRates, iaTargetGrow
     oo_.exo_simul(:, posIdx.ipossGScenShocks)  = oo_.exo_simul_start(:, posIdx.ipossGScenShocks) .* stepFrac;
     oo_.exo_simul(:, posIdx.iposDamKShocks)  = oo_.exo_simul_start(:, posIdx.iposDamKShocks) .* stepFrac;
     oo_.exo_simul(:, posIdx.iposADShock)     = oo_.exo_simul_start(:, posIdx.iposADShock) .* stepFrac;
+    oo_.exo_simul(:, posIdx.iposIFDIShocks)  = oo_.exo_simul_start(:, posIdx.iposIFDIShocks) .* stepFrac;
     oo_.exo_simul(:, posIdx.ipossFDIShareShocks) = oo_.exo_simul_start(:, posIdx.ipossFDIShareShocks) .* stepFrac;
     oo_.exo_simul(:, posIdx.iposrFDIShocks) = oo_.exo_simul_start(:, posIdx.iposrFDIShocks) .* stepFrac;
     oo_.exo_simul(:, posIdx.iposEmShocks)     = oo_.exo_simul_start(:, posIdx.iposEmShocks) .* stepFrac;
@@ -515,7 +855,8 @@ function oo_ = apply_climate_step_shocks(oo_, icostep, iStep, lCapandTrade_p, po
         oo_ = scale_exo_from_start(oo_, climateVars, stepFrac);
     
         oo_ = copy_exo_from_start(oo_, [posIdx.iposProdShocksN, posIdx.iposAIShocksec, posIdx.iposPopShocks, ...
-            posIdx.iposLFShocks, posIdx.iposNXShock]);
+            posIdx.iposLFShocks, posIdx.iposNXShock, ...
+            posIdx.iposMuIShocks, posIdx.iposLTargetIYShocks, posIdx.iposTargetIYShocks]);
     
         oo_.exo_simul(:, posIdx.ipostauKFShocks)     = oo_.exo_simul_start(:, posIdx.ipostauKFShocks) .* stepFrac;
         oo_.exo_simul(:, posIdx.iposQShocks)   = oo_.exo_simul_start(:, posIdx.iposQShocks) * stepFrac;
@@ -534,7 +875,7 @@ function oo_ = apply_climate_step_shocks(oo_, icostep, iStep, lCapandTrade_p, po
     baseVars = [posIdx.iposPERegShocks,posIdx.iposkapEShock, posIdx.iposEERegShocks,...
             posIdx.iposUShocks, posIdx.iposPVShocks, posIdx.ipossGShocks, posIdx.iposKGShocks, posIdx.iposrGShocks ,...
             posIdx.iposphiKShocks, posIdx.iposTauSShocks, posIdx.iposkapEShock, posIdx.iposPKShocks, posIdx.iposGAShocks,...
-            posIdx.iposLFDIShareShocks,posIdx.iposLIGShareShocks,posIdx.iposWedgeShocks,posIdx.iposFossilExpShocks,...
+            posIdx.iposLFDIShareShocks,posIdx.iposLIGShareShocks,posIdx.iposIFDIShocks,posIdx.iposWedgeShocks,posIdx.iposFossilExpShocks,...
             posIdx.iposENOETSShocks];
     
     oo_ = scale_exo_from_base(oo_,baseVars , stepFrac);

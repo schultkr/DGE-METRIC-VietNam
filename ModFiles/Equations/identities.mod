@@ -1,130 +1,144 @@
-// =====================
-// Block 2: Identities =
-// =====================
-#lhsBlock2_1 = PoP;
-#rhsBlock2_1 = 
-@# for reg in 1:Regions
-    + PoP_@{reg}
-@# endfor
-;
-[name = 'population']
-(1+lhsBlock2_1)/(1+rhsBlock2_1) = 1;
-#lhsBlock2_2 = LF;
-#rhsBlock2_2 = 
-@# for reg in 1:Regions
-    + LF_@{reg}
-@# endfor
-;
-[name = 'labour force']
-(1+lhsBlock2_2)/(1+rhsBlock2_2) = 1;
-# lhsBlock2_3 = W;
-# rhsBlock2_3 =   
-@# for reg in 1:Regions
-    @# for sec in 1:Sectors
-        @# for subsec in Subsecstart[sec]:Subsecend[sec]
-            + N_@{subsec}_@{reg} * LF_@{reg}/(LF * N) * W_@{subsec}_@{reg}
-        @# endfor
+// ==========================================
+// Block 2: National Identities
+// ==========================================
+
+// ------------------------------------------------------------------
+// Labour and population aggregates
+// ------------------------------------------------------------------
+
+#lhsPopulation =
+    @# for reg in 1:Regions
+        + PoP_@{reg}
     @# endfor
-@# endfor
-;
-[name = 'wage index']
-(1+lhsBlock2_3)/(1+rhsBlock2_3) = 1;
-#lhsBlock2_4 = B;
-#rhsBlock2_4 =  
-        @# for reg in 1:Regions
-            + B_@{reg}EXP
-        @# endfor
-;
-[name = 'foreign net asset position']
-(lhsBlock2_4+1) = (rhsBlock2_4+1);
-#lhsBlock2_5 = NX;
-#rhsBlock2_5 = X - M;
-[name = 'Net Exports']
-(1+lhsBlock2_5) = (1+rhsBlock2_5);
-#lhsBlock2_6 = G;
-#rhsBlock2_6 = 
-@# for reg in 1:Regions
-    + G_@{reg} * P_@{reg}
-@# endfor
-;
-[name = 'Government Budget Constraint']
-(lhsBlock2_6+1)/(rhsBlock2_6+1) = 1;
-#lhsBlock2_7 = I;
-#rhsBlock2_7 = 
-@# for sec in 1:Sectors
-        @# for subsec in Subsecstart[sec]:Subsecend[sec]
-            @# for reg in 1:Regions
-                + max(0,I_@{subsec}_@{reg} * P_INV_@{subsec}_@{reg})
+    ;
+[name = 'aggregate population']
+(1 + PoP) / (1 + lhsPopulation) = 1;
+
+#lhsLabourForce =
+    @# for reg in 1:Regions
+        + LF_@{reg}
+    @# endfor
+    ;
+[name = 'aggregate labour force']
+(1 + LF) / (1 + lhsLabourForce) = 1;
+
+// Employment-weighted average wage across all sectors and regions.
+#lhsWageIndex =
+    @# for reg in 1:Regions
+        @# for sec in 1:Sectors
+            @# for subsec in Subsecstart[sec]:Subsecend[sec]
+                + N_@{subsec}_@{reg} * LF_@{reg} / (LF * N) * W_@{subsec}_@{reg}
             @# endfor
         @# endfor
-@# endfor
-;
-[name = 'national investment']
-(lhsBlock2_7+1)/(rhsBlock2_7+1) = 1;
+    @# endfor
+    ;
+[name = 'aggregate wage index']
+(1 + W) / (1 + lhsWageIndex) = 1;
 
-#lhsBlock2_8 = C;
-#rhsBlock2_8 = 
-@# for reg in 1:Regions
- + C_@{reg} * P_@{reg} 
-@# endfor
-;
-[name = 'aggregate consumption']
-(lhsBlock2_8+1)/(rhsBlock2_8+1) = 1;
+// Total employment (hours) summed across regions and weighted by labour force.
+#lhsTotalEmployment =
+    @# for reg in 1:Regions
+        + N_@{reg} * LF_@{reg}
+    @# endfor
+    ;
+[name = 'aggregate employment']
+(1 + N * LF) / (1 + lhsTotalEmployment) = 1;
 
-#lhsBlock2_9 = Y;
-#rhsBlock2_9 = 
+// ------------------------------------------------------------------
+// National accounts aggregates
+// ------------------------------------------------------------------
+
+#lhsNatGVA =
     @# for reg in 1:Regions
         + Y_@{reg}
     @# endfor
-;
+    ;
 [name = 'aggregate gross value added']
-(lhsBlock2_9+1)/(rhsBlock2_9+1) = 1;
-#lhsBlock2_10 = Q;
-#rhsBlock2_10 = 
+(1 + Y) / (1 + lhsNatGVA) = 1;
+
+#lhsNatOutput =
     @# for reg in 1:Regions
         + Q_@{reg}
     @# endfor
-;
+    ;
 [name = 'aggregate output']
-(lhsBlock2_10+1)/(rhsBlock2_10+1) = 1;
-#lhsBlock2_11 = Q_I;
-#rhsBlock2_11 = 
+(1 + Q) / (1 + lhsNatOutput) = 1;
+
+#lhsNatIntermediateInput =
     @# for reg in 1:Regions
         + Q_I_@{reg}
     @# endfor
-;
-[name = 'aggregate intermediate output']
-(lhsBlock2_11+1)/(rhsBlock2_11+1) = 1;
-#lhsBlock2_12 = Q_U;
-#rhsBlock2_12 = 
-@# for reg in 1:Regions
-    + Q_U_@{reg} * P_D_@{reg}
-@# endfor
-;
-[name = 'aggregate used products']
-(lhsBlock2_12+1)/(rhsBlock2_12+1) = 1;
-#lhsBlock2_13 = X;
-#rhsBlock2_13 = 
-@# for reg in 1:Regions
-    + X_@{reg} * P_Q_@{reg}
-@# endfor
-;
-[name = 'Exports']
-(lhsBlock2_13+1)/(rhsBlock2_13+1) = 1;
-#lhsBlock2_14 = M;
-#rhsBlock2_14 = 
-@# for reg in 1:Regions
-    + M_@{reg}
-@# endfor
-;
-[name = 'Imports']
-(lhsBlock2_14+1)/(rhsBlock2_14+1) = 1;
-#lhsBlock2_15 = N * LF;
-#rhsBlock2_15 = 
-@# for reg in 1:Regions
-    + N_@{reg} * LF_@{reg}
-@# endfor
-;
-[name = 'aggregate labour']
-(lhsBlock2_15+1)/(rhsBlock2_15+1) = 1;
+    ;
+[name = 'aggregate intermediate input']
+(1 + Q_I) / (1 + lhsNatIntermediateInput) = 1;
 
+// Total domestic absorption valued at domestic prices.
+#lhsNatFinalDemand =
+    @# for reg in 1:Regions
+        + Q_U_@{reg} * P_D_@{reg}
+    @# endfor
+    ;
+[name = 'aggregate final demand']
+(1 + Q_U) / (1 + lhsNatFinalDemand) = 1;
+
+#lhsNatConsumption =
+    @# for reg in 1:Regions
+        + C_@{reg} * P_@{reg}
+    @# endfor
+    ;
+[name = 'aggregate consumption']
+(1 + C) / (1 + lhsNatConsumption) = 1;
+
+// National government consumption: sum of regional G valued at regional prices.
+#lhsNatGovConsumption =
+    @# for reg in 1:Regions
+        + G_@{reg} * P_@{reg}
+    @# endfor
+    ;
+[name = 'aggregate government consumption']
+(1 + G) / (1 + lhsNatGovConsumption) = 1;
+
+// National investment: max(0,.) guards against numerical undershoots at zero.
+#lhsNatInvestment =
+    @# for sec in 1:Sectors
+        @# for subsec in Subsecstart[sec]:Subsecend[sec]
+            @# for reg in 1:Regions
+                + max(0, I_@{subsec}_@{reg} * P_INV_@{subsec}_@{reg})
+            @# endfor
+        @# endfor
+    @# endfor
+    ;
+[name = 'aggregate investment']
+(1 + I) / (1 + lhsNatInvestment) = 1;
+
+// ------------------------------------------------------------------
+// External trade aggregates
+// ------------------------------------------------------------------
+
+#lhsNatExports =
+    @# for reg in 1:Regions
+        + X_@{reg} * P_Q_@{reg}
+    @# endfor
+    ;
+[name = 'aggregate exports']
+(1 + X) / (1 + lhsNatExports) = 1;
+
+#lhsNatImports =
+    @# for reg in 1:Regions
+        + M_@{reg}
+    @# endfor
+    ;
+[name = 'aggregate imports']
+(1 + M) / (1 + lhsNatImports) = 1;
+
+[name = 'aggregate net exports']
+(1 + NX) = (1 + X - M);
+
+// National net foreign assets: forward positions summed across regions.
+#lhsNetForeignAssets =
+    @# for reg in 1:Regions
+        + B_@{reg}EXP
+    @# endfor
+    ;
+[name = 'aggregate net foreign asset position']
+(1 + B) = (1 + lhsNetForeignAssets);

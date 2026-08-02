@@ -509,11 +509,11 @@ for iSheet = 2:wb.Worksheets.Count
     try
         invoke(wsContent.Hyperlinks, 'Add', targetRange, '', ['''' sName '''!A1'], '', sName);
     catch
-        % Fallback if Hyperlinks.Add fails in some Excel builds.
-        if ~excel_write_formula_with_fallback(targetRange, ...
-                ['=HYPERLINK("#''' sName '''!A1","' sName '")'])
-            error('create_baseline_model_sheets:FormulaWriteFailed', ...
-                'Unable to write hyperlink formula for sheet "%s".', sName);
+        % Fallbacks if Hyperlinks.Add fails in some Excel builds.
+        try
+            targetRange.Formula = ['=HYPERLINK("#''' sName '''!A1","' sName '")'];
+        catch
+            targetRange.FormulaLocal = ['=HYPERLINK("#''' sName '''!A1";"' sName '")'];
         end
     end
 end

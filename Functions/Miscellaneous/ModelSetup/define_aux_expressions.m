@@ -277,6 +277,12 @@ casPMprices  = arrayfun(@(x)['P_M_' num2str(x)], 1:inbsubsectors_p, 'UniformOutp
 casPMshocks  = arrayfun(@(x)['exo_M_' num2str(x)], 1:inbsubsectors_p, 'UniformOutput', false);
 [lSelectPMShocks,iposPMShocks] = ismember(casPMshocks, cellstr(M_.exo_names));
 
+casLMAmountShocks = arrayfun(@(x)['exo_lMAmount_' num2str(x)], 1:inbsubsectors_p, 'UniformOutput', false);
+[lSelectLMAmountShocks, iposLMAmountShocks] = ismember(casLMAmountShocks, cellstr(M_.exo_names));
+
+casMAmountShocks = arrayfun(@(x)['exo_MAmt_' num2str(x)], 1:inbsubsectors_p, 'UniformOutput', false);
+[lSelectMAmountShocks, iposMAmountShocks] = ismember(casMAmountShocks, cellstr(M_.exo_names));
+
 
 % find transfers
 castauSShocks  = arrayfun(@(x)['exo_tauS_' num2str(x)], 1:inbregions_p, 'UniformOutput', false);

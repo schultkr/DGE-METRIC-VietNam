@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this model or its results in your research or policy analysis, please cite it as below."
+type: software
+title: "DGE-METRIC: Dynamic General Equilibrium for Macroeconomic Energy Transition Incorporating Carbon Markets"
+abstract: >
+  DGE-METRIC is a MATLAB/Dynare implementation of a dynamic general equilibrium model
+  for studying the macroeconomic consequences of energy-transition pathways, green finance
+  instruments, and carbon-pricing policies. The current working calibration covers Vietnam
+  (5-sector, 1-region, 2026–2050 horizon) and is applied to Power Development Plan 8 (PDP8)
+  and net-zero scenarios under a GIZ-IWH research project.
+authors:
+  - family-names: Schult
+    given-names: Christoph
+    email: schult.christoph@googlemail.com
+    affiliation: "Halle Institute for Economic Research (IWH)"
+repository-code: "https://github.com/schultkr/DGE-METRIC"
+license: MIT
+version: "1.0.0"
+date-released: "2026-06-09"
+keywords:
+  - dynamic general equilibrium
+  - energy transition
+  - Vietnam
+  - PDP8
+  - carbon market
+  - green finance
+  - Dynare
+  - macroeconomics
+  - climate policy

@@ -44,12 +44,10 @@
     )^(1/(1-etaQ_p));
     [name = 'imported consumption']
     lhsAggReg_@{reg}_11 = rhsAggReg_@{reg}_11;
-    #lhsAggReg_@{reg}_18 = s_@{reg};
-    #rhsAggReg_@{reg}_18 = rhos_p*s_@{reg}(-1) + (1-rhos_p)*s0_@{reg}_p*exp(exo_s_@{reg});
-    //#lhsAggReg_@{reg}_18 = NX_@{reg};
-    //#rhsAggReg_@{reg}_18 = rhos_p*NX_@{reg}(-1) + (1-rhos_p)*steady_state(NX_@{reg}) + exo_s_@{reg};
+    #lhsAggReg_@{reg}_18 = s_@{reg} * (exo_lNXTarget_@{reg} == 0) + NX_@{reg} / Y_@{reg} * (exo_lNXTarget_@{reg} == 1);
+    #rhsAggReg_@{reg}_18 = (rhos_p*s_@{reg}(-1) + (1-rhos_p)*s0_@{reg}_p*exp(exo_s_@{reg})) * (exo_lNXTarget_@{reg} == 0) + (NX0_@{reg}_p / Y0_@{reg}_p + exo_NX_@{reg}) * (exo_lNXTarget_@{reg} == 1);
 
-    [name = 'regional exchange rate']
+    [name = 'regional exchange rate / net export target']
     lhsAggReg_@{reg}_18 = rhsAggReg_@{reg}_18;
 
 

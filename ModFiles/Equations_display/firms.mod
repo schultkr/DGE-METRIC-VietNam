@@ -29,7 +29,7 @@
                 #rhsSupplySubsecSec_2_@{subsec}_@{reg}_@{secm} = kappaEI_@{subsec}_@{reg}_@{secm}_p * exp(exo_EI_@{subsec}_@{reg}_@{secm}) * (Q_D_@{SubsecFossil}_@{reg}/Q_A_@{SecEnergy}_@{reg}) * Q_I_@{subsec}_@{reg}_@{secm};
                 [name = 'regional emissions caused by using intermediates from aggregate sector']
                 lhsSupplySubsecSec_2_@{subsec}_@{reg}_@{secm} = rhsSupplySubsecSec_2_@{subsec}_@{reg}_@{secm};
-                # A_I_Eff_@{subsec}_@{reg}_@{secm}=exo_AI_@{subsec}_@{reg}_@{secm}+K_A_@{subsec}_@{reg} * exo_AI_@{subsec}_@{reg}_2;
+                # A_I_Eff_@{subsec}_@{reg}_@{secm}=(exo_AI_@{subsec}_@{reg}_@{secm}!=0)*exo_AI_@{subsec}_@{reg}_@{secm};
                 #lhsSupplySubsecSec_3_@{subsec}_@{reg}_@{secm} = A_I_@{subsec}_@{reg}_@{secm};
                 #rhsSupplySubsecSec_3_@{subsec}_@{reg}_@{secm} = exp(A_I_Eff_@{subsec}_@{reg}_@{secm})*(EE_@{reg})^(exo_lAddEE_@{subsec}_@{reg}*(@{secm}==iSecEnergy_p));
                 [name = 'productivity of intermediates in subsector @{subsec} from sector @{secm}']

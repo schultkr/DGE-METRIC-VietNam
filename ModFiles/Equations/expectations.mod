@@ -2,9 +2,9 @@
 // Block 1: Expectations =
 // =======================
 
-@#define reg_exp_vars    = ["tauC","P","NX","B","Y","C","H","PoP","lambda","omegaH", "BG"]
+@#define reg_exp_vars    = ["tauC","P","NX","B","Y","C","H","PoP","lambda","omegaH", "BG", "s", "adjB"]
 @#define bilat_exp_vars  = ["NX","B"]
-@#define subsec_exp_vars = ["p", "P", "P_INV", "P_K","rlog_H","r_H","omegaI","I_H", "K_H", "tauKH"]
+@#define subsec_exp_vars = ["p", "P", "P_INV", "P_K","rlog_H","r_H","omegaI","I_H", "K_H", "tauKH", "delta", "u_K", "wedgeKE"]
 # rfEXP = omegaP_p*rf(+1) + (1-omegaP_p)*rf;
 
 @#for reg in 1:Regions

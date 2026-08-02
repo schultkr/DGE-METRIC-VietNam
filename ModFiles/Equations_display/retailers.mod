@@ -29,7 +29,7 @@
             @# endfor
             )^(1/(1-etaQA_@{sec}_p+(etaQA_@{sec}_p==1)))
             ;
-        [name = 'domestic aaggregate sector imports']
+        [name = 'domestic aggregate sector imports']
         lhsDemandsec_5_@{reg}_@{sec} = rhsDemandsec_5_@{reg}_@{sec};
         # Q_Eff_A_F_@{sec}_@{reg} = Q_A_F_@{sec}_@{reg} + (@{sec} == @{SecEnergy})*Q_PV_@{reg};
         # lhsDemandsec_6_@{reg}_@{sec} = Q_Eff_A_F_@{sec}_@{reg};

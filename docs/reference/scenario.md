@@ -242,29 +242,42 @@ for the full instrument-by-instrument feasibility assessment.
 
 ## Reproducibility
 
-**Default run vs. full published scenario set.** `RunSimulations.m` only
-executes `activeScenarioGroups = {'Reference'}` by default, and within that
-group only `'Baseline'` is active (`'NZ'` is commented out). This means the
-NZ, EE, and Green Finance scenarios described above do **not** run from an
-out-of-the-box `RunSimulations` call. To reproduce the full scenario set,
-either edit `activeScenarioGroups` in `RunSimulations.m` or set the
-`DGE_SCENARIO_GROUPS` environment variable before running, e.g.:
+**A defined scenario is not necessarily an executed scenario.** In the
+baseline-only repository configuration, `activeScenarioGroups` contains only
+`Reference`, and only `Baseline` is enabled within that group. Consequently,
+NZ, EE, Green Finance, and sensitivity scenarios do not run merely because
+their equations, workbook sheets, or names exist.
 
-```
-set DGE_SCENARIO_GROUPS=Reference,EE,GF_PDP8,GF_NZ,NZ_Sensitivity
+There are two independent choices: enable individual names inside each
+`scenarioGroups.<group>` block, then select the required groups through
+`activeScenarioGroups`. A nonempty `DGE_SCENARIO_GROUPS` value overrides the
+latter selection. For example, from MATLAB:
+
+```matlab
+setenv('DGE_SCENARIO_GROUPS', ...
+    'Reference,EE,GF_PDP8,GF_NZ,NZ_Sensitivity');
+RunSimulations
 ```
 
-Note that `NZ` itself must also be uncommented inside `scenarioGroups.Reference`
-before any `NZ_GF_*` or `NZ_Sensitivity` scenario can be meaningfully compared
-to it. See [Running the model](running.md#scenario-groups) for the full
-group/name mapping.
+This selects groups but still skips any scenario name commented out inside
+those groups. The Green Finance groups are fully routed through the scenario
+switches, but are excluded from the baseline-only active set. Several EE and
+`NZ_Sensitivity` members are also individually disabled in that configuration.
+To compare `NZ_GF_*` or `NZ_Sensitivity` results with `NZ`, enable `NZ` inside
+`scenarioGroups.Reference` as well.
 
 To reproduce a given scenario configuration:
-1. Set `activeScenarioGroups` (or `DGE_SCENARIO_GROUPS`) to the desired groups.
-2. Run the model — this executes each selected scenario and writes results to CSV.
-3. Execute the scenario comparison script to generate plots.
 
-All scenario assumptions are documented in the calibration and scenario input files.
+1. Check out the commit that produced the result.
+2. Enable the required individual names in their `scenarioGroups` blocks.
+3. Set `activeScenarioGroups`, or set and record `DGE_SCENARIO_GROUPS`.
+4. Verify the resolved `casScenarioNames` before the simulation loop.
+5. Record the workbook/version, run the model, and then generate comparisons.
+
+Without the exact group selection, enabled group members, and workbook state,
+a published result cannot be assumed reproducible from a plain
+`RunSimulations` call. See [Running the model](running.md#scenario-groups) for
+worked configurations and environment-variable precedence.
 
 ---
 

@@ -43,7 +43,11 @@ function [strys, strexo, HousingExpenditures] = compute_regional_macro_aggregate
                 % rkgross = strys.(['r_H_' ssubsec '_' sreg]) * (strys.(['tauKH_' ssubsec '_' sreg]) + strys.(['tauKF_' ssubsec '_' sreg]));
 
                 invreg = invreg  + strys.(['I_' ssubsec '_' sreg]) * strys.(['P_INV_' ssubsec '_' sreg]);                           
-                ifdireg = ifdireg + strys.(['I_FDI_' ssubsec '_' sreg]) * strys.(['P_INV_' ssubsec '_' sreg]) + strys.(['K_FDI_' ssubsec '_' sreg]) * strys.(['P_K_' ssubsec '_' sreg]) * strys.(['r_FDI_' ssubsec '_' sreg]);                           
+                fdi_income_outflow = strys.(['r_FDI_' ssubsec '_' sreg]) ...
+                    * strys.(['P_K_' ssubsec '_' sreg]) ...
+                    / strys.(['P_INV_' ssubsec '_' sreg]) ...
+                    * strys.(['K_FDI_' ssubsec '_' sreg]);
+                ifdireg = ifdireg + strys.(['I_FDI_' ssubsec '_' sreg]) * strys.(['P_INV_' ssubsec '_' sreg]) + fdi_income_outflow;                           
                 % capincometaxes = capincometaxes + strys.(['K_' ssubsec '_' sreg]) * strys.(['P_K_' ssubsec '_' sreg]) * rkgross;
                 capincometaxes = capincometaxes + strys.(['K_H_' ssubsec '_' sreg]) * strys.(['P_K_' ssubsec '_' sreg]) * strys.(['tauKH_' ssubsec '_' sreg]) * strys.(['r_H_' ssubsec '_' sreg]);
                 capincometaxes = capincometaxes + strys.(['K_' ssubsec '_' sreg]) * strys.(['P_K_' ssubsec '_' sreg]) * strys.(['tauKF_' ssubsec '_' sreg]) * strys.(['r_F_' ssubsec '_' sreg]);
@@ -76,16 +80,10 @@ function [strys, strexo, HousingExpenditures] = compute_regional_macro_aggregate
             for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
                 ssubsec = num2str(icosubsec);
                 strys.(['CapTradeRev_' sreg]) = strys.(['CapTradeRev_' sreg]) + strys.(['E_' ssubsec '_' sreg]) * strys.(['PE_' sreg]) * strpar.(['lEndoQ_' ssubsec '_' sreg '_p']);
-                kgLagField1 = ['K_G_lag_' ssubsec '_' sreg];
-                kgLagField2 = ['K_G_' ssubsec '_' sreg '_lag'];
-                if isfield(strys, kgLagField1)
-                    kgLag = strys.(kgLagField1);
-                elseif isfield(strys, kgLagField2)
-                    kgLag = strys.(kgLagField2);
-                else
-                    kgLag = strys.(['K_G_' ssubsec '_' sreg]);
-                end
-                strys.(['I_G_' sreg]) = strys.(['I_G_' sreg]) + 1/ strys.(['P_' sreg]) * ((strys.(['I_G_' ssubsec '_' sreg])+strys.(['G_A_' ssubsec '_' sreg])) * strys.(['P_INV_' ssubsec '_' sreg]) - strys.(['r_G_' ssubsec '_' sreg]) * strys.(['P_K_' ssubsec '_' sreg]) * kgLag);
+                strys.(['I_G_' sreg]) = strys.(['I_G_' sreg]) + ...
+                    1 / strys.(['P_' sreg]) ...
+                    * (strys.(['I_G_' ssubsec '_' sreg]) + strys.(['G_A_' ssubsec '_' sreg])) ...
+                    * strys.(['P_INV_' ssubsec '_' sreg]);
                 for icosecm = 1:strpar.inbsectors_p
                     ssecm = num2str(icosecm);
                     strys.(['CapTradeRev_' sreg]) = strys.(['CapTradeRev_' sreg]) + strys.(['E_I_' ssubsec '_' sreg '_' ssecm]) * strys.(['PE_' sreg]) * strpar.(['lEndoQ_' ssubsec '_' sreg '_p']);
@@ -97,43 +95,73 @@ function [strys, strexo, HousingExpenditures] = compute_regional_macro_aggregate
         
         strys.(['M_' sreg]) = strys.(['M_I_' sreg]) + strys.(['P_F_' sreg]) * strys.(['M_F_' sreg]);
         
+        % Only the externally-held share of public debt enters the external balance.
+        BG_ext = (strpar.(['phi_BG_ext_' sreg '_p']) + strexo.(['exo_phi_BG_ext_' sreg])) * strys.(['BG_' sreg]);
+        BG_dom = strys.(['BG_' sreg]) - BG_ext;
+
         % Solve the foreign-asset block in terms of total external position
-        % T = B + BG, then back out private foreign assets B.
+        % T = B + BG_ext, then back out private foreign assets B.
         discount_factor = strpar.beta_p * exp(strexo.exo_beta);
-        total_external_guess = log(max(1e-12, strys.(['s_' sreg])))/(strpar.phiB_p * strpar.deltaB_p)*strys.(['Y_' sreg]);
-
-        foc_total_external = @(total_external_position) ...
-            1 + 2 * strpar.phiadjB_p * strys.(['adjB_' sreg]) ...
-            - discount_factor * ( ...
-                strys.(['s_' sreg]) * (1 + strys.rf - strpar.deltaB_p) * exp(-strpar.phiB_p * strpar.deltaB_p * total_external_position / strys.(['Y_' sreg])) ...
-                + 2 * strpar.phiadjB_p * strys.(['adjB_' sreg]) ...
-            );
-
-        if abs(foc_total_external(total_external_guess)) < 1e-12
-            total_external_position = total_external_guess;
-        else
-            total_external_position = fzero(foc_total_external, total_external_guess);
-        end
-
-        strys.(['B_' sreg]) = total_external_position - strys.(['BG_' sreg]);
-
-        premium_term = strys.(['s_' sreg]) * exp(-strpar.phiB_p * strpar.deltaB_p * total_external_position / strys.(['Y_' sreg]));
         adjustment_ss = 0.5 * strys.(['adjB_' sreg]);
 
-        % Net exports implied by the steady-state law of motion for (B+BG).
-        strys.(['NX_' sreg]) = total_external_position ...
-            - (1 + strys.rf) * premium_term * total_external_position ...
-            + strpar.phiadjB_p * adjustment_ss^2 ...
-            - strys.(['deltaB_' sreg]) ...
-            + ifdireg;
-        
-        % regional net exports
-        strys.(['X_' sreg]) = (strys.(['NX_' sreg])+strys.(['M_' sreg]))/strys.(['P_Q_' sreg]);        
+        if strexo.(['exo_lNXTarget_' sreg]) == 1
+            % Baseline: net exports are pinned to the calibrated target ratio.
+            % premium_term is identically 1 along the total_external_position/
+            % s_reg locus used below (s_reg = exp(phiB_p*deltaB_p*T/Y) makes
+            % s_reg*exp(-phiB_p*deltaB_p*T/Y) = 1), so the law-of-motion
+            % identity collapses to NX = -rf*T + phiadjB_p*adjustment_ss^2
+            % - deltaB + ifdireg, which is linear in T and can be inverted
+            % directly for the external position, then for s_reg.
+            strys.(['NX_' sreg]) = (strpar.(['NX0_' sreg '_p']) / strpar.(['Y0_' sreg '_p']) + strexo.(['exo_NX_' sreg])) * strys.(['Y_' sreg]);
+
+            total_external_position = ( ...
+                strpar.phiadjB_p * adjustment_ss^2 ...
+                - strys.(['deltaB_' sreg]) ...
+                + ifdireg ...
+                - strys.(['NX_' sreg]) ...
+            ) / strys.rf;
+
+            strys.(['B_' sreg]) = total_external_position - BG_ext;
+            strys.(['s_' sreg]) = exp(strpar.phiB_p * strpar.deltaB_p * total_external_position / strys.(['Y_' sreg]));
+        else
+            total_external_guess = log(max(1e-12, strys.(['s_' sreg])))/(strpar.phiB_p * strpar.deltaB_p)*strys.(['Y_' sreg]);
+
+            % foc_total_external = @(total_external_position) ...
+            %     1 + 2 * strpar.phiadjB_p * strys.(['adjB_' sreg]) ...
+            %     - discount_factor * ( ...
+            %         strys.(['s_' sreg]) * (1 + strys.rf - strpar.deltaB_p) * exp(-strpar.phiB_p * strpar.deltaB_p * total_external_position / strys.(['Y_' sreg])) ...
+            %         + 2 * strpar.phiadjB_p * strys.(['adjB_' sreg]) ...
+            %     );
+
+            %if abs(foc_total_external(total_external_guess)) < 1e-12
+                total_external_position = total_external_guess;
+            %else
+             %   total_external_position = fzero(foc_total_external, total_external_guess);
+            %end
+
+            strys.(['B_' sreg]) = total_external_position - BG_ext;
+
+            premium_term = strys.(['s_' sreg]) * exp(-strpar.phiB_p * strpar.deltaB_p * total_external_position / strys.(['Y_' sreg]));
+
+            % Net exports implied by the steady-state law of motion for (B+BG).
+            strys.(['NX_' sreg]) = total_external_position ...
+                - (1 + strys.rf) * premium_term * total_external_position ...
+                + strpar.phiadjB_p * adjustment_ss^2 ...
+                - strys.(['deltaB_' sreg]) ...
+                + ifdireg;
+        end
+
+        % regional exports
+        strys.(['X_' sreg]) = (strys.(['NX_' sreg])+strys.(['M_' sreg]))/strys.(['P_Q_' sreg]);
         
         % resources available for consumption and housing
         tempresources = strys.(['Q_' sreg]) + strys.(['Tr_' sreg]) + ...
             strys.(['M_I_' sreg]) +  strys.(['P_F_' sreg]) * strys.(['M_F_' sreg]);
-        temptaxincome = labincometaxes + capincometaxes + strys.(['CapTradeRev_' sreg]);
+        publiccapitalincome = 0;
+        if isfield(strys, ['publiccapitalincome_' sreg])
+            publiccapitalincome = strys.(['publiccapitalincome_' sreg]);
+        end
+        temptaxincome = labincometaxes + capincometaxes + publiccapitalincome + strys.(['CapTradeRev_' sreg]);
 
         tempuses = temptaxincome + strys.(['Q_I_' sreg]) + ...
             strys.(['X_' sreg]) * strys.(['P_Q_' sreg]) + ...
@@ -146,7 +174,7 @@ function [strys, strexo, HousingExpenditures] = compute_regional_macro_aggregate
             ((1 - strpar.(['gamma_' sreg '_p']))* (1-strpar.beta_p * exp(strexo.exo_beta) * strpar.h_p)) * strpar.deltaH_p * strpar.beta_p * exp(strexo.exo_beta) / (1-strpar.beta_p * exp(strexo.exo_beta)*(1-strpar.deltaH_p));
         tempdenom = (1 + strys.(['tauC_' sreg]))*strys.(['P_' sreg]) * (1 + tempCIH);
         % consumption
-        strys.(['C_' sreg])  = tempnum / tempdenom ;
+        strys.(['C_' sreg])  = (tempnum - ((1 + strys.rf) * strys.(['s_' sreg]) - 1) * BG_ext - strys.rf * BG_dom) / tempdenom;
         
         
         for icosec = 1:strpar.inbsectors_p

@@ -34,8 +34,6 @@ function [strys, strpar, strexo] = compute_production_factors_and_output(strys, 
                 strys.(['r_H_' ssubsec '_' sreg]) = PI_PK_ratio * (1/(strpar.beta_p * exp(strexo.exo_beta)) - 1 + strpar.(['delta_' ssubsec '_' sreg '_p']))/(1 - strys.(['tauKH_' ssubsec '_' sreg])) + strys.(['wedgeKE_' ssubsec '_' sreg]);
                 strys.(['r_FDI_' ssubsec '_' sreg]) = (strpar.rf0_p + strexo.(['exo_r_FDI_' ssubsec '_' sreg]));
                 strys.(['r_G_' ssubsec '_' sreg]) = PI_PK_ratio* (strpar.rf0_p + strexo.(['exo_r_G_' ssubsec '_' sreg]));
-                    
-                % When exo_lKRGTarget == 1, r_G_ is backed out later after K_G_ is known.
 
 
                 % auxiliary variable to define the degree of substitutability
@@ -67,6 +65,7 @@ function [strys, strpar, strexo] = compute_production_factors_and_output(strys, 
                         % Floor K_H at zero: K_G may fully crowd out household capital.
                         % When K_G >= K, K_H = 0, I_H = 0, and total K adjusts to K_G.
                         strys.(['K_H_' ssubsec '_' sreg]) = max(0, strys.(['K_' ssubsec '_' sreg]) - strys.(['K_G_' ssubsec '_' sreg]) - strys.(['K_FDI_' ssubsec '_' sreg]));
+                        strys.(['slackKH_' ssubsec '_' sreg]) = 0;
 
                         strys.(['Kserv_' ssubsec '_' sreg]) = strys.(['K_' ssubsec '_' sreg]) * strys.(['u_K_' ssubsec '_' sreg]);
                         strys.(['I_H_' ssubsec '_' sreg]) = strys.(['K_H_' ssubsec '_' sreg]) * strpar.(['delta_' ssubsec '_' sreg '_p']) + strys.(['D_K_' ssubsec '_' sreg]) * (strys.(['K_H_' ssubsec '_' sreg]) > 0);
@@ -84,14 +83,13 @@ function [strys, strpar, strexo] = compute_production_factors_and_output(strys, 
                         capexp = strpar.(['alphaK_' ssubsec '_' sreg '_p']) * strys.(['Y_' ssubsec '_' sreg]);
                         capexo = 0;%strexo.(['exo_KTarget_' ssubsec '_' sreg]) * strpar.Y0_p/strpar.(['P0_' ssubsec '_' sreg '_p'])/strpar.(['delta_' ssubsec '_' sreg '_p']);
                         capnom = capexp / ((1 + strys.(['tauKF_' ssubsec '_' sreg]))) + capexo * (strys.(['r_G_' ssubsec '_' sreg]) - strys.(['r_H_' ssubsec '_' sreg]));
-                        if strexo.(['exo_lKRGTarget_' ssubsec '_' sreg]) == 0
-                            strys = set_baseline_public_capital_from_capnom(strys, strpar, strexo, ssubsec, sreg, capnom);
-                        end
+                        strys = set_baseline_public_capital_from_capnom(strys, strpar, strexo, ssubsec, sreg, capnom);
                         strys.(['Kserv_' ssubsec '_' sreg]) = strys.(['K_' ssubsec '_' sreg]) * strys.(['u_K_' ssubsec '_' sreg]);
                         % strys = set_scenario_public_capital(strys, strpar, strexo, ssubsec, sreg);
                         % strys.(['I_G_' ssubsec '_' sreg]) = strys.(['s_G_' ssubsec '_' sreg])*strpar.Y0_p/strys.(['P_K_' ssubsec '_' sreg])^0;
                         % strys.(['K_G_' ssubsec '_' sreg]) = strys.(['I_G_' ssubsec '_' sreg])/strpar.(['delta_' ssubsec '_' sreg '_p']);
-                        strys.(['K_H_' ssubsec '_' sreg]) = strys.(['K_' ssubsec '_' sreg]) - strys.(['K_G_' ssubsec '_' sreg]) - strys.(['K_FDI_' ssubsec '_' sreg]);
+                        strys.(['K_H_' ssubsec '_' sreg]) = max(0, strys.(['K_' ssubsec '_' sreg]) - strys.(['K_G_' ssubsec '_' sreg]) - strys.(['K_FDI_' ssubsec '_' sreg]));
+                        strys.(['slackKH_' ssubsec '_' sreg]) = 0;
                         strys.(['I_H_' ssubsec '_' sreg]) = strys.(['K_H_' ssubsec '_' sreg]) * strpar.(['delta_' ssubsec '_' sreg '_p']) + strys.(['D_K_' ssubsec '_' sreg]) * (strys.(['K_H_' ssubsec '_' sreg]) > 0);
                         strys.(['ILR_' ssubsec '_' sreg]) = strys.(['I_H_' ssubsec '_' sreg]);
                         strys.(['r_F_' ssubsec '_' sreg]) = (strys.(['r_H_' ssubsec '_' sreg]) * strys.(['K_H_' ssubsec '_' sreg]) + strys.(['r_G_' ssubsec '_' sreg]) * strys.(['K_G_' ssubsec '_' sreg]) + strys.(['r_FDI_' ssubsec '_' sreg]) * strys.(['K_FDI_' ssubsec '_' sreg])) / strys.(['K_' ssubsec '_' sreg]);
@@ -164,14 +162,11 @@ function [strys, strpar, strexo] = compute_production_factors_and_output(strys, 
                     end      
                 else  % Climate Change Scenarios / endogenous Y
                         strys = set_scenario_public_capital(strys, strpar, strexo, ssubsec, sreg);
+                        strys = set_scenario_fdi_capital(strys, strpar, strexo, ssubsec, sreg);
                         % strys.(['I_G_' ssubsec '_' sreg]) = strys.(['s_G_' ssubsec '_' sreg])*strpar.Y0_p / strys.(['P_K_' ssubsec '_' sreg])^0;
                         % strys.(['K_G_' ssubsec '_' sreg]) = strys.(['I_G_' ssubsec '_' sreg])/strpar.(['delta_' ssubsec '_' sreg '_p']);
-                        if strexo.(['exo_lKRGTarget_' ssubsec '_' sreg]) == 1
-                            strys = set_K_target_and_backout_rG(strys, strpar, strexo, ssubsec, sreg);
-                            % Keep ExoSubsec_13 consistent: r_G_ = rf0_p + exo_r_G_
-                            strexo.(['exo_r_G_' ssubsec '_' sreg]) = strys.(['r_G_' ssubsec '_' sreg]) - strpar.rf0_p;
-                        end
                         strys.(['K_H_' ssubsec '_' sreg]) = max(0, strys.(['K_' ssubsec '_' sreg]) - strys.(['K_G_' ssubsec '_' sreg]) - strys.(['K_FDI_' ssubsec '_' sreg]));
+                        strys.(['slackKH_' ssubsec '_' sreg]) = 0;
                         if strys.(['K_H_' ssubsec '_' sreg]) == 0
                             strys.(['K_' ssubsec '_' sreg]) = strys.(['K_G_' ssubsec '_' sreg]) + strys.(['K_FDI_' ssubsec '_' sreg]);
                         end
@@ -266,7 +261,7 @@ function [strys, strpar, strexo] = compute_production_factors_and_output(strys, 
                 strys.(['mu_' ssubsec '_' sreg]) = exp(strexo.(['exo_mu_' ssubsec '_' sreg]));
                 strys.(['omegaI_' ssubsec '_' sreg]) = 1;
                 
-                % When K-target is ON, K_FDI_, I_FDI_, r_FDI_ were set by set_K_target_and_backout_rG.
+                % When K-target is ON, K_FDI_, I_FDI_, r_FDI_ were set by set_k_target_and_backout_rg.
                     strys.(['I_' ssubsec '_' sreg]) = strys.(['I_H_' ssubsec '_' sreg]) + strys.(['I_FDI_' ssubsec '_' sreg]);
 
                 if strpar.lCalibration_p == 1
@@ -305,7 +300,8 @@ function strys = set_baseline_public_capital_from_capnom(strys, strpar, strexo, 
     % strys = set_baseline_public_capital(strys, strpar, strexo, ssubsec, sreg);
     strys = set_scenario_public_capital(strys, strpar, strexo, ssubsec, sreg);
     strys = set_scenario_fdi_capital(strys, strpar, strexo, ssubsec, sreg);
-    strys.(['K_H_' stemp]) = max(0, capnom - strys.(['K_G_' stemp])  * rG - strys.(['K_FDI_' stemp]) * rFDI)/(rH);
+    strys.(['K_H_' stemp]) = max(0, capnom - strys.(['K_G_' stemp]) * rG - strys.(['K_FDI_' stemp]) * rFDI) / rH;
+    strys.(['slackKH_' stemp]) = 0;
     strys.(['K_' stemp]) = strys.(['K_H_' stemp]) + strys.(['K_G_' stemp]) + strys.(['K_FDI_' stemp]);
 end
 
@@ -322,24 +318,73 @@ function strys = set_scenario_public_capital(strys, strpar, strexo, ssubsec, sre
         % Absolute mode (default): phiG calibrated × baseline K0 × log multiplier
         strys.(['K_G_' stemp]) = strpar.(['phiG_' stemp '_p']) * strpar.(['K0_' stemp '_p']) * exp(strexo.(['exo_K_G_' stemp]));
     end
-    strys.(['I_G_' stemp]) = delta * strys.(['K_G_' stemp]) - phiG * dK;
+
+    % Crowding-out backstop: mirrors the K_G ceiling in ModFiles/Equations/government.mod
+    % (K_G <= sKGmax_eff * K). Keeps the initial guess consistent with the .mod equation so the
+    % subsequent fsolve refinement doesn't have to fight a starting point outside the feasible set.
+    sKGmax_base = strpar.(['sKGmax_' stemp '_p']);
+    sKGmax_shock = 0;
+    if isfield(strexo, ['exo_sKGmax_' stemp]) && isfinite(strexo.(['exo_sKGmax_' stemp]))
+        sKGmax_shock = strexo.(['exo_sKGmax_' stemp]);
+    end
+    sKGmax_eff = min(1, max(0, sKGmax_base * exp(sKGmax_shock)));
+    strys.(['K_G_' stemp]) = min(strys.(['K_G_' stemp]), sKGmax_eff * strys.(['K_' stemp]));
+
+    strys.(['I_G_' stemp]) = delta * strys.(['K_G_' stemp]) - 0*phiG * dK;
 end
 
 function strys = set_scenario_fdi_capital(strys, strpar, strexo, ssubsec, sreg)
     stemp = [ssubsec '_' sreg];
-    phiG  = get_effective_phiG(strpar, strexo, stemp, false);
     delta = strpar.(['delta_' stemp '_p']);
-    dK    = strys.(['D_K_' stemp]);
 
-    if strexo.(['exo_lFDIShare_' stemp]) == 1
-        % Share mode: K_G is a fixed fraction of total K
-        strys.(['K_FDI_' stemp]) = strexo.(['exo_sFDIShare_' stemp]) * strys.(['K_' stemp]);
-    else
-        % Absolute mode (default): phiG calibrated × baseline K0 × log multiplier
-        strys.(['I_FDI_' stemp]) = strexo.(['exo_I_FDI_' stemp]) * strpar.Y0_p / strys.(['P_INV_' stemp]);
-        strys.(['K_FDI_' stemp]) = 1/strpar.(['delta_' stemp '_p']) * strys.(['I_FDI_' stemp]);
+    % Guard setup iterations: if prices/shocks are not finite yet, keep FDI at zero
+    % rather than propagating NaNs into K_H, r_F, A, Q, and Q_D.
+    if ~isfinite(delta) || delta <= 0 || ~isfield(strys, ['P_INV_' stemp]) || ~isfinite(strys.(['P_INV_' stemp]))
+        strys.(['I_FDI_' stemp]) = 0;
+        strys.(['K_FDI_' stemp]) = 0;
+        return;
     end
-    strys.(['I_FDI_' stemp]) = delta * strys.(['K_FDI_' stemp]);
+
+    if isfield(strexo, ['exo_lFDIShare_' stemp]) && strexo.(['exo_lFDIShare_' stemp]) == 1
+        % Share mode: target K_FDI as a share of total capital.
+        sFDI_shock = strexo.(['exo_sFDIShare_' stemp]);
+        sFDI_base = strpar.(['sFDI0_' stemp '_p']);
+        if ~isfinite(sFDI_shock)
+            sFDI_shock = 0;
+        end
+        if ~isfinite(sFDI_base)
+            sFDI_base = 0;
+        end
+        sFDI_eff = min(1, max(0, sFDI_base + sFDI_shock));
+        strys.(['K_FDI_' stemp]) = sFDI_eff * strys.(['K_' stemp]);
+        strys.(['I_FDI_' stemp]) = delta * strys.(['K_FDI_' stemp]);
+    else
+        % Level mode: exogenous FDI investment flow pins I_FDI, then K_FDI follows from SS LOM.
+        phiFDI0 = strpar.(['phiFDI0_' stemp '_p']);
+        exoIFDI = strexo.(['exo_I_FDI_' stemp]);
+        if ~isfinite(phiFDI0)
+            phiFDI0 = 0;
+        end
+        if ~isfinite(exoIFDI)
+            exoIFDI = 0;
+        end
+        % strys.(['I_FDI_' stemp]) = strpar.(['sFDI0_' stemp '_p']) * (strys.(['I_' stemp]) + strys.(['I_G_' stemp]));
+        % strys.(['K_FDI_' stemp]) = strpar.(['sFDI0_' stemp '_p']) * (strys.(['K_' stemp]));
+        strys.(['I_FDI_' stemp]) = (phiFDI0 * (1-exoIFDI)) * strpar.Y0_p / strys.(['P_INV_' stemp]);
+        if delta > 0
+            strys.(['K_FDI_' stemp]) = strys.(['I_FDI_' stemp]) / delta;
+            % strys.(['I_FDI_' stemp]) = strys.(['K_FDI_' stemp]) * delta;
+        else
+            strys.(['K_FDI_' stemp]) = 0;
+        end
+    end
+
+    if ~isfinite(strys.(['I_FDI_' stemp]))
+        strys.(['I_FDI_' stemp]) = 0;
+    end
+    if ~isfinite(strys.(['K_FDI_' stemp]))
+        strys.(['K_FDI_' stemp]) = 0;
+    end
 end
 
 function phiG = get_effective_phiG(strpar, strexo, stemp, useExoPhiG)

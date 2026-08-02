@@ -118,7 +118,7 @@ fprintf('  Saved: %s\n', sScenariosFile);
 
 fprintf('\nMigration complete.\n');
 fprintf('Next: run update_data_excel.m to re-sync IO_Data -> Data -> Start/Structural Parameters.\n');
-fprintf('Then run scripts/maintenance/UpdateBaselineSheet.m if the split Baseline sheet should be refreshed from the combined workbook.\n');
+fprintf('Then run scripts/maintenance/update_baseline_sheet.m if the split Baseline sheet should be refreshed from the combined workbook.\n');
 
 %% ═══════════════════════════════════════════════════════ local functions ═════
 
@@ -159,11 +159,8 @@ function exlFile = rebuild_content(exlFile, exl)
     for ico = 2 : exlFile.Sheets.Count
         sName = exlFile.Sheets.Item(ico).Name;
         wsContent.Range(['A' num2str(ico)]).Value = sName;
-        if ~excel_write_formula_with_fallback(wsContent.Range(['B' num2str(ico)]), ...
-                ['=HYPERLINK("#''' sName '''!A1","' sName '")'])
-            error('migrate_to_split_workbooks:FormulaWriteFailed', ...
-                'Unable to write Content hyperlink for sheet "%s".', sName);
-        end
+        wsContent.Range(['B' num2str(ico)]).Formula = ...
+            ['=HYPERLINK("#''' sName '''!A1","' sName '")'];
     end
     wsContent.Columns.AutoFit;
 end

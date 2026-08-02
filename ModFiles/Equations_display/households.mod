@@ -14,13 +14,13 @@
     lhsdeltaB_@{reg} = rhsdeltaB_@{reg};
 
 
-    #lhsAggReg_@{reg}_7 = lambda_@{reg} * (1 + 2*phiadjB_p*(B_@{reg}EXP+BG_@{reg}EXP-(1-deltaB_p)*(B_@{reg}+BG_@{reg}) + adjB_@{reg}));
-    #rhsAggReg_@{reg}_7 = lambda_@{reg}EXP * beta_p * exp(exo_beta) * (s_@{reg}(+1) * (1 + rfEXP -deltaB_p)*exp(-phiB_p*(B_@{reg}EXP+BG_@{reg}EXP-(1-deltaB_p)*(B_@{reg}+BG_@{reg}))/Y_@{reg}EXP) + 2*phiadjB_p*((B_@{reg}(+2)+BG_@{reg}(+2))-(1-deltaB_p)*(B_@{reg}EXP+BG_@{reg}EXP) + adjB_@{reg}(+1)));
+    #lhsAggReg_@{reg}_7 = lambda_@{reg} * (1 + 2*phiadjB_p*(B_@{reg}EXP+(phi_BG_ext_@{reg}_p + exo_phi_BG_ext_@{reg})*BG_@{reg}EXP-(1-deltaB_p)*(B_@{reg}+(phi_BG_ext_@{reg}_p + exo_phi_BG_ext_@{reg})*BG_@{reg}) + adjB_@{reg}));
+    #rhsAggReg_@{reg}_7 = lambda_@{reg}EXP * beta_p * exp(exo_beta) * (s_@{reg}(+1) * (1 + rfEXP -deltaB_p)*exp(-phiB_p*(B_@{reg}EXP+(phi_BG_ext_@{reg}_p + exo_phi_BG_ext_@{reg})*BG_@{reg}EXP-(1-deltaB_p)*(B_@{reg}+(phi_BG_ext_@{reg}_p + exo_phi_BG_ext_@{reg})*BG_@{reg}))/Y_@{reg}EXP) + 2*phiadjB_p*((B_@{reg}(+2)+(phi_BG_ext_@{reg}_p + exo_phi_BG_ext_@{reg})*BG_@{reg}(+2))-(1-deltaB_p)*(B_@{reg}EXP+(phi_BG_ext_@{reg}_p + exo_phi_BG_ext_@{reg})*BG_@{reg}EXP) + adjB_@{reg}(+1)));
     [name = 'FOC Foreign Assets']
     lhsAggReg_@{reg}_7 = rhsAggReg_@{reg}_7;
 
-    #lhsAggReg_@{reg}_107 = (B_@{reg}EXP + BG_@{reg}EXP);
-    #rhsAggReg_@{reg}_107 = (1 + rf)*s_@{reg}*exp(-phiB_p*(B_@{reg}+BG_@{reg}-(1-deltaB_p)*(B_@{reg}(-1)+BG_@{reg}(-1)))/Y_@{reg}) * (B_@{reg}+BG_@{reg}) + NX_@{reg} - phiadjB_p*(B_@{reg}EXP+BG_@{reg}EXP-(1-deltaB_p)*(B_@{reg}+BG_@{reg}) + 1/2*adjB_@{reg})^2 + deltaB_@{reg}
+    #lhsAggReg_@{reg}_107 = (B_@{reg}EXP + (phi_BG_ext_@{reg}_p + exo_phi_BG_ext_@{reg})*BG_@{reg}EXP);
+    #rhsAggReg_@{reg}_107 = (1 + rf)*s_@{reg}*exp(-phiB_p*(B_@{reg}+(phi_BG_ext_@{reg}_p + exo_phi_BG_ext_@{reg})*BG_@{reg}-(1-deltaB_p)*(B_@{reg}(-1)+(phi_BG_ext_@{reg}_p + exo_phi_BG_ext_@{reg})*BG_@{reg}(-1)))/Y_@{reg}) * (B_@{reg}+(phi_BG_ext_@{reg}_p + exo_phi_BG_ext_@{reg})*BG_@{reg}) + NX_@{reg} - phiadjB_p*(B_@{reg}EXP+(phi_BG_ext_@{reg}_p + exo_phi_BG_ext_@{reg})*BG_@{reg}EXP-(1-deltaB_p)*(B_@{reg}+(phi_BG_ext_@{reg}_p + exo_phi_BG_ext_@{reg})*BG_@{reg}) + 1/2*adjB_@{reg})^2 + deltaB_@{reg}
     @# for sec in 1:Sectors
         @# for subsec in Subsecstart[sec]:Subsecend[sec]
             - I_FDI_@{subsec}_@{reg} * P_INV_@{subsec}_@{reg}
@@ -100,21 +100,13 @@
                 # effDeltaFwd_@{reg}_@{subsec} = delta_@{subsec}_@{reg}(+1);
             @# endif
 
-            @# if (subsec ==  SubsecFossil) && EndoInvEn == 0
-                # lhsCapSub_1_@{reg}_@{subsec} = I_H_@{subsec}_@{reg};
-                # phiG_effHH_@{reg}_@{subsec} = min(1, max(0, phiG_@{subsec}_@{reg}_p * exp(exo_phiG_@{subsec}_@{reg})));
-                # rhsCapSub_1_@{reg}_@{subsec}_1 = delta_@{subsec}_@{reg} * (1-phiG_effHH_@{reg}_@{subsec}) * (K0_@{subsec}_@{reg}_p * exp(exo_I_@{subsec}_@{reg}) * (Y_@{subsec}_@{reg}/Y0_@{subsec}_@{reg}_p)) + exo_beta_@{subsec}_@{reg};// ;
-                # rhsCapSub_1_@{reg}_@{subsec}_2 = exo_KTarget_@{subsec}_@{reg} * (Y/P_INV_@{subsec}_@{reg}-I_G_@{subsec}_@{reg});// ;
-                # rhsCapSub_1_@{reg}_@{subsec} = (exo_KTarget_@{subsec}_@{reg}==0)*rhsCapSub_1_@{reg}_@{subsec}_1 + (exo_KTarget_@{subsec}_@{reg}>0)*rhsCapSub_1_@{reg}_@{subsec}_2;
-            @# else
-                # lhsCapSub_1_@{reg}_@{subsec} = (lambda_@{reg}EXP * beta_p * exp(exo_beta+exo_beta_@{subsec}_@{reg}) * (exp(rlog_H_@{subsec}_@{reg}EXP) - wedgeKE_@{subsec}_@{reg}(+1)) * P_K_@{subsec}_@{reg}EXP * (1 - tauKH_@{subsec}_@{reg}EXP) + lambda_@{reg}EXP * omegaI_@{subsec}_@{reg}EXP * P_INV_@{subsec}_@{reg}EXP * beta_p * exp(exo_beta) * (1 - effDeltaFwd_@{reg}_@{subsec}));
-                # rhsCapSub_1_@{reg}_@{subsec} = lambda_@{reg} * omegaI_@{subsec}_@{reg} * P_INV_@{subsec}_@{reg} * exp(A_INV_@{subsec}_@{reg});
-	        @# endif
+            # lhsCapSub_1_@{reg}_@{subsec} = (lambda_@{reg}EXP * beta_p * exp(exo_beta+exo_beta_@{subsec}_@{reg}) * (exp(rlog_H_@{subsec}_@{reg}EXP) - wedgeKE_@{subsec}_@{reg}(+1)) * P_K_@{subsec}_@{reg}EXP * (1 - tauKH_@{subsec}_@{reg}EXP) + lambda_@{reg}EXP * omegaI_@{subsec}_@{reg}EXP * P_INV_@{subsec}_@{reg}EXP * beta_p * exp(exo_beta) * (1 - effDeltaFwd_@{reg}_@{subsec}));
+            # rhsCapSub_1_@{reg}_@{subsec} = lambda_@{reg} * omegaI_@{subsec}_@{reg} * P_INV_@{subsec}_@{reg} * exp(muI_@{subsec}_@{reg});
 
             [name = 'HH FOC capital @{subsec} @{reg}']
             lhsCapSub_1_@{reg}_@{subsec} = rhsCapSub_1_@{reg}_@{subsec};                    
 
-            @#include "ModFiles/Equations/investment_adjustment.mod"
+            @#include "ModFiles/Equations_display/investment_adjustment.mod"
             #lhsSupplySubsec_11_@{reg}_@{subsec} = (1 - tauNH_@{reg}) * W_@{subsec}_@{reg} * LF_@{reg}/PoP_@{reg} * lambda_@{reg} * lEndoN_@{subsec}_@{reg}_p + (1-lEndoN_@{subsec}_@{reg}_p) * N_@{subsec}_@{reg};
             #rhsSupplySubsec_11_@{reg}_@{subsec} = phiL_@{subsec}_@{reg}_p * A_N_@{subsec}_@{reg} * (N_@{subsec}_@{reg})^sigmaL_p * lEndoN_@{subsec}_@{reg}_p + (1-lEndoN_@{subsec}_@{reg}_p) * phiN0_@{subsec}_@{reg}_p * N0_@{reg}_p;
             [name = 'HH FOC labour @{subsec} @{reg} ',mcp = 'N_@{sec}_@{reg}>0']

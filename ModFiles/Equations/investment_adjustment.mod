@@ -4,9 +4,18 @@
 // Included inside @# for reg / @# for subsec loops in households.mod.
 // Macro variables @{reg} and @{subsec} are inherited from the caller.
 //
-// Switch:  lCapPrice == 1  → capital goods supply price curve (no quantity friction)
-//          lCapQuad == 1   → normalized quadratic cost on level-differences
-//          lCapQuad == 0   → asinh adjustment cost (default)
+// Control flags (defined in DGE_Model.mod):
+//   lCapPrice         == 1  → capital goods supply price curve (no quantity friction)
+//   lCapQuad          == 1  → normalized quadratic adj. cost on level-differences
+//   lCapQuad          == 0  → asinh adj. cost on log-growth (default)
+//   lAdjPos           == 1  → smooth Heaviside weight shuts off adj. cost when I_H < 0
+//   lSolow            == 1  → legacy Solow LOM with inline quadratic (NOT compatible with lCapPrice)
+//   lEndoUtilization  == 1  → endogenous utilization u_K absorbs the investment lower bound
+//   lInternalizePK    == 1  → household internalizes dP_INV/dI_H slope (lCapPrice only)
+//   lCapGoodsSecPrice == 1  → PINV base uses sector output price P_Q (lCapPrice only)
+//
+// Shared smooth floor (used throughout for IRef, I_pos, etc.):
+# epsI_@{reg}_@{subsec} = 1e-3;
 
 @# if lCapPrice == 1
 
@@ -28,61 +37,42 @@
      * AdjCost = 1 (no efficiency loss — all friction is in the price).
      ************************************************************************************/
 
-    // P_K: rental price of installed capital — always the sector's own value-added price.
-    // No supply-curve friction and no exo_P_K here; those shift P_INV only.
-    # lhs_PK_@{subsec}_@{reg} = P_K_@{subsec}_@{reg};
-    # rhs_PK_@{subsec}_@{reg} = P_@{subsec}_@{reg} * exp(exo_P_K_@{subsec}_@{reg})/exp(A_INV_@{subsec}_@{reg});
+    // P_K equals the sector's own value-added price; exo_P_K shifts this price, not P_INV.
+    # lhs_PK_@{reg}_@{subsec} = P_K_@{subsec}_@{reg};
+    # rhs_PK_@{reg}_@{subsec} = P_@{subsec}_@{reg} * exp(exo_P_K_@{subsec}_@{reg});
     [name = 'Rental price of capital @{subsec} @{reg}']
-    (lhs_PK_@{subsec}_@{reg} + 1) / (rhs_PK_@{subsec}_@{reg} + 1) = 1;
+    (lhs_PK_@{reg}_@{subsec} + 1) / (rhs_PK_@{reg}_@{subsec} + 1) = 1;
 
-    // Base price for investment goods supply curve.
     @# if lCapGoodsSecPrice == 1
-        # PINV_base_@{reg}_@{subsec} = P0_@{subsec}_@{reg}_p;// * P_Q_@{CapGoodsSubsec}_@{reg}/P0_Q_@{CapGoodsSubsec}_@{reg}_p;
+        # PINV_base_@{reg}_@{subsec} = P0_@{subsec}_@{reg}_p;
     @# else
         # PINV_base_@{reg}_@{subsec} = P_@{subsec}_@{reg};
     @# endif
 
-    # epsI_@{reg}_@{subsec} = 1e-3;
-    // IRef: replacement investment, predetermined (uses lagged delta and K).
-    // Uses endogenous delta_@{subsec}_@{reg} (not parameter) — tracks fossil depreciation acceleration.
-    # IRefRaw_@{reg}_@{subsec} = delta_@{subsec}_@{reg}
-                                  * K_@{subsec}_@{reg}(-1);
+    // IRef: predetermined replacement investment; smooth floor prevents a zero denominator.
+    // delta_@{subsec}_@{reg} is endogenous — tracks fossil depreciation acceleration.
+    # IRefRaw_@{reg}_@{subsec} = delta_@{subsec}_@{reg} * K_@{subsec}_@{reg}(-1) + D_K_@{subsec}_@{reg};
     # IRef_@{reg}_@{subsec} =
         0.5*( IRefRaw_@{reg}_@{subsec} + epsI_@{reg}_@{subsec}
             + sqrt( (IRefRaw_@{reg}_@{subsec} - epsI_@{reg}_@{subsec})^2 + epsI_@{reg}_@{subsec}^2 ) );
 
-    // Smooth floor on I_H numerator — keeps base of power positive for any Newton iterate.
-    // At SS: I_H >> epsI  →  I_H_pos ≈ I_H  →  ratio = 1  →  P_K = P  ✓
+    // Smooth floor on total investment — keeps power base positive for any Newton iterate.
+    // At SS: I_H >> epsI → I_H_pos ≈ I_H → ratio = 1 → P_INV = PINV_base  ✓
     # I_pos_@{reg}_@{subsec} = 0.5 * ( (I_@{subsec}_@{reg} + I_G_@{subsec}_@{reg})
                                         + sqrt( (I_@{subsec}_@{reg} + I_G_@{subsec}_@{reg})^2 + epsI_@{reg}_@{subsec}^2 ) );
 
     [name = 'Investment goods purchase price @{subsec} @{reg}']
-    @# if (subsec == SubsecFossil) && EndoInvEn == 0
-        // Exogenous fossil: no supply curve friction on P_INV either.
-        (P_INV_@{subsec}_@{reg} + 1) / (PINV_base_@{reg}_@{subsec} + 1) = 1;
-    @# else
-        (P_INV_@{subsec}_@{reg} + 1)
-        / ( PINV_base_@{reg}_@{subsec} * (I_pos_@{reg}_@{subsec} / IRef_@{reg}_@{subsec})^(1/etaKS_p) * exp(exo_I_@{subsec}_@{reg}) + 1 ) = 1;
-    @# endif
-
-    // dIpos = dI_H_pos/dI_H — derivative of the smooth floor w.r.t. I_H
-    # dIpos_@{reg}_@{subsec} = 0.5 * ( 1 + I_@{subsec}_@{reg}
-                                       / sqrt( I_@{subsec}_@{reg}^2 + epsI_@{reg}_@{subsec}^2 ) );
+    (P_INV_@{subsec}_@{reg} + 1)
+    / ( PINV_base_@{reg}_@{subsec} * (I_pos_@{reg}_@{subsec} / IRef_@{reg}_@{subsec})^(1/etaKS_p) * exp(exo_I_@{subsec}_@{reg}) + 1 ) = 1;
 
     [name = 'HH FOC investment @{subsec} @{reg}']
     @# if lInternalizePK == 1
-        // omegaI = P_INV / PINV_base
-        // Household internalizes the supply curve on investment goods price P_INV.
-        // SS: supply curve → P_INV_SS = PINV_base (ratio = 1 → I_H/IRef = 1 at SS)  ✓
-        // Boom: P_INV > PINV_base  →  omegaI > 1  →  higher effective user cost dampens surge  ✓
-        // Bust: P_INV < PINV_base  →  omegaI < 1  →  lower effective user cost cushions wind-down  ✓
+        // Household internalizes the supply curve: omegaI = P_INV / PINV_base.
+        // SS: P_INV_SS = PINV_base → omegaI = 1  ✓
         omegaI_@{subsec}_@{reg} = P_INV_@{subsec}_@{reg} / PINV_base_@{reg}_@{subsec};
     @# else
         omegaI_@{subsec}_@{reg} = 1;
     @# endif
-
-    [name = 'HH capital scrapping @{subsec} @{reg}']
-    scrap_@{subsec}_@{reg} = 0;
 
     # AdjCost_@{reg}_@{subsec} = 1;
 
@@ -109,12 +99,8 @@
      * At SS: xI = xIp = 0 → AdjCost = 1, both derivative terms reduce to 1 and 0.
      ************************************************************************************/
 
-    // Scale reference: replacement investment at CURRENT capital stock.
-    // Using the initial SS level K0 would freeze IRef at the pre-transition scale, creating
-    // massive artificial friction when renewable investment surges during the transition.
-    // K_H(-1)/PoP(-1) is predetermined, so dIRef/dI_H_t = 0 — FOC derivatives unchanged.
-    // At initial SS: K_H(-1)/PoP(-1) = K0_p, so IRef = (1-phiG)*delta*K0 = I_H,SS (no change).
-    # epsI_@{reg}_@{subsec} = 1e-3;
+    // IRef uses current K_H(-1), not initial K0, so it tracks investment scale during transition.
+    // K_H(-1)/PoP(-1) is predetermined → dIRef/dI_H_t = 0 (FOC derivatives unchanged).
     # phiG_effAdj_@{reg}_@{subsec} = min(1, max(0, phiG_@{subsec}_@{reg}_p * exp(exo_phiG_@{subsec}_@{reg})));
     # IRefRaw_@{reg}_@{subsec} = (1-phiG_effAdj_@{reg}_@{subsec})*delta_@{subsec}_@{reg}_p
                                   * K_H_@{subsec}_@{reg}(-1) / PoP_@{reg}(-1);
@@ -122,12 +108,7 @@
         0.5*( IRefRaw_@{reg}_@{subsec} + epsI_@{reg}_@{subsec}
             + sqrt( (IRefRaw_@{reg}_@{subsec} - epsI_@{reg}_@{subsec})^2 + epsI_@{reg}_@{subsec}^2 ) );
 
-    // Zero friction for exogenous-fossil sector
-    @# if (subsec == SubsecFossil) && EndoInvEn == 0
-        # phiKeff_@{reg}_@{subsec} = 0;
-    @# else
-        # phiKeff_@{reg}_@{subsec} = phiK_@{subsec}_@{reg};
-    @# endif
+    # phiKeff_@{reg}_@{subsec} = phiK_@{subsec}_@{reg};
 
     // Crowding-out taper: fade phiKeff to zero as K_H → 0.
     // When K_G crowds out K_H, IRef → epsI and xI = ΔI_H/IRef would blow up,
@@ -137,35 +118,25 @@
     //   → 0  when K_H(-1)/PoP(-1) = 0    (fully crowded out → zero friction) ✓
     //   → 1  when K_H(-1)/PoP(-1) >> IRef (normal investing regime)          ✓
     //
-    // At initial SS: K_H/PoP = K0_p, IRef = (1-phiG)·delta·K0_p → wKHtaper ≈ 1/sqrt(1+((1-phiG)delta)²) ≈ 1 ✓
-    // At SS xI = 0, so phiKeff·xI terms vanish regardless → calibration unchanged.
+    // At initial SS: K_H/PoP = K0_p, IRef = (1-phiG)·delta·K0_p → wKHtaper ≈ 1 ✓
     # wKHtaper_@{reg}_@{subsec} =
         K_H_@{subsec}_@{reg}(-1) / PoP_@{reg}(-1)
         / sqrt( (K_H_@{subsec}_@{reg}(-1) / PoP_@{reg}(-1))^2 + IRef_@{reg}_@{subsec}^2 );
     # phiKeff_@{reg}_@{subsec} = phiKeff_@{reg}_@{subsec} * wKHtaper_@{reg}_@{subsec};
 
-    // Dimensionless deviation terms
     # xI_@{reg}_@{subsec}  = (I_H_@{subsec}_@{reg}     - I_H_@{subsec}_@{reg}(-1)) / IRef_@{reg}_@{subsec};
-    # xIp_@{reg}_@{subsec} = (I_H_@{subsec}_@{reg}(+1) - I_H_@{subsec}_@{reg}    ) / IRef_@{reg}_@{subsec};
+    # xIp_@{reg}_@{subsec} = (I_H_@{subsec}_@{reg}EXP - I_H_@{subsec}_@{reg}    ) / IRef_@{reg}_@{subsec};
 
-    // Adjustment efficiency (= 1 at SS; used in capital LOM)
     # AdjCost_@{reg}_@{subsec} = 1 - (phiKeff_@{reg}_@{subsec}/2) * xI_@{reg}_@{subsec}^2;
 
     [name = 'HH FOC investment @{subsec} @{reg}']
-    @# if (subsec == SubsecFossil) && EndoInvEn == 0
-        omegaI_@{subsec}_@{reg} = 1;
-    @# else
-        (lambda_@{reg} * P_INV_@{subsec}_@{reg} + 1)
-        / ( omegaI_@{subsec}_@{reg} * lambda_@{reg} * P_INV_@{subsec}_@{reg}
-            * (1 - (phiKeff_@{reg}_@{subsec}/2)*xI_@{reg}_@{subsec}^2
-                  - phiKeff_@{reg}_@{subsec}*xI_@{reg}_@{subsec}*I_H_@{subsec}_@{reg}/IRef_@{reg}_@{subsec})
-          + beta_p * exp(exo_beta) * omegaI_@{subsec}_@{reg}EXP * lambda_@{reg}EXP * P_INV_@{subsec}_@{reg}EXP
-            * phiKeff_@{reg}_@{subsec} * xIp_@{reg}_@{subsec} * I_H_@{subsec}_@{reg}EXP / IRef_@{reg}_@{subsec}
-          + 1 ) = 1;
-    @# endif
-
-    [name = 'HH capital scrapping @{subsec} @{reg}']
-    scrap_@{subsec}_@{reg} = 0;
+    (lambda_@{reg} * P_INV_@{subsec}_@{reg} + 1)
+    / ( omegaI_@{subsec}_@{reg} * lambda_@{reg} * P_INV_@{subsec}_@{reg}
+        * (1 - (phiKeff_@{reg}_@{subsec}/2)*xI_@{reg}_@{subsec}^2
+              - phiKeff_@{reg}_@{subsec}*xI_@{reg}_@{subsec}*I_H_@{subsec}_@{reg}/IRef_@{reg}_@{subsec})
+      + beta_p * exp(exo_beta) * omegaI_@{subsec}_@{reg}EXP * lambda_@{reg}EXP * P_INV_@{subsec}_@{reg}EXP
+        * phiKeff_@{reg}_@{subsec} * xIp_@{reg}_@{subsec} * I_H_@{subsec}_@{reg}EXP / IRef_@{reg}_@{subsec}
+      + 1 ) = 1;
 
 @# else
 
@@ -213,27 +184,19 @@
     //
     // At SS: IScale = IRef = I_H_SS, xI = 0, AdjCost = 1, omegaI = 1 (no change to calibration).
 
-    # epsI_@{reg}_@{subsec} = 1e-3;
-    // IRef: transition-proof replacement investment (K_H(-1) is predetermined, so dIRef/dI_H = 0).
-    // Using K0_p would freeze IRef at initial SS — problematic when investment surges in transition.
+    // IRef: transition-proof replacement investment (K_H(-1) predetermined → dIRef/dI_H = 0).
     # phiG_effAdj_@{reg}_@{subsec} = min(1, max(0, phiG_@{subsec}_@{reg}_p * exp(exo_phiG_@{subsec}_@{reg})));
     # IRefRaw_@{reg}_@{subsec} = 0.01*(1-phiG_effAdj_@{reg}_@{subsec}) * delta_@{subsec}_@{reg}_p
                                   * K_H_@{subsec}_@{reg}(-1) / PoP_@{reg}(-1);
     # IRef_@{reg}_@{subsec} =
         0.5*( IRefRaw_@{reg}_@{subsec} + epsI_@{reg}_@{subsec}
             + sqrt( (IRefRaw_@{reg}_@{subsec} - epsI_@{reg}_@{subsec})^2 + epsI_@{reg}_@{subsec}^2 ) );
-    // IScale = IRef: bounds xI to ≈ −log(2) when I_H → 0, preventing Sraw explosion.
+    // IScale = IRef bounds xI to ≈ −log(2) when I_H → 0, preventing Sraw explosion.
     # IScale_@{reg}_@{subsec} = IRef_@{reg}_@{subsec};
 
-    // aK = sqrt(phiK/2); zero for exogenous-fossil sector
-    @# if (subsec == SubsecFossil) && EndoInvEn == 0
-        # aK_@{reg}_@{subsec} = 0;
-    @# else
-        # aK_@{reg}_@{subsec} = sqrt(phiK_@{subsec}_@{reg} / 2);
-    @# endif
+    # aK_@{reg}_@{subsec} = sqrt(phiK_@{subsec}_@{reg} / 2);
 
     // Smooth-floored investment for log argument — prevents log(0) or log(<0).
-    // For I_H >> IScale this is ≈ I_H; for I_H << −IScale this is ≈ IScale²/(2|I_H|) → 0.
     # IPos_@{reg}_@{subsec}     = 0.5*( I_H_@{subsec}_@{reg}
                                        + sqrt( I_H_@{subsec}_@{reg}^2    + IScale_@{reg}_@{subsec}^2 ) );
     # IPosEXP_@{reg}_@{subsec}  = 0.5*( I_H_@{subsec}_@{reg}EXP
@@ -241,13 +204,12 @@
     # IPosPrev_@{reg}_@{subsec} = 0.5*( I_H_@{subsec}_@{reg}(-1)
                                        + sqrt( I_H_@{subsec}_@{reg}(-1)^2 + IScale_@{reg}_@{subsec}^2 ) );
 
-    // Log-growth deviations (= 0 at SS where I_H_t = I_H_{t-1})
+    // Log-growth deviations (= 0 at SS where I_H_t = I_H_{t-1}).
     # xI_@{reg}_@{subsec}  = log( IPos_@{reg}_@{subsec}    ) - log( IPosPrev_@{reg}_@{subsec} );
     # xIp_@{reg}_@{subsec} = log( IPosEXP_@{reg}_@{subsec} ) - log( IPos_@{reg}_@{subsec}    );
 
-    // Smooth Heaviside weight using IScale-based sigmoid → 1/I_H² decay for large negative I_H.
-    //   w = 0.5*(1 + I_H/sqrt(I_H² + IScale²))  ≈ 1 for I_H >> IScale, ≈ 0 for I_H << −IScale
-    //   dw/dI_H = 0.5 * IScale² / (I_H² + IScale²)^(3/2)   [decays as IScale²/I_H³]
+    // Smooth Heaviside weight → 1/I_H² decay for large negative I_H (see WHY block above).
+    //   w ≈ 1 for I_H >> IScale (normal regime), ≈ 0 for I_H << −IScale (phase-out)
     @# if lAdjPos == 1
         # wPos_@{reg}_@{subsec}     = 0.5*( 1 + I_H_@{subsec}_@{reg}
                                            / sqrt( I_H_@{subsec}_@{reg}^2    + IScale_@{reg}_@{subsec}^2 ) );
@@ -261,7 +223,7 @@
         # dwPos_dI_@{reg}_@{subsec} = 0;
     @# endif
 
-    // Cosh cost (= 0 at xI = 0) and weighted adjustment efficiency for capital LOM
+    // Cosh cost (= 0 at xI = 0) and weighted adjustment efficiency for capital LOM.
     # Sraw_@{reg}_@{subsec}    = exp(  aK_@{reg}_@{subsec} * xI_@{reg}_@{subsec} )
                                 + exp( -aK_@{reg}_@{subsec} * xI_@{reg}_@{subsec} ) - 2;
     # AdjCost_@{reg}_@{subsec} = 1 - wPos_@{reg}_@{subsec} * Sraw_@{reg}_@{subsec};
@@ -290,49 +252,51 @@
         * I_H_@{subsec}_@{reg}EXP * dIPos_dI_@{reg}_@{subsec} / IPos_@{reg}_@{subsec};
 
     [name = 'HH FOC investment @{subsec} @{reg}']
-    @# if (subsec == SubsecFossil) && EndoInvEn == 0
-        omegaI_@{subsec}_@{reg} =  1;
-    @# else
-        (lambda_@{reg} * P_INV_@{subsec}_@{reg} + 1)
-        / ( omegaI_@{subsec}_@{reg} * lambda_@{reg} * P_INV_@{subsec}_@{reg} * nowAdj_@{reg}_@{subsec}
-          + beta_p * exp(exo_beta) * omegaI_@{subsec}_@{reg}EXP * lambda_@{reg}EXP * P_INV_@{subsec}_@{reg}EXP * fwdAdj_@{reg}_@{subsec}
-          + 1 ) = 1;
-    @# endif
-
-    [name = 'HH capital scrapping @{subsec} @{reg}']
-    scrap_@{subsec}_@{reg} = 0;
+    (lambda_@{reg} * P_INV_@{subsec}_@{reg} + 1)
+    / ( omegaI_@{subsec}_@{reg} * lambda_@{reg} * P_INV_@{subsec}_@{reg} * nowAdj_@{reg}_@{subsec}
+      + beta_p * exp(exo_beta) * omegaI_@{subsec}_@{reg}EXP * lambda_@{reg}EXP * P_INV_@{subsec}_@{reg}EXP * fwdAdj_@{reg}_@{subsec}
+      + 1 ) = 1;
 
 @# endif
 
+// Capital scrapping is zero in all branches.
+[name = 'HH capital scrapping @{subsec} @{reg}']
+scrap_@{subsec}_@{reg} = 0;
+
 // ---------------------------------------------------------------------------------
 // Capital law of motion
-// K_H/PoP = smooth_max( (1-effDelta)*K_H(-1)/PoP(-1) + I_H/PoP*AdjCost - scrap/PoP - D_K/PoP, epsK )
+// K_H/PoP = (1 − effDelta)*K_H(-1)/PoP(-1) + (I_H/PoP)*AdjCost − scrap/PoP − D_K/PoP
 //
-// When lEndoUtilization == 1: effDelta = delta * u_K^sigmaU  (endogenous depreciation).
-// At SS u_K = 1, so effDelta = delta — no change to steady-state calibration.
-// The smooth floor prevents K_H from going negative during Newton iterations.
+// When lEndoUtilization == 1:
+//   effDelta = delta + (rKSS/sigmaU)*(u_K^sigmaU − 1)
+//   At SS u_K = 1 → effDelta = delta (calibration unchanged).
+// When lEndoUtilization == 0:
+//   effDelta = delta.
+//
+// No smooth floor on rawK: smooth_max(0, epsK) ≈ 1.5·epsK ≠ 0 creates a systematic SS
+// residual when K_H_ss = 0. The phiKeff crowding-out taper prevents AdjCost blow-up instead.
+// K_H is purely domestic household capital; FDI capital accumulates as K_FDI_ (investment_wedge.mod).
+//
+// NOTE: lSolow == 1 uses a legacy inline-quadratic LOM and is NOT compatible with lCapPrice
+//       (phiG_effAdj is undefined in that branch).
 // ---------------------------------------------------------------------------------
 # epsK_@{reg}_@{subsec} = epsI_@{reg}_@{subsec} * K0_@{subsec}_@{reg}_p / max(1, K0_@{subsec}_@{reg}_p);
+// epsKcomp: smoothing width for the slackKH complementarity (= epsK^2, so sqrt(rawK^2+epsKcomp)=sqrt(rawK^2+epsK^2)).
+# epsKcomp_@{reg}_@{subsec} = epsK_@{reg}_@{subsec}^2;
 
 @# if lEndoUtilization == 1
-    // Effective (utilization-adjusted) depreciation rate.
-    //
-    // Correct SS condition from the capital Euler (omegaI=1, P_K constant):
-    //   r_H_SS * (1-tauKH_SS) = 1/beta - 1 + delta_SS  ≡  rKSS
-    //
-    // For u_K = 1 to be the SS, we need d(delta_eff)/d(u_K)|_{u_K=1} = rKSS.
-    // Using delta_eff = delta + (rKSS/sigmaU) * (u_K^sigmaU - 1):
-    //   delta_eff(1)             = delta                  ✓ (SS unchanged)
-    //   d(delta_eff)/d(u_K)|u=1 = rKSS                   ✓ (FOC satisfied)
-    //
-    // Note: requires sigmaU > rKSS/delta to keep delta_eff ≥ 0 when u_K → 0.
+    // Utilization-adjusted depreciation: delta_eff = delta + (rKSS/sigmaU)*(u_K^sigmaU − 1).
+    // Correct SS condition from capital Euler (omegaI=1, P_K constant):
+    //   r_H_SS*(1−tauKH_SS) = 1/beta − 1 + delta_SS  ≡  rKSS
+    // delta_eff(u_K=1) = delta ✓;  d(delta_eff)/d(u_K)|_{u=1} = rKSS ✓ (FOC satisfied).
+    // Requires sigmaU > rKSS/delta to keep delta_eff ≥ 0 as u_K → 0.
     // Default sigmaU_p = 2 is safe for typical beta=0.95, delta=0.05-0.15.
     # rKSS_@{reg}_@{subsec} = 1/beta_p - 1 + delta_@{subsec}_@{reg};
-    // Smooth floor: u_K_pos = smooth_max(u_K, 0) keeps u_K_pos > 0 for any Newton iterate.
-    // eps = 0.01 → u_K_pos(u_K=1) ≈ 1.000025 (negligible SS error); floor ≈ eps²/4|u_K| → 0⁺.
+    // Smooth floor: u_K_pos = smooth_max(u_K, 0) keeps the power u_K^sigmaU well-defined.
+    // eps = 0.01 → u_K_pos(u_K=1) ≈ 1.000025 (negligible SS error).
     # u_K_pos_@{reg}_@{subsec} = 0.5 * ( u_K_@{subsec}_@{reg}
                                         + sqrt( u_K_@{subsec}_@{reg}^2 + 1e-4 ) );
-    # effDelta_@{reg}_@{subsec} = delta_@{subsec}_@{reg})
+    # effDelta_@{reg}_@{subsec} = delta_@{subsec}_@{reg}
                                 + rKSS_@{reg}_@{subsec} / sigmaU_p
                                   * (u_K_pos_@{reg}_@{subsec}^sigmaU_p - 1);
 @# else
@@ -340,6 +304,8 @@
 @# endif
 
 @# if lSolow == 1
+    // Legacy Solow LOM: inline quadratic adjustment cost.
+    // Requires phiG_effAdj_@{reg}_@{subsec} — defined in lCapQuad and asinh branches only.
     # rawK_@{reg}_@{subsec} = (1 - effDelta_@{reg}_@{subsec}) * K_H_@{subsec}_@{reg}(-1) / PoP_@{reg}(-1)
                             + I_H_@{subsec}_@{reg} / PoP_@{reg}
                             - phiK_@{subsec}_@{reg}_p^2*(I_H_@{subsec}_@{reg} / PoP_@{reg} - (I_H_@{subsec}_@{reg}(-1)) / PoP_@{reg}(-1))^2
@@ -352,15 +318,21 @@
                             - D_K_@{subsec}_@{reg} / PoP_@{reg});
 @# endif
 
-# lhsCapSub_3_@{reg}_@{subsec} = K_H_@{subsec}_@{reg} / PoP_@{reg}*exp(A_INV_@{subsec}_@{reg});
-// No smooth floor here: rawK can touch zero when K_G fully crowds out K_H.
-// The floor was removed because smooth_max(0, epsK) ≈ 1.5·epsK ≠ 0, creating a systematic
-// SS residual when K_H_ss = 0. Instead, the phiKeff taper below prevents AdjCost blow-up.
-// K_H_ is purely domestic household capital. FDI capital accumulates separately as K_FDI_ (see investment_wedge.mod).
-# rhsCapSub_3_@{reg}_@{subsec} = rawK_@{reg}_@{subsec};
+# lhsCapSub_3_@{reg}_@{subsec} = K_H_@{subsec}_@{reg} / PoP_@{reg};
+// slackKH absorbs any negative rawK so the LOM RHS stays non-negative.
+# rhsCapSub_3_@{reg}_@{subsec} = rawK_@{reg}_@{subsec} + slackKH_@{subsec}_@{reg};
 
-[name = 'LOM capital']
+[name = 'LOM capital @{subsec} @{reg}']
 (lhsCapSub_3_@{reg}_@{subsec}+1)/(rhsCapSub_3_@{reg}_@{subsec}+1)=1;
+
+// slackKH complementarity: slackKH = smooth_max(-rawK, 0) = 0.5*(-rawK + sqrt(rawK^2 + epsK^2))
+// Rearranged as: 2*slackKH + rawK = sqrt(rawK^2 + epsKcomp)  where epsKcomp = epsK^2
+//   rawK >> 0 (normal):  slackKH → 0, K_H = rawK as usual                  ✓
+//   rawK < 0  (Newton):  slackKH → -rawK, K_H → 0 (floor enforced)         ✓
+//   rawK = 0  (K_H_ss=0): slackKH = 0.5*epsK (negligible bias O(epsK))     ✓
+[name = 'Capital non-negativity slack @{subsec} @{reg}']
+(2*slackKH_@{subsec}_@{reg} + rawK_@{reg}_@{subsec} + 1)
+/ (sqrt(rawK_@{reg}_@{subsec}^2 + epsKcomp_@{reg}_@{subsec}) + 1) = 1;
 
 @# if lEndoUtilization == 1
     // ---------------------------------------------------------------------------------
@@ -381,9 +353,8 @@
     //   ─────────────────────────────────────────  = 1
     //   [wInv*1   + (1−wInv)*omegaI*rKSS*u_K^σ + 1]
     //
-    // SS: I_H_SS > 0 → wInv = 1 → u_K = 1  ✓  (for any sigmaU_p)
+    // SS: I_H_SS > 0 → wInv = 1 → u_K = 1  ✓
     // Transition (fossil, I_H → 0): wInv → 0, FOC pins u_K < 1 endogenously.
-    //
     // Scale IRef_@{reg}_@{subsec} (≈ replacement investment) sets the transition width.
     // ---------------------------------------------------------------------------------
     # wInv_@{reg}_@{subsec} = 0.5 * ( 1 + I_H_@{subsec}_@{reg}

@@ -28,7 +28,7 @@ sPathWD = pwd();
 inbsubsectors_p = 5;
 % define number of regions
 inbregions_p = 1;
-sversion = '';
+sversion = 'training';
 
 %% Update the calibration excel file
 % ModelCalibration*.xlsx holds Data, Start, and Structural Parameters sheets

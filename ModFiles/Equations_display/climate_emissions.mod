@@ -5,7 +5,7 @@
     @# for z in ClimateVarsRegional
         #lhsClim_@{z}_@{reg} = @{z}_@{reg};
         #rhsClim_@{z}_@{reg} = @{z}0_@{reg}_p + exo_@{z}_@{reg};
-        [name = '@{z}']
+        [name = '@{z} @{reg}']
         lhsClim_@{z}_@{reg} = rhsClim_@{z}_@{reg};
     @# endfor
     #lhsAggReg_@{reg}_25 = E_@{reg};
@@ -19,7 +19,7 @@
             @# endfor
         @# endfor
     ;
-    [name = 'regional emissions']
+    [name = 'regional emissions @{reg}']
     lhsAggReg_@{reg}_25 = rhsAggReg_@{reg}_25;
 
     #lhsAggReg_@{reg}_25_NOETS = E_NOETS_@{reg};
@@ -30,12 +30,12 @@
             @# endfor
         @# endfor
     ;
-    [name = 'regional emissions not covered by ETS']
+    [name = 'regional emissions not covered by ETS @{reg}']
     lhsAggReg_@{reg}_25_NOETS = rhsAggReg_@{reg}_25_NOETS;
 
     #lhsAggReg_@{reg}_25_ETS = E_ETS_@{reg};
     #rhsAggReg_@{reg}_25_ETS = E_@{reg};
-    [name = 'regional emissions covered by ETS']
+    [name = 'regional emissions covered by ETS @{reg}']
     lhsAggReg_@{reg}_25_ETS = rhsAggReg_@{reg}_25_ETS;
 
     #lhsSubsidies_@{reg} = tauS_@{reg} * 
@@ -48,7 +48,7 @@
     )
     ;
     #rhsSubsidies_@{reg} = exo_tauS_@{reg} * PE_@{reg} * E_@{reg};
-    [name = 'regional susbsidies']
+    [name = 'regional subsidies @{reg}']
     lhsSubsidies_@{reg} = rhsSubsidies_@{reg};
     @# if CapandTrade == 1
         #lhsEmissionPrice_@{reg} = E_@{reg} + (exo_PE_@{reg} + exo_PE+exo_CapTradeInternat+exo_CapTrade_@{reg})*phiG_p;
@@ -59,14 +59,14 @@
     @# endif
 
 
-    [name = 'regional price of emissions/emission cap']
+    [name = 'regional price of emissions/emission cap @{reg}']
     lhsEmissionPrice_@{reg} = rhsEmissionPrice_@{reg};
 
     #lhsEnergyEfficiency_@{reg} = EE_@{reg}*(lEndogenousY_p==1) + Q_@{SubsecFossil}_@{reg}*(lEndogenousY_p==0);
     #rhsEnergyEfficiency_@{reg} = exp(exo_EE_@{reg})*(lEndogenousY_p==1) + Q0_@{SubsecFossil}_@{reg}_p*exp(exo_Q_@{SubsecFossil}_@{reg})*(lEndogenousY_p==0);
 
 
-    [name = 'regional energy efficiency']
+    [name = 'regional energy efficiency @{reg}']
     lhsEnergyEfficiency_@{reg} = rhsEnergyEfficiency_@{reg};
 
 @# endfor

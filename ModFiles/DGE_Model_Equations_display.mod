@@ -85,9 +85,4 @@ model;
 // ==========================================
 @#include "ModFiles/Equations_display/investment_wedge.mod"
 
-// ==========================================
-// Block 15: Exogenous Private Investment
-// ==========================================
-@#include "ModFiles/Equations_display/private_investment.mod"
-
 end;

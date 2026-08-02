@@ -1,3 +1,23 @@
 /+DGE_Model
 DGE_Model.log
 /DGE_Model
+
+# Generated simulation outputs and results
+ExcelFiles/Output/
+ExcelFiles/Archive/
+
+# Editor autosave files
+*.asv
+
+# LaTeX build artifacts
+*.aux
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# Build/runtime logs (except documentation)
+DGE_Model.log
+
+# Optional: Mat files (large binary results)
+# Uncomment if you don't want to version MAT output files
+# *.mat

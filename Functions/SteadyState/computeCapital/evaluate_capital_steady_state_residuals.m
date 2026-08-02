@@ -17,7 +17,20 @@ function [fval_vec, strys] = evaluate_capital_steady_state_residuals(strys, strp
     strys.G = 0;
     for icoreg = 1:strpar.inbregions_p
         sreg = num2str(icoreg);
-        lhs_G = ((strys.(['wagetax_' sreg]) + strys.(['capitaltax_' sreg]) + strys.(['tauC_' sreg]) * strys.(['P_' sreg]) * strys.(['C_' sreg]) + strys.(['tauH_' sreg]) *  strys.(['PH_' sreg]) * strys.(['IH_' sreg]) + strys.(['PE_' sreg]) * strys.(['E_' sreg])) - (strys.rf) *  strys.(['BG_' sreg]) - strys.(['adaptationcost_' sreg]))/strys.(['P_' sreg]) - strys.(['Tr_' sreg]);
+        nominal_government_revenue = ...
+            strys.(['wagetax_' sreg]) ...
+            + strys.(['capitaltax_' sreg]) ...
+            + strys.(['publiccapitalincome_' sreg]) ...
+            + strys.(['tauC_' sreg]) * strys.(['P_' sreg]) * strys.(['C_' sreg]) ...
+            + strys.(['tauH_' sreg]) * strys.(['PH_' sreg]) * strys.(['IH_' sreg]) ...
+            + strys.(['PE_' sreg]) * strys.(['E_' sreg]) ...
+            + ((1 + strys.rf) * strys.(['s_' sreg]) - 1) * (strpar.(['phi_BG_ext_' sreg '_p']) + strexo.(['exo_phi_BG_ext_' sreg])) * strys.(['BG_' sreg]) ...
+            + strys.rf * (1 - strpar.(['phi_BG_ext_' sreg '_p']) - strexo.(['exo_phi_BG_ext_' sreg])) * strys.(['BG_' sreg]);
+        nominal_government_costs = ...
+            strys.(['adaptationcost_' sreg]);
+        lhs_G = (nominal_government_revenue - nominal_government_costs) ...
+            / strys.(['P_' sreg]) ...
+            - strys.(['Tr_' sreg]);
         if strpar.phiG_p > 0
             rhs_G = strys.(['G_' sreg]);
             fval_vec_G(icoreg) = 1 - rhs_G / lhs_G;
@@ -171,7 +184,7 @@ function [fval_vec, strys] = evaluate_capital_steady_state_residuals(strys, strp
                     if strpar.(['lEndoQ_' ssubsec '_' sreg '_p']) == 0
                         icomatch = icomatch + 1;
                         lhs1 = strys.(['Q_' ssubsec '_' sreg]);
-                        rhs1 = strpar.(['Q0_' ssubsec '_' sreg '_p']) * exp(strexo.(['exo_Q_' ssubsec '_' sreg])); %# ok
+                        rhs1 = strpar.(['Q0_' ssubsec '_' sreg '_p']) * exp(strexo.(['exo_Q_' ssubsec '_' sreg]));
                         fval_vec_8(icomatch) = 1-lhs1/rhs1;
                     end
                 end
@@ -207,13 +220,15 @@ function [fval_vec, strys] = evaluate_capital_steady_state_residuals(strys, strp
         strys.EMIEXP = 0;
         for icoreg = 1:strpar.inbregions_p
             sreg = num2str(icoreg);
-            if strexo.(['exo_CapTrade_' sreg]) == 1% && strpar.lEndogenousY_p == 1
-                fval_vec_E = strys.(['E_' sreg]) / (strpar.(['E0_' sreg '_p']) * exp(strexo.(['exo_EBase_' sreg])+strexo.(['exo_E_' sreg])))-1;
+            if strexo.(['exo_CapTrade_' sreg]) == 1
+                lhsE = strys.(['E_' sreg]) ...
+                    + (strexo.(['exo_PE_' sreg]) + strexo.exo_PE + strexo.exo_CapTradeInternat + strexo.(['exo_CapTrade_' sreg])) * strpar.phiG_p;
+                rhsE = strpar.(['E0_' sreg '_p']) * exp(strexo.(['exo_EBase_' sreg])+strexo.(['exo_E_' sreg]));
+                fval_vec_E = (lhsE + 1) / (rhsE + 1) - 1;
                 fval_vec = [fval_vec(:); fval_vec_E];
             end
             strys.EMIEXP = strys.EMIEXP + strys.(['PE_' sreg]) * strys.(['E_' sreg]);
         end
-        % strys.PE = strpar.PE0_p;
     end
 
 
@@ -222,7 +237,7 @@ function [fval_vec, strys] = evaluate_capital_steady_state_residuals(strys, strp
         if strexo.(['exo_tauSTr_' sreg]) > 0
             lhs = strys.(['Tr_' sreg]);
             rhs = strpar.(['Tr0_' sreg '_p'])  + strexo.(['exo_Tr_' sreg]) + strexo.(['exo_tauSTr_' sreg]) * strys.(['PE_' sreg]) * strys.(['E_' sreg]);
-            fval_vec = [fval_vec(:); lhs/rhs-1];
+            fval_vec = [fval_vec(:); (lhs + 1) / (rhs + 1) - 1];
         end
     end
 
@@ -232,7 +247,7 @@ function [fval_vec, strys] = evaluate_capital_steady_state_residuals(strys, strp
             sfossilsec = num2str(strpar.iSubsecFossil_p);
             lhs = (strys.(['capitalexp_' sreg]) - strys.(['P_K_' sfossilsec '_' sreg]) * strys.(['K_' sfossilsec '_' sreg]) * strys.(['r_F_' sfossilsec '_' sreg])) * strys.(['tauS_' sreg]);
             rhs = strexo.(['exo_tauS_' sreg]) * strys.(['PE_' sreg]) * strys.(['E_' sreg]);
-            fval_vec = [fval_vec(:); lhs/rhs-1];
+            fval_vec = [fval_vec(:); (lhs + 1) / (rhs + 1) - 1];
         end
     end
 
@@ -262,7 +277,7 @@ function [fval_vec, strys] = evaluate_capital_steady_state_residuals(strys, strp
                     sreg = num2str(icoreg);
                     icomatch = icomatch + 1;
                     lhs1 = strys.(['Q_I_' ssubsec '_' sreg])/strys.(['Q_' ssubsec '_' sreg]);
-                    rhs1 = strpar.(['Q_I0_' ssubsec '_' sreg '_p']) * exp(strexo.(['exo_QI_' ssubsec '_' sreg])); %# ok
+                    rhs1 = strpar.(['Q_I0_' ssubsec '_' sreg '_p']) * exp(strexo.(['exo_QI_' ssubsec '_' sreg]));
                     fval_vec_9(icomatch) = 1-lhs1/rhs1;
                 end
             end
@@ -312,5 +327,22 @@ function [fval_vec, strys] = evaluate_capital_steady_state_residuals(strys, strp
             end
         end
         fval_vec = [fval_vec(:); fval_vec_12(:)];
+
+        % Government-consumption-to-GDP target: with tauCEndo floating (freed above
+        % in assign_predetermined_variables.m), this residual pins G/Y to its target,
+        % mirroring how fval_vec_11 pins Q_fossil to free EE_reg. GY0_reg_p is the
+        % calibrated initial G/Y ratio (see setup_initial_state.m); exo_targetGY_reg
+        % is the optional Excel-driven additive deviation from it. strys.G_reg here is
+        % the ordinary GDP-identity value (compute_regional_macro_aggregates.m, unchanged
+        % from before the G/Y feature); tauCEndo reaches it only indirectly via C_reg,
+        % with the government budget constraint itself left to hold via Walras' law.
+        fval_vec_13 = [];
+        for icoreg = 1:strpar.inbregions_p
+            sreg = num2str(icoreg);
+            lhs = strys.(['G_' sreg]) / strys.(['Y_' sreg]) + 1;
+            rhs = (strpar.(['GY0_' sreg '_p']) + strexo.(['exo_targetGY_' sreg])) + 1;
+            fval_vec_13 = [fval_vec_13; 1-lhs/rhs];%#ok
+        end
+        fval_vec = [fval_vec(:); fval_vec_13(:)];
     end
 end

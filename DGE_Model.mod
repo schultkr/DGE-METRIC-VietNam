@@ -8,11 +8,11 @@
 @# define Sectors = length(Subsecend)
 @# define Subsectors = Subsecend[Sectors]
 @# define ForwardLooking = 1
-@# define YEndogenous = 0
-@# define NEndogenous = 0
+@# define YEndogenous = 1
+@# define NEndogenous = 1
 @# define YTarget = 1
-@# define BaselineScenario = 1
-@# define CapandTrade = 0
+@# define BaselineScenario = 0
+@# define CapandTrade = 1
 @# define ExoNX = 0
 @# define HouseSector = 0
 @# define Regions = 1
@@ -50,13 +50,13 @@ options_.iStepSimulation = 20;
 % =====================================================
 % === Define excel files names and add search paths ===
 % =====================================================
-sWorkbookCalibration = ['ExcelFiles/ModelCalibration' num2str(@{Subsecend[Sectors]}) 'Sectorsand' num2str(@{Regions}) 'Regions.xlsx'];
-sWorkbookBaseline    = ['ExcelFiles/ModelBaseline'    num2str(@{Subsecend[Sectors]}) 'Sectorsand' num2str(@{Regions}) 'Regions.xlsx'];
+sWorkbookCalibration = ['ExcelFiles/ModelCalibration' num2str(@{Subsecend[Sectors]}) 'Sectorsand' num2str(@{Regions}) 'Regions' sSensitivity '.xlsx'];
+sWorkbookBaseline    = ['ExcelFiles/ModelBaseline'    num2str(@{Subsecend[Sectors]}) 'Sectorsand' num2str(@{Regions}) 'Regions' sSensitivity '.xlsx'];
 if ~exist('sBaselineSheet', 'var') || isempty(sBaselineSheet)
     sBaselineSheet = 'Baseline';
 end
-sWorkbookScenarios   = ['ExcelFiles/ModelScenarios'   num2str(@{Subsecend[Sectors]}) 'Sectorsand' num2str(@{Regions}) 'Regions.xlsx'];
-sWorkbookNameOutput = ['ExcelFiles/ResultsScenarios' num2str(@{Subsecend[Sectors]}) 'Sectorsand' num2str(@{Regions})  'Regions.xlsx'];
+sWorkbookScenarios   = ['ExcelFiles/ModelScenarios'   num2str(@{Subsecend[Sectors]}) 'Sectorsand' num2str(@{Regions}) 'Regions' sSensitivity '.xlsx'];
+sWorkbookNameOutput = ['ExcelFiles/ResultsScenarios' num2str(@{Subsecend[Sectors]}) 'Sectorsand' num2str(@{Regions})  'Regions' sSensitivity '.xlsx'];
 % =====================
 % === Add mod files ===
 % =====================

@@ -186,13 +186,8 @@ temp = arrayfun(@(x) arrayfun(@(y) ['gY_' num2str(x) '_' num2str(y)], 1:inbregio
 casGrowthRatesY = [temp{:}];
 temp = arrayfun(@(x) arrayfun(@(y) ['gN_' num2str(x) '_' num2str(y)], 1:inbregions_p, 'UniformOutput', false), 1:inbsubsectors_p, 'UniformOutput', false);
 casGrowthRatesN = [temp{:}];
-temp = arrayfun(@(x) arrayfun(@(y) ['exo_lKRGTarget_' num2str(x) '_' num2str(y)], 1:inbregions_p, 'UniformOutput', false), 1:inbsubsectors_p, 'UniformOutput', false);
-casLKRGTarget = [temp{:}];
-temp = arrayfun(@(x) arrayfun(@(y) ['exo_KRGTarget_' num2str(x) '_' num2str(y)], 1:inbregions_p, 'UniformOutput', false), 1:inbsubsectors_p, 'UniformOutput', false);
-casKRGTarget = [temp{:}];
-
-casCategoriesHeader = [{'Time'}, {'exo_LF_1'}, {'exo_NLF_1'}, casGrowthRatesY, casGrowthRatesN, casLKRGTarget, casKRGTarget];
-casData = arrayfun(@(x) num2str(x), [(2:100)' zeros(99, size(casCategoriesHeader,2)-1-size(casGrowthRatesY,2)-size(casGrowthRatesN,2)-size(casLKRGTarget,2)-size(casKRGTarget,2)) ones(99, size(casGrowthRatesY,2)+size(casGrowthRatesN,2)) zeros(99, size(casLKRGTarget,2)+size(casKRGTarget,2))],'UniformOutput', false);
+casCategoriesHeader = [{'Time'}, {'exo_LF_1'}, {'exo_NLF_1'}, casGrowthRatesY, casGrowthRatesN];
+casData = arrayfun(@(x) num2str(x), [(2:100)' zeros(99, size(casCategoriesHeader,2)-1-size(casGrowthRatesY,2)-size(casGrowthRatesN,2)) ones(99, size(casGrowthRatesY,2)+size(casGrowthRatesN,2))],'UniformOutput', false);
 casCategories = [casCategoriesHeader; casData];
 strSheet(icosheet).Categories = casCategories;
 
@@ -221,7 +216,7 @@ strSheet(icosheet).Categories = casCategories;
 
 %% Define Content Sheet
 icosheet = icosheet + 1;
-casSheets = cellfun(@(x) ['=HYPERLINK("#''' x '''!A1","' x '")'], {strSheet.Name}', 'UniformOutput', false);
+casSheets = cellfun(@(x) ['=HYPERLINK("#''' x '''!A1";"' x '")'], {strSheet.Name}', 'UniformOutput', false);
 casSheetDescriptions = {strSheet.Description}';
 strSheet(icosheet).Name = 'Content';
 casContentSheet = [{'Sheets', '', ''};...

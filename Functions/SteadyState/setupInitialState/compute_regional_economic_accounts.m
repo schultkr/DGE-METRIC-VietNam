@@ -1,4 +1,4 @@
-function [strys, strpar, HousingExpenditures] = compute_regional_economic_accounts(strys, strpar, strexo)
+function [strys, strpar, strexo, HousingExpenditures] = compute_regional_economic_accounts(strys, strpar, strexo)
     
     strys.B = 0;
     strys.Q_U = 0;
@@ -46,14 +46,6 @@ function [strys, strpar, HousingExpenditures] = compute_regional_economic_accoun
         % regional net exports
         strys.(['NX_' sreg]) = strys.(['X_' sreg])*strys.(['P_Q_' sreg]) - strys.(['M_' sreg]);
 
-        % foreign debt / (B > 0 debitor vs. B < 0 creditor)
-        strys.(['B_' sreg]) = -strys.(['NX_' sreg])/(strys.rf) - strys.(['BG_' sreg]);
-
-        % compute exchange rate from total external position
-        strys.(['s_' sreg]) = exp(strpar.phiB_p*strpar.deltaB_p * (strys.(['B_' sreg]) + strys.(['BG_' sreg]))/strys.(['Y_' sreg]));
-
-        % set initial erxchange rate
-        strpar.(['s0_' sreg '_p']) = strys.(['s_' sreg]);
 
         if strpar.inbregions_p > 1
             for icoregm = 1:strpar.inbregions_p
@@ -83,6 +75,7 @@ function [strys, strpar, HousingExpenditures] = compute_regional_economic_accoun
         capincometax = 0;
         labincometax = 0;
         invreg = 0;
+        ifdireg = 0;
         for icosec = 1:strpar.inbsectors_p
             ssec = num2str(icosec);
             for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
@@ -91,6 +84,51 @@ function [strys, strpar, HousingExpenditures] = compute_regional_economic_accoun
                 % rkgross = strys.(['r_' ssubsec '_' sreg]) * (strys.(['tauKH_' ssubsec '_' sreg]) + strys.(['tauKF_'  ssubsec '_' sreg]));
 
                 invreg = invreg  + strys.(['I_' ssubsec '_' sreg]) * strys.(['P_INV_' ssubsec '_' sreg]);
+
+                % In some scenarios/iterations these fields may still be NaN.
+                % Treat missing/non-finite FDI components as zero in setup mode.
+                I_FDI_val = 0;
+                K_FDI_val = 0;
+                r_FDI_val = 0;
+                P_INV_val = 0;
+                P_K_val   = 0;
+
+                if isfield(strys, ['I_FDI_' ssubsec '_' sreg])
+                    temp = strys.(['I_FDI_' ssubsec '_' sreg]);
+                    if isfinite(temp)
+                        I_FDI_val = temp;
+                    end
+                end
+                if isfield(strys, ['K_FDI_' ssubsec '_' sreg])
+                    temp = strys.(['K_FDI_' ssubsec '_' sreg]);
+                    if isfinite(temp)
+                        K_FDI_val = temp;
+                    end
+                end
+                if isfield(strys, ['r_FDI_' ssubsec '_' sreg])
+                    temp = strys.(['r_FDI_' ssubsec '_' sreg]);
+                    if isfinite(temp)
+                        r_FDI_val = temp;
+                    end
+                end
+                if isfield(strys, ['P_INV_' ssubsec '_' sreg])
+                    temp = strys.(['P_INV_' ssubsec '_' sreg]);
+                    if isfinite(temp)
+                        P_INV_val = temp;
+                    end
+                end
+                if isfield(strys, ['P_K_' ssubsec '_' sreg])
+                    temp = strys.(['P_K_' ssubsec '_' sreg]);
+                    if isfinite(temp)
+                        P_K_val = temp;
+                    end
+                end
+
+                fdi_income_outflow = 0;
+                if P_INV_val > 0
+                    fdi_income_outflow = r_FDI_val * P_K_val / P_INV_val * K_FDI_val;
+                end
+                ifdireg = ifdireg + I_FDI_val * P_INV_val + fdi_income_outflow;
 
                 capincometax = capincometax + strys.(['K_H_' ssubsec '_' sreg]) * strys.(['P_K_' ssubsec '_' sreg]) / strys.(['P_' sreg]) * strys.(['tauKH_' ssubsec '_' sreg]) * strys.(['r_H_' ssubsec '_' sreg]);
                 capincometax = capincometax + strys.(['K_' ssubsec '_' sreg]) * strys.(['P_K_' ssubsec '_' sreg]) / strys.(['P_' sreg]) * strys.(['tauKF_' ssubsec '_' sreg]) * strys.(['r_F_' ssubsec '_' sreg]);
@@ -124,16 +162,10 @@ function [strys, strpar, HousingExpenditures] = compute_regional_economic_accoun
             for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
                 ssubsec = num2str(icosubsec);
                 strys.(['CapTradeRev_' sreg]) = strys.(['CapTradeRev_' sreg]) + strys.(['E_' ssubsec '_' sreg]) * strys.(['PE_' sreg]) * strpar.(['lEndoQ_' ssubsec '_' sreg '_p']);
-                kgLagField1 = ['K_G_lag_' ssubsec '_' sreg];
-                kgLagField2 = ['K_G_' ssubsec '_' sreg '_lag'];
-                if isfield(strys, kgLagField1)
-                    kgLag = strys.(kgLagField1);
-                elseif isfield(strys, kgLagField2)
-                    kgLag = strys.(kgLagField2);
-                else
-                    kgLag = strys.(['K_G_' ssubsec '_' sreg]);
-                end
-                strys.(['I_G_' sreg]) = strys.(['I_G_' sreg]) + 1 / strys.(['P_' sreg]) * (strys.(['I_G_' ssubsec '_' sreg]) * strys.(['P_INV_' ssubsec '_' sreg]) - strys.(['r_G_' ssubsec '_' sreg]) * strys.(['P_K_' ssubsec '_' sreg]) * kgLag);
+                strys.(['I_G_' sreg]) = strys.(['I_G_' sreg]) + ...
+                    (strys.(['I_G_' ssubsec '_' sreg]) + strys.(['G_A_' ssubsec '_' sreg])) ...
+                    * strys.(['P_INV_' ssubsec '_' sreg]) ...
+                    / strys.(['P_' sreg]);
                 for icosecm = 1:strpar.inbsectors_p
                     ssecm = num2str(icosecm);
                     strys.(['CapTradeRev_' sreg]) = strys.(['CapTradeRev_' sreg]) + strys.(['E_I_' ssubsec '_' sreg '_' ssecm]) * strys.(['PE_' sreg]) * strpar.(['lEndoQ_' ssubsec '_' sreg '_p']);
@@ -143,8 +175,39 @@ function [strys, strpar, HousingExpenditures] = compute_regional_economic_accoun
 
         strys.CapTradeRev = strys.CapTradeRev + strys.(['CapTradeRev_' sreg]);
 
+        % External-balance NX includes FDI investment and repatriated returns.
+        % Keep trade NX (X*P_Q - M) unchanged for goods-market identities.
+        if ~isfinite(ifdireg)
+            ifdireg = 0;
+        end
+        nx_external = strys.(['NX_' sreg]) - ifdireg;
+        BG_ext = (strpar.(['phi_BG_ext_' sreg '_p']) + strexo.(['exo_phi_BG_ext_' sreg])) * strys.(['BG_' sreg]);
+        BG_dom = strys.(['BG_' sreg]) - BG_ext;
+        strys.(['B_' sreg]) = -nx_external / (strys.rf) - BG_ext;
+        strys.(['s_' sreg]) = exp(strpar.phiB_p * strpar.deltaB_p * (strys.(['B_' sreg]) + BG_ext) / strys.(['Y_' sreg]));
+        if strpar.lCalibration_p == 1
+            strpar.(['s0_' sreg '_p']) = strys.(['s_' sreg]);
+            strexo.(['exo_s_' sreg]) = 0;
+        else
+            strexo.(['exo_s_' sreg]) = log(strys.(['s_' sreg]) / strpar.(['s0_' sreg '_p']));
+        end
+
+        % Transfers: recompute with full formula now that E_reg is available.
+        % (assign_predetermined_variables only sets Tr_reg when exo_tauSTr == 0.)
+        strys.(['Tr_' sreg]) = strpar.(['Tr0_' sreg '_p']) + strexo.(['exo_Tr_' sreg]) ...
+            + strexo.(['exo_tauSTr_' sreg]) * strys.(['PE_' sreg]) * strys.(['E_' sreg]);
+
+        % Public capital rental income r_G*K_G*P_K (government revenue, not household income).
+        % compute_tax_income runs before this function, so publiccapitalincome_reg is ready.
+        pubCapInc = 0;
+        if isfield(strys, ['publiccapitalincome_' sreg])
+            pubCapInc = strys.(['publiccapitalincome_' sreg]) / strys.(['P_' sreg]);
+        end
+
         % consumption
-        strys.(['C_' sreg]) = (strys.(['Q_' sreg]) - strys.(['Q_I_' sreg]) - labincometax - capincometax - invreg - strys.(['I_PV_' sreg]) - strys.(['CapTradeRev_' sreg]) - strys.(['NX_' sreg]) - strys.(['NXD_' sreg]) - strys.(['PH_' sreg]) * strys.(['H_' sreg]) * strpar.deltaH_p * (1 + strys.(['tauH_' sreg])))/(strys.(['P_' sreg]) * (1 + strys.(['tauC_' sreg])));
+        strys.(['C_' sreg]) = (strys.(['Q_' sreg]) + strys.(['Tr_' sreg]) - strys.(['Q_I_' sreg]) - labincometax - capincometax - pubCapInc - invreg - strys.(['I_PV_' sreg]) - strys.(['CapTradeRev_' sreg]) - strys.(['NX_' sreg]) - strys.(['NXD_' sreg]) - strys.(['PH_' sreg]) * strys.(['H_' sreg]) * strpar.deltaH_p * (1 + strys.(['tauH_' sreg])))/(strys.(['P_' sreg]) * (1 + strys.(['tauC_' sreg]))) ...
+            - ((1 + strys.rf) * strys.(['s_' sreg]) - 1) * BG_ext / (strys.(['P_' sreg]) * (1 + strys.(['tauC_' sreg]))) ...
+            - strys.rf * BG_dom / (strys.(['P_' sreg]) * (1 + strys.(['tauC_' sreg])));
 
 
         % auxiliary variable to compute gamma

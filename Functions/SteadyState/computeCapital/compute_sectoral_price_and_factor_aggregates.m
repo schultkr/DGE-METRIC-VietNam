@@ -36,7 +36,7 @@ function strys = compute_sectoral_price_and_factor_aggregates(strys, strpar, str
                 rhotemp = ((strpar.(['etaNK_' ssubsec '_' sreg '_p']) - 1) / ...
                            strpar.(['etaNK_' ssubsec '_' sreg '_p']));
 
-                strys.(['A_INV_' ssubsec '_' sreg]) = 0;
+                strys.(['muI_' ssubsec '_' sreg]) = 0;
 
                 % P_K: rental price of installed capital = sector's own value-added price.
                 strys.(['P_K_' ssubsec '_' sreg]) = strys.(['P_' ssubsec '_' sreg]) *exp(strexo.(['exo_P_K_' ssubsec '_' sreg]));

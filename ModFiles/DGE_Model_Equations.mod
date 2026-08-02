@@ -66,11 +66,6 @@ model;
 @#include "ModFiles/Equations/firms.mod"
 
 // ==========================================
-// Block 11: Foreign Wholesalers
-// ==========================================
-@#include "ModFiles/Equations/foreign_wholesalers.mod"
-
-// ==========================================
 // Block 12: Climate Variables and Emissions
 // ==========================================
 @#include "ModFiles/Equations/climate_emissions.mod"
@@ -84,11 +79,6 @@ model;
 // Block 14: Investment-to-GDP wedge
 // ==========================================
 @#include "ModFiles/Equations/investment_wedge.mod"
-
-// ==========================================
-// Block 15: Exogenous Private Investment
-// ==========================================
-@#include "ModFiles/Equations/private_investment.mod"
 
 end;
 

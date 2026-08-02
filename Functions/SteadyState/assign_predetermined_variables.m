@@ -44,15 +44,52 @@ function [strys,strpar, strexo] = assign_predetermined_variables(strys,strpar, s
         strys.(['PoP_' sreg]) = strys.(['LF_' sreg]) + (strpar.(['PoP0_' sreg '_p'])-strpar.(['LF0_' sreg '_p'])) * exp(strexo.(['exo_NLF_' sreg]));
         strys.PoP = strys.PoP + strys.(['PoP_' sreg]);
         strys.(['tauNH_' sreg]) = strpar.(['tauNH_' sreg '_p']) + strexo.(['exo_tauNH_' sreg]);
-        strys.(['tauC_' sreg]) = strpar.(['tauC_' sreg '_p']) + strexo.(['exo_tauC_' sreg]);
+        if strpar.lCalibration_p ~= 2
+            strys.(['tauCEndo_' sreg]) = strpar.(['tauC_' sreg '_p']) + strexo.(['exo_tauC_' sreg]) + strexo.(['exo_tauCScen_' sreg]);
+        end
+        strys.(['tauC_' sreg]) = strys.(['tauCEndo_' sreg]);
         strys.(['tauH_' sreg]) = strpar.(['tauH_' sreg '_p']) + strexo.(['exo_tauH_' sreg]);
         % government foreign debt 
-        strys.(['BG_' sreg]) = strexo.(['exo_BG_' sreg])*strys.Y;
+        strys.(['BG_' sreg]) = (strpar.(['BG0_' sreg '_p']) + strexo.(['exo_BG_' sreg]))*strpar.Y0_p;
         strys.(['I_PV_' sreg]) = (strpar.phiKPV0_p*strpar.deltaPV_p + strexo.(['exo_PV_' sreg])) * strpar.Y0_p;
         strys.(['K_PV_' sreg]) = strys.(['I_PV_' sreg])/strpar.deltaPV_p;
         strys.(['Q_PV_' sreg]) = strys.(['K_PV_' sreg])*strpar.phiPV_p*exp(strexo.(['exo_PVEff_' sreg]));
 
     end
+
+    % In hybrid steady-state calibration we pin subsector emissions via exo_E_{subsec,reg}
+    % residuals. Ensure the regional cap shock exo_E_reg is consistent with those pins,
+    % otherwise the cap equation can remain structurally nonzero.
+    if strpar.lCalibration_p == 2
+        for icoreg = 1:strpar.inbregions_p
+            sreg = num2str(icoreg);
+            lCapActive = strexo.exo_CapTradeInternat == 1;
+            if ~lCapActive && isfield(strexo, ['exo_CapTrade_' sreg])
+                lCapActive = strexo.(['exo_CapTrade_' sreg]) == 1;
+            end
+            if ~lCapActive
+                continue
+            end
+
+            eTargetSector = 0;
+            for icosec = 1:strpar.inbsectors_p
+                ssec = num2str(icosec);
+                for icosubsec = strpar.(['substart_' ssec '_p']):strpar.(['subend_' ssec '_p'])
+                    ssubsec = num2str(icosubsec);
+                    e0secreg = strpar.(['E0_' sreg '_p']) * strpar.(['sE_' ssubsec '_' sreg '_p']);
+                    eTargetSector = eTargetSector + e0secreg * exp(strexo.(['exo_E_' ssubsec '_' sreg]));
+                end
+            end
+
+            e0reg = strpar.(['E0_' sreg '_p']);
+            capShift = (strexo.(['exo_PE_' sreg]) + strexo.exo_PE + strexo.exo_CapTradeInternat + strexo.(['exo_CapTrade_' sreg])) * strpar.phiG_p;
+            eTargetReg = eTargetSector + capShift;
+            if isfinite(eTargetReg) && eTargetReg > 0 && isfinite(e0reg) && e0reg > 0
+                strexo.(['exo_E_' sreg]) = log(eTargetReg / e0reg) - strexo.(['exo_EBase_' sreg]);
+            end
+        end
+    end
+
     strpar.PE0_p = strpar.EMIEXP0_p /strpar.E0_p;
     % Calibrate SRI wedge parameter from share of SCC internalized:
     % phiKE_p = chiSRI_p * PE_ss/P_ss, with P_ss = 1 in model normalization.
@@ -148,9 +185,9 @@ function [strys,strpar, strexo] = assign_predetermined_variables(strys,strpar, s
                 strys.(['D_' ssubsec '_' sreg]) = strexo.(['exo_D_' ssubsec '_' sreg]);
                 strys.(['delta_' ssubsec '_' sreg]) = strpar.(['delta_' ssubsec '_' sreg '_p']);
                 strys.(['D_N_' ssubsec '_' sreg]) = strexo.(['exo_D_N_' ssubsec '_' sreg]);
-                strys.(['D_K_' ssubsec '_' sreg]) = strexo.(['exo_D_K_' ssubsec '_' sreg]) * strpar.Y0_p/strpar.(['P0_' ssubsec '_' sreg '_p']);
+                % strys.(['D_K_' ssubsec '_' sreg]) = strexo.(['exo_D_K_' ssubsec '_' sreg]) * strpar.Y0_p/strpar.(['P0_' ssubsec '_' sreg '_p']);
+                strys.(['D_K_' ssubsec '_' sreg]) = strexo.(['exo_D_K_' ssubsec '_' sreg]) * strpar.(['K0_' ssubsec '_' sreg '_p']);
                 strys.(['D_KHelp_' ssec '_' sreg]) = strys.(['D_KHelp_' ssec '_' sreg]) + strys.(['D_K_' ssubsec '_' sreg]);
-
                 strys.(['u_K_' ssubsec '_' sreg]) = exp(strexo.(['exo_u_K_' ssubsec '_' sreg]));
                 if strpar.lCalibration_p ~= 2
                     strys.(['kappaE_' ssubsec '_' sreg]) = strpar.(['kappaE_' ssubsec '_' sreg '_p']) + strexo.(['exo_kappaE_' ssubsec '_' sreg]);

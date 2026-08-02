@@ -422,28 +422,23 @@ end
                 % Interest rate net of taxes
                 strys.(['r_H_' stemp]) = strys.(['P_INV_' stemp]) / strys.(['P_K_' stemp]) * (1 / strpar.beta_p - 1 +  strpar.(['delta_' ssubsec '_' sreg '_p'])) / (1 - strys.(['tauKH_'  ssubsec '_' sreg])) + strys.(['wedgeKE_' stemp]);                
                 
-                if strexo.(['exo_lKRGTarget_' ssubsec '_' sreg]) == 0
-                    strys.(['r_G_' ssubsec '_' sreg]) = strpar.rf0_p + strexo.(['exo_r_G_' ssubsec '_' sreg]);
-                else
-                    strys.(['r_G_' ssubsec '_' sreg]) = strpar.rf0_p;
-                end
-                % When exo_lKRGTarget == 1, r_G_ is a placeholder; backed out after K_ and K_G_ are known.
+                strys.(['r_G_' ssubsec '_' sreg]) = strpar.rf0_p + strexo.(['exo_r_G_' ssubsec '_' sreg]);
 
                 % Determine capital shares for weighted rental rate computation.
                 % Share mode: use new exo_sKGShare / exo_sFDIShare variables.
                 % Default mode: use calibrated phiG (K_FDI share = 0).
-                if isfield(strexo, ['exo_lIGShare_' stemp]) && strexo.(['exo_lIGShare_' stemp]) == 1
+                lIGShare = isfield(strexo, ['exo_lIGShare_' stemp]) && strexo.(['exo_lIGShare_' stemp]) == 1;
+                if lIGShare
                     sKG_init = strexo.(['exo_sIGShare_' stemp]);
                 else
                     sKG_init = strpar.(['phiG_' ssubsec '_' sreg '_p']);
                 end
-                if isfield(strexo, ['exo_lFDIShare_' stemp]) && strexo.(['exo_lFDIShare_' stemp]) == 1
-                    sFDI_init = strexo.(['exo_sFDIShare_' stemp]);
-                else
-                    sFDI_init = 0;
-                end
+
+
+                sFDI_init = min(1, max(0, strpar.(['sFDI0_' stemp '_p']) * (1-strexo.(['exo_sFDIShare_' stemp]))));
+                
                 r_FDI_init = strpar.rf0_p + strexo.(['exo_r_FDI_' stemp]);
-                strys.(['r_' stemp]) = strys.(['r_G_' stemp]) * sKG_init ...
+                strys.(['r_F_' stemp]) = strys.(['r_G_' stemp]) * sKG_init ...
                                      + r_FDI_init * sFDI_init ...
                                      + strys.(['r_H_' stemp]) * (1 - sKG_init - sFDI_init);
 
@@ -463,7 +458,7 @@ end
                 % Store calibrated real output for use in compute_exogenous_y_production.
                 % P0_s * Y0_s = FCgva_s is the correct TFP normalization at any calibration PE.
                 strpar.(['Y0_' stemp '_p']) = strys.(['Y_' stemp]);
-                rkgross = strys.(['r_' stemp]) * (1 + strys.(['tauKF_' stemp])) * exp(strexo.(['exo_P_K_' stemp]));
+                rkgross = strys.(['r_F_' stemp]) * (1 + strys.(['tauKF_' stemp])) * exp(strexo.(['exo_P_K_' stemp]));
                 strys.(['K_' stemp]) = (1 - strpar.(['WAexp_' stemp '_p']) / FCgva_stemp) * strys.(['Y_' stemp]) / rkgross;
                 strpar.(['K0_' ssubsec '_' sreg '_p']) = strys.(['K_' ssubsec '_' sreg]);
                                 
@@ -471,11 +466,24 @@ end
                 K_now  = strys.(['K_' stemp]);
                 delta_s = strpar.(['delta_' stemp '_p']);
                 strys.(['K_G_' stemp])   = sKG_init  * K_now;
+                % Share mode: target K_FDI/K directly in steady state.
                 strys.(['K_FDI_' stemp]) = sFDI_init * K_now;
-                strys.(['K_H_' stemp])   = max(0, (1 - sKG_init - sFDI_init) * K_now);
+                strys.(['I_FDI_' stemp]) = delta_s * strys.(['K_FDI_' stemp]);
+                strpar.(['phiFDI0_' stemp '_p']) = strys.(['I_FDI_' stemp]) * strys.(['P_INV_' stemp]) / strpar.Y0_p - strexo.(['exo_I_FDI_' stemp]);
+                % Level mode: exogenous FDI investment flow, then infer K_FDI from SS LOM.
+                strys.(['I_FDI_' stemp]) = (strpar.(['phiFDI0_' stemp '_p']) + strexo.(['exo_I_FDI_' stemp])) * strpar.Y0_p / strys.(['P_INV_' stemp]);
+                if delta_s > 0
+                    strys.(['K_FDI_' stemp]) = strys.(['I_FDI_' stemp]) / delta_s;
+                else
+                    strys.(['K_FDI_' stemp]) = 0;
+                end
+
+                rawKH = K_now - strys.(['K_G_' stemp]) - strys.(['K_FDI_' stemp]);
+                epsKH = 1e-8 * max(1, K_now);
+                strys.(['K_H_'     stemp]) = 0.5 * (rawKH + sqrt(rawKH^2 + epsKH^2));
+                strys.(['slackKH_' stemp]) = strys.(['K_H_' stemp]) - rawKH;
                 strys.(['I_G_' stemp])   = delta_s * strys.(['K_G_' stemp]);
                 strys.(['I_H_' stemp])   = delta_s * strys.(['K_H_' stemp]);
-                strys.(['I_FDI_' stemp]) = delta_s * strys.(['K_FDI_' stemp]);
                 strys.(['r_FDI_' stemp]) = r_FDI_init;
                 strpar.(['s_G_' ssubsec '_' sreg '_p']) = strys.(['I_G_' stemp]) * strys.(['P_K_' stemp])^0 ./ strpar.Y0_p;
                 strys.(['s_G_' stemp]) = strpar.(['s_G_' stemp '_p']) + strexo.(['exo_s_G_' stemp]);
@@ -483,10 +491,6 @@ end
                                         + strys.(['r_G_'   stemp]) * strys.(['K_G_'   stemp]) ...
                                         + r_FDI_init               * strys.(['K_FDI_' stemp])) / K_now;
 
-                if strexo.(['exo_lKRGTarget_' ssubsec '_' sreg]) == 1
-                    strys = set_K_target_and_backout_rG(strys, strpar, strexo, ssubsec, sreg);
-                end
-                % When K-target is ON, K_FDI_, I_FDI_, r_FDI_ were set by set_K_target_and_backout_rG.
 
                 % Gross wage before taxes
                 rkgross = strys.(['r_F_' stemp]) * (1 + strys.(['tauKF_' stemp])) * exp(strexo.(['exo_P_K_' stemp]));
@@ -510,7 +514,10 @@ end
                 end
 
                 % Capital used for housing investment
-                strys.(['K_H_' stemp]) = strys.(['K_' stemp]) - strys.(['K_G_' stemp]);
+                rawKH = strys.(['K_' stemp]) - strys.(['K_G_' stemp]);
+                epsKH = 1e-8 * max(1, strys.(['K_' stemp]));
+                strys.(['K_H_'     stemp]) = 0.5 * (rawKH + sqrt(rawKH^2 + epsKH^2));
+                strys.(['slackKH_' stemp]) = strys.(['K_H_' stemp]) - rawKH;
 
                 % Recalculate wage using factor income shares
                 strys.(['W_' stemp]) = strpar.(['WAexp_' stemp '_p']) / ...

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120">
+  <title>Integrated policy package for Viet Nam's energy transition</title>
+  <desc>Editable vector figure showing five mutually reinforcing policy pillars and their combined macroeconomic and climate outcomes.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000000" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,4 L0,8 z" fill="#5B7083"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="1120" fill="#F5F8FA"/>
+  <rect x="0" y="0" width="1600" height="16" fill="#0F6B5B"/>
+
+<text x="800" y="78" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="700" fill="#102A43"><tspan x="800" dy="0">An integrated policy package for Viet Nam’s energy transition</tspan></text>
+<text x="800" y="118" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="400" fill="#486581"><tspan x="800" dy="0">Five mutually reinforcing pillars reduce transition costs and strengthen growth</tspan></text>
+<rect x="70" y="160" width="1460" height="38" rx="19" fill="#DCEFEA"/>
+<text x="800" y="186" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0F6B5B"><tspan x="800" dy="0">CORE ECONOMIC AND INVESTMENT PILLARS</tspan></text>
+<rect x="80" y="225" width="450" height="280" rx="24" fill="#E8F4EE" stroke="#2A7F62" stroke-width="3" filter="url(#shadow)"/>
+<circle cx="124" cy="268" r="24" fill="#2A7F62"/>
+<text x="124" y="276" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#FFFFFF"><tspan x="124" dy="0">1</tspan></text>
+<text x="162" y="265" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#102A43"><tspan x="162" dy="0">Efficiency first</tspan></text>
+<text x="110" y="337" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#334E68"><tspan x="110" dy="0">Accelerate energy efficiency,</tspan><tspan x="110" dy="21.6">technological upgrading and</tspan><tspan x="110" dy="21.6">fuel switching.</tspan><tspan x="110" dy="21.6"></tspan><tspan x="110" dy="21.6">Model result: lower electricity</tspan><tspan x="110" dy="21.6">demand, investment needs and</tspan><tspan x="110" dy="21.6">carbon-price requirements.</tspan></text>
+<rect x="575" y="225" width="450" height="280" rx="24" fill="#EAF1F8" stroke="#2C6E9B" stroke-width="3" filter="url(#shadow)"/>
+<circle cx="619" cy="268" r="24" fill="#2C6E9B"/>
+<text x="619" y="276" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#FFFFFF"><tspan x="619" dy="0">2</tspan></text>
+<text x="657" y="265" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#102A43"><tspan x="657" dy="0">Carbon pricing with</tspan><tspan x="657" dy="24.4">enabling policies</tspan></text>
+<text x="605" y="337" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#334E68"><tspan x="605" dy="0">Phase in the ETS gradually and</tspan><tspan x="605" dy="21.6">coordinate it with efficiency and</tspan><tspan x="605" dy="21.6">renewable-energy policies.</tspan><tspan x="605" dy="21.6"></tspan><tspan x="605" dy="21.6">Model result: carbon pricing is</tspan><tspan x="605" dy="21.6">less costly when firms have viable</tspan><tspan x="605" dy="21.6">low-carbon adjustment options.</tspan></text>
+<rect x="1070" y="225" width="450" height="280" rx="24" fill="#F1ECF8" stroke="#73539B" stroke-width="3" filter="url(#shadow)"/>
+<circle cx="1114" cy="268" r="24" fill="#73539B"/>
+<text x="1114" y="276" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#FFFFFF"><tspan x="1114" dy="0">3</tspan></text>
+<text x="1152" y="265" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#102A43"><tspan x="1152" dy="0">Affordable green finance</tspan></text>
+<text x="1100" y="337" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#334E68"><tspan x="1100" dy="0">Mobilise concessional, blended</tspan><tspan x="1100" dy="21.6">and publicly supported finance.</tspan><tspan x="1100" dy="21.6"></tspan><tspan x="1100" dy="21.6">Model result: lower financing</tspan><tspan x="1100" dy="21.6">costs accelerate investment and</tspan><tspan x="1100" dy="21.6">raise the payoff from greater</tspan><tspan x="1100" dy="21.6">climate ambition.</tspan></text>
+<rect x="70" y="558" width="1460" height="38" rx="19" fill="#F7EFD7"/>
+<text x="800" y="584" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#8B5E00"><tspan x="800" dy="0">ENABLING CONDITIONS</tspan></text>
+<line x1="305" y1="510" x2="305" y2="566" stroke="#5B7083" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="800" y1="510" x2="800" y2="566" stroke="#5B7083" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="1295" y1="510" x2="1295" y2="566" stroke="#5B7083" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="150" y="625" width="620" height="270" rx="24" fill="#FFF6DB" stroke="#B78000" stroke-width="3" filter="url(#shadow)"/>
+<circle cx="196" cy="670" r="24" fill="#B78000"/>
+<text x="196" y="678" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#FFFFFF"><tspan x="196" dy="0">4</tspan></text>
+<text x="236" y="678" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#102A43"><tspan x="236" dy="0">Strategic use of ETS revenues</tspan></text>
+<text x="184" y="733" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#334E68"><tspan x="184" dy="0">Recycle revenues through non-fossil capital-tax</tspan><tspan x="184" dy="21.2">reductions or targeted investment support rather</tspan><tspan x="184" dy="21.2">than broad climate dividends when the objective is</tspan><tspan x="184" dy="21.2">to stimulate investment.</tspan><tspan x="184" dy="21.2"></tspan><tspan x="184" dy="21.2">Use targeted transfers to protect vulnerable</tspan><tspan x="184" dy="21.2">households.</tspan></text>
+<rect x="830" y="625" width="620" height="270" rx="24" fill="#FDEDE7" stroke="#B95C3B" stroke-width="3" filter="url(#shadow)"/>
+<circle cx="876" cy="670" r="24" fill="#B95C3B"/>
+<text x="876" y="678" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#FFFFFF"><tspan x="876" dy="0">5</tspan></text>
+<text x="916" y="678" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#102A43"><tspan x="916" dy="0">Reliable and inclusive transition</tspan></text>
+<text x="864" y="733" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="400" fill="#334E68"><tspan x="864" dy="0">Treat battery storage as a grid-reliability</tspan><tspan x="864" dy="21.2">requirement and support labour mobility,</tspan><tspan x="864" dy="21.2">retraining and skills development.</tspan><tspan x="864" dy="21.2"></tspan><tspan x="864" dy="21.2">These measures strengthen resilience and reduce</tspan><tspan x="864" dy="21.2">adjustment costs.</tspan></text>
+<rect x="310" y="955" width="980" height="122" rx="30" fill="#0F6B5B" filter="url(#shadow)"/>
+<text x="800" y="1003" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#D9F2EA"><tspan x="800" dy="0">Combined outcome</tspan></text>
+<text x="800" y="1040" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#D9F2EA"><tspan x="800" dy="0">Lower transition costs • stronger GDP growth • reliable power system</tspan><tspan x="800" dy="23.6">and alignment with Viet Nam’s net-zero pathway</tspan></text>
+<line x1="460" y1="900" x2="640" y2="944" stroke="#5B7083" stroke-width="4" marker-end="url(#arrow)"/>
+<line x1="1140" y1="900" x2="960" y2="944" stroke="#5B7083" stroke-width="4" marker-end="url(#arrow)"/>
+</svg>

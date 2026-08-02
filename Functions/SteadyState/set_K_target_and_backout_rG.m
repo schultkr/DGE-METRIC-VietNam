@@ -1,7 +1,7 @@
-function strys = set_K_target_and_backout_rG(strys, strpar, strexo, ssubsec, sreg)
+function strys = set_k_target_and_backout_rg(strys, strpar, strexo, ssubsec, sreg)
 % SET_K_TARGET_AND_BACKOUT_RG  Fix total capital to target and back out r_G.
 %
-% When exo_lKRGTarget = 1 for a subsector, ExoSubsec_13 targets K_ rather
+% When K-targeting is enabled for a subsector, ExoSubsec_13 targets K_ rather
 % than setting r_G exogenously.  This function:
 %   1. Overrides K_ with K0_p * exp(exo_KRGTarget_)
 %   2. Recomputes K_H_ = K_ - K_G_
@@ -26,14 +26,17 @@ function strys = set_K_target_and_backout_rG(strys, strpar, strexo, ssubsec, sre
     %    K_H_ stays at its calibrated level K0*(1-phiG), unchanged from the no-FDI SS.
     K_FDI = max(0, K_target - K0);
     K_G   = strys.(['K_G_' stemp]);
-    K_H   = max(0, K_target - K_G - K_FDI);
+    rawKH = K_target - K_G - K_FDI;
+    epsKH = 1e-8 * max(1, K_target);
+    K_H   = 0.5 * (rawKH + sqrt(rawKH^2 + epsKH^2));
 
-    if K_H == 0
+    if rawKH <= 0
         strys.(['K_' stemp]) = K_G + K_FDI;
     end
 
-    strys.(['K_FDI_' stemp]) = K_FDI;
-    strys.(['K_H_'   stemp]) = K_H;
+    strys.(['K_FDI_'   stemp]) = K_FDI;
+    strys.(['K_H_'     stemp]) = K_H;
+    strys.(['slackKH_' stemp]) = K_H - rawKH;
 
     % 3. Derive r_F_ from the firm FOC for capital
     %    FOC: r_F_ * (1+tauKF) * P_K / P = alphaK^(1/etaNK) * [(1-D)*A*A_K]^rho * [Kserv/Y]^(-1/etaNK)

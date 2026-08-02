@@ -1,83 +1,62 @@
 // ==========================================
-// Investment-to-GDP wedge equation
+// Investment Wedge & FDI Capital
 // ==========================================
-// Included from DGE_CRED_Model_Equations.mod (defines its own loops).
+// Included from DGE_Model_Equations.mod via @#include (no loops of its own).
 //
-// The switch exo_ltargetIY_@{subsec}_@{reg} is an EXOGENOUS shock (default = 0).
-// Because it is a shock (not a parameter), its SS value is always 0 — the wedge is
-// therefore always exogenous at steady state: A_INV_SS = exo_A_INV_SS = 0.
+// Exogenous switches (shocks; SS value = 0 in all cases):
+//   exo_ltargetIY_@{subsec}_@{reg}  — 1 = muI endogenous (I/Y targeting); 0 = muI exogenous
+//   exo_targetIY_@{subsec}_@{reg}   — I/Y target path (active when ltargetIY = 1)
+//   exo_muI_@{subsec}_@{reg}        — baseline muI path pre-loaded for scenarios (ltargetIY = 0)
+//   exo_lFDIShare_@{subsec}_@{reg}  — 1 = K_FDI/K share mode; 0 = exo_I_FDI level mode
+//   exo_sFDIShare_@{subsec}_@{reg}  — additive deviation to baseline K_FDI/K share (active when lFDIShare = 1)
+//   exo_I_FDI_@{subsec}_@{reg}      — exogenous FDI flow scaled by Y0_p (active when lFDIShare = 0)
 //
-// Modes (set via exo_ltargetIY in the simulation paths):
+// ---- muI shadow value ----------------------------------------------------------
+// Smooth blended switch (no recompilation needed):
+//   ltargetIY = 1: muI endogenous; adjusts the capital user cost until
+//                  (I_priv + I_pub) * P_INV / (Y_reg * P_reg) = exo_targetIY
+//   ltargetIY = 0: muI = exo_muI (exogenous, pre-loaded from baseline path)
+//   SS: exo_ltargetIY = 0, exo_targetIY = 0, muI_SS = exo_muI_SS = 0
 //
-//   exo_ltargetIY = 1  (Baseline transition path):
-//       A_INV_ is endogenous; it adjusts the capital user cost until I/Y_reg equals the target:
-//           I_@{subsec}_@{reg} / Y_@{reg}  =  targetIY0_@{subsec}_@{reg}_p + exo_targetIY_@{subsec}_@{reg}
-//       Y_@{reg} = price-weighted aggregate regional GDP in the model numeraire
-//                  (sum of P_s*Y_s over subsectors)
-//       targetIY0_p is calibrated to SS ratio → exo_targetIY = 0 at SS
+// ---- K_FDI ---------------------------------------------------------------------
+// K_FDI is foreign-owned capital; its rental return r_FDI flows abroad via the B (NFA) LOM.
+// K_ = K_H_ + K_G_ + K_FDI_  (capital aggregation in firms.mod). K_FDI_SS = 0.
 //
-//   exo_ltargetIY = 0  (SS and Scenarios):
-//       A_INV_ is exogenous: A_INV_@{subsec}_@{reg} = exo_A_INV_@{subsec}_@{reg}
-//       In scenarios, exo_A_INV_ is pre-loaded with the baseline A_INV_ path.
+// K_FDI LOM:
+//   K_FDI/PoP = (1−delta)*K_FDI(-1)/PoP(-1) + I_FDI/PoP
 //
-// Blended equation (smooth switching, no recompilation):
-//   exo_ltargetIY * (I/Y_reg - targetIY0 - exo_targetIY)
-//   + (1 - exo_ltargetIY) * (A_INV_ - exo_A_INV_) = 0
+// I_FDI target (blended switch):
+//   lFDIShare = 0: P_INV * I_FDI = exo_I_FDI * Y0_p   (exogenous FDI level)
+//   lFDIShare = 1: K_FDI/K target with sFDI_eff = clamp(sFDI0 + exo_sFDIShare)
+//                   and I_FDI implied by the K_FDI law of motion.
 
 @# for reg in 1:Regions
     @# for sec in 1:Sectors
         @# for subsec in Subsecstart[sec]:Subsecend[sec]
 
+            // --- muI shadow value ---
+            # lhs_muI_@{subsec}_@{reg} = exo_ltargetIY_@{subsec}_@{reg}
+                                          * (I_@{subsec}_@{reg} + I_G_@{subsec}_@{reg})
+                                          * P_INV_@{subsec}_@{reg} / (Y_@{reg} * P_@{reg})
+                                        + (1 - exo_ltargetIY_@{subsec}_@{reg}) * muI_@{subsec}_@{reg};
+            # rhs_muI_@{subsec}_@{reg} = exo_ltargetIY_@{subsec}_@{reg} * exo_targetIY_@{subsec}_@{reg}
+                                        + (1 - exo_ltargetIY_@{subsec}_@{reg}) * exo_muI_@{subsec}_@{reg};
             [name = 'Investment-to-GDP wedge @{subsec} @{reg}']
-            //exo_ltargetIY_@{subsec}_@{reg} * ((I_@{subsec}_@{reg}+I_G_@{subsec}_@{reg}) * P_INV_@{subsec}_@{reg} / (Y_@{reg} * P_@{reg})) + (1-exo_ltargetIY_@{subsec}_@{reg}) * A_INV_@{subsec}_@{reg} = exo_ltargetIY_@{subsec}_@{reg} * exo_targetIY_@{subsec}_@{reg} + (1-exo_ltargetIY_@{subsec}_@{reg}) * exo_A_INV_@{subsec}_@{reg};
-            exo_ltargetIY_@{subsec}_@{reg} * (I_@{subsec}_@{reg}+I_G_@{subsec}_@{reg}) * P_INV_@{subsec}_@{reg} / (Y_@{reg} * P_@{reg}) + (1-exo_ltargetIY_@{subsec}_@{reg}) * A_INV_@{subsec}_@{reg} = exo_ltargetIY_@{subsec}_@{reg} * (exo_targetIY_@{subsec}_@{reg}) + (1-exo_ltargetIY_@{subsec}_@{reg}) * exo_A_INV_@{subsec}_@{reg};
+            (lhs_muI_@{subsec}_@{reg} + 1) / (rhs_muI_@{subsec}_@{reg} + 1) = 1;
 
-        @# endfor
-    @# endfor
-@# endfor
-
-// ==========================================
-// FDI capital stock: LOM and K-targeting
-// ==========================================
-// K_FDI_@{subsec}_@{reg} is foreign-owned capital. Its rental return r_FDI_ flows
-// abroad via the B (net foreign asset position) LOM. At steady state K_FDI_=0.
-//
-// K_H_ is purely domestic household capital (LOM = rawK, Euler FOC unchanged).
-// K_ = K_H_ + K_G_ + K_FDI_  (firms.mod capital aggregation).
-//
-// Loop A — K_FDI_ law of motion (always active):
-//   K_FDI_(t)/PoP = (1-delta)*K_FDI_(t-1)/PoP(-1) + I_FDI_(t)/PoP
-//
-// Loop B — K-target blended equation (flip-switch pattern, same as exo_ltargetIY):
-//   exo_lKRGTarget = 0: I_FDI_ = 0  (no FDI; K_FDI_ depreciates to zero)
-//   exo_lKRGTarget = 1: K_FDI_/PoP = max(0, K0*exp(exo_KRGTarget) - K_H_ - K_G_) / PoP
-//                        K_FDI_ absorbs the gap; LOM determines I_FDI_ residually
-//
-// No singularity: K-target equation pins K_FDI_ (switch=1) or I_FDI_=0 (switch=0);
-//   LOM pins I_FDI_ (switch=1) or K_FDI_ (switch=0); Euler FOC pins I_H_ always.
-
-@# for reg in 1:Regions
-    @# for sec in 1:Sectors
-        @# for subsec in Subsecstart[sec]:Subsecend[sec]
-            # lhs_K_FDI_@{subsec}_@{reg} = K_FDI_@{subsec}_@{reg} / PoP_@{reg} + exo_lKRGTarget_@{subsec}_@{reg} * exo_KRGTarget_@{subsec}_@{reg};
-            # rhs_K_FDI_@{subsec}_@{reg} = (1 - delta_@{subsec}_@{reg}) * K_FDI_@{subsec}_@{reg}(-1) / PoP_@{reg}(-1) + I_FDI_@{subsec}_@{reg} / PoP_@{reg};
+            // --- K_FDI law of motion ---
+            # lhs_K_FDI_@{subsec}_@{reg} = K_FDI_@{subsec}_@{reg} / PoP_@{reg};
+            # rhs_K_FDI_@{subsec}_@{reg} = (1 - delta_@{subsec}_@{reg}) * K_FDI_@{subsec}_@{reg}(-1) / PoP_@{reg}(-1)
+                                          + I_FDI_@{subsec}_@{reg} / PoP_@{reg};
             [name = 'K_FDI LOM @{subsec} @{reg}']
-            ( lhs_K_FDI_@{subsec}_@{reg} + 1 ) / ( rhs_K_FDI_@{subsec}_@{reg} + 1 ) = 1;
+            (lhs_K_FDI_@{subsec}_@{reg} + 1) / (rhs_K_FDI_@{subsec}_@{reg} + 1) = 1;
 
-        @# endfor
-    @# endfor
-@# endfor
-
-@# for reg in 1:Regions
-    @# for sec in 1:Sectors
-        @# for subsec in Subsecstart[sec]:Subsecend[sec]
-            // When lFDIShare=0: I_FDI is set by exo_I_FDI (existing behaviour).
-            // When lFDIShare=1: I_FDI = sFDIShare × I (investment-flow targeting).
-            //   K_FDI then evolves from the LOM (lhs_K_FDI) given I_FDI.
-            # lhs_I_FDI_@{subsec}_@{reg} = P_INV_@{subsec}_@{reg} * I_FDI_@{subsec}_@{reg};
-            # rhs_I_FDI_@{subsec}_@{reg} = (1 - exo_lFDIShare_@{subsec}_@{reg}) * exo_I_FDI_@{subsec}_@{reg} * Y0_p
-                                          + exo_lFDIShare_@{subsec}_@{reg} * P_INV_@{subsec}_@{reg}
-                                            * exo_sFDIShare_@{subsec}_@{reg} * I_@{subsec}_@{reg};
+            // --- I_FDI target ---
+            // In share mode, target K_FDI as a share of total K and back out I_FDI from the K_FDI LOM.
+            # sFDI_eff_@{subsec}_@{reg} = exo_sFDIShare_@{subsec}_@{reg};
+            # lhs_I_FDI_@{subsec}_@{reg} = (1-exo_lFDIShare_@{subsec}_@{reg}) * I_FDI_@{subsec}_@{reg} * P_INV_@{subsec}_@{reg} + (exo_lFDIShare_@{subsec}_@{reg}) * I_FDI_@{subsec}_@{reg};
+            # rhs_I_FDI_@{subsec}_@{reg} = (1-exo_lFDIShare_@{subsec}_@{reg}) * (phiFDI0_@{subsec}_@{reg}_p *(1-exo_I_FDI_@{subsec}_@{reg})) * Y0_p
+                                                                        + (exo_lFDIShare_@{subsec}_@{reg}) * sFDI_eff_@{subsec}_@{reg} / (1-phiG_@{subsec}_@{reg}_p) * (I_@{subsec}_@{reg});
             [name = 'I-FDI target @{subsec} @{reg}']
             (lhs_I_FDI_@{subsec}_@{reg} + 1) / (rhs_I_FDI_@{subsec}_@{reg} + 1) = 1;
 

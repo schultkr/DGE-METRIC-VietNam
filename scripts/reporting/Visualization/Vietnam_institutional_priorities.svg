@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1120" viewBox="0 0 1600 1120">
+  <title>Institutional foundations for integrated energy-transition planning in Viet Nam</title>
+  <desc>Editable vector figure showing four institutional priorities, seven enabling factors and their contribution to evidence-based energy-transition planning.</desc>
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000000" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L8,4 L0,8 z" fill="#5B7083"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="1600" height="1120" fill="#F5F8FA"/>
+  <rect x="0" y="0" width="1600" height="16" fill="#0F6B5B"/>
+
+<text x="800" y="72" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="35" font-weight="700" fill="#102A43"><tspan x="800" dy="0">Institutional foundations for integrated energy-transition planning</tspan></text>
+<text x="800" y="112" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="400" fill="#486581"><tspan x="800" dy="0">Embedding macroeconomic assessment in national planning improves the quality,</tspan><tspan x="800" dy="22.4">transparency and consistency of policy decisions.</tspan></text>
+<rect x="70" y="158" width="1460" height="38" rx="19" fill="#DCEFEA"/>
+<text x="800" y="184" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#0F6B5B"><tspan x="800" dy="0">INSTITUTIONAL PRIORITIES</tspan></text>
+<rect x="90" y="222" width="680" height="205" rx="24" fill="#E8F4EE" stroke="#2A7F62" stroke-width="3" filter="url(#shadow)"/>
+<circle cx="136" cy="266" r="24" fill="#2A7F62"/>
+<text x="136" y="274" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#FFFFFF"><tspan x="136" dy="0">1</tspan></text>
+<text x="178" y="274" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#102A43"><tspan x="178" dy="0">Institutionalise integrated assessment</tspan></text>
+<text x="124" y="327" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#334E68"><tspan x="124" dy="0">Make macroeconomic assessment a regular component</tspan><tspan x="124" dy="23.0">of national energy and investment planning,</tspan><tspan x="124" dy="23.0">complementing technology-focused analysis.</tspan></text>
+<rect x="830" y="222" width="680" height="205" rx="24" fill="#EAF1F8" stroke="#2C6E9B" stroke-width="3" filter="url(#shadow)"/>
+<circle cx="876" cy="266" r="24" fill="#2C6E9B"/>
+<text x="876" y="274" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#FFFFFF"><tspan x="876" dy="0">2</tspan></text>
+<text x="918" y="274" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#102A43"><tspan x="918" dy="0">Promote transparent analytical tools</tspan></text>
+<text x="864" y="327" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#334E68"><tspan x="864" dy="0">Use open documentation, clear assumptions and</tspan><tspan x="864" dy="23.0">reproducible modelling to strengthen institutional</tspan><tspan x="864" dy="23.0">ownership and stakeholder confidence.</tspan></text>
+<rect x="90" y="465" width="680" height="205" rx="24" fill="#F1ECF8" stroke="#73539B" stroke-width="3" filter="url(#shadow)"/>
+<circle cx="136" cy="509" r="24" fill="#73539B"/>
+<text x="136" y="517" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#FFFFFF"><tspan x="136" dy="0">3</tspan></text>
+<text x="178" y="517" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#102A43"><tspan x="178" dy="0">Invest in national analytical capacity</tspan></text>
+<text x="124" y="570" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#334E68"><tspan x="124" dy="0">Enable Vietnamese institutions to independently</tspan><tspan x="124" dy="23.0">maintain, update and further develop integrated</tspan><tspan x="124" dy="23.0">assessment tools.</tspan></text>
+<rect x="830" y="465" width="680" height="205" rx="24" fill="#FFF6DB" stroke="#B78000" stroke-width="3" filter="url(#shadow)"/>
+<circle cx="876" cy="509" r="24" fill="#B78000"/>
+<text x="876" y="517" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="700" fill="#FFFFFF"><tspan x="876" dy="0">4</tspan></text>
+<text x="918" y="517" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="700" fill="#102A43"><tspan x="918" dy="0">Use scenario analysis strategically</tspan></text>
+<text x="864" y="570" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="400" fill="#334E68"><tspan x="864" dy="0">Compare pathways, assess uncertainties and develop</tspan><tspan x="864" dy="23.0">robust long-term energy and investment strategies</tspan><tspan x="864" dy="23.0">for a changing policy environment.</tspan></text>
+<rect x="70" y="706" width="1460" height="38" rx="19" fill="#F7EFD7"/>
+<text x="800" y="732" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" fill="#8B5E00"><tspan x="800" dy="0">ENABLING FACTORS</tspan></text>
+<line x1="430" y1="674" x2="430" y2="712" stroke="#5B7083" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="1170" y1="674" x2="1170" y2="712" stroke="#5B7083" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="95" y="775" width="315" height="72" rx="20" fill="#FFFFFF" stroke="#B8C6D1" stroke-width="2"/>
+<circle cx="123" cy="811" r="15" fill="#0F6B5B"/>
+<text x="123" y="817" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF"><tspan x="123" dy="0">1</tspan></text>
+<text x="150" y="804" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#334E68"><tspan x="150" dy="0">High-quality and</tspan><tspan x="150" dy="17.3">accessible data</tspan></text>
+<rect x="460" y="775" width="315" height="72" rx="20" fill="#FFFFFF" stroke="#B8C6D1" stroke-width="2"/>
+<circle cx="488" cy="811" r="15" fill="#0F6B5B"/>
+<text x="488" y="817" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF"><tspan x="488" dy="0">2</tspan></text>
+<text x="515" y="804" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#334E68"><tspan x="515" dy="0">Strong institutional</tspan><tspan x="515" dy="17.3">coordination</tspan></text>
+<rect x="825" y="775" width="315" height="72" rx="20" fill="#FFFFFF" stroke="#B8C6D1" stroke-width="2"/>
+<circle cx="853" cy="811" r="15" fill="#0F6B5B"/>
+<text x="853" y="817" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF"><tspan x="853" dy="0">3</tspan></text>
+<text x="880" y="804" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#334E68"><tspan x="880" dy="0">Continuous stakeholder</tspan><tspan x="880" dy="17.3">engagement</tspan></text>
+<rect x="1190" y="775" width="315" height="72" rx="20" fill="#FFFFFF" stroke="#B8C6D1" stroke-width="2"/>
+<circle cx="1218" cy="811" r="15" fill="#0F6B5B"/>
+<text x="1218" y="817" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF"><tspan x="1218" dy="0">4</tspan></text>
+<text x="1245" y="804" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#334E68"><tspan x="1245" dy="0">Capacity</tspan><tspan x="1245" dy="17.3">development</tspan></text>
+<rect x="278" y="872" width="315" height="72" rx="20" fill="#FFFFFF" stroke="#B8C6D1" stroke-width="2"/>
+<circle cx="306" cy="908" r="15" fill="#0F6B5B"/>
+<text x="306" y="914" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF"><tspan x="306" dy="0">5</tspan></text>
+<text x="333" y="901" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#334E68"><tspan x="333" dy="0">Transparent analytical</tspan><tspan x="333" dy="17.3">methods</tspan></text>
+<rect x="643" y="872" width="315" height="72" rx="20" fill="#FFFFFF" stroke="#B8C6D1" stroke-width="2"/>
+<circle cx="671" cy="908" r="15" fill="#0F6B5B"/>
+<text x="671" y="914" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF"><tspan x="671" dy="0">6</tspan></text>
+<text x="698" y="901" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#334E68"><tspan x="698" dy="0">Long-term institutional</tspan><tspan x="698" dy="17.3">ownership</tspan></text>
+<rect x="1008" y="872" width="315" height="72" rx="20" fill="#FFFFFF" stroke="#B8C6D1" stroke-width="2"/>
+<circle cx="1036" cy="908" r="15" fill="#0F6B5B"/>
+<text x="1036" y="914" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF"><tspan x="1036" dy="0">7</tspan></text>
+<text x="1063" y="901" text-anchor="start" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" fill="#334E68"><tspan x="1063" dy="0">International technical</tspan><tspan x="1063" dy="17.3">cooperation</tspan></text>
+<line x1="800" y1="952" x2="800" y2="978" stroke="#5B7083" stroke-width="4" marker-end="url(#arrow)"/>
+<rect x="260" y="990" width="1080" height="100" rx="28" fill="#0F6B5B" filter="url(#shadow)"/>
+<text x="800" y="1029" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#D9F2EA"><tspan x="800" dy="0">Institutional foundation</tspan></text>
+<text x="800" y="1063" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" fill="#FFFFFF"><tspan x="800" dy="0">Evidence-based planning and informed implementation</tspan><tspan x="800" dy="23.0">of Viet Nam’s energy transition</tspan></text>
+</svg>

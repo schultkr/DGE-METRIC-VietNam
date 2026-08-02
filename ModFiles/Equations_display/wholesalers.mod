@@ -64,7 +64,7 @@
             @# endfor
             + omegaM_@{subsec}_@{reg}_p^(1/etaQ_@{subsec}_p) * max(1e-8,M_I_@{subsec}_@{reg})^((etaQ_@{subsec}_p-1)/etaQ_@{subsec}_p))^(etaQ_@{subsec}_p/(etaQ_@{subsec}_p-1+(etaQ_@{subsec}_p==1)))
             ;
-            [name = 'aaggregate demand for subsector regional output']
+            [name = 'aggregate demand for subsector regional output']
             lhsDemandSubsec_2_@{reg}_@{subsec} = rhsDemandSubsec_2_@{reg}_@{subsec};
 
             #lhsDemandSubsec_3_@{reg}_@{subsec} = Q_D_@{subsec}_@{reg};

@@ -9,7 +9,12 @@
 clearvars;
 
 %% Define version to create
-sversion = '';
+sversion = '_replication';
+
+%% Define baseline horizon
+baseYear = 2025;
+endYear = 2051;
+defaultYear = 2050;
 
 %% Define sectors
 casSectors = {'Primary'; 'Energy'; 'Secondary'; 'Tertiary'};
@@ -79,14 +84,11 @@ for icosheet = 1:size(strSheet,2)
             rngObj.Value = strSheet(icosheet).Categories(1, icocol);
             dat_range = [get_excel_column(icocol) '2:' get_excel_column(icocol) num2str(inbrow)];
             rngObj = exlSheet1.Range(dat_range);
-            if ~excel_write_formula_with_fallback(rngObj, strSheet(icosheet).Categories(2:end, icocol))
-                error('create_baseline_excel_file:FormulaWriteFailed', ...
-                    'Unable to write formulas in sheet "%s" column %d.', strSheet(icosheet).Name, icocol);
-            end
+            rngObj.Formula = strSheet(icosheet).Categories(2:end, icocol);
         else
             dat_range = [get_excel_column(icocol) '1:' get_excel_column(icocol) num2str(inbrow)];
             rngObj = exlSheet1.Range(dat_range);
-            excel_write_value_or_formula_with_fallback(rngObj, strSheet(icosheet).Categories(:, icocol));
+            rngObj.Value = strSheet(icosheet).Categories(:, icocol);
         end
     end
     invoke(exl.Selection.Columns,'Autofit');
