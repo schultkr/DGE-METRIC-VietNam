@@ -19,7 +19,7 @@ setup_paths();
 % Mode = "dedicated_path" (default) or "legacy_combined"
 Mode = "dedicated_path";
 
-sversion = "_replication";
+sversion = "_check";
 targetConfig = get_pdp8_target_investment_config(repoRoot, sversion);
 
 % Optional: override exo_targetIY_{2,3}_1 using PDP8 new investment plus

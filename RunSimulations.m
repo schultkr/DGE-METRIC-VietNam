@@ -10,14 +10,14 @@ cd(repoRoot);
 setup_paths();
 %% Specify scenario names (grouped)
 lSteadyState = false;
-sSensitivity = '_replication';
+sSensitivity = '_check';
 scenarioGroups = struct();
 
 sversion = '';
 % Core reference scenarios
 scenarioGroups.Reference = {...
-   % 'Baseline', ...
-   'NZ',...
+   'Baseline', ...
+   % 'NZ',...
     };
 
 % Energy-efficiency scenarios
@@ -66,7 +66,7 @@ scenarioGroups.ImportShock = {...
 % activeScenarioGroups = {'Reference', 'ImportShock'};
 % activeScenarioGroups = {'EE', 'GF_PDP8', 'GF_NZ', 'NZ_Sensitivity'};
 %activeScenarioGroups = {'ImportShock'};%'GF_NZ'};%, 'EE'};
-activeScenarioGroups = {'GF_NZ', 'EE'};
+activeScenarioGroups = {'Reference'};%,'GF_NZ', 'EE'};
 % Optional override via environment variable, e.g.:
 %   set DGE_SCENARIO_GROUPS=Reference,GF_NZ
 envGroups = strtrim(getenv('DGE_SCENARIO_GROUPS'));

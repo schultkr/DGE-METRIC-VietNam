@@ -8,11 +8,11 @@
 @# define Sectors = length(Subsecend)
 @# define Subsectors = Subsecend[Sectors]
 @# define ForwardLooking = 1
-@# define YEndogenous = 1
-@# define NEndogenous = 1
+@# define YEndogenous = 0
+@# define NEndogenous = 0
 @# define YTarget = 1
-@# define BaselineScenario = 0
-@# define CapandTrade = 1
+@# define BaselineScenario = 1
+@# define CapandTrade = 0
 @# define ExoNX = 0
 @# define HouseSector = 0
 @# define Regions = 1

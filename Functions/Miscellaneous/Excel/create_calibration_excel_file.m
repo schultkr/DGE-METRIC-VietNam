@@ -26,7 +26,7 @@ inbsectors_p = numel(casSectors);
 inbsubsectors_p = numel(casSubSectors);
 inbregions_p = numel(casRegions);
 
-sWorkBookName = sprintf('ModelCalibration%dSectorsand%dRegions_replication.xlsx', ...
+sWorkBookName = sprintf('ModelCalibration%dSectorsand%dRegions_check.xlsx', ...
     inbsubsectors_p, inbregions_p);
 sExcelFileName = fullfile(sExcelFolder, sWorkBookName);
 
@@ -346,7 +346,7 @@ function casStart = reference_start_parameters()
         'Parameter values for initial population', '', '';
         'PoP0_1_p', 1, 'initial population in region 1';
         'Parameter values for initial labour force', '', '';
-        'LF0_1_p', '=0.68*B15', 'initial labour force in region 1';
+        'LF0_1_p', '0.68', 'initial labour force in region 1';
         'Parameter values for initial housing', '', '';
         'H0_1_p', '=25', 'initial housing in region 1';
         'Parameter values for initial value for tas', '', '';
