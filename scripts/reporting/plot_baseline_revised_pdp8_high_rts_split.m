@@ -96,9 +96,7 @@ hold on;
 plot(years, capHigh, 'k-', 'LineWidth', 1.5);
 hold off;
 grid on;
-xlabel('Year');
-ylabel('Capacity (GW)');
-title('Baseline (Revised PDP8 High): PV Deployment by Segment');
+ylabel({'Baseline (Revised PDP8 High): PV Deployment by Segment', 'Capacity (GW)'});
 legend({'Residential', 'Commercial', 'Industrial', 'Total (PDP8 High)'}, 'Location', 'northwest');
 
 % Plot 2: generation
@@ -108,9 +106,7 @@ hold on;
 plot(years, genHighGWh, 'k-', 'LineWidth', 1.5);
 hold off;
 grid on;
-xlabel('Year');
-ylabel('Generation (GWh/year)');
-title('Baseline (Revised PDP8 High): PV Generation by Segment');
+ylabel({'Baseline (Revised PDP8 High): PV Generation by Segment', 'Generation (GWh/year)'});
 legend({'Residential', 'Commercial', 'Industrial', 'Total (PDP8 High)'}, 'Location', 'northwest');
 
 png1 = fullfile(outDir, 'Baseline_RevisedPDP8High_PV_Deployment_By_Segment.png');

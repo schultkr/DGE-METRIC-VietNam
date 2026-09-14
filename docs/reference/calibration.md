@@ -312,6 +312,25 @@ The sector and subsector structure is anchored by workbook targets such as:
 
 These determine the relative scale of production, labor use, and income flows across subsectors in the baseline.
 
+#### Renewable value-added share — the most consequential calibration risk
+
+The 2019 GSO input-output table reports "electricity, gas and water" as a
+**single line** with no standalone row for renewable generation. To populate the
+model's separate fossil and renewable energy subsectors, the upstream IO
+pipeline (Step 3) splits that utilities line into fossil and renewable
+components, and the **renewable value-added share is proxied using a
+global/multi-region EXIOBASE 3 coefficient** rather than a Vietnam-specific
+observation. Because the renewable subsector's size, capital intensity and
+value-added share drive much of the estimated transition cost and the
+reallocation between energy subsectors, this proxy is the single largest
+calibration uncertainty in the model. A plausible range of roughly **±30–50%**
+around the proxied renewable value-added share should be assumed: a larger share
+raises the modelled output contribution of the renewables build-out (and dampens
+the transitional GDP cost), a smaller one does the reverse. Results involving the
+fossil-to-renewable transition should be read within this band, not as point
+estimates. (The ±30–50% figure is a documented judgement pending a formal
+sensitivity run.)
+
 ### 5.2 Input-output and trade structure
 
 The workbook provides the main expenditure and sourcing shares:
@@ -389,6 +408,24 @@ Users of the model should read the baseline as the outcome of a **hybrid calibra
 - and part solved residually inside the steady-state model.
 
 That is a normal approach for a DGE model, but it should be documented explicitly. Without that separation, readers may mistakenly treat every parameter in the workbook as an observed data input, which is not how this repository currently works.
+
+### 7.1 Time validity of the 2019 base year
+
+The sectoral value-added and input-output shares are calibrated to Vietnam's
+**2019** GSO IO table. Several large structural shifts since 2019 are not
+reflected in that base:
+
+- the post-2020 rooftop- and utility-scale **solar boom**,
+- the **COVID-19** demand and supply-chain shock,
+- the **"China+1"** manufacturing relocation into Vietnam,
+- successive **PDP8 revisions**.
+
+These would tend to raise the renewable-energy and manufacturing value-added
+shares relative to the 2019 table. Where feasible the shares were sense-checked
+against more recent national-accounts aggregates, but a full re-benchmarking to
+a post-2020 IO table has not been done. Sectoral magnitudes for the energy and
+manufacturing sectors therefore carry additional, unquantified uncertainty on
+this account, compounding the renewable value-added proxy risk noted in §5.1.
 
 For known gaps in this workflow and a proposed improvement backlog, see
 [implementation_plans/calibration_transparency_backlog.md](../implementation_plans/calibration_transparency_backlog.md).

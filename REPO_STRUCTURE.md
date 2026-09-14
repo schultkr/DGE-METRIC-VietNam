@@ -34,6 +34,7 @@ Treat these as generated or local outputs (do not hand-edit):
 - DGE_Model/
 - *_dynamic.m, *_static.m, *_set_auxiliary_variables.m
 - ExcelFiles/Output/
+- structScenarioResults*.mat
 - transient caches and logs
 
 ## Root Hygiene Policy
@@ -45,9 +46,12 @@ Keep the repository root minimal:
 
 ## Runner Conventions
 
-Canonical runners:
-- RunSimulations.m
-- RunSimulations_Sensitivity.m
+Canonical runner:
+- RunSimulations.m — defaults to the `ReportReplication` scenario group, which reproduces every
+  figure/table in both IWH reports (see `docs/reference/report_replication.md`).
+
+Experimental/variant runners (not required for report replication):
+- RunSimulations_Sensitivity.m, RunSimulations_SensitivityN0.m
 
 Variant runners should be clearly marked as experimental and documented before broader use.
 

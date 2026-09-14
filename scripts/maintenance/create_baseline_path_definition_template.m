@@ -4,9 +4,21 @@
 %   run('scripts/maintenance/create_baseline_path_definition_template.m')
 %
 % Output:
-%   ExcelFiles/ScenarioPathDefinition.xlsx
+%   ExcelFiles/ScenarioPathDefinition<workbookVersion>.xlsx
 %     Sheet Baseline  -> read by create_baseline_from_user_input_file.m
 %     Sheet NZ        -> read by update_nz_sheet.m
+%
+% workbookVersion selects which ScenarioPathDefinition workbook to (re)build,
+% matching the same suffix convention RunSimulations.m uses for the
+% ModelCalibration/ModelBaseline/ModelScenarios workbook triad (sSensitivity).
+% Default is '' (the canonical, no-suffix ExcelFiles/ScenarioPathDefinition.xlsx
+% this script has always targeted). Override via environment variable, e.g.:
+%   set DGE_WORKBOOK_VERSION=_replication
+% to target ExcelFiles/ScenarioPathDefinition_replication.xlsx instead, or any
+% other suffix directly. The literal value "canonical" is a sentinel for ""
+% (matching RunSimulations.m), since an environment variable cannot otherwise
+% distinguish "unset" from "set to empty". Unset/empty leaves the default
+% above unchanged.
 
 repoRoot = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 oldPwd = pwd;
@@ -14,16 +26,31 @@ cleanupObj = onCleanup(@() cd(oldPwd)); %#ok<NASGU>
 cd(repoRoot);
 setup_paths();
 
-outFile = fullfile(repoRoot, 'ExcelFiles', 'ScenarioPathDefinition.xlsx');
+workbookVersion = '';
+envWorkbookVersion = strtrim(getenv('DGE_WORKBOOK_VERSION'));
+if strcmpi(envWorkbookVersion, 'canonical')
+    workbookVersion = '';
+elseif ~isempty(envWorkbookVersion)
+    workbookVersion = envWorkbookVersion;
+end
+
+outFile = fullfile(repoRoot, 'ExcelFiles', ['ScenarioPathDefinition' workbookVersion '.xlsx']);
 outSheet = 'Baseline';
 
+% Horizon matches the "2051 extension" convention documented in
+% docs/scenario_notes/workbook_creation_procedure.md: every row in the real,
+% hand-maintained Baseline sheet runs 2025-2051 (2051 = repeat of 2050) in
+% columns D:AD. create_baseline_from_user_input_file.m's dedicated_path reader
+% hardcodes that same D:AD/27-year range, so this template must produce it
+% natively -- it used to stop at 2050/AC, which left readers expecting a 2051
+% column silently reading a blank cell as NaN.
 startYear = 2025;
-endYear = 2050;
+endYear = 2051;
 years = startYear:endYear;
 nYears = numel(years);
 
 yearStartCol = 'D';
-yearEndCol = 'AC';
+yearEndCol = 'AD';
 
 if isfile(outFile)
     delete(outFile);
@@ -110,7 +137,7 @@ writecell({'Power-factor efficiency index shock'; 'exo_PFEff'; 'optional, index 
 write_row(outFile, outSheet, 10, ones(1, nYears), yearStartCol, yearEndCol);
 write_row(outFile, outSheet, 22, ones(1, nYears), yearStartCol, yearEndCol);
 
-[vaInitShares, empInitShares, sharesSource] = read_initial_shares(repoRoot);
+[vaInitShares, empInitShares, sharesSource] = read_initial_shares(repoRoot, workbookVersion);
 for iSub = 1:5
     write_row(outFile, outSheet, 11 + iSub, vaInitShares(iSub) * ones(1, nYears), yearStartCol, yearEndCol);
     write_row(outFile, outSheet, 23 + iSub, empInitShares(iSub) * ones(1, nYears), yearStartCol, yearEndCol);
@@ -131,7 +158,15 @@ for r = [58, 59, 72, 73, 74, 75, 76]
 end
 
 apply_schema_with_conversion(outFile, outSheet, 'baseline');
-apply_template_formatting(outFile, outSheet, shift_excel_col_name(yearEndCol, 1), 'E');
+% NOTE: apply_schema_with_conversion used to insert a new column at C (to make
+% room for a separate "Notes" column) every time it ran, silently shifting all
+% real data from D:AC to E:AD -- one column later than the D:AD range every
+% reader (create_baseline_from_user_input_file.m) and the real, hand-maintained
+% Baseline sheet actually use, and inconsistent with the "Year"/label layout
+% this script's own writecell calls above already establish in columns A:C. It
+% has been removed (see apply_schema_with_conversion) so real data stays where
+% it's written: D:AD, matching the authoritative layout.
+apply_template_formatting(outFile, outSheet, yearEndCol, yearStartCol);
 
 % ── NZ sheet ───────────────────────────────────────────────────
 outSheetNZ = 'NZ';
@@ -179,15 +214,20 @@ for r = [17, 20, 23, 24, 25, 26, 27, 30, 31]
 end
 
 apply_schema_with_conversion(outFile, outSheetNZ, 'nz');
-apply_nz_formatting(outFile, outSheetNZ, shift_excel_col_name(yearEndCol, 1), 'E');
+apply_nz_formatting(outFile, outSheetNZ, yearEndCol, yearStartCol);
 
 fprintf('\nScenario path template created.\n');
+if isempty(workbookVersion)
+    fprintf('  Workbook version: canonical (no suffix)\n');
+else
+    fprintf('  Workbook version: %s\n', workbookVersion);
+end
 fprintf('  File: %s\n', outFile);
 fprintf('  Sheets: %s, %s\n', outSheet, outSheetNZ);
 fprintf('  Years: %d-%d (%d columns)\n', startYear, endYear, nYears);
 fprintf('  Initial VA/employment shares source: %s\n', sharesSource);
 
-function [vaSharesOut, empSharesOut, sourceLabel] = read_initial_shares(repoRoot)
+function [vaSharesOut, empSharesOut, sourceLabel] = read_initial_shares(repoRoot, workbookVersion)
 % Read initial sector shares from calibration files if available.
 % Falls back to equal shares when no valid source is found.
 
@@ -196,17 +236,32 @@ vaSharesOut = defaultShares;
 empSharesOut = defaultShares;
 sourceLabel = 'Default equal shares (0.2 each)';
 
-calibrationWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelCalibration5Sectorsand1Regions.xlsx');
+% Same workbookVersion suffix as the ScenarioPathDefinition output file (see
+% DGE_WORKBOOK_VERSION at the top of this script) -- ModelCalibration5Sectorsand1Regions.xlsx
+% (no suffix) does not exist in every checkout (only the "_replication" variant
+% may be present), so this must follow the same suffix, not hardcode "canonical".
+calibrationWorkbookName = ['ModelCalibration5Sectorsand1Regions' workbookVersion '.xlsx'];
+calibrationWorkbook = fullfile(repoRoot, 'ExcelFiles', calibrationWorkbookName);
 if isfile(calibrationWorkbook)
     try
-        vaRaw = readmatrix(calibrationWorkbook, 'Sheet', 'Start', 'Range', 'B23:B27');
-        empRaw = readmatrix(calibrationWorkbook, 'Sheet', 'Start', 'Range', 'B29:B33');
+        % 'Start' sheet layout (as of this repo's current calibration workbook):
+        % phiY0_1_1_p.. phiY0_5_1_p (initial VA shares) at B25:B29, phiN0_1_1_p..
+        % phiN0_5_1_p (initial employment shares) at B31:B35 -- normalize_share_vector
+        % divides by the row sum, so these don't need to already sum to 1
+        % themselves (phiY0's raw values don't; phiN0's happen to already).
+        % Previously hardcoded to B23:B27/B29:B33, two rows too high after this
+        % sheet gained extra rows above (tas0_1_p/tas0_p) -- that silently read
+        % the wrong parameters (or non-numeric labels), always failed
+        % normalize_share_vector's isfinite/positive-sum check, and fell all
+        % the way through to the hardcoded 0.2 default below.
+        vaRaw = readmatrix(calibrationWorkbook, 'Sheet', 'Start', 'Range', 'B25:B29');
+        empRaw = readmatrix(calibrationWorkbook, 'Sheet', 'Start', 'Range', 'B31:B35');
         [okVA, vaShares] = normalize_share_vector(vaRaw);
         [okEmp, empShares] = normalize_share_vector(empRaw);
         if okVA && okEmp
             vaSharesOut = vaShares;
             empSharesOut = empShares;
-            sourceLabel = 'ModelCalibration5Sectorsand1Regions.xlsx (Start!B23:B27, B29:B33)';
+            sourceLabel = sprintf('%s (Start!B25:B29, B31:B35)', calibrationWorkbookName);
             return;
         end
     catch
@@ -263,15 +318,15 @@ try
     wb = exl.Workbooks.Open(filePath, 0, false);
     ws = wb.Worksheets.Item(sheetName);
 
-    c8 = string(ws.Range('C8').Value);
-    if ~strcmpi(strtrim(c8), 'Conversion Rule')
-        ws.Columns.Item('C:C').Insert;
-    end
-
+    % No column insert here: real per-row data lives in D:yearEndCol (see the
+    % NOTE at this function's call sites in the main script body) -- inserting
+    % a column to carve out a separate "Notes" column would shift that data
+    % one column later, away from the D-start every reader expects. Keep the
+    % same 3-column A/B/C header (Input Variable/Import Key/Conversion Rule)
+    % the main script's own writecell calls already seeded.
     ws.Range('A8').Value = 'Input Variable';
     ws.Range('B8').Value = 'Import Key';
     ws.Range('C8').Value = 'Conversion Rule';
-    ws.Range('D8').Value = 'Notes';
 
     if strcmpi(schemaName, 'baseline')
         rows = [10, 12, 13, 14, 15, 16, 22, 24, 25, 26, 27, 28, ...
@@ -283,7 +338,7 @@ try
             'emp_growth_total', 'emp_share_1', 'emp_share_2', 'emp_share_3', 'emp_share_4', 'emp_share_5', ...
             'exo_E_1_1', 'exo_E_2_1', 'exo_E_3_1', 'exo_E_4_1', 'exo_E_5_1', 'exo_Q_2_1', 'exo_X_2_1', ...
             'exo_K_G_1_1', 'exo_K_G_2_1', 'exo_K_G_3_1', 'exo_K_G_4_1', 'exo_K_G_5_1', 'exo_targetIY_2_1', 'exo_targetIY_3_1', ...
-            'exo_P_K_1_1', 'exo_P_K_2_1', 'exo_P_K_3_1', 'exo_P_K_4_1', 'exo_P_K_5_1', ...
+            'Section header', 'exo_P_K_1_1', 'exo_P_K_2_1', 'exo_P_K_3_1', 'exo_P_K_4_1', 'exo_P_K_5_1', ...
             'Section header', 'exo_r_G_1_1', 'exo_r_G_2_1', 'exo_r_G_3_1', 'exo_r_G_4_1', 'exo_r_G_5_1', ...
             'Section header', 'exo_AI_1_1_2', 'exo_AI_2_1_2', 'exo_AI_3_1_2', 'exo_AI_4_1_2', 'exo_AI_5_1_2', ...
             'Section header', 'exo_PV_1', 'exo_PVEff_1', 'exo_PFEff'};
@@ -292,11 +347,10 @@ try
             'direct (growth-factor level)', 'direct (share level)', 'direct (share level)', 'direct (share level)', 'direct (share level)', 'direct (share level)', ...
             'log(index/index(1))', 'log(index/index(1))', 'log(index/index(1))', 'log(index/index(1))', 'log(index/index(1))', 'log(index/index(1))', 'log(index/index(1))', ...
             'log(index/index(1))', 'log(index/index(1))', 'log(index/index(1))', 'log(index/index(1))', 'log(index/index(1))', 'direct (share level)', 'direct (share level)', ...
-            'additive (index-index(1))', 'additive (index-index(1))', 'additive (index-index(1))', 'additive (index-index(1))', 'additive (index-index(1))', ...
+            '', 'additive (index-index(1))', 'additive (index-index(1))', 'additive (index-index(1))', 'additive (index-index(1))', 'additive (index-index(1))', ...
             '', 'direct (level)', 'direct (level)', 'direct (level)', 'direct (level)', 'direct (level)', ...
             '', 'additive (index-index(1))', 'additive (index-index(1))', 'log(index)', 'log(index)', 'log(index)', ...
             '', 'additive (index-index(1))', 'log(index/index(1))', 'log(index/index(1))'};
-        yearRows = [9, 11, 23, 39, 50, 57, 64, 71, 86, 93];
     else
         rows = [10, 13, 14, 19, 20, 22, 23, 24, 25, 26, 27, 29, 30, 31];
         keys = {
@@ -305,7 +359,6 @@ try
         rules = {
             'log(index)', '', 'direct (0/1 flag)', '', 'additive (index-index(1))', '', ...
             'direct (level)', 'direct (level)', 'direct (level)', 'direct (level)', 'direct (level)', '', 'log(index)', 'log(index)'};
-        yearRows = [9, 11, 13, 19, 22, 29];
     end
 
     for i = 1:numel(rows)
@@ -313,10 +366,12 @@ try
         ws.Range(sprintf('C%d', rows(i))).Value = rules{i};
     end
 
-    for i = 1:numel(yearRows)
-        ws.Range(sprintf('B%d', yearRows(i))).Value = 'Year';
-        ws.Range(sprintf('D%d', yearRows(i))).Value = 'Year';
-    end
+    % Year-repeat/section-header rows already have column C set to 'Year' by
+    % the main script body's own writecell calls (blockYearRows / row 9) --
+    % nothing further to do here. (This used to also stamp column D with
+    % 'Year' text, which corrupted real numeric data there once the D:AD
+    % range -- not the old post-insert E:AD range -- became where that data
+    % actually lives.)
 
     wb.Save;
     wb.Close(false);

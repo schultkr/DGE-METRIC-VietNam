@@ -157,6 +157,23 @@ This layered design supports policy-relevant statements on:
 **Interpretation.**  
 These figures illustrate how emissions decline under Net Zero scenarios, the implied carbon price trajectory, and the resulting ETS revenues as a share of value added.
 
+### ETS / carbon-pricing design assumptions
+
+| Design dimension | Assumption in the NZ + carbon-pricing pathway |
+|---|---|
+| Binding cap | Binds over the simulated transition (annual model, 2026–2050) |
+| Coverage | Economy-wide; covered emissions `E_ETS = Σ κ^E_s Q_s` with coverage rate `xi_s` |
+| Cap trajectory | Path consistent with net-zero by 2050; carbon price `P^E` is **endogenous** and clears the permit market against the cap |
+| Allocation method | Modelled as **full auctioning**: `R^ETS = P^E · Σ E_s` accrues entirely to the government budget. Free allocation would cut fiscal revenue roughly one-for-one with the free share |
+| Revenue recycling | Enters the government budget; **no** recycling rule is prescribed (lump-sum, tax cut, or green spending) |
+| USD / emissions anchors | ETS revenue in USD bn scales model units by nominal Vietnam GDP of USD 514.7 bn (2025); the implied USD/tCO2e price maps the 2023 EDGAR energy-related GHG total of 352.895 MtCO2e to model 2025 emissions |
+
+> **Framing.** The NZ + carbon-pricing pathway is **illustrative of a policy
+> design, not a forecast of Vietnam's enacted ETS**, which is at pilot stage
+> (power sector first). Auctioning-vs-free-allocation and the cap trajectory
+> materially change the revenue estimate; the figures show fiscal *scale*, not a
+> budgeted revenue projection.
+
 ---
 
 ## Energy Efficiency Scenarios

@@ -10,21 +10,34 @@ cd(repoRoot);
 setup_paths();
 %% Specify scenario names (grouped)
 lSteadyState = false;
-sSensitivity = '_check';
+sSensitivity = '_replication';
+% Optional override via environment variable, e.g.:
+%   set DGE_WORKBOOK_VERSION=canonical
+% to target the canonical (no-suffix) workbooks instead of the default
+% "_replication" set, or set it to any other workbook-filename suffix
+% (e.g. "_check") directly. Unset/empty leaves the default above
+% unchanged. The literal value "canonical" is a sentinel for "" because an
+% environment variable cannot distinguish "unset" from "set to empty".
+envWorkbookVersion = strtrim(getenv('DGE_WORKBOOK_VERSION'));
+if strcmpi(envWorkbookVersion, 'canonical')
+    sSensitivity = '';
+elseif ~isempty(envWorkbookVersion)
+    sSensitivity = envWorkbookVersion;
+end
 scenarioGroups = struct();
 
 sversion = '';
 % Core reference scenarios
 scenarioGroups.Reference = {...
    'Baseline', ...
-   % 'NZ',...
+   'NZ',...
     };
 
 % Energy-efficiency scenarios
 scenarioGroups.EE = {...
-    'EE_Directive10', ...
-    'EE_Directive10_NoBESS', ...
-    'EE_PDP8_PV_BESS_NoBESS',...
+    'EE_Dir10_full', ...           % Directive 10: demand-side EE + rooftop + BESS
+    'EE_Dir10_full_NoBESS', ...    % Directive 10 without the BESS/integration layer
+    'EE_RTS_prerev_95GW', ...      % RTS held at the pre-revision 95 GW vs the Baseline's 135 GW
     };
 
 % Green-finance scenarios on PDP8 baseline
@@ -38,15 +51,18 @@ scenarioGroups.GF_NZ = {...
     'NZ_GF_A', ...
     'NZ_GF_B', ...
     'NZ_GF_C', ...
-    'NZ_GF_C_EE'};
+    };
 
-% NZ sensitivity / policy variants
+% NZ sensitivity / policy variants (EE scenarios run against the NZ baseline;
+% requires NZ to have run first, same dependency as GF_NZ).
 scenarioGroups.NZ_Sensitivity = {...
-    % 'NZ_constEE', ...
-    % 'NZ_constInt', ...
-    % 'NZ_constEEInt',...
-    % 'NZ_subsidy',...
+    'NZ_subsidy',...
     'NZ_subsidy_direct',...
+    'NZ_Dir10_full_GF_C',...              % NZ + GF C + Directive 10 (full): the integrated policy package
+    'NZ_Dir10_full', ...                  % Directive 10 (full) on NZ
+    'NZ_Dir10_full_NoBESS', ...           % Directive 10 without BESS on NZ
+    'NZ_RTS_prerev_95GW', ...             % RTS at pre-revision 95 GW on NZ
+    'NZ_RTS_prerev_95GW_NoBESS', ...      % RTS at pre-revision 95 GW, no BESS, on NZ
     };
 
 % Temporary import-amount shock scenario
@@ -55,18 +71,24 @@ scenarioGroups.ImportShock = {...
     'REN_EXPORTS', ...
     };
 
+% Full evidence base for the IWH Technical Report and Macro Impact Assessment:
+% every scenario either report cites, in dependency order (Baseline and NZ
+% must solve before anything built on them). Run with the default below, or
+% explicitly via:
+%   set DGE_SCENARIO_GROUPS=ReportReplication
+% See docs/reference/report_replication.md for the figure/table -> scenario
+% mapping. Deliberately excludes ImportShock (unrelated to either report).
+scenarioGroups.ReportReplication = [scenarioGroups.Reference, scenarioGroups.EE, ...
+    scenarioGroups.GF_PDP8, scenarioGroups.GF_NZ, scenarioGroups.NZ_Sensitivity];
 
 % Select which groups to run.
-% Default group set:
-% activeScenarioGroups = {'Reference', 'EE', 'GF_PDP8', 'GF_NZ'};%, 'NZ_Sensitivity'};
-% activeScenarioGroups = {'Reference', 'EE', 'GF_PDP8', 'GF_NZ', 'NZ_Sensitivity', 'ImportShock'};
-% activeScenarioGroups = {'EE', 'GF_PDP8', 'GF_NZ'};
-% activeScenarioGroups = {'Reference'};%, 'EE'};
-% activeScenarioGroups = {'NZ_Sensitivity'};%, 'EE'};
-% activeScenarioGroups = {'Reference', 'ImportShock'};
+% Default: the full set of scenarios needed to reproduce every figure and
+% table in both IWH reports (see docs/reference/report_replication.md).
+% This is a long run (18 scenarios); for a quick check of a subset, either
+% edit this line or use one of the overrides below.
+activeScenarioGroups = {'ReportReplication'};
+% activeScenarioGroups = {'Reference'};
 % activeScenarioGroups = {'EE', 'GF_PDP8', 'GF_NZ', 'NZ_Sensitivity'};
-%activeScenarioGroups = {'ImportShock'};%'GF_NZ'};%, 'EE'};
-activeScenarioGroups = {'Reference'};%,'GF_NZ', 'EE'};
 % Optional override via environment variable, e.g.:
 %   set DGE_SCENARIO_GROUPS=Reference,GF_NZ
 envGroups = strtrim(getenv('DGE_SCENARIO_GROUPS'));
@@ -84,16 +106,26 @@ for iGroup = 1:numel(activeScenarioGroups)
     casScenarioNames = [casScenarioNames scenarioGroups.(groupName)]; %#ok<AGROW>
 end
 
+% Optional override via environment variable, e.g.:
+%   set DGE_SCENARIO_NAMES=Baseline,NZ
+% Replaces casScenarioNames outright with this exact, ordered list, bypassing
+% scenarioGroups/activeScenarioGroups entirely. Unset/empty leaves the
+% group-derived list above unchanged.
+envScenarioNames = strtrim(getenv('DGE_SCENARIO_NAMES'));
+if ~isempty(envScenarioNames)
+    casScenarioNames = strtrim(strsplit(envScenarioNames, ','));
+end
+
 if isempty(casScenarioNames)
     error('RunSimulations:NoScenariosSelected', ...
         'No scenarios selected. Add at least one group to activeScenarioGroups.');
 end
 
 % Define sector strucutre
-sSubsecstart = '[1, 2, 4, 5]';                 
+sSubsecstart = '[1, 2, 4, 5]';
 sSubsecend =   '[1, 3, 4, 5]';
 
-% sSubsecstart = '[1]';                 
+% sSubsecstart = '[1]';
 % sSubsecend =   '[1]';
 sClimRegional = '["tas"]';
 sClimNational = '["tas"]';
@@ -209,9 +241,12 @@ for icoScenario = scenarioStart:scenarioEnd
         sCapandTrade = '0';
     elseif ismember(sScenario,{'NZ_constEE', 'NZ_constInt', 'NZ_constEEInt', ...
                                'NZ_concessional', 'NZ_conandsub', 'NZ_subsidy',...
-                               'NZ_subsidy_direct', 'NZ_GF_A', 'NZ_GF_B', 'NZ_GF_C', 'NZ_GF_C_EE'})
+                               'NZ_subsidy_direct', 'NZ_GF_A', 'NZ_GF_B', 'NZ_GF_C', ...
+                               'NZ_GF_C_EE', 'NZ_Dir10_full_GF_C', ...
+                               'NZ_Dir10_full', 'NZ_Dir10_full_NoBESS', ...
+                               'NZ_RTS_prerev_95GW', 'NZ_RTS_prerev_95GW_NoBESS'})
         sBaseline = 'NZ';
-        sSimulation = '40';
+        sSimulation = '10';
         sExoNX = '0';% define whether net exports to GDP are constant
         sCapandTrade = '1';
     elseif ismember(sScenario, {'PDP8_GF_A', 'PDP8_GF_B', 'PDP8_GF_C'})
@@ -219,11 +254,11 @@ for icoScenario = scenarioStart:scenarioEnd
         sSimulation = '5';
         sExoNX = '0';
         sCapandTrade = '1';
-    elseif ismember(sScenario, {'EE_Directive10_nocap'})
+    elseif ismember(sScenario, {'EE_Dir10_full_nocap'})
         sBaseline = 'Baseline';
         sSimulation = '5';
         sExoNX = '0';
-        sCapandTrade = '0';        
+        sCapandTrade = '0';
     else
         sBaseline = 'Baseline';
         sSimulation = '20';

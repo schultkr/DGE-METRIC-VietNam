@@ -55,11 +55,8 @@ baseline = sortrows(baseline(ismember(baseline.Year, commonYears), :), 'Year');
 scenario = sortrows(scenario(ismember(scenario.Year, commonYears), :), 'Year');
 years = baseline.Year(:);
 
-colors = struct();
-colors.baseline = [0.20 0.20 0.20];
-colors.scenario = [0.00 0.45 0.70];
-colors.delta = [0.84 0.37 0.00];
-colors.zero = [0.45 0.45 0.45];
+colors = iwh_colors();
+colors.scenario = iwh_scenario_style(scenarioName).Color;   % match NZ's colour everywhere else it appears
 lineWidth = 2.0;
 
 % Precompute metric series.
@@ -223,12 +220,15 @@ function fig = make_fig()
     fig = figure('Color', 'w', 'Position', [80 80 1000 560]);
 end
 
-function format_axes(plotTitle, xLabelText, yLabelText)
+function format_axes(plotTitle, yLabelText)
     grid on;
     box off;
-    xlabel(xLabelText);
-    ylabel(yLabelText);
-    title(plotTitle, 'Interpreter', 'none');
+    if iscell(plotTitle)
+        titleLines = plotTitle;
+    else
+        titleLines = {plotTitle};
+    end
+    ylabel([titleLines(:); {yLabelText}]);
 end
 
 function place_legend_below()
@@ -283,7 +283,7 @@ function save_comparison_figure(years, baseVals, scenVals, colors, lineWidth, ..
         'DisplayName', 'Baseline');
     plot(years, scenVals, '-', 'Color', colors.scenario, 'LineWidth', lineWidth, ...
         'DisplayName', char(scenarioLabel));
-    format_axes(plotTitle, 'Year', yLabel);
+    format_axes(plotTitle, yLabel);
     if contains(string(plotTitle), "GDP Growth Comparison", 'IgnoreCase', true)
         yl = ylim;
         ylim([0, yl(2)]);
@@ -299,7 +299,7 @@ function save_deviation_figure(years, devVals, colors, lineWidth, ...
     plot(years, devVals, '-', 'Color', colors.delta, 'LineWidth', lineWidth, ...
         'DisplayName', char(scenarioLabel));
     yline(0, ':', 'Color', colors.zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
-    format_axes(plotTitle, 'Year', yLabel);
+    format_axes(plotTitle, yLabel);
     place_legend_below();
     save_dual(fig, outDir, stem);
 end
@@ -312,10 +312,10 @@ function maybe_save_five_year_average(years, values, scenarioLabel, outDir, stem
 
     fig = make_fig();
     bar(categorical(periodLabels, periodLabels), avgValues, 0.65, ...
-        'FaceColor', [0.00 0.45 0.70], 'EdgeColor', 'none', ...
+        'FaceColor', iwh_scenario_style('NZ').Color, 'EdgeColor', 'none', ...
         'DisplayName', char(scenarioLabel));
-    yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-    format_axes(strrep(stem, '_', ' ') + " (5-Year Average)", 'Time period', yLabel);
+    yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+    format_axes({strrep(stem, '_', ' '), '5-Year Average'}, yLabel);
     place_legend_below();
     save_dual(fig, outDir, stem + "_5YAvg");
 end

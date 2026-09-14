@@ -101,8 +101,7 @@ hold(ax1, 'off');
 grid(ax1, 'on');
 box(ax1, 'off');
 xlim(ax1, yearRange);
-ylabel(ax1, 'kUSD / MW');
-title(ax1, 'Annual investment / installed capacity', 'Interpreter', 'none');
+ylabel(ax1, {'Annual investment / installed capacity', 'kUSD / MW'});
 legend(ax1, {'Fossil', 'Renewables'}, 'Location', 'northwest');
 
 ax2 = nexttile(tlo);
@@ -112,13 +111,8 @@ yline(ax2, 1, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0);
 grid(ax2, 'on');
 box(ax2, 'off');
 xlim(ax2, yearRange);
-ylabel(ax2, 'Renewable / fossil');
-xlabel(ax2, 'Year');
-title(ax2, 'Relative investment intensity', 'Interpreter', 'none');
+ylabel(ax2, {'Relative investment intensity', 'Renewable / fossil'});
 
-sgtitle(tlo, sprintf('%s investment intensity by installed capacity (%d-%d)', ...
-    planToPlot, yearRange(1), yearRange(2)), ...
-    'FontSize', 14, 'FontWeight', 'bold', 'Interpreter', 'none');
 
 plotStem = sprintf('investment_per_installed_capacity_%s', planToPlot);
 outPng = fullfile(outDir, [plotStem '.png']);

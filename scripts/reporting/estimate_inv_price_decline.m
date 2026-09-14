@@ -167,8 +167,7 @@ end
 xline(baseYear,'k:','LineWidth',1,'HandleVisibility','off');
 yline(100,'k:','LineWidth',1,'HandleVisibility','off');
 hold off;
-title('Renewable Investment Price Index');
-ylabel('Index (2025 = 100)');  xlabel('Year');
+ylabel('Index (2025 = 100)');  
 xlim([yearRange(1) yearRange(end)]);
 legend('Location','southwest');  grid on;
 exportgraphics(f, fullfile(outDir,'ren_price_index.png'),'Resolution',150);
@@ -185,8 +184,7 @@ end
 xline(baseYear,'k:','LineWidth',1,'HandleVisibility','off');
 yline(100,'k:','LineWidth',1,'HandleVisibility','off');
 hold off;
-title('Fossil Investment Price Index');
-ylabel('Index (2025 = 100)');  xlabel('Year');
+ylabel('Index (2025 = 100)');  
 xlim([yearRange(1) yearRange(end)]);
 legend('Location','southwest');  grid on;
 exportgraphics(f, fullfile(outDir,'fos_price_index.png'),'Resolution',150);
@@ -211,8 +209,7 @@ end
 xline(baseYear,'k:','LineWidth',1,'HandleVisibility','off');
 yline(100,'k:','LineWidth',1,'HandleVisibility','off');
 hold off;
-title('Renewable Investment Price Index  (shaded: PDP8\_rev\_high uncertainty)');
-ylabel('Index (2025 = 100)');  xlabel('Year');
+ylabel('Index (2025 = 100)');  
 xlim([yearRange(1) yearRange(end)]);
 legend('Location','southwest');  grid on;
 exportgraphics(f, fullfile(outDir,'ren_price_index_unc.png'),'Resolution',150);
@@ -236,8 +233,7 @@ end
 xline(baseYear,'k:','LineWidth',1,'HandleVisibility','off');
 yline(100,'k:','LineWidth',1,'HandleVisibility','off');
 hold off;
-title('Fossil Investment Price Index  (shaded: PDP8\_rev\_high uncertainty)');
-ylabel('Index (2025 = 100)');  xlabel('Year');
+ylabel('Index (2025 = 100)');  
 xlim([yearRange(1) yearRange(end)]);
 legend('Location','southwest');  grid on;
 exportgraphics(f, fullfile(outDir,'fos_price_index_unc.png'),'Resolution',150);
@@ -254,8 +250,7 @@ end
 xline(baseYear,'k:','LineWidth',1,'HandleVisibility','off');
 yline(100,'k:','LineWidth',1,'HandleVisibility','off');
 hold off;
-title('Renewable Investment Price Index (Investment-Weighted)');
-ylabel('Index (2025 = 100)');  xlabel('Year');
+ylabel('Index (2025 = 100)');  
 xlim([yearRange(1) yearRange(end)]);
 legend('Location','southwest');  grid on;
 exportgraphics(f, fullfile(outDir,'ren_price_index_inv_weighted.png'),'Resolution',150);
@@ -272,8 +267,7 @@ end
 xline(baseYear,'k:','LineWidth',1,'HandleVisibility','off');
 yline(100,'k:','LineWidth',1,'HandleVisibility','off');
 hold off;
-title('Fossil Investment Price Index (Investment-Weighted)');
-ylabel('Index (2025 = 100)');  xlabel('Year');
+ylabel('Index (2025 = 100)');  
 xlim([yearRange(1) yearRange(end)]);
 legend('Location','southwest');  grid on;
 exportgraphics(f, fullfile(outDir,'fos_price_index_inv_weighted.png'),'Resolution',150);

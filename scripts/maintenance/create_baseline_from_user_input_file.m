@@ -19,12 +19,18 @@ setup_paths();
 % Mode = "dedicated_path" (default) or "legacy_combined"
 Mode = "dedicated_path";
 
-sversion = "_check";
+sversion = "_replication";
 targetConfig = get_pdp8_target_investment_config(repoRoot, sversion);
 
 % Optional: override exo_targetIY_{2,3}_1 using PDP8 new investment plus
 % maintenance investment.
 UsePDP8InvestmentTargets = true;
+% Override with env var DGE_USE_PDP8_INVESTMENT_TARGETS (e.g. '0' for a quick
+% Baseline build that skips PDP8 investment-target computation).
+envUsePDP8InvestmentTargets = strtrim(getenv('DGE_USE_PDP8_INVESTMENT_TARGETS'));
+if ~isempty(envUsePDP8InvestmentTargets)
+    UsePDP8InvestmentTargets = logical(str2double(envUsePDP8InvestmentTargets));
+end
 % Method for the maintenance-investment component of the PDP8 target I/Y:
 %   "IndexProxy"   (legacy) - delta * re-based PDP8 capacity index.
 %   "CapitalStock" - delta * PDP8 CAP_MIOUSD capital-stock path (explicit
@@ -2577,7 +2583,7 @@ if maxDiff > tol
     warning('create_baseline_from_user_input_file:TerminalVAShareMismatch', ...
         ['Terminal VA shares differ from targets by more than %.4f. ' ...
          'Potential inconsistency: source year range/comment mismatch (currently %s:%s), ' ...
-         'or model equilibrium effects moving relative prices.'], tol, 'D', 'AC');
+         'or model equilibrium effects moving relative prices.'], tol, 'D', 'AD');
 end
 end
 

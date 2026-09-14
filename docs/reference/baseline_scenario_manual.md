@@ -269,7 +269,7 @@ permanent policy rule.
 | AO | `exo_r_FDI_2_1` | Additive fossil FDI rental-rate deviation from `rf0_p`. | 0. |
 | AP:AR | `exo_r_G_3_1`, `exo_r_G_4_1`, `exo_r_G_5_1` | Public rental-rate deviations for Renewables, Secondary, and Tertiary. | All 0. |
 | AS | `exo_PE` | National/global additive emissions-price component. | 0. |
-| AT | `exo_PE_1` | Region-1 additive emissions-price path used in the no-cap Baseline price closure. | Direct level: 0.011 in 2026, peaks near 0.2903 in 2047, and ends near 0.2529. |
+| AT | `exo_PE_1` | Region-1 additive emissions-price path used in the no-cap Baseline price closure. | Direct level, in model `PE_1` units: 0.0218 in 2025 rising to 0.6593 in 2050-51. Converts to a real-world carbon price via the same anchors as `generate_baseline_co2_ets_figures.m` (USD/tCO2e = model units / 0.0043951): $4.96/tCO2e in 2025, matching the World Bank Vietnam CCDR's $1(2020)/$24.60(2030)/$90(2040) schedule through 2040, then extended to a $150/tCO2e target in 2050 by continuing the CCDR's own decade-over-decade growth-rate deceleration (37.75%/yr in 2020-30 to 13.85%/yr in 2030-40 to 5.24%/yr in 2040-50). Free allocation during the 2025-2028 ETS pilot (Decisions 232/263-QD-TTg) should be represented via `exo_tauS_1` revenue rebate, not by suppressing this price path. |
 
 ### 6.5 Sector energy efficiency and finance-share modes (`AU:BF`)
 

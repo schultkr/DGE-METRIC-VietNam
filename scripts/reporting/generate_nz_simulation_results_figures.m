@@ -15,6 +15,12 @@
 %
 % Output:
 %   docs/figures/NZ_Simulation_Results/*.svg and *.png
+%
+% Used in: IWH_Report_Macro Impact Assessment.docx, Figure 7
+% (ETS_Revenue_5Y_Cumulative_Billion_USD_NZ_Scenarios), Figure 8
+% (ETS_Revenue_Share_Deviation_vs_Baseline_5Y_Average), and Figure 9
+% (GDP_Level_Deviation_vs_Baseline_5Y_Average). See
+% README_MacroImpactAssessment.md for the full figure map.
 
 figureScenarioConfig = struct();
 figureScenarioConfig.BaselineName = "Baseline";
@@ -23,7 +29,7 @@ figureScenarioConfig.ScenarioNames = [ ...
     "NZ", ...
     "NZ_subsidy", ...
     "NZ_subsidy_direct", ...
-    "NZ_GF_C_EE"];
+    "NZ_Dir10_full_GF_C"];
 figureScenarioConfig.ScenarioLabels = [ ...
     "Net Zero", ...
     "Net Zero - subsidy", ...
@@ -38,6 +44,8 @@ figureScenarioConfig.GDPAnchorYear = 2025;
 figureScenarioConfig.GDPAnchorBillionUSD = 514.7;
 figureScenarioConfig.IncludeEmissionPriceUSDPlot = true;
 figureScenarioConfig.EmissionPriceScenarioName = "NZ";
+figureScenarioConfig.IncludeEmissionsIndexPlot = true;
+figureScenarioConfig.EmissionsIndexPlotType = "grouped_bar";
 % Latest observed EDGAR energy-related GHG total in the project input:
 % Power Industry + Industrial Combustion + Transport + Buildings
 % + Fuel Exploitation = 352.8946 MtCO2e in 2023.

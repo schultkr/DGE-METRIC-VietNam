@@ -2,6 +2,17 @@
 
 Date: 2026-06-03
 
+> **Note:** the scenario names below (`EE_PDP8`, `EE_Directive10`,
+> `EE_PDP8_PV_BESS`, …) predate the current scenario taxonomy and no longer
+> match the sheet names `create_ee_scenarios_from_expert_inputs.m` writes
+> (`EE_Dir10_full`, `EE_Dir10_full_NoBESS`, `EE_RTS_prerev_95GW`, …). Treat
+> this page as illustrating the plotting *pattern*, not as a literal scenario
+> list — check `RunSimulations.m`'s `scenarioGroups` for the current names.
+> The color/line-style snippet below is also superseded: use
+> `Functions/Miscellaneous/Plotting/iwh_scenario_style.m`, the canonical
+> name-keyed registry shared by every script under `scripts/reporting/`,
+> instead of `lines(N)` + a positional linetypes list.
+
 ## Objective
 
 Run and visualize macro impacts for the EE-focused scenarios:
@@ -102,8 +113,7 @@ labels = { ...
     'EE PDP8 PV+BESS', ...
     'EE PDP8 PV+BESS NoBESS'};
 
-colors = lines(numel(scenarios));
-linetypes = {'-','--','-.',':','-'};
+styles = iwh_scenario_style(scenarios);   % Functions/Miscellaneous/Plotting/iwh_scenario_style.m
 Tplot = 26;
 ilw = 2;
 
@@ -126,7 +136,7 @@ for i = 1:numel(scenarios)
     ds = dsall.(scenarios{i});
     growth = (ds.Y_1(2:Tplot)./ds.Y_1(1:Tplot-1)-1)*100;
     plot(ds.Year(2:Tplot), growth, 'LineWidth', ilw, ...
-        'LineStyle', linetypes{i}, 'Color', colors(i,:));
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, 'Color', styles(i).Color);
 end
 grid on; box off; xlabel('Year'); ylabel('%');
 legend(labels, 'Location', 'best', 'Box', 'off');
@@ -139,7 +149,7 @@ for i = 1:numel(scenarios)
     ds = dsall.(scenarios{i});
     idx = ds.Y_1(1:Tplot)./ds.Y_1(1)*100;
     plot(ds.Year(1:Tplot), idx, 'LineWidth', ilw, ...
-        'LineStyle', linetypes{i}, 'Color', colors(i,:));
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, 'Color', styles(i).Color);
 end
 grid on; box off; xlabel('Year'); ylabel('Index');
 legend(labels, 'Location', 'best', 'Box', 'off');
@@ -152,7 +162,7 @@ for i = 1:numel(scenarios)
     ds = dsall.(scenarios{i});
     invShare = ds.I_1(1:Tplot)./ds.Y_1(1:Tplot)*100;
     plot(ds.Year(1:Tplot), invShare, 'LineWidth', ilw, ...
-        'LineStyle', linetypes{i}, 'Color', colors(i,:));
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, 'Color', styles(i).Color);
 end
 grid on; box off; xlabel('Year'); ylabel('% of GDP');
 legend(labels, 'Location', 'best', 'Box', 'off');
@@ -165,7 +175,7 @@ for i = 1:numel(scenarios)
     ds = dsall.(scenarios{i});
     cShare = ds.C_1(1:Tplot)./ds.Y_1(1:Tplot)*100;
     plot(ds.Year(1:Tplot), cShare, 'LineWidth', ilw, ...
-        'LineStyle', linetypes{i}, 'Color', colors(i,:));
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, 'Color', styles(i).Color);
 end
 grid on; box off; xlabel('Year'); ylabel('% of GDP');
 legend(labels, 'Location', 'best', 'Box', 'off');
@@ -179,7 +189,7 @@ for i = 1:numel(scenarios)
     intensity = ((ds.Q_A_2_1 + ds.Q_PV_1)./(ds.Q_A_2_1(1) + ds.Q_PV_1(1))) ...
         ./ (ds.Y_1./ds.Y_1(1)) * 100;
     plot(ds.Year(1:Tplot), intensity(1:Tplot), 'LineWidth', ilw, ...
-        'LineStyle', linetypes{i}, 'Color', colors(i,:));
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, 'Color', styles(i).Color);
 end
 grid on; box off; xlabel('Year'); ylabel('Index');
 legend(labels, 'Location', 'best', 'Box', 'off');
@@ -192,7 +202,7 @@ for i = 1:numel(scenarios)
     ds = dsall.(scenarios{i});
     fed = (ds.Q_A_F_2_1 + ds.Q_PV_1)./(ds.Q_A_F_2_1(1) + ds.Q_PV_1(1))*100;
     plot(ds.Year(1:Tplot), fed(1:Tplot), 'LineWidth', ilw, ...
-        'LineStyle', linetypes{i}, 'Color', colors(i,:));
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, 'Color', styles(i).Color);
 end
 grid on; box off; xlabel('Year'); ylabel('Index');
 legend(labels, 'Location', 'best', 'Box', 'off');
@@ -205,7 +215,7 @@ for i = 1:numel(scenarios)
     ds = dsall.(scenarios{i});
     ee = ds.Q_A_2_1 .* ds.P_A_2_1 ./ (ds.Y_1 .* ds.P_1) * 100;
     plot(ds.Year(1:Tplot), ee(1:Tplot), 'LineWidth', ilw, ...
-        'LineStyle', linetypes{i}, 'Color', colors(i,:));
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, 'Color', styles(i).Color);
 end
 grid on; box off; xlabel('Year'); ylabel('%');
 legend(labels, 'Location', 'best', 'Box', 'off');
@@ -218,7 +228,7 @@ for i = 1:numel(scenarios)
     ds = dsall.(scenarios{i});
     emissions = ds.E_1(1:Tplot)./ds.E_1(1)*100;
     plot(ds.Year(1:Tplot), emissions, 'LineWidth', ilw, ...
-        'LineStyle', linetypes{i}, 'Color', colors(i,:));
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, 'Color', styles(i).Color);
 end
 grid on; box off; xlabel('Year'); ylabel('Index');
 legend(labels, 'Location', 'best', 'Box', 'off');

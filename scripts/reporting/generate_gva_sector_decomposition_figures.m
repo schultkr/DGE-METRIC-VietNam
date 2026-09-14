@@ -23,8 +23,8 @@ outputDir   = fullfile(repoRoot, 'ExcelFiles', 'Output');
 baselineCsv = fullfile(outputDir, 'Baseline.csv');
 
 scenarioSpecs = table( ...
-    ["Baseline"; "EE_Directive10"; "PDP8_GF_C"], ...
-    ["revised PDP 8 high"; "EE Directive 10"; "PDP 8 GF C"], ...
+    ["Baseline"; "EE_Dir10_full"; "PDP8_GF_C"], ...
+    ["revised PDP 8 high"; "Directive 10 (full)"; "PDP 8 GF C"], ...
     'VariableNames', {'Name', 'Label'});
 
 nSectors      = 5;
@@ -32,21 +32,28 @@ sectorNames   = ["Primary", "Fossil", "Renewables", "Secondary", "Tertiary"];
 plotStartYear = 2025;
 plotEndYear   = 2050;
 
+% 5-year period averaging (matches the period-comparison convention used in
+% display_baseline_energy.m): 2025 is the base year (zero deviation by
+% construction), so periods start in 2026.
+periodStartYear = 2026;
+periodLength    = 5;
+
 outDir = fullfile(repoRoot, 'Figures', 'ScenarioComparisons', 'GVADecomposition');
 if ~exist(outDir, 'dir')
     mkdir(outDir);
 end
 
+iwh = iwh_colors();
 sectorColors = [ ...
-    0.34 0.62 0.31;   % Primary    — muted green
-    0.40 0.40 0.40;   % Fossil     — dark grey
-    0.99 0.75 0.05;   % Renewables — amber
-    0.21 0.47 0.75;   % Secondary  — steel blue
-    0.84 0.37 0.11];  % Tertiary   — burnt orange
+    iwh.green;        % Primary    — IWH secondary green
+    iwh.mediumBlue;   % Fossil     — IWH medium blue
+    iwh.yellow;       % Renewables — IWH secondary yellow
+    iwh.primaryBlue;  % Secondary  — IWH primary blue
+    iwh.orange];      % Tertiary   — IWH secondary orange
 
 colors = struct();
-colors.total   = [0.10 0.10 0.10];
-colors.residual = [0.55 0.55 0.55];
+colors.total   = iwh.slate;
+colors.residual = iwh.slate40;
 
 set(groot, 'defaultAxesFontSize', 12, ...
            'defaultTextFontSize', 12, ...
@@ -127,14 +134,51 @@ for iScen = 1:height(scenarioSpecs)
     hold(ax, 'off');
     grid(ax, 'on');
     box(ax, 'off');
-    xlabel(ax, 'Year');
-    ylabel(ax, 'Percentage points of baseline GDP');
-    title(ax, sprintf('%s vs Baseline — GVA by economic activity', sLabel), ...
-        'Interpreter', 'none');
+    ylabel(ax, {sprintf('%s vs Baseline — GVA by economic activity', sLabel), ...
+        'Percentage points of baseline GDP'}, 'Interpreter', 'none');
     legend(ax, 'Location', 'bestoutside', 'Box', 'off', 'Interpreter', 'none');
 
     save_dual(fig, outDir, 'GVA_Sector_Decomposition_' + sanitize_filename(sName));
     fprintf('Saved GVA sector decomposition for %s to %s\n', sName, outDir);
+
+    % --- 5-year period average companion chart --------------------------
+    periodVars = ["GDPDeviationPctOfBaseline", ...
+        arrayfun(@(s) "GVA_" + sectorNames(s) + "_PctOfBaseline", 1:nSectors)];
+    periodDecomp = aggregate_to_periods(decomp, periodStartYear, plotEndYear, periodLength, periodVars);
+
+    periodCsv = fullfile(outDir, 'GVA_Sector_Decomposition_5yr_' + sanitize_filename(sName) + '.csv');
+    writetable(periodDecomp, periodCsv);
+
+    stackedDataP = zeros(height(periodDecomp), nSectors);
+    for s = 1:nSectors
+        stackedDataP(:, s) = periodDecomp.("GVA_" + sectorNames(s) + "_PctOfBaseline");
+    end
+
+    figP = figure('Color', 'w', 'Position', [80 80 1120 560]);
+    periodCats = categorical(periodDecomp.Period, periodDecomp.Period);
+    bhP = bar(periodCats, stackedDataP, 'stacked');
+    axP = gca;
+    hold(axP, 'on');
+
+    for s = 1:nSectors
+        bhP(s).FaceColor  = sectorColors(s, :);
+        bhP(s).DisplayName = sectorNames(s);
+    end
+
+    plot(axP, periodCats, periodDecomp.GDPDeviationPctOfBaseline, '-o', ...
+        'Color', colors.total, 'LineWidth', 2.0, 'MarkerFaceColor', colors.total, ...
+        'DisplayName', 'Total GDP change');
+
+    yline(axP, 0, ':', 'Color', colors.residual, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+    hold(axP, 'off');
+    grid(axP, 'on');
+    box(axP, 'off');
+    ylabel(axP, {sprintf('%s vs Baseline — GVA by economic activity', sLabel), ...
+        '5-year average, percentage points of baseline GDP'}, 'Interpreter', 'none');
+    legend(axP, 'Location', 'bestoutside', 'Box', 'off', 'Interpreter', 'none');
+
+    save_dual(figP, outDir, 'GVA_Sector_Decomposition_5yr_' + sanitize_filename(sName));
+    fprintf('Saved 5-year GVA sector decomposition for %s to %s\n', sName, outDir);
 end
 
 fprintf('GVA sector decomposition figures written to: %s\n', outDir);
@@ -187,6 +231,47 @@ end
 function z = safe_divide(a, b)
     z = a ./ b;
     z(~isfinite(z)) = NaN;
+end
+
+function periodTbl = aggregate_to_periods(tbl, periodStartYear, periodEndYear, periodLength, varsToAverage)
+    % Splits tbl.Year(periodStartYear:periodEndYear) into consecutive
+    % non-overlapping periodLength-year blocks and averages each variable
+    % in varsToAverage within each block. Trailing years that don't fill a
+    % full block are dropped (reported via warning).
+    years = tbl.Year;
+    rows  = find(years >= periodStartYear & years <= periodEndYear);
+    nPeriods = floor(numel(rows) / periodLength);
+    if nPeriods < 1
+        error('generate_gva_sector_decomposition_figures:noPeriods', ...
+            'Need at least %d years from %d to build one %d-year period.', ...
+            periodLength, periodStartYear, periodLength);
+    end
+
+    usedRows = rows(1:(nPeriods * periodLength));
+    if numel(usedRows) < numel(rows)
+        trailingYears = years(rows((nPeriods * periodLength + 1):end));
+        warning('generate_gva_sector_decomposition_figures:trailingPeriodYears', ...
+            'Dropping %d trailing year(s) that do not fill a full %d-year period: %s.', ...
+            numel(trailingYears), periodLength, strjoin(string(trailingYears'), ', '));
+    end
+
+    periodIdx = reshape(usedRows, periodLength, nPeriods)';
+
+    periodTbl = table();
+    periodTbl.Period    = compose('%d-%d', years(periodIdx(:, 1)), years(periodIdx(:, end)));
+    periodTbl.StartYear = years(periodIdx(:, 1));
+    periodTbl.EndYear   = years(periodIdx(:, end));
+
+    varsToAverage = string(varsToAverage);
+    for iVar = 1:numel(varsToAverage)
+        v = varsToAverage(iVar);
+        vals = tbl.(v);
+        periodMeans = zeros(nPeriods, 1);
+        for p = 1:nPeriods
+            periodMeans(p) = mean(vals(periodIdx(p, :)));
+        end
+        periodTbl.(v) = periodMeans;
+    end
 end
 
 function save_dual(fig, outDir, stem)

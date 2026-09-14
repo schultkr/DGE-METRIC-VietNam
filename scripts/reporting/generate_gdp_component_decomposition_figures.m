@@ -19,8 +19,8 @@ outputDir   = fullfile(repoRoot, 'ExcelFiles', 'Output');
 baselineCsv = fullfile(outputDir, 'Baseline.csv');
 
 scenarioSpecs = table( ...
-    ["Baseline"; "EE_Directive10"; "PDP8_GF_C"], ...
-    ["revised PDP 8 high"; "EE Directive 10"; "PDP 8 GF C"], ...
+    ["Baseline"; "EE_Dir10_full"; "PDP8_GF_C"], ...
+    ["revised PDP 8 high"; "Directive 10 (full)"; "PDP 8 GF C"], ...
     'VariableNames', {'Name', 'Label'});
 
 plotStartYear = 2025;
@@ -31,14 +31,15 @@ if ~exist(outDir, 'dir')
     mkdir(outDir);
 end
 
+iwh = iwh_colors();
 colors = struct();
-colors.consumption = [0.00 0.45 0.74];
-colors.investment  = [0.85 0.33 0.10];
-colors.government  = [0.47 0.67 0.19];
-colors.housingpv   = [0.93 0.69 0.13];
-colors.trade       = [0.49 0.18 0.56];
-colors.total       = [0.10 0.10 0.10];
-colors.residual    = [0.55 0.55 0.55];
+colors.consumption = iwh.primaryBlue;
+colors.investment  = iwh.orange;
+colors.government  = iwh.green;
+colors.housingpv   = iwh.yellow;
+colors.trade       = iwh.mediumBlue;
+colors.total       = iwh.slate;
+colors.residual    = iwh.slate40;
 
 set(groot, 'defaultAxesFontSize', 12, ...
            'defaultTextFontSize', 12, ...
@@ -126,10 +127,8 @@ for iScen = 1:height(scenarioSpecs)
     hold(ax, 'off');
     grid(ax, 'on');
     box(ax, 'off');
-    xlabel(ax, 'Year');
-    ylabel(ax, 'Percentage points of baseline GDP');
-    title(ax, sprintf('%s vs Baseline — GDP component decomposition', sLabel), ...
-        'Interpreter', 'none');
+    ylabel(ax, {sprintf('%s vs Baseline — GDP component decomposition', sLabel), ...
+        'Percentage points of baseline GDP'}, 'Interpreter', 'none');
     legend(ax, 'Location', 'bestoutside', 'Box', 'off', 'Interpreter', 'none');
 
     save_dual(fig, outDir, 'GDP_Component_Decomposition_' + sanitize_filename(sName));

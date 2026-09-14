@@ -118,6 +118,39 @@ Selected output milestones from script log:
 | EE_Directive10 | 0.1120 / 0.2683 | 0.1671 / 0.5138 | 0.3686 / 1.8073 |
 | EE_PDP8_PV_BESS | 0.0883 / 0.2355 | 0.1511 / 0.4915 | 0.3878 / 1.8430 |
 
+## EE Scenario Assumptions Table (reproducibility reference)
+
+This table is the citable assumptions summary for the reports. All values are
+**increments added to the Baseline** `exo_AI_*` / `exo_PVEff_1` paths.
+
+| Scenario | AI industry (2030 / 2050) | AI commercial (2030 / 2050) | `exo_PVEff` (2030 / 2050) | Annual EE investment | Expert input sheet |
+|:--|:--|:--|:--|:--|:--|
+| EE_PDP8 | 0.0655 / 0.2090 | 0.1349 / 0.4737 | 0.3390 / 1.7120 | ~USD 361 m/yr (industry + services) | `EE_PDP8_reference` |
+| EE_Directive10 | 0.1120 / 0.2683 | 0.1671 / 0.5138 | 0.3686 / 1.8073 | higher near-term (Directive 10 ambition) | `Directive10_RTS_EE` |
+| EE_PDP8_PV_BESS | 0.0883 / 0.2355 | 0.1511 / 0.4915 | 0.3878 / 1.8430 | industry + services + BESS annual investment | `PDP8_PV_EV_BESS` |
+
+Reported sectoral energy savings by 2030 for EE_PDP8: industry ~7.4%, services
+~5.1%, households ~11.6%.
+
+**Underlying assumption file (traceable from the reports):**
+`ExcelFiles/PDP8/Vietnam_EnergyExpert_ScenarioInputs - Adjust_2505.xlsx`
+(fallback `ExcelFiles/Vietnam_EnergyExpert_ScenarioInputs.xlsx`), consumed by
+`scripts/maintenance/create_ee_scenarios_from_expert_inputs.m`, which writes the
+model shock paths into `ExcelFiles/ModelScenarios5Sectorsand1Regions.xlsx`.
+
+Key transformations (from the mapping above):
+`Industry_EE_Saving_pct → exo_AI_4_1_2`, `Services_EE_Saving_pct → exo_AI_5_1_2`
+via `dAI = ln(1 / (1 − saving_pct/100))`; investment USD → `exo_GA_*` via the
+`deltaKA = 0.10` accumulation law on `GDP0 = 430,000` USD m;
+`PV_Integration_Gain_pct → exo_PVEff_1` via `ln(1 + gain_pct/100)`.
+
+> **BESS/RTS conditionality caveat (state upfront in any results discussion).**
+> The headline GDP effects of the higher-ambition EE pathway are conditional on
+> the assumed battery-storage (BESS) and self-consumption rooftop-solar (RTS)
+> cost and deployment paths. The model captures their macro-investment and
+> energy-efficiency consequences but not their hourly grid-integration value; a
+> slower or costlier BESS/RTS rollout would reduce the estimated gains.
+
 ## Notes
 
 - If the source workbook is open in Excel, writing may fail due to file lock.

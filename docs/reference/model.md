@@ -381,7 +381,86 @@ scenario-specific consumption-tax policy experiments layered on top of that path
 
 ### External sector
 
-- Imports/exports, trade balance closure
+#### Trade aggregates and net exports
 
-- Exchange rate / numeraire conventions (document your choice)
+Regional imports aggregate the subsector import bills for intermediate ($M^I$)
+and final ($M^F$) use:
+
+$$ M_{r,t} = \sum_{s} P^M_{s,t}\,\big(M^I_{s,r,t} + M^F_{s,r,t}\big) $$
+
+Exports are the CES export aggregate $X_{r,t}$ (§Exporter) valued at the export
+price index $P^Q_{r,t}$, which uses sector-specific export-variety weights
+$D^X_{s,r}$ (shifted by `exo_X_{s,r}`) and the export elasticity $\eta^X$:
+
+$$ P^Q_{r,t} = \Big(\sum_{s} D^X_{s,r}\,e^{\,exo\_X_{s,r,t}}\,\big(P^Q_{s,r,t}\big)^{1-\eta^X}\Big)^{\frac{1}{1-\eta^X}} $$
+
+Regional net exports are
+
+$$ NX_{r,t} = P^Q_{r,t}\,X_{r,t} - M_{r,t}. $$
+
+#### Net foreign asset position — law of motion
+
+The total external position is $B_{r,t} + \phi^{BG}_{r}\,B^G_{r,t}$: only the
+externally-held share $\phi^{BG}_r$ (`phi_BG_ext_reg_p`) of government debt
+$B^G_{r,t}$ enters alongside private net foreign assets $B_{r,t}$. Its law of
+motion links the position to net exports, a debt-elastic return, a quadratic
+portfolio-adjustment cost, and FDI capital inflows / income outflows:
+
+$$
+B_{r,t+1} + \phi^{BG}_r B^G_{r,t+1}
+= (1+r^f_t)\, s_{r,t}\,
+  \exp\!\Big(\!-\phi_B\, \tfrac{\big(B_{r,t}+\phi^{BG}_r B^G_{r,t}\big) - (1-\delta^B)\big(B_{r,t-1}+\phi^{BG}_r B^G_{r,t-1}\big)}{Y_{r,t}}\Big)
+  \big(B_{r,t}+\phi^{BG}_r B^G_{r,t}\big)
+$$
+$$
+\qquad +\; NX_{r,t}
+ \;-\; \phi_{adjB}\,\big(\Delta\text{position}\big)^2
+ \;+\; \delta^B_{r,t}
+ \;-\; \sum_{s}\Big(I^{FDI}_{s,r,t}\, P^{INV}_{s,r,t}
+   + r^{FDI}_{s,r,t}\,\tfrac{P^K_{s,r,t}}{P^{INV}_{s,r,t-1}}\, K^{FDI}_{s,r,t-1}\Big)
+$$
+
+The exponential term is the **debt-elastic external finance premium**: a larger
+net external liability relative to GDP $Y_{r,t}$ raises the effective return
+required to hold the position (coefficient $\phi_B$, code default
+`phiB_p = 10`). $\phi_{adjB}$ (code default `phiadjB_p = 1`) is a quadratic
+adjustment cost that keeps the position stationary — the standard
+small-open-economy closure device (Schmitt-Grohé & Uribe 2003). A matching
+household Euler equation (`FOC foreign bonds` in
+`ModFiles/Equations/households.mod`) governs the optimal external position.
+
+#### Exchange-rate / external-balance closure
+
+The variable $s_{r}$ is **not a UIP-style nominal exchange rate**. A
+compile-time switch `exo_lNXTarget_r` selects one of two closures:
+
+$$
+s_{r,t}
+=
+\begin{cases}
+\rho^{s}\, s_{r,t-1} + (1-\rho^{s})\, s^{0}_{r}\, e^{\,exo\_s_{r,t}}
+   & exo\_lNXTarget_{r}=0 \quad(\text{all non-Baseline scenarios})\\[6pt]
+\text{solved so } \dfrac{NX_{r,t}}{Y_{r,t}} = \dfrac{NX^{0}_{r}}{Y^{0}_{r}} + exo\_NX_{r,t}
+   & exo\_lNXTarget_{r}=1 \quad(\text{Baseline})
+\end{cases}
+$$
+
+In Baseline mode $s_r$ is the balancing variable that enforces a target
+net-exports/GDP ratio; in every other scenario it follows an AR(1) valuation
+process around its steady-state level $s^0_r$ (persistence $\rho^s$, `rhos_p`).
+
+> **Landmine — `s_reg` is a closure device, not an exchange rate.** Treat $s_r$
+> as an external-balance / valuation factor. Do not interpret its dynamics as a
+> conventional nominal exchange-rate block. See
+> [dev/model_consistency_and_calibration_findings_2026-07-14.md](../dev/model_consistency_and_calibration_findings_2026-07-14.md).
+
+**Calibration sensitivity.** In the active calibration `phiB_p` and `phiadjB_p`
+are far weaker than the built-in code defaults (about two orders of magnitude
+apart — see [calibration_model_detailed.md §12](calibration_model_detailed.md)).
+Results that hinge on external borrowing / foreign-asset dynamics should be read
+alongside this caveat.
+
+**Numeraire.** Prices are expressed relative to the domestic final-goods price
+$P_t$; foreign-currency flows (world interest rate $r^f_t$, government external
+debt service) are converted through $s_r$ as described above.
 

@@ -32,7 +32,7 @@ baselineCsv = resolve_output_csv(outputDir, "Baseline");
 
 % New scenarios for slide updates. Add/remove rows as needed.
 scenarioSpecs = table( ...
-    ["EE_Directive10"; "PDP8_GF_C"; "NZ_GF_C"], ...
+    ["EE_Dir10_full"; "PDP8_GF_C"; "NZ_GF_C"], ...
     ["Directive 10"; "PDP8 GF C"; "NZ GF C"], ...
     'VariableNames', {'Name', 'Label'});
 
@@ -78,12 +78,7 @@ if ~exist(slideOutDir, 'dir')
 end
 
 % ---- style --------------------------------------------------------------
-colors = struct();
-colors.baseline = [0.25 0.25 0.25];
-colors.scenario = [0.00 0.45 0.70];
-colors.delta    = [0.84 0.37 0.00];
-colors.zero     = [0.45 0.45 0.45];
-colors.grid     = [0.82 0.82 0.82];
+colors = iwh_colors();
 
 set(groot, 'defaultAxesFontSize', 12, ...
            'defaultTextFontSize', 12, ...
@@ -156,19 +151,18 @@ if exportOptions.SinglePlotsForSlides
             baseline.(char(spec.Variable)), string(spec.Transform), plotOptions), ...
             '-', 'Color', colors.baseline, 'LineWidth', 1.9, 'DisplayName', 'Baseline');
         hold(ax, 'on');
-        scenarioColors = lines(max(3, numel(loadedScenarios)));
+        scenarioStyles = iwh_scenario_style({loadedScenarios.Name});
         for iScen = 1:numel(loadedScenarios)
             sData = loadedScenarios(iScen).Data;
             yVals = compute_transform_series(sData.(char(spec.Variable)), ...
                 baseline.(char(spec.Variable)), string(spec.Transform), plotOptions);
-            plot(ax, years, yVals, '-', 'Color', scenarioColors(iScen, :), ...
+            plot(ax, years, yVals, 'Color', scenarioStyles(iScen).Color, ...
+                'LineStyle', scenarioStyles(iScen).LineStyle, 'Marker', scenarioStyles(iScen).Marker, ...
                 'LineWidth', 1.8, 'DisplayName', loadedScenarios(iScen).Label);
         end
         hold(ax, 'off');
-        title(ax, char(spec.Label), 'Interpreter', 'none');
-        ylabel(ax, build_transform_ylabel(string(spec.Transform), years(1)), ...
+        ylabel(ax, {char(spec.Label), build_transform_ylabel(string(spec.Transform), years(1))}, ...
             'Interpreter', 'none');
-        xlabel(ax, 'Year');
         style_time_axis(ax, yearRange, colors);
         pad_y_axis(ax, string(spec.Transform));
         legend(ax, 'Location', 'best', 'Box', 'off', 'Interpreter', 'none');
@@ -189,15 +183,14 @@ if exportOptions.SinglePlotsForSlides
                 baseline.(char(spec.Variable)), string(spec.Deviation), ...
                 'Baseline', loadedScenarios(iScen).Label, ...
                 plotOptions.PctDeviationVisibilityThreshold);
-            plot(ax, years, dVals, '-', 'Color', scenarioColors(iScen, :), ...
+            plot(ax, years, dVals, 'Color', scenarioStyles(iScen).Color, ...
+                'LineStyle', scenarioStyles(iScen).LineStyle, 'Marker', scenarioStyles(iScen).Marker, ...
                 'LineWidth', 1.9, 'DisplayName', loadedScenarios(iScen).Label);
         end
         yline(ax, 0, ':', 'Color', colors.zero, 'LineWidth', 1.0, ...
             'HandleVisibility', 'off');
         hold(ax, 'off');
-        title(ax, char(spec.Label), 'Interpreter', 'none');
-        ylabel(ax, build_deviation_ylabel(string(spec.Deviation)), 'Interpreter', 'none');
-        xlabel(ax, 'Year');
+        ylabel(ax, {char(spec.Label), build_deviation_ylabel(string(spec.Deviation))}, 'Interpreter', 'none');
         style_time_axis(ax, yearRange, colors);
         pad_y_axis(ax, string(spec.Deviation));
         legend(ax, 'Location', 'best', 'Box', 'off', 'Interpreter', 'none');

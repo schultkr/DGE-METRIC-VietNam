@@ -11,6 +11,7 @@ repoRoot = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 oldPwd = pwd;
 cleanupObj = onCleanup(@() cd(oldPwd)); %#ok<NASGU>
 cd(repoRoot);
+setup_paths();
 
 %% Configuration
 
@@ -26,7 +27,7 @@ cfg.scenarios = {'Baseline', 'NZ'};
 % The script adds a second figure set with both scenario series overlaid
 % for every case and variable.
 cfg.comparisonPair = {'Baseline', 'NZ'};
-cfg.comparisonLineStyles = {'-', '--'};
+cfg.comparisonLineStyles = {'-', iwh_scenario_style('NZ').LineStyle};
 
 % Variables to plot.
 cfg.variables = {
@@ -147,10 +148,8 @@ for iScen = 1:numel(cfg.scenarios)
             continue
         end
 
-        title(ax, sprintf('%s | %s (%s)', scenarioName, varName, cfg.transform), ...
-            'Interpreter', 'none');
-        xlabel(ax, 'Year');
-        ylabel(ax, y_axis_label(varName, cfg.transform));
+        ylabel(ax, {sprintf('%s | %s (%s)', scenarioName, varName, cfg.transform), ...
+            y_axis_label(varName, cfg.transform)}, 'Interpreter', 'none');
         legend(ax, plottedLabels, 'Interpreter', 'none', 'Location', 'best');
 
         fileName = sprintf('%s__%s__%s.png', sanitize_name(scenarioName), sanitize_name(varName), sanitize_name(cfg.transform));
@@ -239,10 +238,8 @@ if numel(cfg.comparisonPair) == 2
             continue
         end
 
-        title(ax, sprintf('%s vs %s | %s (%s)', scenarioA, scenarioB, varName, cfg.transform), ...
-            'Interpreter', 'none');
-        xlabel(ax, 'Year');
-        ylabel(ax, y_axis_label(varName, cfg.transform));
+        ylabel(ax, {sprintf('%s vs %s | %s (%s)', scenarioA, scenarioB, varName, cfg.transform), ...
+            y_axis_label(varName, cfg.transform)}, 'Interpreter', 'none');
         legend(ax, plottedLabels, 'Interpreter', 'none', 'Location', 'best');
 
         fileName = sprintf('Comparison__%s_vs_%s__%s__%s.png', ...
@@ -282,10 +279,10 @@ if cfg.topImpact.enabled && numel(cfg.comparisonPair) == 2
         ax.XTickLabel = xTickLabels;
         ax.XTickLabelRotation = 45;
 
-        title(ax, sprintf('Top %d parameter impacts: %s vs %s (%s, terminal-year %% deviation)', ...
-            topN, cfg.comparisonPair{2}, cfg.comparisonPair{1}, cfg.topImpact.variable), 'Interpreter', 'none');
         xlabel(ax, 'Parameter = value (from AppliedOverrides.csv)', 'Interpreter', 'none');
-        ylabel(ax, sprintf('%% deviation: %s vs %s', cfg.comparisonPair{2}, cfg.comparisonPair{1}), 'Interpreter', 'none');
+        ylabel(ax, {sprintf('Top %d parameter impacts: %s vs %s (%s, terminal-year %% deviation)', ...
+            topN, cfg.comparisonPair{2}, cfg.comparisonPair{1}, cfg.topImpact.variable), ...
+            sprintf('%% deviation: %s vs %s', cfg.comparisonPair{2}, cfg.comparisonPair{1})}, 'Interpreter', 'none');
 
         impactFigName = sprintf('ImpactTop%d__%s_vs_%s__%s.png', ...
             topN, sanitize_name(cfg.comparisonPair{2}), sanitize_name(cfg.comparisonPair{1}), sanitize_name(cfg.topImpact.variable));
@@ -461,17 +458,11 @@ function [xCommon, yACommon, yBCommon] = align_series_by_year(xA, yA, xB, yB)
 end
 
 function c = pick_color(i)
-    palette = [ ...
-        0.00, 0.45, 0.74;
-        0.85, 0.33, 0.10;
-        0.93, 0.69, 0.13;
-        0.49, 0.18, 0.56;
-        0.47, 0.67, 0.19;
-        0.30, 0.75, 0.93;
-        0.64, 0.08, 0.18;
-        0.20, 0.20, 0.20
-    ];
-    c = palette(mod(i - 1, size(palette, 1)) + 1, :);
+    % Sensitivity cases (parameter-override runs) are not named taxonomy
+    % scenarios, so this stays positional -- but reuses the shared IWH
+    % corporate palette (cycling) instead of an independent ad hoc list.
+    cycled = iwh_colors(i);
+    c = cycled(end, :);
 end
 
 function tab = read_table_preserve_names(filePath)

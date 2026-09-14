@@ -10,6 +10,12 @@
 %     - EE, Finance, and NZ sheets are cloned from the current scenario workbook
 %       so the path-definition workbook reproduces the current scenario layouts
 %       exactly.
+%
+% Source workbook: ModelScenarios5Sectorsand1Regions_replication.xlsx, matching
+% RunSimulations.m's default sSensitivity = '_replication' (i.e. the workbook
+% actually read by simulation runs unless DGE_SCENARIO_GROUPS/sSensitivity is
+% overridden). Keep this sheet list in sync with that workbook's actual tabs —
+% see docs/scenario_notes/workbook_creation_procedure.md.
 
 repoRoot = fileparts(fileparts(fileparts(mfilename('fullpath'))));
 oldPwd = pwd;
@@ -17,7 +23,7 @@ cleanupObj = onCleanup(@() cd(oldPwd)); %#ok<NASGU>
 cd(repoRoot);
 setup_paths();
 
-sourceWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelScenarios5Sectorsand1Regions.xlsx');
+sourceWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelScenarios5Sectorsand1Regions_replication.xlsx');
 targetWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ScenarioPathDefinition.xlsx');
 
 if ~isfile(sourceWorkbook)
@@ -28,11 +34,16 @@ end
 run(fullfile(repoRoot, 'scripts', 'maintenance', 'create_baseline_path_definition_template.m'));
 
 eeSheets = {
-    'EE_PDP8'
-    'EE_Directive10'
-    'EE_PDP8_PV_BESS'
-    'EE_Directive10_NoBESS'
-    'EE_PDP8_PV_BESS_NoBESS'
+    'EE_PDP8_ref'
+    'EE_PDP8_ref_NoBESS'
+    'EE_Dir10_full'
+    'EE_Dir10_full_NoBESS'
+    'EE_RTS_prerev_95GW'
+    'EE_RTS_prerev_95GW_NoBESS'
+    'EE_Dir10_RTSslice'
+    'EE_Dir10_RTSslice_NoBESS'
+    'EE_Dir10_EEonly'
+    'EE_Dir10_EEonly_NoBESS'
 };
 
 financeSheets = {
@@ -44,7 +55,19 @@ financeSheets = {
     'NZ_GF_C'
 };
 
-scenarioSheets = [eeSheets; financeSheets; {'NZ'}];
+nzOtherSheets = {
+    'NZ_constEE'
+    'NZ_constInt'
+    'NZ_constEEInt'
+    'NZ_subsidy'
+    'NZ_Dir10_full'
+    'NZ_Dir10_full_NoBESS'
+    'NZ_RTS_prerev_95GW'
+    'NZ_RTS_prerev_95GW_NoBESS'
+    'ImportShock_Fossil2_P10'
+};
+
+scenarioSheets = [eeSheets; financeSheets; nzOtherSheets; {'NZ'}];
 
 availableSheets = cellstr(sheetnames(sourceWorkbook));
 for iSheet = 1:numel(scenarioSheets)
@@ -60,7 +83,9 @@ fprintf('\nCreateScenarioPathDefinitionTemplates complete.\n');
 fprintf('  Baseline template:  created by create_baseline_path_definition_template.m\n');
 fprintf('  EE sheets cloned:   %s\n', strjoin(eeSheets, ', '));
 fprintf('  Finance sheets:     %s\n', strjoin(financeSheets, ', '));
+fprintf('  NZ sensitivity/other sheets: %s\n', strjoin(nzOtherSheets, ', '));
 fprintf('  NZ sheet cloned:    NZ\n');
+fprintf('  Source workbook:    %s\n', sourceWorkbook);
 fprintf('  Target workbook:    %s\n', targetWorkbook);
 
 function clone_sheet_values(sourceWorkbook, targetWorkbook, sheetName)

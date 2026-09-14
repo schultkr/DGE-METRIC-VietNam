@@ -9,19 +9,21 @@
 % Target: ExcelFiles/ModelScenarios5Sectorsand1Regions.xlsx
 %
 % For each expert scenario, TWO model sheets are written:
-%   <name>          full scenario (EE + BESS integration gain)
-%   <name>_NoBESS   counterfactual without BESS (exo_PVEff and BESS GA zeroed)
+%   <name>          full scenario (EE + rooftop PV + BESS/integration)
+%   <name>_NoBESS   counterfactual with the storage layer removed
+%                   (exo_PVEff_1 and exo_GA_3_1 reverted to baseline;
+%                    the rooftop-PV deployment, incl. exo_PV_1, is kept)
 %
-% The difference between the pair isolates the role of BESS systems.
+% The difference between the pair isolates BESS + grid integration only.
 %
 % Variables written per sheet:
 %   exo_AI_4_1_2   industrial EE productivity  (log(1/(1-saving_pct/100)))
 %   exo_AI_5_1_2   commercial EE productivity
-%   exo_GA_4_1     industrial K_A  (EE investment cost, accumulated stock)
-%   exo_GA_5_1     commercial K_A  (EE investment cost, accumulated stock)
-%   exo_PV_1       household RTS investment K_A  (zeroed in NoBESS)
-%   exo_GA_3_1     renewables K_A  (grid BESS investment costs accumulated; zeroed in NoBESS)
-%   exo_PVEff_1    PV integration-gain shock    (zeroed in NoBESS)
+%   exo_GA_4_1     industrial K_A  (EE + industry RTS investment cost, accumulated)
+%   exo_GA_5_1     commercial K_A  (EE + services RTS investment cost, accumulated)
+%   exo_PV_1       household RTS investment K_A  (kept in NoBESS)
+%   exo_GA_3_1     renewables K_A  (grid BESS investment costs accumulated; baseline in NoBESS)
+%   exo_PVEff_1    PV integration-gain shock    (baseline in NoBESS)
 %   exo_lAddEE_4_1 EE-mode switch (1 = additive to exo_EE)
 %   exo_lAddEE_5_1 EE-mode switch
 %   exo_CapTrade_1 cap-and-trade active flag (1=on, 0=off)
@@ -69,6 +71,17 @@ autoPrepareCleanInputs = true;
 
 if autoPrepareCleanInputs
     run(fullfile(repoRoot, 'scripts', 'maintenance', 'prepare_expert_inputs_for_sheet_creation.m'));
+    % EE_Dir10_RTSslice is a derived scenario (RTS-attributable slice of Directive 10),
+    % not a raw expert sheet; its clean CSV is built by a dedicated script.
+    run(fullfile(repoRoot, 'scripts', 'maintenance', 'prepare_ee_pdp8_rts_expert_input.m'));
+    % EE_RTS_prerev_95GW: "RTS stays at the pre-revision 95 GW" counterfactual --
+    % exo_AI_4/5, exo_GA_4/5 and exo_PV_1 rewound from the 135 GW Baseline path to
+    % the 95 GW path; no retrofit EE, no BESS. Overwrites the raw PDP8_PV_EV_BESS
+    % extract from prepare_expert_inputs_for_sheet_creation.m.
+    run(fullfile(repoRoot, 'scripts', 'maintenance', 'prepare_pdp8_pv_deployonly_input.m'));
+    % EE_Dir10_EEonly: Directive 10 demand-side efficiency measures only, with the
+    % RTS contribution (scenario + Baseline coupling + household exo_PV_1) removed.
+    run(fullfile(repoRoot, 'scripts', 'maintenance', 'prepare_ee_directive10_norts_input.m'));
 end
 
 baseYear      = 2025;
@@ -81,10 +94,18 @@ capTradeValue = 1;        % exo_CapTrade_1: 1 = cap-and-trade active
 subsecRenew = 3;
 
 % Expert sheet -> model sheet base name (NoBESS variant appended automatically).
+% NZ_* rows write a second copy of the same EE shocks; RunSimulations.m runs
+% those against the NZ baseline (sBaseline = 'NZ'), the PDP8-baseline copies
+% against 'Baseline'. The sheet content is identical -- as with PDP8_GF_* vs
+% NZ_GF_* -- because both baselines carry the same exo_AI base path.
 scenarios = {
-    'EE_PDP8_reference',  'EE_PDP8'
-    'Directive10_RTS_EE', 'EE_Directive10'
-    'PDP8_PV_EV_BESS',    'EE_PDP8_PV_BESS'
+    'EE_PDP8_reference',        'EE_PDP8_ref'
+    'Directive10_RTS_EE',       'EE_Dir10_full'
+    'PDP8_PV_EV_BESS',          'EE_RTS_prerev_95GW'
+    'EE_PDP8_RTS',              'EE_Dir10_RTSslice'
+    'Directive10_noBESS_noRTS', 'EE_Dir10_EEonly'
+    'Directive10_RTS_EE',       'NZ_Dir10_full'
+    'PDP8_PV_EV_BESS',          'NZ_RTS_prerev_95GW'
 };
 
 % -----------------------------------------------------------------------
@@ -247,13 +268,17 @@ for iScen = 1:size(scenarios, 1)
         ai4, ai5, ga4, ga5, gaRen, pvEff, pvSec, lAddEEValue, capTradeValue, subsecRenew);
     log_scenario(targetBase, yearsBaseline, ai4, ai5, pvEff, dPVEff);
 
-    % --- Write NoBESS counterfactual (EE only, BESS/RTS zeroed) -------
-    % exo_PVEff, exo_GA_3_1, and exo_PV_1 revert to baseline.
+    % --- Write NoBESS counterfactual (storage / grid-integration removed) -----
+    % Only the storage layer reverts to baseline: exo_PVEff_1 (grid-integration
+    % gain) and exo_GA_3_1 (BESS adaptation capital). The rooftop-PV deployment
+    % itself is retained -- exo_GA_4_1/5_1 (industry/commercial RTS) and exo_PV_1
+    % (household RTS) carry the same paths as the full scenario -- so the pair
+    % difference isolates BESS + integration, not the PV build.
     noBESSSheet = [targetBase '_NoBESS'];
     write_scenario_sheet(scenarioWorkbook, noBESSSheet, yearsBaseline, ...
-        ai4, ai5, ga4, ga5, gaRenBase, pvEffBase, pvBase, lAddEEValue, capTradeValue, subsecRenew);
-    fprintf('  NoBESS: exo_PVEff / exo_GA_3_1 / exo_PV_1 = baseline\n');
-    fprintf('  -> BESS isolation = difference between "%s" and "%s"\n', ...
+        ai4, ai5, ga4, ga5, gaRenBase, pvEffBase, pvSec, lAddEEValue, capTradeValue, subsecRenew);
+    fprintf('  NoBESS: exo_PVEff_1 / exo_GA_3_1 = baseline (exo_PV_1 kept)\n');
+    fprintf('  -> BESS+integration isolation = difference between "%s" and "%s"\n', ...
         targetBase, noBESSSheet);
 end
 

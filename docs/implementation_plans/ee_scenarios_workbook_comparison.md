@@ -103,7 +103,7 @@ Likely intended sheet: `EE_PDP8_PV_BESS` (exists), paired with `EE_PDP8_PV_BESS_
 
 ## Recommended Plots for EE Macroeconomic Effects
 
-Use `Figures/save_figures_for_scenarios_ee.m` as the base plotting template. The most informative macro panel is:
+Use `scripts/reporting/save_figures_for_scenarios_ee.m` as the base plotting template. The most informative macro panel is:
 
 1. `GDP_Growth` (short-run activity effects)
 2. `GDP` (level effect)

@@ -17,7 +17,7 @@ setup_paths();
 BASELINE_NAME = "Baseline";
 
 % Replace with your assigned scenario (must match ExcelFiles/Output/<name>.csv)
-SCENARIO_NAME = "EE_PDP8";
+SCENARIO_NAME = "EE_PDP8_ref";
 SCENARIO_LABEL = "Assigned Scenario";
 
 PLOT_START_YEAR = 2025;
@@ -131,9 +131,8 @@ hold(ax, 'off');
 
 grid(ax, 'on');
 box(ax, 'off');
-xlabel(ax, 'Year');
-ylabel(ax, build_transform_ylabel(CHART_MODE, years(1)));
-title(ax, sprintf('%s: Baseline vs %s', CHART_LABEL, SCENARIO_LABEL), 'Interpreter', 'none');
+ylabel(ax, {sprintf('%s: Baseline vs %s', CHART_LABEL, SCENARIO_LABEL), ...
+    build_transform_ylabel(CHART_MODE, years(1))}, 'Interpreter', 'none');
 legend(ax, 'Location', 'best', 'Box', 'off', 'Interpreter', 'none');
 
 chartStem = "hands_on2_chart_" + sanitize_filename(CHART_VARIABLE) + "_" + sanitize_filename(CHART_MODE);

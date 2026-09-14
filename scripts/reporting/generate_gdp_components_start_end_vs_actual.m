@@ -244,10 +244,9 @@ yline(ax, 100, ':', 'Color', [0.4 0.4 0.4], 'LineWidth', 1.0, 'HandleVisibility'
 yline(ax, 0, '-', 'Color', [0.6 0.6 0.6], 'LineWidth', 0.5, 'HandleVisibility', 'off');
 grid(ax, 'on');
 box(ax, 'off');
-ylabel(ax, '% of GDP');
-title(ax, sprintf(['GDP components — Baseline start vs. reporting end (%d) ', ...
+ylabel(ax, {sprintf(['GDP components — Baseline start vs. reporting end (%d) ', ...
     '[simulation horizon to %d; actual = GSO %d]'], ...
-    reportingEndYear, simulationEndYear, actualYear), 'Interpreter', 'none');
+    reportingEndYear, simulationEndYear, actualYear), '% of GDP'}, 'Interpreter', 'none');
 legend(ax, 'Location', 'southoutside', 'Orientation', 'horizontal', 'NumColumns', 3, 'Box', 'off', 'Interpreter', 'none');
 
 save_dual(fig, outDir, 'GDPComponents_StartEndVsActual');

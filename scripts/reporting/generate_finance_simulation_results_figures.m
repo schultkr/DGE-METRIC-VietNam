@@ -6,6 +6,11 @@
 %
 % Output:
 %   docs/figures/Finance_Simulation_Results/*.svg and *.png
+%
+% Used in: IWH_Report_Macro Impact Assessment.docx, Figure 4
+% (GDP_Level_Deviation_vs_Baseline_5Y_Average) and Figure 5
+% (WACC_Renewables_Deviation_vs_Baseline_5Y_Average). See
+% README_MacroImpactAssessment.md for the full figure map.
 
 % A wrapper script may provide figureScenarioConfig to reuse this reporting
 % pipeline for another scenario family while preserving identical figures.
@@ -46,6 +51,21 @@ if isfield(figureScenarioConfig, 'IncludeEmissionPriceUSDPlot')
     includeEmissionPriceUSDPlot = logical(figureScenarioConfig.IncludeEmissionPriceUSDPlot);
 else
     includeEmissionPriceUSDPlot = false;
+end
+if isfield(figureScenarioConfig, 'IncludeEmissionsIndexPlot')
+    includeEmissionsIndexPlot = logical(figureScenarioConfig.IncludeEmissionsIndexPlot);
+else
+    includeEmissionsIndexPlot = false;
+end
+if isfield(figureScenarioConfig, 'EmissionsIndexPlotType')
+    emissionsIndexPlotType = string(figureScenarioConfig.EmissionsIndexPlotType);
+else
+    emissionsIndexPlotType = "line";
+end
+if ~isscalar(emissionsIndexPlotType) || ...
+        ~ismember(emissionsIndexPlotType, ["line", "grouped_bar"])
+    error('generate_finance_simulation_results_figures:emissionsIndexPlotType', ...
+        'EmissionsIndexPlotType must be either "line" or "grouped_bar".');
 end
 if includeETSBillionUSDPlot
     requiredETSConfig = {'ETSBillionUSDScenarioName', 'GDPAnchorYear', ...
@@ -99,6 +119,11 @@ if isfield(figureScenarioConfig, 'BaselineName')
 else
     baselineName = "Baseline";
 end
+if isfield(figureScenarioConfig, 'BaselineLabel')
+    baselineLabel = string(figureScenarioConfig.BaselineLabel);
+else
+    baselineLabel = "PDP8-rev";
+end
 if isfield(figureScenarioConfig, 'VersionSuffix')
     sversion = string(figureScenarioConfig.VersionSuffix);
 else
@@ -134,7 +159,8 @@ end
 
 requiredVars = ["Year", "Y_1", "I_1", "C_1", "G_1", "NX_1", "IH_1", "PH_1", ...
     "r_F_3_1", "P_K_3_1", "P_INV_3_1", "K_3_1", "I_3_1"];
-if includeETSRevenuePlot || includeETSBillionUSDPlot || includeEmissionPriceUSDPlot
+if includeETSRevenuePlot || includeETSBillionUSDPlot || includeEmissionPriceUSDPlot || ...
+        includeEmissionsIndexPlot
     requiredVars = [requiredVars, "P_1", "PE_1", "E_1"];
 end
 for i = 1:numel(allNames)
@@ -146,7 +172,7 @@ for i = 1:numel(allNames)
     end
 end
 
-commonYears = allData.Baseline.Year(:);
+commonYears = allData.(char(baselineName)).Year(:);
 for i = 1:numel(scenarioNames)
     s = allData.(char(scenarioNames(i)));
     commonYears = intersect(commonYears, s.Year(:));
@@ -157,11 +183,11 @@ if isempty(plotYears)
         'No common years available in requested horizon.');
 end
 
-colors = lines(max(4, numel(scenarioNames)));
-lineTypes = {'-', '--', '-.', ':'};
+styles = iwh_scenario_style(scenarioNames);
+colors = reshape([styles.Color], 3, [])';   % keeps existing colors(i,:) call sites unchanged
 lineWidth = 2.0;
 
-baseline = allData.Baseline;
+baseline = allData.(char(baselineName));
 bGDPGrowth = annual_growth(baseline, 'Y_1', plotYears);
 bGDPLevel = extract_values(baseline, 'Y_1', plotYears);
 bInvShare = level_share(baseline, 'I_1', 'Y_1', plotYears);
@@ -171,7 +197,7 @@ bHousingInvShare = housing_investment_share(baseline, plotYears);
 bNetExportsShare = net_exports_share(baseline, plotYears);
 bWacc = renewable_wacc_pct(baseline, plotYears);
 bRenewableCapital = extract_values(baseline, 'K_3_1', plotYears);
-bRenewableInvestment = extract_values(baseline, 'I_3_1', plotYears);
+bRenewableInvestment = extract_values(baseline, 'I_G_3_1', plotYears);
 if includeETSRevenuePlot
     bETSRevenueShare = ets_revenue_gdp_share(baseline, plotYears);
 end
@@ -205,20 +231,35 @@ if includeEmissionPriceUSDPlot
     end
     modelToMtCO2e = energyGHGAnchorMtCO2e / anchorModelEmissions.Values(1);
 end
+if includeEmissionsIndexPlot
+    baselineAnchor = extract_values(baseline, 'E_1', 2025);
+    if isempty(baselineAnchor.Values) || baselineAnchor.Values(1) == 0
+        error('generate_finance_simulation_results_figures:emissionsIndexAnchor', ...
+            'Baseline emissions are unavailable or zero in anchor year 2025.');
+    end
+    for i = 1:numel(scenarioNames)
+        sAnchor = extract_values(allData.(char(scenarioNames(i))), 'E_1', 2025);
+        if isempty(sAnchor.Values) || sAnchor.Values(1) == 0
+            error('generate_finance_simulation_results_figures:emissionsIndexAnchor', ...
+                'Scenario "%s" emissions are unavailable or zero in anchor year 2025.', ...
+                scenarioNames(i));
+        end
+    end
+end
 
 % 1) GDP growth comparison with baseline (levels, %)
 fig = make_fig(); hold on;
-plot(bGDPGrowth.Years, bGDPGrowth.Values, '-', 'Color', [0.20 0.20 0.20], ...
-    'LineWidth', lineWidth, 'DisplayName', 'Baseline');
+plot(bGDPGrowth.Years, bGDPGrowth.Values, '-', 'Color', iwh_colors().baseline, ...
+    'LineWidth', lineWidth, 'DisplayName', char(baselineLabel));
 for i = 1:numel(scenarioNames)
     sName = char(scenarioNames(i));
     sLabel = char(scenarioLabels(i));
     sGDPGrowth = annual_growth(allData.(sName), 'Y_1', plotYears);
     plot(sGDPGrowth.Years, sGDPGrowth.Values, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
 end
-format_axes('GDP Growth Comparison with Baseline', 'Year', 'Percent');
+format_axes('GDP Growth Comparison with Baseline', 'Percent');
 yl = ylim;
 ylim([0, yl(2)]);
 place_legend_below();
@@ -234,16 +275,16 @@ for i = 1:numel(scenarioNames)
     d = sGDPGrowth.Values - bGDPGrowth.Values;
     devMat(:, i) = d;
     plot(sGDPGrowth.Years, d, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
 end
-yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('GDP Growth Deviation vs Baseline', 'Year', 'Percentage points');
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('GDP Growth Deviation vs Baseline', 'Percentage points');
 place_legend_below();
 save_dual(fig, outDir, 'GDP_Growth_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'GDP_Growth_Deviation_vs_Baseline', ...
     'GDP Growth Deviation vs Baseline', 'Percentage points', ...
-    bGDPGrowth.Years, devMat, scenarioLabels, colors, lineTypes, lineWidth, options);
+    bGDPGrowth.Years, devMat, scenarioLabels, colors, options);
 
 % 3) GDP level deviation from baseline (% deviation)
 fig = make_fig(); hold on;
@@ -255,16 +296,16 @@ for i = 1:numel(scenarioNames)
     d = safe_divide(y.Values, bGDPLevel.Values) * 100 - 100;
     devMat(:, i) = d;
     plot(y.Years, d, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
 end
-yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('GDP Level Deviation vs Baseline', 'Year', '% deviation');
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('GDP Level Deviation vs Baseline', '% deviation');
 place_legend_below();
 save_dual(fig, outDir, 'GDP_Level_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'GDP_Level_Deviation_vs_Baseline', ...
     'GDP Level Deviation vs Baseline', '% deviation', ...
-    plotYears, devMat, scenarioLabels, colors, lineTypes, lineWidth, options);
+    plotYears, devMat, scenarioLabels, colors, options);
 
 % 4) Consumption share deviation from baseline (pp of GDP)
 fig = make_fig(); hold on;
@@ -276,16 +317,16 @@ for i = 1:numel(scenarioNames)
     d = v.Values - bConsShare.Values;
     devMat(:, i) = d;
     plot(v.Years, d, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
 end
-yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('Consumption Share Deviation vs Baseline', 'Year', 'pp of GDP');
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('Consumption Share Deviation vs Baseline', 'pp of GDP');
 place_legend_below();
 save_dual(fig, outDir, 'Consumption_Share_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'Consumption_Share_Deviation_vs_Baseline', ...
     'Consumption Share Deviation vs Baseline', 'pp of GDP', ...
-    plotYears, devMat, scenarioLabels, colors, lineTypes, lineWidth, options);
+    plotYears, devMat, scenarioLabels, colors, options);
 
 % 5) Investment share deviation from baseline (pp of GDP)
 fig = make_fig(); hold on;
@@ -297,16 +338,16 @@ for i = 1:numel(scenarioNames)
     d = v.Values - bInvShare.Values;
     devMat(:, i) = d;
     plot(v.Years, d, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
 end
-yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('Investment Share Deviation vs Baseline', 'Year', 'pp of GDP');
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('Investment Share Deviation vs Baseline', 'pp of GDP');
 place_legend_below();
 save_dual(fig, outDir, 'Investment_Share_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'Investment_Share_Deviation_vs_Baseline', ...
     'Investment Share Deviation vs Baseline', 'pp of GDP', ...
-    plotYears, devMat, scenarioLabels, colors, lineTypes, lineWidth, options);
+    plotYears, devMat, scenarioLabels, colors, options);
 
 % 6) Government consumption share deviation from baseline (pp of GDP)
 fig = make_fig(); hold on;
@@ -318,16 +359,16 @@ for i = 1:numel(scenarioNames)
     d = v.Values - bGovConsShare.Values;
     devMat(:, i) = d;
     plot(v.Years, d, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
 end
-yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('Government Consumption Share Deviation vs Baseline', 'Year', 'pp of GDP');
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('Government Consumption Share Deviation vs Baseline', 'pp of GDP');
 place_legend_below();
 save_dual(fig, outDir, 'Government_Consumption_Share_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'Government_Consumption_Share_Deviation_vs_Baseline', ...
     'Government Consumption Share Deviation vs Baseline', 'pp of GDP', ...
-    plotYears, devMat, scenarioLabels, colors, lineTypes, lineWidth, options);
+    plotYears, devMat, scenarioLabels, colors, options);
 
 % 7) Housing investment share deviation from baseline (pp of GDP)
 fig = make_fig(); hold on;
@@ -339,16 +380,16 @@ for i = 1:numel(scenarioNames)
     d = v.Values - bHousingInvShare.Values;
     devMat(:, i) = d;
     plot(v.Years, d, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
 end
-yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('Housing Investment Share Deviation vs Baseline', 'Year', 'pp of GDP');
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('Housing Investment Share Deviation vs Baseline', 'pp of GDP');
 place_legend_below();
 save_dual(fig, outDir, 'Housing_Investment_Share_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'Housing_Investment_Share_Deviation_vs_Baseline', ...
     'Housing Investment Share Deviation vs Baseline', 'pp of GDP', ...
-    plotYears, devMat, scenarioLabels, colors, lineTypes, lineWidth, options);
+    plotYears, devMat, scenarioLabels, colors, options);
 
 % 8) Net exports share deviation from baseline (pp of GDP)
 fig = make_fig(); hold on;
@@ -360,30 +401,30 @@ for i = 1:numel(scenarioNames)
     d = v.Values - bNetExportsShare.Values;
     devMat(:, i) = d;
     plot(v.Years, d, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
 end
-yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('Net Exports Share Deviation vs Baseline', 'Year', 'pp of GDP');
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('Net Exports Share Deviation vs Baseline', 'pp of GDP');
 place_legend_below();
 save_dual(fig, outDir, 'Net_Exports_Share_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'Net_Exports_Share_Deviation_vs_Baseline', ...
     'Net Exports Share Deviation vs Baseline', 'pp of GDP', ...
-    plotYears, devMat, scenarioLabels, colors, lineTypes, lineWidth, options);
+    plotYears, devMat, scenarioLabels, colors, options);
 
 % 9) WACC comparison with baseline (levels, %)
 fig = make_fig(); hold on;
-plot(bWacc.Years, bWacc.Values, '-', 'Color', [0.20 0.20 0.20], ...
-    'LineWidth', lineWidth, 'DisplayName', 'Baseline');
+plot(bWacc.Years, bWacc.Values, '-', 'Color', iwh_colors().baseline, ...
+    'LineWidth', lineWidth, 'DisplayName', char(baselineLabel));
 for i = 1:numel(scenarioNames)
     sName = char(scenarioNames(i));
     sLabel = char(scenarioLabels(i));
     sWacc = renewable_wacc_pct(allData.(sName), plotYears);
     plot(sWacc.Years, sWacc.Values, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
 end
-format_axes('WACC (Renewables) Comparison with Baseline', 'Year', 'Percent');
+format_axes('WACC (Renewables) Comparison with Baseline', 'Percent');
 place_legend_below();
 save_dual(fig, outDir, 'WACC_Renewables_Comparison_with_Baseline');
 
@@ -397,16 +438,16 @@ for i = 1:numel(scenarioNames)
     d = sWacc.Values - bWacc.Values;
     devMat(:, i) = d;
     plot(sWacc.Years, d, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
 end
-yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('WACC (Renewables) Deviation vs Baseline', 'Year', 'Percentage points');
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('WACC (Renewables) Deviation vs Baseline', 'Percentage points');
 place_legend_below();
 save_dual(fig, outDir, 'WACC_Renewables_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'WACC_Renewables_Deviation_vs_Baseline', ...
     'WACC (Renewables) Deviation vs Baseline', 'Percentage points', ...
-    plotYears, devMat, scenarioLabels, colors, lineTypes, lineWidth, options);
+    plotYears, devMat, scenarioLabels, colors, options);
 
 % 11) Renewable capital deviation from baseline
 % Baseline is normalized to 100 in every year, so the plotted difference is
@@ -420,18 +461,18 @@ for i = 1:numel(scenarioNames)
     d = safe_divide(v.Values, bRenewableCapital.Values) .* 100 - 100;
     devMat(:, i) = d;
     plot(v.Years, d, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
 end
-yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('Renewable Capital Deviation vs Baseline', 'Year', ...
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('Renewable Capital Deviation vs Baseline', ...
     'Percentage points (Baseline = 100)');
 place_legend_below();
 save_dual(fig, outDir, 'Renewable_Capital_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'Renewable_Capital_Deviation_vs_Baseline', ...
     'Renewable Capital Deviation vs Baseline', ...
     'Percentage points (Baseline = 100)', ...
-    plotYears, devMat, scenarioLabels, colors, lineTypes, lineWidth, options);
+    plotYears, devMat, scenarioLabels, colors, options);
 
 % 12) Renewable investment deviation from baseline
 % Baseline is normalized to 100 in every year, so the plotted difference is
@@ -441,22 +482,22 @@ devMat = nan(numel(plotYears), numel(scenarioNames));
 for i = 1:numel(scenarioNames)
     sName = char(scenarioNames(i));
     sLabel = char(scenarioLabels(i));
-    v = extract_values(allData.(sName), 'I_3_1', plotYears);
+    v = extract_values(allData.(sName), 'I_G_3_1', plotYears);
     d = safe_divide(v.Values, bRenewableInvestment.Values) .* 100 - 100;
     devMat(:, i) = d;
     plot(v.Years, d, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
 end
-yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('Renewable Investment Deviation vs Baseline', 'Year', ...
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('Renewable Investment Deviation vs Baseline', ...
     'Percentage points (Baseline = 100)');
 place_legend_below();
 save_dual(fig, outDir, 'Renewable_Investment_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'Renewable_Investment_Deviation_vs_Baseline', ...
     'Renewable Investment Deviation vs Baseline', ...
     'Percentage points (Baseline = 100)', ...
-    plotYears, devMat, scenarioLabels, colors, lineTypes, lineWidth, options);
+    plotYears, devMat, scenarioLabels, colors, options);
 
 % 13) ETS revenue share deviation from baseline (pp of GDP)
 if includeETSRevenuePlot
@@ -469,12 +510,12 @@ if includeETSRevenuePlot
         d = v.Values - bETSRevenueShare.Values;
         devMat(:, i) = d;
         plot(v.Years, d, ...
-            'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+            'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
             'Color', colors(i, :), 'LineWidth', lineWidth, 'DisplayName', sLabel);
     end
-    yline(0, ':', 'Color', [0.45 0.45 0.45], ...
+    yline(0, ':', 'Color', iwh_colors().zero, ...
         'LineWidth', 1.0, 'HandleVisibility', 'off');
-    format_axes('ETS Revenue Share Deviation vs Baseline', 'Year', ...
+    format_axes('ETS Revenue Share Deviation vs Baseline', ...
         'Percentage points of GDP');
     place_legend_below();
     save_dual(fig, outDir, 'ETS_Revenue_Share_Deviation_vs_Baseline');
@@ -482,7 +523,7 @@ if includeETSRevenuePlot
         'ETS_Revenue_Share_Deviation_vs_Baseline', ...
         'ETS Revenue Share Deviation vs Baseline', ...
         'Percentage points of GDP', ...
-        plotYears, devMat, scenarioLabels, colors, lineTypes, lineWidth, options);
+        plotYears, devMat, scenarioLabels, colors, options);
 end
 
 % 14) ETS revenue levels in USD billion for Baseline and selected scenario
@@ -491,8 +532,8 @@ if includeETSBillionUSDPlot
     bETSRevenueUSD = ets_revenue_billion_usd( ...
         baseline, plotYears, modelToBillionUSD);
     plot(bETSRevenueUSD.Years, bETSRevenueUSD.Values, '-', ...
-        'Color', [0.20 0.20 0.20], 'LineWidth', lineWidth, ...
-        'DisplayName', 'Baseline');
+        'Color', iwh_colors().baseline, 'LineWidth', lineWidth, ...
+        'DisplayName', char(baselineLabel));
 
     iETSScenario = find(scenarioNames == etsBillionUSDScenarioName, 1, 'first');
     sName = char(scenarioNames(iETSScenario));
@@ -500,14 +541,14 @@ if includeETSBillionUSDPlot
     sETSRevenueUSD = ets_revenue_billion_usd( ...
         allData.(sName), plotYears, modelToBillionUSD);
     plot(sETSRevenueUSD.Years, sETSRevenueUSD.Values, ...
-        'LineStyle', lineTypes{mod(iETSScenario-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(iETSScenario).LineStyle, 'Marker', styles(iETSScenario).Marker, ...
         'Color', colors(iETSScenario, :), 'LineWidth', lineWidth, ...
         'DisplayName', sLabel);
 
     format_axes(sprintf( ...
         'ETS Revenues: Baseline vs %s (2025 GDP anchor: USD %.1f bn)', ...
         sLabel, gdpAnchorBillionUSD), ...
-        'Year', 'USD billion');
+        'USD billion');
     place_legend_below();
     save_dual(fig, outDir, 'ETS_Revenue_Billion_USD_Baseline_vs_NZ');
 
@@ -526,13 +567,13 @@ if includeETSBillionUSDPlot
             cumulativeScenario.Years, cumulativeScenario.Values, ...
             options.FiveYearBlockSize);
     end
-    cumulativeLabels = ["Baseline", scenarioLabels];
-    cumulativeColors = [[0.20 0.20 0.20]; colors(1:numel(scenarioNames), :)];
+    cumulativeLabels = [baselineLabel, scenarioLabels];
+    cumulativeColors = [iwh_colors().baseline; colors(1:numel(scenarioNames), :)];
     plot_grouped_period_bars( ...
         cumulativeMat, periodLabels, cumulativeLabels, cumulativeColors);
     format_axes( ...
-        'Five-Year Cumulative ETS Revenues by Net-Zero Scenario', ...
-        'Time period', 'USD billion per five-year period');
+        'Five-Year Cumulative ETS Revenues', ...
+        'USD billion');
     place_legend_below();
     save_dual(fig, outDir, ...
         'ETS_Revenue_5Y_Cumulative_Billion_USD_NZ_Scenarios');
@@ -544,8 +585,8 @@ if includeEmissionPriceUSDPlot
     bEmissionPriceUSD = emission_price_usd_per_tco2e( ...
         baseline, plotYears, modelToBillionUSD, modelToMtCO2e);
     plot(bEmissionPriceUSD.Years, bEmissionPriceUSD.Values, '-', ...
-        'Color', [0.20 0.20 0.20], 'LineWidth', lineWidth, ...
-        'DisplayName', 'Baseline');
+        'Color', iwh_colors().baseline, 'LineWidth', lineWidth, ...
+        'DisplayName', char(baselineLabel));
 
     iPriceScenario = find( ...
         scenarioNames == emissionPriceScenarioName, 1, 'first');
@@ -554,7 +595,7 @@ if includeEmissionPriceUSDPlot
     sEmissionPriceUSD = emission_price_usd_per_tco2e( ...
         allData.(sName), plotYears, modelToBillionUSD, modelToMtCO2e);
     plot(sEmissionPriceUSD.Years, sEmissionPriceUSD.Values, ...
-        'LineStyle', lineTypes{mod(iPriceScenario-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(iPriceScenario).LineStyle, 'Marker', styles(iPriceScenario).Marker, ...
         'Color', colors(iPriceScenario, :), 'LineWidth', lineWidth, ...
         'DisplayName', sLabel);
 
@@ -562,10 +603,48 @@ if includeEmissionPriceUSDPlot
         ['Implied Emission Price: Baseline vs %s ' ...
          '(energy-GHG anchor: %.1f MtCO2e, %d)'], ...
         sLabel, energyGHGAnchorMtCO2e, energyGHGAnchorYear), ...
-        'Year', 'USD per tCO2e');
+        'USD per tCO2e');
     place_legend_below();
     save_dual(fig, outDir, ...
         'Emission_Price_USD_per_tCO2e_Baseline_vs_NZ');
+end
+
+% 16) Emissions evolution indexed to 2025 (2025 = 100)
+if includeEmissionsIndexPlot
+    fig = make_fig(); hold on;
+    bEmissionsIndex = indexed_to_anchor_year(baseline, 'E_1', plotYears, 2025);
+    emissionsIndexValues = zeros(numel(plotYears), numel(scenarioNames) + 1);
+    emissionsIndexValues(:, 1) = bEmissionsIndex.Values;
+    for i = 1:numel(scenarioNames)
+        sName = char(scenarioNames(i));
+        sEmissionsIndex = indexed_to_anchor_year( ...
+            allData.(sName), 'E_1', plotYears, 2025);
+        emissionsIndexValues(:, i + 1) = sEmissionsIndex.Values;
+    end
+
+    emissionsLabels = [{char(baselineLabel)}, cellstr(scenarioLabels)];
+    emissionsColors = [iwh_colors().baseline; colors(1:numel(scenarioNames), :)];
+    if emissionsIndexPlotType == "grouped_bar"
+        barHandles = bar(bEmissionsIndex.Years, emissionsIndexValues, 'grouped');
+        for iSeries = 1:numel(barHandles)
+            barHandles(iSeries).FaceColor = emissionsColors(iSeries, :);
+            barHandles(iSeries).DisplayName = emissionsLabels{iSeries};
+        end
+    else
+        plot(bEmissionsIndex.Years, emissionsIndexValues(:, 1), '-', ...
+            'Color', emissionsColors(1, :), 'LineWidth', lineWidth, ...
+            'DisplayName', emissionsLabels{1});
+        for i = 1:numel(scenarioNames)
+            plot(bEmissionsIndex.Years, emissionsIndexValues(:, i + 1), ...
+                'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
+                'Color', emissionsColors(i + 1, :), 'LineWidth', lineWidth, ...
+                'DisplayName', emissionsLabels{i + 1});
+        end
+    end
+
+    format_axes('Emissions Evolution (2025 = 100)', 'Index (2025 = 100)');
+    place_legend_below();
+    save_dual(fig, outDir, 'Emissions_Evolution_Index_2025_100');
 end
 
 fprintf('Generated %s figures in: %s\n', reportLabel, outDir);
@@ -579,12 +658,15 @@ function fig = make_fig()
     fig = figure('Color', 'w', 'Position', [80 80 1000 560]);
 end
 
-function format_axes(plotTitle, xLabelText, yLabelText)
+function format_axes(plotTitle, yLabelText)
     grid on;
     box off;
-    xlabel(xLabelText);
-    ylabel(yLabelText);
-    title(plotTitle, 'Interpreter', 'none');
+    if iscell(plotTitle)
+        titleLines = plotTitle;
+    else
+        titleLines = {plotTitle};
+    end
+    ylabel([titleLines(:); {yLabelText}]);
 end
 
 function place_legend_below()
@@ -720,13 +802,25 @@ function out = emission_price_usd_per_tco2e( ...
     out.Values = pe.Values .* modelToBillionUSD ./ modelToMtCO2e .* 1000;
 end
 
+function out = indexed_to_anchor_year(tbl, varName, years, anchorYear)
+    series = extract_values(tbl, varName, years);
+    anchor = extract_values(tbl, varName, anchorYear);
+    if isempty(anchor.Values) || anchor.Values(1) == 0
+        error('generate_finance_simulation_results_figures:indexAnchor', ...
+            'Variable %s is unavailable or zero in anchor year %d.', ...
+            varName, anchorYear);
+    end
+    out.Years = series.Years;
+    out.Values = safe_divide(series.Values, anchor.Values(1)) .* 100;
+end
+
 function z = safe_divide(a, b)
     z = a ./ b;
     z(~isfinite(z)) = NaN;
 end
 
 function maybe_save_five_year_summaries(outDir, stem, metricTitle, yLabel, years, devMat, ...
-    scenarioLabels, colors, ~, ~, options)
+    scenarioLabels, colors, options)
     if ~options.ShowFiveYearAverageDeviation && ~options.ShowFiveYearIntervalChange
         return
     end
@@ -736,8 +830,8 @@ function maybe_save_five_year_summaries(outDir, stem, metricTitle, yLabel, years
     if options.ShowFiveYearAverageDeviation
         fig = make_fig();
         plot_grouped_period_bars(avgMat, periodLabels, scenarioLabels, colors);
-        yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-        format_axes([metricTitle ' - 5-year average deviation'], 'Time period', yLabel);
+        yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+        format_axes({metricTitle, '5-year average deviation'}, yLabel);
         place_legend_below();
         save_dual(fig, outDir, [stem '_5Y_Average']);
     end
@@ -745,8 +839,8 @@ function maybe_save_five_year_summaries(outDir, stem, metricTitle, yLabel, years
     if options.ShowFiveYearIntervalChange
         fig = make_fig();
         plot_grouped_period_bars(deltaMat, periodLabels, scenarioLabels, colors);
-        yline(0, ':', 'Color', [0.45 0.45 0.45], 'LineWidth', 1.0, 'HandleVisibility', 'off');
-        format_axes([metricTitle ' - change vs previous 5-year block'], 'Time period', [yLabel ' change']);
+        yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+        format_axes({metricTitle, 'Change vs previous 5-year block'}, [yLabel ' change']);
         place_legend_below();
         save_dual(fig, outDir, [stem '_5Y_Change']);
     end

@@ -16,6 +16,19 @@ DGE-METRIC (**D**ynamic **G**eneral **E**quilibrium for **M**acroeconomic **E**n
 
 ---
 
+## Reports this repo supports
+
+- **[IWH Technical Report](reports/IWH_Technical_Report.docx)** — model structure, calibration,
+  data sources, solution method, scenario design.
+- **[IWH Macro Impact Assessment](reports/IWH_Report_Macro_Impact_Assessment_revised.docx)** —
+  policy findings on energy efficiency, green finance, and carbon pricing.
+- **[Report replication guide](reference/report_replication.md)** — every report figure/table
+  mapped to its scenario, script, and output file; start here to reproduce a specific result.
+- **[Reproducibility checklist](reference/reproducibility_checklist.md)** — run-validation
+  template to fill in and archive alongside a reproduction run.
+
+---
+
 ## Technical reference
 
 - [Model architecture and equations](reference/model.md)

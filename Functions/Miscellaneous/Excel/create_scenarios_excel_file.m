@@ -12,7 +12,7 @@ clearvars;
 sPathWD = pwd();
 
 %% Define version to create
-sversion = '_check';
+sversion = '';
 
 %% Define sectors
 casSectors = {'Primary'; 'Energy'; 'Secondary'; 'Tertiary'};

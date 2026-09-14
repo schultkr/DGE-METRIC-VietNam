@@ -89,6 +89,7 @@ resShare    = safe_divide(ds.Q_3_1, ds.Q_2_1 + ds.Q_3_1) .* 100;
 KRenIdx = idx(ds.K_3_1);
 KFosIdx = idx(ds.K_2_1);
 QRenIdx = idx(ds.Q_3_1);
+QFossilIdx = idx(ds.Q_2_1);
 EEIdx   = idx(ds.EE_1);
 
 [targetInvYears, targetInvRenShare] = target_series(planTargets, ...
@@ -161,6 +162,8 @@ plot_path_panel(nexttile(tlo), years, KRenIdx, colors.renewable, ...
     'Renewable capital', 'Index (2025 = 100)', yearRange, colors);
 plot_path_panel(nexttile(tlo), years, QRenIdx, colors.share, ...
     'Renewable production', 'Index (2025 = 100)', yearRange, colors);
+%plot_path_panel(nexttile(tlo), years, QFossilIdx, colors.share, ...
+%    'Fossil production', 'Index (2025 = 100)', yearRange, colors);    
 plot_path_panel(nexttile(tlo), years, EEIdx, colors.efficiency, ...
     'Energy efficiency', 'Index (2025 = 100)', yearRange, colors);
 plot_path_panel(nexttile(tlo), years, invRenShare, colors.renewable, ...
@@ -171,8 +174,6 @@ plot_path_panel(nexttile(tlo), years, resShare, colors.share, ...
     'Renewable production share', '% of fossil + renewable output', ...
     yearRange, colors);
 
-sgtitle(tlo, sprintf('Baseline energy transition indicators (%d-%d)', ...
-    yearRange(1), yearRange(2)), 'FontSize', 15, 'FontWeight', 'bold');
 save_figure(fig, outDir, 'baseline_energy_dashboard');
 
 fig = make_figure('Baseline vs PDP8 annual comparison', [70 70 1180 760]);
@@ -191,8 +192,6 @@ plot_annual_comparison(nexttile(tlo), years, invFosShare, targetInvYears, ...
     targetInvFosShare, colors.fossil, 'Fossil investment / GDP', ...
     '% of GDP', yearRange, colors, 'line');
 
-sgtitle(tlo, sprintf('Baseline simulation vs PDP8 targets (%d-%d)', ...
-    yearRange(1), yearRange(2)), 'FontSize', 15, 'FontWeight', 'bold');
 save_figure(fig, outDir, 'baseline_pdp8_annual_comparison');
 
 fig = make_figure('Baseline vs PDP8 period comparison', [80 80 1180 760]);
@@ -211,9 +210,6 @@ plot_period_bars(nexttile(tlo), periodLabels, simFos5, pdp8Fos5, ...
     colors.fossil, 'Fossil investment / GDP: 5-year periods', ...
     '% of period GDP', colors);
 
-sgtitle(tlo, sprintf('Baseline simulation vs PDP8 period and end-year comparisons (%d-%d)', ...
-    yearRange(1), yearRange(2)), ...
-    'FontSize', 15, 'FontWeight', 'bold');
 save_figure(fig, outDir, 'baseline_pdp8_period_comparison');
 
 fig = make_figure('Baseline vs PDP8 period comparison (investment ratios)', ...
@@ -227,9 +223,6 @@ plot_period_bars(nexttile(tlo), periodLabels, simFos5, pdp8Fos5, ...
     colors.fossil, 'Fossil investment / GDP: 5-year periods', ...
     '% of period GDP', colors);
 
-sgtitle(tlo, sprintf('Baseline simulation vs PDP8 investment ratios by period (%d-%d)', ...
-    yearRange(1), yearRange(2)), ...
-    'FontSize', 15, 'FontWeight', 'bold');
 save_figure(fig, outDir, 'baseline_pdp8_period_comparison_investment_ratios');
 
 fig = make_figure('Baseline vs PDP8 period comparison (installed capacity)', ...
@@ -243,9 +236,6 @@ plot_period_bars(nexttile(tlo), capacityEndLabels, simCapFosEnd, pdp8CapFosEnd, 
     colors.fossil, 'Fossil capacity: end-year level', ...
     'Index (2025 = 100)', colors);
 
-sgtitle(tlo, sprintf('Baseline simulation vs PDP8 installed capacity by end year (%d-%d)', ...
-    yearRange(1), yearRange(2)), ...
-    'FontSize', 15, 'FontWeight', 'bold');
 save_figure(fig, outDir, 'baseline_pdp8_period_comparison_installed_capacity');
 
 % ---- legacy single-panel exports ---------------------------------------
@@ -394,7 +384,6 @@ function plot_single_path(years, values, color, titleText, yLabel, yearRange, ..
     fig = make_figure(titleText, [100 100 760 500]);
     ax = axes(fig);
     plot_path_panel(ax, years, values, color, titleText, yLabel, yearRange, colors);
-    xlabel(ax, 'Year');
     save_figure(fig, outDir, stem);
 end
 
@@ -404,7 +393,6 @@ function plot_single_annual(years, simValues, targetYears, targetValues, ...
     ax = axes(fig);
     plot_annual_comparison(ax, years, simValues, targetYears, targetValues, ...
         color, titleText, yLabel, yearRange, colors, targetStyle);
-    xlabel(ax, 'Year');
     save_figure(fig, outDir, stem);
 end
 
@@ -420,9 +408,7 @@ end
 function plot_path_panel(ax, years, values, color, titleText, yLabel, ...
     yearRange, colors)
     plot(ax, years, values, '-', 'Color', color, 'LineWidth', 1.9);
-    title(ax, titleText, 'Interpreter', 'none');
-    ylabel(ax, yLabel);
-    xlabel(ax, 'Year');
+    ylabel(ax, {titleText, yLabel});
     style_time_axis(ax, yearRange, colors);
     pad_y_axis(ax);
 end
@@ -451,9 +437,7 @@ function plot_annual_comparison(ax, years, simValues, targetYears, targetValues,
     end
     hold(ax, 'off');
 
-    title(ax, titleText, 'Interpreter', 'none');
-    ylabel(ax, yLabel);
-    xlabel(ax, 'Year');
+    ylabel(ax, {titleText, yLabel});
     style_time_axis(ax, yearRange, colors);
     pad_y_axis(ax);
     legend(ax, 'Location', 'best', 'Box', 'off');
@@ -467,8 +451,7 @@ function plot_period_bars(ax, labels, simValues, targetValues, color, ...
     b(1).EdgeColor = 'none';
     b(2).EdgeColor = 'none';
 
-    title(ax, titleText, 'Interpreter', 'none');
-    ylabel(ax, yLabel);
+    ylabel(ax, {titleText, yLabel});
     set(ax, 'XTick', 1:numel(labels), ...
         'XTickLabel', cellstr(labels), ...
         'XTickLabelRotation', 30);

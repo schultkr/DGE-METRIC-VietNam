@@ -64,6 +64,26 @@ function [ys,params,check,exo] = DGE_Model_steadystate(ys,exo,M_,options_)
         strexo.(exoname) = exo(ii);
     end
 
+    % Guardrail: cap-and-trade compiled ON but regional cap activation OFF.
+    % This commonly happens when baseline sheet exo_CapTrade_* entries are 0,
+    % leaving the regional cap equation effectively inactive in the SS residual set.
+    if isfield(strpar, 'lCapandTrade_p') && strpar.lCapandTrade_p == 1
+        offRegions = [];
+        for icoreg = 1:strpar.inbregions_p
+            sreg = num2str(icoreg);
+            key = ['exo_CapTrade_' sreg];
+            if isfield(strexo, key) && strexo.(key) < 0.5
+                offRegions = [offRegions icoreg]; %#ok<AGROW>
+            end
+        end
+        if ~isempty(offRegions)
+            warning('DGE:CapTradeRegionalFlagOff', ...
+                ['Cap-and-trade is compiled ON (lCapandTrade_p=1) but exo_CapTrade is OFF for region(s): %s. ', ...
+                 'Set baseline exo_CapTrade_* = 1 where cap equations should be enforced.'], ...
+                mat2str(offRegions));
+        end
+    end
+
     % ---------------------------------------------------------------------
     % 2. Steady-state / calibration logic
     % ---------------------------------------------------------------------
@@ -116,6 +136,30 @@ function [ys,params,check,exo] = DGE_Model_steadystate(ys,exo,M_,options_)
         if max(abs(Fval_vec(:))) > 1e-8
             [xopt, ~, ~, ~, ~] = fsolve(computeCapitalTemp, xstart_vec, options); %#ok<ASGLU>
             [Fval_vec, strys, strexo] = ss_compute_capital(xopt, strys, strexo, strpar);
+        end
+
+        % Enforce exact regional cap closure from solved emissions levels.
+        % This avoids tiny but persistent residuals in the Dynare cap equation
+        % (e.g., equation "regional price of emissions/emission cap") when
+        % tauS shocks are large and the nonlinear system is tightly coupled.
+        for icoreg = 1:strpar.inbregions_p
+            sreg = num2str(icoreg);
+            lCapActive = strexo.exo_CapTradeInternat == 1;
+            if ~lCapActive && isfield(strexo, ['exo_CapTrade_' sreg])
+                lCapActive = strexo.(['exo_CapTrade_' sreg]) == 1;
+            end
+            if ~lCapActive
+                continue
+            end
+
+            eReg = strys.(['E_' sreg]);
+            e0Reg = strpar.(['E0_' sreg '_p']);
+            eBaseKey = ['exo_EBase_' sreg];
+            capShift = (strexo.(['exo_PE_' sreg]) + strexo.exo_PE + strexo.exo_CapTradeInternat + strexo.(['exo_CapTrade_' sreg])) * strpar.phiG_p;
+            eTarget = eReg + capShift;
+            if isfield(strexo, eBaseKey) && isfinite(eTarget) && isfinite(e0Reg) && e0Reg > 0 && eTarget > 0
+                strexo.(['exo_E_' sreg]) = log(eTarget / e0Reg) - strexo.(eBaseKey);
+            end
         end
 
         disp(['Maximum absolute residual ' num2str(max(abs(Fval_vec)))]);

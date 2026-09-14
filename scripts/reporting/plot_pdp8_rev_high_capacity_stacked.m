@@ -83,9 +83,6 @@ ax2 = nexttile(tlo);
 plot_stacked_capacity(ax2, years, renewGW, renewLabels, ...
     'Renewable and storage technologies');
 
-sgtitle(tlo, sprintf('%s installed capacity by technology (%d-%d)', ...
-    planName, yearRange(1), yearRange(2)), ...
-    'FontSize', 14, 'FontWeight', 'bold', 'Interpreter', 'none');
 
 outPng = fullfile(outDir, 'PDP8_rev_high_installed_capacity_stacked.png');
 outPdf = fullfile(outDir, 'PDP8_rev_high_installed_capacity_stacked.pdf');
@@ -152,8 +149,7 @@ function plot_stacked_capacity(ax, years, valuesGW, labels, plotTitle)
     hold(ax, 'off');
 
     xlim(ax, [years(1), years(end)]);
-    ylabel(ax, 'Installed capacity (GW)');
-    title(ax, plotTitle, 'Interpreter', 'none');
+    ylabel(ax, {plotTitle, 'Installed capacity (GW)'});
     grid(ax, 'on');
     box(ax, 'off');
 

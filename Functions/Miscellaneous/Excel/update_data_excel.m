@@ -28,7 +28,13 @@ sPathWD = pwd();
 inbsubsectors_p = 5;
 % define number of regions
 inbregions_p = 1;
-sversion = 'training';
+sversion = '';
+% Override with env var DGE_CALIBRATION_VERSION to target a variant workbook
+% (e.g. '_replication'); defaults to the canonical no-suffix workbook.
+envCalibrationVersion = strtrim(getenv('DGE_CALIBRATION_VERSION'));
+if ~isempty(envCalibrationVersion)
+    sversion = envCalibrationVersion;
+end
 
 %% Update the calibration excel file
 % ModelCalibration*.xlsx holds Data, Start, and Structural Parameters sheets

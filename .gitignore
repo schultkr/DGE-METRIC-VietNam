@@ -18,6 +18,5 @@ ExcelFiles/Archive/
 # Build/runtime logs (except documentation)
 DGE_Model.log
 
-# Optional: Mat files (large binary results)
-# Uncomment if you don't want to version MAT output files
-# *.mat
+# Generated simulation-result caches (regenerate via RunSimulations.m)
+*.mat

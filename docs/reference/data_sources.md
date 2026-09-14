@@ -114,8 +114,9 @@ modeled as zero direct fiscal revenue.
 
 - **What:** Environmentally extended multi-region IO database
 - **Key files:** `Data/EXIOBASE_3/` — database with documentation
-- **Used for:** Cross-check of embodied emissions and energy coefficients; validation of sectoral energy intensity assumptions
+- **Used for:** Cross-check of embodied emissions and energy coefficients; validation of sectoral energy intensity assumptions; **the renewable value-added share used to split the 2019 GSO utilities line into fossil and renewable subsectors**
 - **Note:** EXIOBASE operates at a global/region level; Vietnam-specific results require extraction and re-aggregation
+- **Calibration risk:** because the renewable value-added share is proxied from a global EXIOBASE coefficient (no standalone renewable line in the 2019 GSO IO table), it is the single largest calibration uncertainty in the model — see [calibration.md §5.1](calibration.md) and the technical-report limitations section.
 
 ---
 
