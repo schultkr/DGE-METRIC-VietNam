@@ -12,10 +12,11 @@ outdir            = fullfile(pwd,'Figures_compare');
 if ~exist(outdir,'dir'); mkdir(outdir); end
 
 %% Load CSVs
+sversion = '_replication_fix';  % output-CSV suffix written by RunSimulations (sSensitivity); this script does not call setup_paths, so report_version_suffix() is not available here
 dsall = struct();
 for i = 1:numel(casScenarios)
     sScen = casScenarios{i};
-    fn = fullfile('../../ExcelFiles','Output',[sScen '.csv']);
+    fn = fullfile('../../ExcelFiles','Output',[sScen sversion '.csv']);
     assert(isfile(fn), 'Missing file: %s', fn);
     dsall.(sScen) = readtable(fn);
 end

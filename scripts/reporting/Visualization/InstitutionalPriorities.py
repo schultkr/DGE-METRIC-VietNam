@@ -9,6 +9,25 @@ png_out = out.with_suffix(".png")
 
 W, H = 1600, 1120
 
+# IWH corporate-design palette (Functions/Miscellaneous/Plotting/iwh_colors.m
+# is the single source of truth for brand colours in this repo). Matches
+# PolicyRecommendations.py's companion figure so the report's two diagrams
+# read as one visual system.
+IWH_PRIMARY_BLUE = "#242B84"
+IWH_MEDIUM_BLUE = "#5286D2"
+IWH_SLATE = "#28313C"
+IWH_GREEN = "#B2C823"
+IWH_ORANGE = "#C8781E"
+IWH_SLATE25 = "#C0C7CD"   # slate at 25% — neutral borders
+IWH_SLATE40 = "#9DA6AE"   # slate at 40% — muted connector lines/subtitle
+
+# Card accents in iwh_colors.m's ordered scenario palette (order =
+# [primaryBlue; orange; green; mediumBlue; yellow; slate]), one per card,
+# with a light pastel tint of each for card fills -- the same tints
+# PolicyRecommendations.py uses for its first four pillars.
+CARD_ACCENT = [IWH_PRIMARY_BLUE, IWH_ORANGE, IWH_GREEN, IWH_MEDIUM_BLUE]
+CARD_TINT = ["#E5E6F0", "#F8EFE4", "#F6F8E5", "#EAF0FA"]
+
 
 def text_block(
     x,
@@ -42,12 +61,12 @@ svg = [
       <feDropShadow dx="0" dy="5" stdDeviation="7" flood-color="#000000" flood-opacity="0.13"/>
     </filter>
     <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L8,4 L0,8 z" fill="#5B7083"/>
+      <path d="M0,0 L8,4 L0,8 z" fill="{IWH_SLATE40}"/>
     </marker>
   </defs>
 
   <rect x="0" y="0" width="{W}" height="{H}" fill="#F5F8FA"/>
-  <rect x="0" y="0" width="{W}" height="16" fill="#0F6B5B"/>
+  <rect x="0" y="0" width="{W}" height="16" fill="{IWH_PRIMARY_BLUE}"/>
 '''
 ]
 
@@ -58,7 +77,7 @@ svg.append(
         ["Institutional foundations for integrated energy-transition planning"],
         size=35,
         weight=700,
-        fill="#102A43",
+        fill=IWH_SLATE,
         anchor="middle",
     )
 )
@@ -71,13 +90,13 @@ svg.append(
             "transparency and consistency of policy decisions.",
         ],
         size=19,
-        fill="#486581",
+        fill=IWH_SLATE40,
         anchor="middle",
         line_gap=1.18,
     )
 )
 
-svg.append('<rect x="70" y="158" width="1460" height="38" rx="19" fill="#DCEFEA"/>')
+svg.append(f'<rect x="70" y="158" width="1460" height="38" rx="19" fill="{CARD_TINT[0]}"/>')
 svg.append(
     text_block(
         800,
@@ -85,7 +104,7 @@ svg.append(
         ["INSTITUTIONAL PRIORITIES"],
         size=16,
         weight=700,
-        fill="#0F6B5B",
+        fill=IWH_PRIMARY_BLUE,
         anchor="middle",
     )
 )
@@ -96,8 +115,8 @@ cards = [
         "y": 222,
         "w": 680,
         "h": 205,
-        "fill": "#E8F4EE",
-        "stroke": "#2A7F62",
+        "fill": CARD_TINT[0],
+        "stroke": CARD_ACCENT[0],
         "num": "1",
         "title": ["Institutionalise integrated assessment"],
         "body": [
@@ -111,8 +130,8 @@ cards = [
         "y": 222,
         "w": 680,
         "h": 205,
-        "fill": "#EAF1F8",
-        "stroke": "#2C6E9B",
+        "fill": CARD_TINT[1],
+        "stroke": CARD_ACCENT[1],
         "num": "2",
         "title": ["Promote transparent analytical tools"],
         "body": [
@@ -126,8 +145,8 @@ cards = [
         "y": 465,
         "w": 680,
         "h": 205,
-        "fill": "#F1ECF8",
-        "stroke": "#73539B",
+        "fill": CARD_TINT[2],
+        "stroke": CARD_ACCENT[2],
         "num": "3",
         "title": ["Invest in national analytical capacity"],
         "body": [
@@ -141,8 +160,8 @@ cards = [
         "y": 465,
         "w": 680,
         "h": 205,
-        "fill": "#FFF6DB",
-        "stroke": "#B78000",
+        "fill": CARD_TINT[3],
+        "stroke": CARD_ACCENT[3],
         "num": "4",
         "title": ["Use scenario analysis strategically"],
         "body": [
@@ -181,7 +200,7 @@ for card in cards:
             card["title"],
             size=23,
             weight=700,
-            fill="#102A43",
+            fill=IWH_SLATE,
         )
     )
     svg.append(
@@ -190,12 +209,12 @@ for card in cards:
             card["y"] + 105,
             card["body"],
             size=18,
-            fill="#334E68",
+            fill=IWH_SLATE,
             line_gap=1.28,
         )
     )
 
-svg.append('<rect x="70" y="706" width="1460" height="38" rx="19" fill="#F7EFD7"/>')
+svg.append(f'<rect x="70" y="706" width="1460" height="38" rx="19" fill="{CARD_TINT[3]}"/>')
 svg.append(
     text_block(
         800,
@@ -203,7 +222,7 @@ svg.append(
         ["ENABLING FACTORS"],
         size=16,
         weight=700,
-        fill="#8B5E00",
+        fill=IWH_MEDIUM_BLUE,
         anchor="middle",
     )
 )
@@ -211,16 +230,16 @@ svg.append(
 for x in [430, 1170]:
     svg.append(
         f'<line x1="{x}" y1="674" x2="{x}" y2="712" '
-        f'stroke="#5B7083" stroke-width="3" marker-end="url(#arrow)"/>'
+        f'stroke="{IWH_SLATE40}" stroke-width="3" marker-end="url(#arrow)"/>'
     )
 
 factors = [
     ("High-quality and", "accessible data"),
     ("Strong institutional", "coordination"),
     ("Continuous stakeholder", "engagement"),
-    ("Capacity", "development"),
-    ("Transparent analytical", "methods"),
-    ("Long-term institutional", "ownership"),
+    ("Trained technical", "staff"),
+    ("Open data and", "code standards"),
+    ("Sustained government", "funding"),
     ("International technical", "cooperation"),
 ]
 
@@ -240,9 +259,9 @@ for index, ((line_1, line_2), (x, y)) in enumerate(
     width = 315
     svg.append(
         f'<rect x="{x}" y="{y}" width="{width}" height="72" rx="20" '
-        f'fill="#FFFFFF" stroke="#B8C6D1" stroke-width="2"/>'
+        f'fill="#FFFFFF" stroke="{IWH_SLATE25}" stroke-width="2"/>'
     )
-    svg.append(f'<circle cx="{x + 28}" cy="{y + 36}" r="15" fill="#0F6B5B"/>')
+    svg.append(f'<circle cx="{x + 28}" cy="{y + 36}" r="15" fill="{IWH_PRIMARY_BLUE}"/>')
     svg.append(
         text_block(
             x + 28,
@@ -261,18 +280,18 @@ for index, ((line_1, line_2), (x, y)) in enumerate(
             [line_1, line_2],
             size=16,
             weight=600,
-            fill="#334E68",
+            fill=IWH_SLATE,
             line_gap=1.08,
         )
     )
 
 svg.append(
-    '<line x1="800" y1="952" x2="800" y2="978" '
-    'stroke="#5B7083" stroke-width="4" marker-end="url(#arrow)"/>'
+    f'<line x1="800" y1="952" x2="800" y2="978" '
+    f'stroke="{IWH_SLATE40}" stroke-width="4" marker-end="url(#arrow)"/>'
 )
 svg.append(
-    '<rect x="260" y="990" width="1080" height="100" rx="28" '
-    'fill="#0F6B5B" filter="url(#shadow)"/>'
+    f'<rect x="260" y="990" width="1080" height="100" rx="28" '
+    f'fill="{IWH_PRIMARY_BLUE}" filter="url(#shadow)"/>'
 )
 svg.append(
     text_block(
@@ -281,7 +300,7 @@ svg.append(
         ["Institutional foundation"],
         size=20,
         weight=700,
-        fill="#D9F2EA",
+        fill="#FFFFFF",
         anchor="middle",
     )
 )

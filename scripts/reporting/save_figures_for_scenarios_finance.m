@@ -37,10 +37,11 @@ colorPolicy = [
     214, 39, 40
     ] ./ 255;
 
+sversion = '_replication_fix';  % output-CSV suffix written by RunSimulations (sSensitivity); this script does not call setup_paths, so report_version_suffix() is not available here
 dsall = struct();
 for iscen = 1:length(allScenarios)
     scenario = allScenarios{iscen};
-    filename = ['../../ExcelFiles/Output/' scenario '.csv'];
+    filename = ['../../ExcelFiles/Output/' scenario sversion '.csv'];
     dsall.(scenario) = readtable(filename);
 end
 

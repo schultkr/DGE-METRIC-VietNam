@@ -23,6 +23,38 @@ title: Technical model documentation
 
 DGE-METRIC is a **5-sector, 1-region dynamic general equilibrium model** calibrated to Vietnam. It simulates the economy over a 25-year deterministic transition path (2026–2050) using forward-looking rational expectations solved by Dynare.
 
+> **Relationship to the IWH reports.** This page — together with [Calibration](calibration.md),
+> [Data sources](data_sources.md), and [Scenario design](scenario.md) — is the methodological
+> companion to the **PDP8 Macroeconomic Impact Assessment**
+> (`docs/reports/IWH_Report_Macro_Impact_Assessment_revised.docx`), which presents the policy
+> findings. These reference pages document the model, its data foundations, its solution method,
+> and its limitations; the **IWH Technical Report** (`docs/reports/IWH_Technical_Report.docx`) is
+> the narrative write-up of the same material for external circulation. See
+> [Report replication guide](report_replication.md) to map a specific figure or table in either
+> report back to the scenario and script that produced it.
+
+### Compile-time macro switches
+
+`DGE_Model.mod` uses Dynare's `@#`-macro preprocessor to select structural variants at compile
+time. These are not exogenous shocks or runtime parameters — changing one requires recompiling via
+`dynare DGE_Model.mod` (or a fresh `RunSimulations` invocation, which does this automatically).
+
+| Switch | Meaning | Set by |
+|---|---|---|
+| `lCalibration_p` | 0 = full steady state, 1 = calibration pass, 2 = hybrid (scenario) steady state | `steadystate_model.m` / `DGE_Model_steadystate.m`, per solve stage — **not** a `.mod` macro, a MATLAB-only runtime switch |
+| `YEndogenous` / `NEndogenous` | Whether `Y`/`N`-type closure targets are solved endogenously | `Functions/Miscellaneous/ModelSetup/change_mod_file.m`, always paired with `BaselineScenario` from a single `contains(sScenario, 'Baseline')` check |
+| `BaselineScenario` | Selects the Baseline-only endogenous-target branch (see the `EE_reg`/`Q_fossil`/`tauCEndo` pattern) | `change_mod_file.m`, same check as above |
+| `lCapPrice` | Enables/disables the sector-specific capital price block | `change_mod_file.m` |
+| `lAdjPos` | Enables/disables the positivity-constrained capital adjustment-cost variant | `change_mod_file.m` |
+| `CapandTrade` | Enables the ETS cap-and-trade block (vs. a fixed carbon tax) | `change_mod_file.m` |
+
+Scenario-dependent behavior (e.g. the `EE_reg`/`Q_fossil` or `tauCEndo` Baseline-only endogenous
+targets) is branched with a runtime multiplier inside one equation —
+`(target_expr)*(indicator==0) + (ordinary_var)*(indicator==1)`, see
+`ModFiles/Equations/climate_emissions.mod` and `government.mod` — rather than with an `@#if`/`@#else`
+split, because Dynare's strict mode requires every declared exogenous variable to appear textually
+in the model block regardless of which branch a given compiled variant uses.
+
 ### Five sectors
 
 | # | Label | Economic role |

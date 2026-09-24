@@ -1,0 +1,2 @@
+# Force shell-escape so svg package can call Inkscape during compilation.
+$pdflatex = 'pdflatex --shell-escape %O %S';

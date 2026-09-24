@@ -1,0 +1,50 @@
+/* Ensure PDF has no internal scroll containers */
+* {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+html,
+body {
+  overflow: visible !important;
+}
+
+/* Keep common blocks fully expanded */
+pre,
+code,
+table,
+img,
+figure,
+section,
+article,
+div {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+/* Improve table readability in print */
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 6px 8px;
+  vertical-align: top;
+}
+
+/* Avoid awkward split where possible */
+img,
+figure,
+table,
+pre {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+@page {
+  size: A4;
+  margin: 16mm;
+}

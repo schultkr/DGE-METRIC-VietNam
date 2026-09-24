@@ -1,0 +1,449 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+
+\title{EE Simulation Scenarios}
+\subtitle{Macro and Energy Outcomes}
+\author{DGE-METRIC Team}
+\date{June 2026}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Scope}
+\begin{itemize}
+  \item Scenarios shown: EE\_PDP8, EE\_Directive10, EE\_Directive10\_NoBESS, EE\_PDP8\_PV\_BESS\_NoBESS.
+  \item Comparison against Baseline included via explicit deviation plots.
+  \item Horizon in figures: 2026--2050.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How Expert Input Enters the Model}
+\small
+\begin{itemize}
+  \item The Outlook email is not used directly by the model; it is first translated into structured annual inputs.
+  \item Rooftop-solar milestones from the email are consolidated into:
+  \begin{itemize}
+    \item \texttt{ExcelFiles/Output/RTS\_split\_assumptions\_from\_expert\_email.csv}
+    \item \texttt{ExcelFiles/Vietnam\_EnergyExpert\_ScenarioInputs.xlsx}
+  \end{itemize}
+  \item The maintenance scripts then read those files and write exogenous scenario paths into the model workbooks:
+  \begin{itemize}
+    \item \texttt{scripts/maintenance/create_baseline_from_user_input_file.m}
+    \item \texttt{scripts/maintenance/create_ee_scenarios_from_expert_inputs.m}
+  \end{itemize}
+  \item Those workbook paths are what Dynare/MATLAB loads into the model as shocks and state-variable inputs.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How Scenario Inputs Enter the Model}
+\small
+\begin{itemize}
+  \item Source workbook sheets are converted into model scenario sheets by the maintenance pipeline.
+  \item The expert email informs rooftop-solar annual totals and sector splits, which are then propagated into the workbook-driven paths.
+  \item Sector EE savings map to productivity shifters:
+  \begin{itemize}
+    \item Industry EE savings $\rightarrow$ exo\_AI\_4\_1\_2
+    \item Services EE savings $\rightarrow$ exo\_AI\_5\_1\_2
+  \end{itemize}
+  \item EE and RTS investment flows map to adaptation capital stocks:
+  \begin{itemize}
+    \item Industry investment $\rightarrow$ exo\_GA\_4\_1
+    \item Services investment $\rightarrow$ exo\_GA\_5\_1
+    \item Rooftop solar capacity / generation $\rightarrow$ exo\_PV\_1 and exo\_PVEff\_1
+  \end{itemize}
+  \item BESS channels are represented by:
+  \begin{itemize}
+    \item PV integration effectiveness $\rightarrow$ exo\_PVEff\_1
+    \item BESS annual investment cost stock $\rightarrow$ exo\_GA\_3\_1
+  \end{itemize}
+  \item Household RTS investment is accumulated in exo\_PV\_1.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Industrial and Commercial PV: How Demand Is Reduced}
+\small
+\textbf{Implemented channel for subsectors 4 (industry) and 5 (commercial/services):}
+\begin{itemize}
+  \item PV generation from the RTS split dataset is converted to coverage shares:
+  \[
+  \phi_t^{s}=\min\!\left(\frac{\text{gen}^{s}_{PV,t}}{D_t^{s}},0.9999\right),\quad s\in\{\text{ind},\text{com}\}
+  \]
+  with demand anchors $D_0^{ind}=177{,}550$ GWh and $D_0^{com}=56{,}950$ GWh, both grown at 4\%/yr.
+  \item Grid-energy demand after behind-the-meter PV is interpreted as:
+  \[
+  D^{grid,s}_t=D_t^s\,(1-\phi_t^s)
+  \]
+  \item The model writes this as an \emph{energy-intermediate productivity gain} (not as direct subtraction from a demand series):
+  \[
+  \Delta exo\_AI^s_t = \ln\!\left(\frac{1-\phi_0^s}{1-\phi_t^s}\right)
+  \]
+  and adds it to \texttt{exo\_AI\_4\_1\_2} (industry) and \texttt{exo\_AI\_5\_1\_2} (commercial).
+  \item Cost-side capital channel from sector PV capacity is added through \texttt{exo\_GA\_4\_1} and \texttt{exo\_GA\_5\_1}.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Households and Other Rooftop Segments: Implementation Diagram}
+\footnotesize
+\textbf{RTS split logic used in the baseline pipeline}
+\begin{itemize}
+  \item If explicit columns exist: use \texttt{cap\_commercial\_MW}, \texttt{cap\_residential\_MW}, \texttt{gen\_commercial\_GWh}.
+  \item Otherwise: split household residual with a configurable share (default 30\% to commercial):
+  \[
+  \text{commercial}=0.30\times\text{household},\quad \text{residential}=0.70\times\text{household}
+  \]
+\end{itemize}
+
+\vspace{0.3em}
+\textbf{Household PV generation path in model variables}
+
+\begin{center}
+\fbox{\parbox{0.95\linewidth}{
+RTS residential capacity index $\Rightarrow$ stock-to-investment conversion $\Rightarrow$ \texttt{exo\_PV\_1}
+
+\vspace{0.2em}
+\texttt{exo\_PV\_1} $\Rightarrow$ $I_{PV,r}=(\delta_{PV}\phi_{KPV0}+exo\_PV_r)Y_0$
+
+\vspace{0.2em}
+$I_{PV,r}$ $\Rightarrow$ $K_{PV,r}$ via $K_{PV,r,t}=(1-\delta_{PV})K_{PV,r,t-1}+I_{PV,r,t}$
+
+\vspace{0.2em}
+$K_{PV,r}$ and \texttt{exo\_PVEff\_1} $\Rightarrow$ $Q_{PV,r}=\phi_{PV}K_{PV,r}\exp(exo\_PVEff_r)$
+}}
+\end{center}
+
+\vspace{0.3em}
+\begin{itemize}
+  \item For households, PV generation is implemented as home PV production \texttt{Q\_PV} through \texttt{exo\_PV\_1} and \texttt{exo\_PVEff\_1}.
+  \item For industrial/commercial sectors, the demand-reduction effect is implemented via \texttt{exo\_AI\_4\_1\_2} and \texttt{exo\_AI\_5\_1\_2} (plus \texttt{exo\_GA\_4\_1}/\texttt{exo\_GA\_5\_1} on the cost side).
+\end{itemize}
+\end{frame}
+
+\begin{frame}{PV Transmission Channels: Sector Comparison Schematic}
+\footnotesize
+\begin{columns}[T]
+  \begin{column}{0.49\textwidth}
+    \textbf{Industry and Commercial (Subsec 4/5)}
+    \vspace{0.3em}
+
+    \fbox{\parbox{0.96\linewidth}{
+      RTS generation split
+      \[
+      gen^{ind}_t,\;gen^{com}_t
+      \]
+      $\Downarrow$
+
+      Coverage fractions
+      \[
+      \phi_t^s=\frac{gen^s_t}{D^s_t},\;s\in\{ind,com\}
+      \]
+      $\Downarrow$
+
+      Grid-demand reduction concept
+      \[
+      D^{grid,s}_t=D_t^s(1-\phi_t^s)
+      \]
+      $\Downarrow$
+
+      Implemented model shocks
+      \[
+      \Delta exo\_AI_t^s=\ln\!\left(\frac{1-\phi_0^s}{1-\phi_t^s}\right)
+      \]
+      written to \texttt{exo\_AI\_4\_1\_2}, \texttt{exo\_AI\_5\_1\_2}
+    }}
+  \end{column}
+
+  \begin{column}{0.49\textwidth}
+    \textbf{Households (Residential RTS)}
+    \vspace{0.3em}
+
+    \fbox{\parbox{0.96\linewidth}{
+      RTS residential split
+      \[
+      idx^{res}_{PV,t}
+      \]
+      $\Downarrow$
+
+      Stock-to-investment conversion
+      \[
+      idx^{res}_{I,t}\rightarrow exo\_PV\_1
+      \]
+      $\Downarrow$
+
+      PV capital accumulation
+      \[
+      K_{PV,t}=(1-\delta_{PV})K_{PV,t-1}+I_{PV,t}
+      \]
+      $\Downarrow$
+
+      Home PV output channel
+      \[
+      Q_{PV,t}=\phi_{PV}K_{PV,t}\exp(exo\_PVEff_1)
+      \]
+      (displaces household purchased energy)
+    }}
+  \end{column}
+\end{columns}
+
+\vspace{0.5em}
+\scriptsize
+\textbf{Key distinction:} subsec 4/5 are implemented mainly through AI efficiency shocks (with GA cost paths), while households are implemented directly through PV capital and home production.
+\end{frame}
+
+\begin{frame}{Translation Equations Used in the Pipeline}
+\small
+\begin{itemize}
+  \item EE savings-to-productivity transform:
+  \[
+  \Delta AI = \ln\left(\frac{1}{1-\phi}\right),\quad \phi=\frac{\text{savings\_pct}}{100}
+  \]
+  \item Capital-stock accumulation for investment channels:
+  \[
+  K_A(t)=(1-\delta_{KA})K_A(t-1)+\frac{\text{Investment}(t)}{GDP_0}
+  \]
+  with $\delta_{KA}=0.10$ and $GDP_0=430000$ million USD.
+  \item BESS integration gain transform:
+  \[
+  \Delta exo\_PVEff(t)=\ln\left(1+\frac{\text{PV\_Integration\_Gain\_pct}(t)}{100}\right)
+  \]
+  \item For years beyond expert data, terminal-rate extrapolation extends AI and PVEff paths.
+  \item Rooftop-solar sector splits are reconstructed from the expert email anchors at 2030 and 2050 when explicit commercial and residential series are not present in the workbook.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Scenario Sheet Variables: Explicit Generation (1/2)}
+\scriptsize
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.23\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.41\linewidth}}
+\toprule
+Model variable (written) & Source assumption columns & Generation rule in pipeline \\
+\midrule
+\texttt{exo\_AI\_4\_1\_2} & \texttt{Industry\_EE\_Saving\_pct} &
+$\phi_4=\min(\text{saving}/100,0.9999)$, $\Delta AI_4=\ln(1/(1-\phi_4))$, then
+$exo\_AI\_4\_1\_2=\text{baseline}+\Delta AI_4$ \\
+
+\texttt{exo\_AI\_5\_1\_2} & \texttt{Services\_EE\_Saving\_pct} &
+$\phi_5=\min(\text{saving}/100,0.9999)$, $\Delta AI_5=\ln(1/(1-\phi_5))$, then
+$exo\_AI\_5\_1\_2=\text{baseline}+\Delta AI_5$ \\
+
+\texttt{exo\_GA\_4\_1} & \texttt{Industry\_EE\_Investment\_USDm} + optional \texttt{RTS\_Industry\_Investment\_USDm} &
+Let $inv_4=EE_{ind}+RTS_{ind}$. Accumulate
+$KA_4(t)=(1-\delta_{KA})KA_4(t-1)+inv_4(t)/GDP_0$, then
+$exo\_GA\_4\_1=\text{baseline}+KA_4$ \\
+
+\texttt{exo\_GA\_5\_1} & \texttt{Services\_EE\_Investment\_USDm} + optional \texttt{RTS\_Services\_Investment\_USDm} &
+Let $inv_5=EE_{com}+RTS_{com}$. Accumulate
+$KA_5(t)=(1-\delta_{KA})KA_5(t-1)+inv_5(t)/GDP_0$, then
+$exo\_GA\_5\_1=\text{baseline}+KA_5$ \\
+
+\texttt{exo\_PVEff\_1} & \texttt{PV\_Integration\_Gain\_pct} &
+$\Delta exo\_PVEff=\ln(1+\text{gain}/100)$, then
+$exo\_PVEff\_1=\text{baseline}+\Delta exo\_PVEff$ \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\scriptsize
+If a source column is missing in the expert sheet, the script uses zeros for that component before accumulation.
+\end{frame}
+
+\begin{frame}{Scenario Sheet Variables: Explicit Generation (2/2)}
+\scriptsize
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.23\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}>{\raggedright\arraybackslash}p{0.41\linewidth}}
+\toprule
+Model variable (written) & Source assumption columns & Generation rule in pipeline \\
+\midrule
+\texttt{exo\_GA\_3\_1} & \texttt{BESS\_Annual\_Investment\_USDbn} &
+Convert bn to million, then accumulate
+$KA_{ren}(t)=(1-\delta_{KA})KA_{ren}(t-1)+BESS_{mio}(t)/GDP_0$,
+and write $exo\_GA\_3\_1=\text{baseline}+KA_{ren}$ \\
+
+\texttt{exo\_PV\_1} & optional \texttt{RTS\_Household\_Investment\_USDm} &
+Accumulate household RTS investment stock
+$KA_{PV}(t)=(1-\delta_{KA})KA_{PV}(t-1)+RTS_{hh}(t)/GDP_0$,
+and write $exo\_PV\_1=\text{baseline}+KA_{PV}$ \\
+
+\texttt{exo\_lAddEE\_4\_1} & configuration flag (not workbook column) &
+Constant switch written as 1 (additive EE mode in scenario writer) \\
+
+\texttt{exo\_lAddEE\_5\_1} & configuration flag (not workbook column) &
+Constant switch written as 1 (additive EE mode in scenario writer) \\
+
+\texttt{exo\_CapTrade\_1} & configuration flag (not workbook column) &
+Constant policy flag written as 1 in EE scenario sheets \\
+
+\texttt{Period}, \texttt{Year} & baseline time index + aligned expert years &
+\texttt{Period} is written as sequential index (+1 offset in script), \texttt{Year} is aligned to baseline horizon \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.4em}
+\scriptsize
+NoBESS sheets are generated with the same EE paths but with \texttt{exo\_PVEff\_1}, \texttt{exo\_GA\_3\_1}, and \texttt{exo\_PV\_1} reset to baseline values.
+\end{frame}
+
+\begin{frame}{Scenario Architecture and Identification}
+\small
+\begin{tabular}{>{\raggedright\arraybackslash}p{0.33\linewidth}>{\raggedright\arraybackslash}p{0.31\linewidth}>{\raggedright\arraybackslash}p{0.30\linewidth}}
+\toprule
+Expert sheet & Full model scenario & Counterfactual \\
+\midrule
+EE\_PDP8\_reference & EE\_PDP8 & EE\_PDP8\_NoBESS \\
+Directive10\_RTS\_EE & EE\_Directive10 & EE\_Directive10\_NoBESS \\
+PDP8\_PV\_EV\_BESS & EE\_PDP8\_PV\_BESS & EE\_PDP8\_PV\_BESS\_NoBESS \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.5em}
+\begin{itemize}
+  \item Full scenario: EE + RTS + BESS channels active.
+  \item NoBESS scenario: same EE path, but BESS-specific channels revert to baseline.
+  \item Identification logic: Full minus NoBESS isolates the BESS contribution.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{How the Main Scenarios Differ in Practice}
+\small
+\begin{itemize}
+  \item EE\_PDP8: moderate EE and RTS trajectory (reference policy package).
+  \item EE\_Directive10: stronger RTS/EE push with higher integration assumptions.
+  \item EE\_Directive10\_NoBESS: same Directive10 EE path, but BESS channels switched off.
+  \item EE\_PDP8\_PV\_BESS\_NoBESS: accelerated PV package with NoBESS counterfactual settings.
+\end{itemize}
+
+\vspace{0.4em}
+\footnotesize
+Illustrative 2030 input levels from scenario workbooks:
+\begin{itemize}
+  \item RTS capacity (GW): PDP8 revised 25, Directive10 35, PDP8\_PV\_EV\_BESS 60.
+  \item PV integration gain (\%): PDP8 revised 2, Directive10 3, PDP8\_PV\_EV\_BESS 5.
+  \item BESS annual investment (USD bn): PDP8 revised 0.374, Directive10 0.903, PDP8\_PV\_EV\_BESS 1.3.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Headline Messages}
+\begin{itemize}
+  \item Directive10 variants show slightly higher GDP levels than EE\_PDP8.
+  \item BESS vs NoBESS differences are modest in aggregate macro indicators.
+  \item Energy intensity is lower in Directive10 variants.
+  \item Emissions paths are nearly identical across available EE runs.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Key Numbers (2030, 2040, 2050)}
+\footnotesize
+\begin{tabular}{lccc}
+\toprule
+Scenario & 2030 GDP growth & 2040 GDP growth & 2050 GDP growth \\
+\midrule
+EE\_PDP8 & 9.972\% & 7.503\% & 7.553\% \\
+EE\_Directive10 & 9.963\% & 7.505\% & 7.433\% \\
+EE\_Directive10\_NoBESS & 9.963\% & 7.504\% & 7.455\% \\
+EE\_PDP8\_PV\_BESS\_NoBESS & 9.971\% & 7.501\% & 7.508\% \\
+\bottomrule
+\end{tabular}
+\vspace{0.6em}
+
+\begin{itemize}
+  \item Use the full markdown report for complete table set and definitions.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{GDP Growth Comparison (Including Baseline)}
+  \centering
+  \includegraphics[width=0.88\linewidth]{../figures/EE_Simulation_Results/GDP_Growth_Comparison_with_Baseline.png}
+\end{frame}
+
+\begin{frame}{Investment and Consumption Shares}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.88\linewidth]{../figures/EE_Simulation_Results/Investment_Share_GDP.png}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.88\linewidth]{../figures/EE_Simulation_Results/Consumption_Share_GDP.png}
+  \end{column}
+\end{columns}
+\end{frame}
+
+
+\begin{frame}{Energy Intensity and Energy Prices}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.88\linewidth]{../figures/EE_Simulation_Results/Energy_Intensity_Index.png}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.88\linewidth]{../figures/EE_Simulation_Results/Energy_Prices_Index.png}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Final Energy Demand and Emissions}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.88\linewidth]{../figures/EE_Simulation_Results/Final_Energy_Demand_Index.png}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.88\linewidth]{../figures/EE_Simulation_Results/Emissions_Index.png}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Deviation from Baseline: GDP Level}
+  \centering
+  \includegraphics[width=0.88\linewidth]{../figures/EE_Simulation_Results/GDP_Level_Deviation_vs_Baseline.png}
+\end{frame}
+
+\begin{frame}{Deviation from Baseline: Investment and Consumption Shares}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.88\linewidth]{../figures/EE_Simulation_Results/Investment_Share_Deviation_vs_Baseline.png}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.88\linewidth]{../figures/EE_Simulation_Results/Consumption_Share_Deviation_vs_Baseline.png}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Deviation from Baseline: Energy Channels}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.88\linewidth]{../figures/EE_Simulation_Results/Energy_Intensity_Deviation_vs_Baseline.png}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.88\linewidth]{../figures/EE_Simulation_Results/Energy_Prices_Deviation_vs_Baseline.png}
+  \end{column}
+\end{columns}
+\vspace{0.3em}
+\centering
+\includegraphics[width=0.52\linewidth]{../figures/EE_Simulation_Results/Final_Energy_Demand_Deviation_vs_Baseline.png}
+\end{frame}
+
+\begin{frame}{Takeaways}
+\begin{itemize}
+  \item EE scenarios modestly improve macro outcomes relative to baseline pathways.
+  \item Directive10 variants tend to deliver stronger efficiency effects.
+  \item Differences between BESS and NoBESS cases are present but moderate in headline macro aggregates.
+\end{itemize}
+\end{frame}
+
+\end{document}

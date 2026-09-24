@@ -1,5 +1,5 @@
 %% Export Investment-to-GDP Ratios (Fossil & Renewable) to Excel
-%  Reads ExcelFiles/Output/Baseline.csv and writes
+%  Reads ExcelFiles/Output/Baseline<suffix>.csv (suffix from report_version_suffix) and writes
 %  ExcelFiles/Output/InvestmentGDPRatios.xlsx with one sheet per scenario
 %  (currently only Baseline).
 %
@@ -16,7 +16,8 @@ cd(repoRoot);
 setup_paths();
 
 % ---- configuration ------------------------------------------------------
-csvPath  = fullfile('ExcelFiles', 'Output', 'Baseline.csv');
+sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+csvPath  = fullfile('ExcelFiles', 'Output', ['Baseline' sversion '.csv']);
 xlsPath  = fullfile('ExcelFiles', 'Output', 'InvestmentGDPRatios.xlsx');
 Tplot    = Inf;   % use all available periods; set to e.g. 25 to truncate
 

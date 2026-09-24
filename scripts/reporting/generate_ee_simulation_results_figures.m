@@ -1,8 +1,8 @@
-%% Generate EE simulation-result figures used by the TeX presentation
+﻿%% Generate EE simulation-result figures used by the TeX presentation
 % Regenerates the exact figure filenames consumed by
 % docs/EE_Scenario_Presentation/ee_scenarios_presentation.tex.
 %
-% Used in: IWH_Report_Macro Impact Assessment.docx, Figure 1
+% Used in: IWH_Report_Macro_Impact_Assessment_revised.docx, Figure 1
 % (GDP_Level_Deviation_vs_Baseline_5Y_Average) and Figure 2
 % (Energy_Intensity_Deviation_vs_Baseline_5Y_Average). See
 % README_MacroImpactAssessment.md for the full figure map.
@@ -67,22 +67,24 @@ end
 allNames = [baselineName, scenarioNames];
 
 % Data version: scenarios (including Baseline) in ExcelFiles/Output/ can
-% exist as both a plain "<Name>.csv" and a "<Name>_replication.csv" (at any
-% given time, only one of the two may actually be present for a given
-% scenario). A wrapper can force an exact suffix via VersionSuffix (used
-% as-is, no fallback, for backward compatibility); otherwise DataVersion
-% picks which variant to prefer and the other is used automatically if the
-% preferred one isn't available for every required scenario (reported via
-% fprintf), so this never has to be re-checked scenario by scenario.
-%   "replication" - prefer "<Name>_replication.csv" (falls back to plain)
-%   "plain"       - prefer "<Name>.csv"              (falls back to replication)
+% exist as a plain "<Name>.csv", a "<Name>_replication.csv" and a
+% "<Name>_replication_fix.csv" (at any given time, only some of these may
+% actually be present for a given scenario). A wrapper can force an exact
+% suffix via VersionSuffix (used as-is, no fallback); otherwise DataVersion
+% picks which variant to prefer and the others are tried automatically if
+% the preferred one isn't available for every required scenario (reported
+% via fprintf), so this never has to be re-checked scenario by scenario.
+%   "replication_fix" - prefer "<Name>_replication_fix.csv" (default; falls
+%                       back to replication, then plain)
+%   "replication"     - prefer "<Name>_replication.csv"
+%   "plain"           - prefer "<Name>.csv"
 if isfield(figureScenarioConfig, 'VersionSuffix')
     sversion = string(figureScenarioConfig.VersionSuffix);
 else
     if isfield(figureScenarioConfig, 'DataVersion')
         dataVersion = string(figureScenarioConfig.DataVersion);
     else
-        dataVersion = "replication";
+        dataVersion = "replication_fix";
     end
     outputDir = fullfile(repoRoot, 'ExcelFiles', 'Output');
     [sversion, usedFallback] = resolve_version_suffix(outputDir, allNames, dataVersion);
@@ -104,7 +106,7 @@ for i = 1:numel(allNames)
     allData.(char(name)) = readtable(csvPath);
 end
 
-requiredVars = ["Year", "Y_1", "I_1", "C_1", "NX_1", "Q_A_2_1", "Q_PV_1", "Q_A_F_2_1", "P_A_2_1", "E_1"];
+requiredVars = ["Year", "Y_1", "I_1", "C_1", "NX_1", "Q_A_2_1", "Q_PV_1", "Q_A_F_2_1", "P_A_2_1", "E_1", "Q_2_1", "Q_3_1"];
 for i = 1:numel(allNames)
     tbl = allData.(char(allNames(i)));
     missing = requiredVars(~ismember(requiredVars, string(tbl.Properties.VariableNames)));
@@ -139,6 +141,10 @@ bEnergyPrices = energy_price_index(baseline, plotYears);
 bFinalDemand = final_energy_demand_index(baseline, plotYears);
 bFinalDemandGrid = grid_final_energy_demand_index(baseline, plotYears);
 bFinalDemandPV = pv_final_energy_demand_index(baseline, plotYears);
+bRenewableShare = renewable_share_of_energy(baseline, plotYears);
+bFossilShare = fossil_share_of_energy(baseline, plotYears);
+bRenewableProduction = renewable_production_index(baseline, plotYears);
+bFossilProduction = fossil_production_index(baseline, plotYears);
 bGDPLevel = extract_values(baseline, 'Y_1', plotYears);
 
 styles = iwh_scenario_style(scenarioNames);
@@ -307,6 +313,68 @@ end
 format_axes('Final Energy Demand Index (PV-provided)', 'Index (2026 = 100)');
 place_legend_below();
 save_dual(fig, outDir, 'Final_Energy_Demand_PV_Index');
+
+% 6d) Renewable share of energy output (grid renewables + PV vs. fossil + grid renewables + PV).
+fig = make_fig(); hold on;
+levelMat = nan(numel(plotYears), numel(scenarioNames));
+for i = 1:numel(scenarioNames)
+    s = allData.(char(scenarioNames(i)));
+    v = renewable_share_of_energy(s, plotYears);
+    levelMat(:, i) = v.Values;
+    plot(v.Years, v.Values, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
+        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'DisplayName', char(scenarioLabels(i)));
+end
+format_axes('Renewable Share of Energy Output', 'Year', '% of total energy output');
+place_legend_below();
+save_dual(fig, outDir, 'Renewable_Share_Energy_Output');
+maybe_save_five_year_level_bars(outDir, 'Renewable_Share_Energy_Output', ...
+    'Renewable Share of Energy Output', '% of total energy output', plotYears, levelMat, ...
+    scenarioLabels, colors, options);
+
+% 6e) Fossil share of energy output.
+fig = make_fig(); hold on;
+levelMat = nan(numel(plotYears), numel(scenarioNames));
+for i = 1:numel(scenarioNames)
+    s = allData.(char(scenarioNames(i)));
+    v = fossil_share_of_energy(s, plotYears);
+    levelMat(:, i) = v.Values;
+    plot(v.Years, v.Values, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
+        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'DisplayName', char(scenarioLabels(i)));
+end
+format_axes('Fossil Share of Energy Output', 'Year', '% of total energy output');
+place_legend_below();
+save_dual(fig, outDir, 'Fossil_Share_Energy_Output');
+maybe_save_five_year_level_bars(outDir, 'Fossil_Share_Energy_Output', ...
+    'Fossil Share of Energy Output', '% of total energy output', plotYears, levelMat, ...
+    scenarioLabels, colors, options);
+
+% 6f) Renewable production index (grid renewables + PV).
+fig = make_fig(); hold on;
+for i = 1:numel(scenarioNames)
+    s = allData.(char(scenarioNames(i)));
+    v = renewable_production_index(s, plotYears);
+    plot(v.Years, v.Values, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
+        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'DisplayName', char(scenarioLabels(i)));
+end
+format_axes('Renewable Production Index', 'Year', 'Index (2026 = 100)');
+place_legend_below();
+save_dual(fig, outDir, 'Renewable_Production_Index');
+
+% 6g) Fossil production index.
+fig = make_fig(); hold on;
+for i = 1:numel(scenarioNames)
+    s = allData.(char(scenarioNames(i)));
+    v = fossil_production_index(s, plotYears);
+    plot(v.Years, v.Values, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
+        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'DisplayName', char(scenarioLabels(i)));
+end
+format_axes('Fossil Production Index', 'Year', 'Index (2026 = 100)');
+place_legend_below();
+save_dual(fig, outDir, 'Fossil_Production_Index');
 
 % 7) Emissions index.
 fig = make_fig(); hold on;
@@ -541,24 +609,107 @@ maybe_save_five_year_summaries(outDir, 'Final_Energy_Demand_PV_Deviation_vs_Base
     'Final Energy Demand Deviation vs Baseline (PV-provided)', 'Index points', plotYears, devMat, ...
     scenarioLabels, colors, options);
 
+% 13d) Renewable share of energy output deviation vs baseline.
+fig = make_fig(); hold on;
+devMat = nan(numel(plotYears), numel(scenarioNames));
+for i = 1:numel(scenarioNames)
+    s = allData.(char(scenarioNames(i)));
+    v = renewable_share_of_energy(s, plotYears);
+    d = v.Values - bRenewableShare.Values;
+    devMat(:, i) = d;
+    plot(v.Years, d, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
+        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'DisplayName', char(scenarioLabels(i)));
+end
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('Renewable Share of Energy Output Deviation vs Baseline', 'Year', 'pp of energy output');
+place_legend_below();
+save_dual(fig, outDir, 'Renewable_Share_Energy_Output_Deviation_vs_Baseline');
+maybe_save_five_year_summaries(outDir, 'Renewable_Share_Energy_Output_Deviation_vs_Baseline', ...
+    'Renewable Share of Energy Output Deviation vs Baseline', 'pp of energy output', plotYears, devMat, ...
+    scenarioLabels, colors, lineTypes, lineWidth, options);
+
+% 13e) Fossil share of energy output deviation vs baseline.
+fig = make_fig(); hold on;
+devMat = nan(numel(plotYears), numel(scenarioNames));
+for i = 1:numel(scenarioNames)
+    s = allData.(char(scenarioNames(i)));
+    v = fossil_share_of_energy(s, plotYears);
+    d = v.Values - bFossilShare.Values;
+    devMat(:, i) = d;
+    plot(v.Years, d, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
+        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'DisplayName', char(scenarioLabels(i)));
+end
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('Fossil Share of Energy Output Deviation vs Baseline', 'Year', 'pp of energy output');
+place_legend_below();
+save_dual(fig, outDir, 'Fossil_Share_Energy_Output_Deviation_vs_Baseline');
+maybe_save_five_year_summaries(outDir, 'Fossil_Share_Energy_Output_Deviation_vs_Baseline', ...
+    'Fossil Share of Energy Output Deviation vs Baseline', 'pp of energy output', plotYears, devMat, ...
+    scenarioLabels, colors, lineTypes, lineWidth, options);
+
+% 13f) Renewable production deviation vs baseline.
+fig = make_fig(); hold on;
+devMat = nan(numel(plotYears), numel(scenarioNames));
+for i = 1:numel(scenarioNames)
+    s = allData.(char(scenarioNames(i)));
+    v = renewable_production_index(s, plotYears);
+    d = v.Values - bRenewableProduction.Values;
+    devMat(:, i) = d;
+    plot(v.Years, d, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
+        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'DisplayName', char(scenarioLabels(i)));
+end
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('Renewable Production Deviation vs Baseline', 'Year', 'Index points');
+place_legend_below();
+save_dual(fig, outDir, 'Renewable_Production_Deviation_vs_Baseline');
+maybe_save_five_year_summaries(outDir, 'Renewable_Production_Deviation_vs_Baseline', ...
+    'Renewable Production Deviation vs Baseline', 'Index points', plotYears, devMat, ...
+    scenarioLabels, colors, lineTypes, lineWidth, options);
+
+% 13g) Fossil production deviation vs baseline.
+fig = make_fig(); hold on;
+devMat = nan(numel(plotYears), numel(scenarioNames));
+for i = 1:numel(scenarioNames)
+    s = allData.(char(scenarioNames(i)));
+    v = fossil_production_index(s, plotYears);
+    d = v.Values - bFossilProduction.Values;
+    devMat(:, i) = d;
+    plot(v.Years, d, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
+        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'DisplayName', char(scenarioLabels(i)));
+end
+yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
+format_axes('Fossil Production Deviation vs Baseline', 'Year', 'Index points');
+place_legend_below();
+save_dual(fig, outDir, 'Fossil_Production_Deviation_vs_Baseline');
+maybe_save_five_year_summaries(outDir, 'Fossil_Production_Deviation_vs_Baseline', ...
+    'Fossil Production Deviation vs Baseline', 'Index points', plotYears, devMat, ...
+    scenarioLabels, colors, lineTypes, lineWidth, options);
+
 fprintf('Generated EE presentation figures in: %s\n', outDir);
 
 %% Local functions
 
 function [versionSuffix, usedFallback] = resolve_version_suffix(outputDir, allNames, dataVersion)
     % Resolves the single suffix to apply to every name in allNames
-    % according to the preferred dataVersion ("replication" or "plain"),
-    % falling back to the other variant only if the preferred one is not
-    % available for ALL required names (one suffix is applied uniformly
-    % across baseline + scenarios, so a partial match isn't usable).
+    % according to the preferred dataVersion ("replication_fix",
+    % "replication" or "plain"), falling back to the other variants only if
+    % the preferred one is not available for ALL required names (one suffix
+    % is applied uniformly across baseline + scenarios, so a partial match
+    % isn't usable).
     switch dataVersion
+        case "replication_fix"
+            candidateSuffixes = ["_replication_fix", "_replication", ""];
         case "replication"
-            candidateSuffixes = ["_replication", ""];
+            candidateSuffixes = ["_replication", "_replication_fix", ""];
         case "plain"
-            candidateSuffixes = ["", "_replication"];
+            candidateSuffixes = ["", "_replication_fix", "_replication"];
         otherwise
             error('generate_ee_simulation_results_figures:badDataVersion', ...
-                'DataVersion must be "replication" or "plain", got "%s".', dataVersion);
+                'DataVersion must be "replication_fix", "replication" or "plain", got "%s".', dataVersion);
     end
 
     for iCand = 1:numel(candidateSuffixes)
@@ -572,16 +723,16 @@ function [versionSuffix, usedFallback] = resolve_version_suffix(outputDir, allNa
     end
 
     error('generate_ee_simulation_results_figures:missingCsv', ...
-        ['Could not find a complete set of CSVs (tried "%s" and "%s" variants) ' ...
-         'for all of: %s in %s.'], version_label(candidateSuffixes(1)), ...
-        version_label(candidateSuffixes(2)), strjoin(cellstr(allNames), ', '), outputDir);
+        ['Could not find a complete set of CSVs (tried %s variants) ' ...
+         'for all of: %s in %s.'], strjoin(cellstr(arrayfun(@version_label, candidateSuffixes)), ', '), ...
+        strjoin(cellstr(allNames), ', '), outputDir);
 end
 
 function label = version_label(suffix)
     if suffix == ""
         label = "plain";
     else
-        label = "replication";
+        label = extractAfter(suffix, "_");   % "_replication_fix" -> "replication_fix"
     end
 end
 
@@ -731,6 +882,38 @@ function out = pv_final_energy_demand_index(tbl, years)
     pv = extract_values(tbl, 'Q_PV_1', years);
     out.Years = pv.Years;
     out.Values = safe_divide(pv.Values, pv.Values(1)) .* 100;
+end
+
+function out = renewable_share_of_energy(tbl, years)
+    fossil = extract_values(tbl, 'Q_2_1', years);
+    renewable = extract_values(tbl, 'Q_3_1', years);
+    pv = extract_values(tbl, 'Q_PV_1', years);
+    total = fossil.Values + renewable.Values + pv.Values;
+    out.Years = fossil.Years;
+    out.Values = safe_divide(renewable.Values + pv.Values, total) .* 100;
+end
+
+function out = fossil_share_of_energy(tbl, years)
+    fossil = extract_values(tbl, 'Q_2_1', years);
+    renewable = extract_values(tbl, 'Q_3_1', years);
+    pv = extract_values(tbl, 'Q_PV_1', years);
+    total = fossil.Values + renewable.Values + pv.Values;
+    out.Years = fossil.Years;
+    out.Values = safe_divide(fossil.Values, total) .* 100;
+end
+
+function out = renewable_production_index(tbl, years)
+    renewable = extract_values(tbl, 'Q_3_1', years);
+    pv = extract_values(tbl, 'Q_PV_1', years);
+    total = renewable.Values + pv.Values;
+    out.Years = renewable.Years;
+    out.Values = safe_divide(total, total(1)) .* 100;
+end
+
+function out = fossil_production_index(tbl, years)
+    fossil = extract_values(tbl, 'Q_2_1', years);
+    out.Years = fossil.Years;
+    out.Values = safe_divide(fossil.Values, fossil.Values(1)) .* 100;
 end
 
 function out = emissions_index(tbl, years)

@@ -28,7 +28,8 @@ setup_paths();
 
 % ---- user configuration -------------------------------------------------
 outputDir = fullfile(repoRoot, 'ExcelFiles', 'Output');
-baselineCsv = resolve_output_csv(outputDir, "Baseline");
+sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+baselineCsv = resolve_output_csv(outputDir, "Baseline" + sversion);
 
 % New scenarios for slide updates. Add/remove rows as needed.
 scenarioSpecs = table( ...
@@ -97,7 +98,7 @@ loadedScenarios = struct('Name', {}, 'Label', {}, 'Data', {});
 for iScen = 1:height(scenarioSpecs)
     sName = string(scenarioSpecs.Name(iScen));
     sLabel = string(scenarioSpecs.Label(iScen));
-    sCsv = resolve_output_csv(outputDir, sName, false);
+    sCsv = resolve_output_csv(outputDir, sName + sversion, false);
     if ~isfile(sCsv)
         warning('compare_baseline_scenario_variables:missingScenarioFile', ...
             'Scenario file not found for "%s": %s. Skipping.', sName, sCsv);

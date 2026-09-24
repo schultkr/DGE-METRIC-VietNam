@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1696" height="930"
+     viewBox="0 0 1696 930">
+  <title>Nested counterfactual framework for Viet Nam's energy transition</title>
+  <desc>A common benchmark economy feeds the PDP8 baseline, followed by three policy branches whose comparison isolates emissions, demand and investment mechanisms.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8.5" refY="5"
+            orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,5 L0,10 z" fill="#102A56"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="1696" height="930" fill="#FFFFFF"/>
+
+<rect x="20" y="22" width="545" height="287" rx="14" fill="#FFFFFF" stroke="#102A56" stroke-width="3"/>
+<text x="292" y="70" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#102A56"><tspan x="292" dy="0">Common benchmark economy</tspan></text>
+<line x1="20" y1="91" x2="565" y2="91" stroke="#AEB8C2" stroke-width="2"/>
+<text x="292" y="130" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="400" fill="#202B33"><tspan x="292" dy="0">Identical calibration</tspan></text>
+<line x1="20" y1="148" x2="565" y2="148" stroke="#CCD3D9" stroke-width="1.5"/>
+<text x="292" y="184" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="400" fill="#202B33"><tspan x="292" dy="0">Same model structure</tspan></text>
+<line x1="20" y1="202" x2="565" y2="202" stroke="#CCD3D9" stroke-width="1.5"/>
+<text x="292" y="238" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="400" fill="#202B33"><tspan x="292" dy="0">Same initial steady state</tspan></text>
+<line x1="20" y1="256" x2="565" y2="256" stroke="#CCD3D9" stroke-width="1.5"/>
+<text x="292" y="292" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="400" fill="#202B33"><tspan x="292" dy="0">Deterministic transition path</tspan></text>
+<line x1="565" y1="151" x2="672" y2="151" stroke="#102A56" stroke-width="7" marker-end="url(#arrow)"/>
+<rect x="682" y="42" width="500" height="220" rx="14" fill="#103B70" stroke="#103B70" stroke-width="3"/>
+<text x="932" y="145" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="700" fill="#FFFFFF"><tspan x="932" dy="0">PDP8 baseline</tspan></text>
+<text x="932" y="198" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" fill="#FFFFFF"><tspan x="932" dy="0">Policy-consistent benchmark</tspan></text>
+<line x1="932" y1="262" x2="932" y2="348" stroke="#102A56" stroke-width="7"/>
+<line x1="355" y1="348" x2="1408" y2="348" stroke="#102A56" stroke-width="7"/>
+<line x1="355" y1="348" x2="355" y2="397" stroke="#102A56" stroke-width="7" marker-end="url(#arrow)"/>
+<line x1="897" y1="348" x2="897" y2="397" stroke="#102A56" stroke-width="7" marker-end="url(#arrow)"/>
+<line x1="1408" y1="348" x2="1408" y2="397" stroke="#102A56" stroke-width="7" marker-end="url(#arrow)"/>
+<rect x="116" y="403" width="482" height="225" rx="13" fill="#FFFFFF" stroke="#16867D" stroke-width="3"/>
+<path d="M129,403 H585 Q598,403 598,416 V473 H116 V416 Q116,403 129,403 Z" fill="#16867D"/>
+<rect x="116" y="550" width="482" height="78" fill="#EDF8F6" rx="10"/>
+<line x1="116" y1="550" x2="598" y2="550" stroke="#16867D" stroke-width="1.5"/>
+<text x="357.0" y="450" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF"><tspan x="357.0" dy="0">Net-Zero cap</tspan></text>
+<text x="357.0" y="522" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" fill="#202B33"><tspan x="357.0" dy="0">Binding emissions constraint</tspan></text>
+<text x="357.0" y="598" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#16867D"><tspan x="357.0" dy="0">Emissions channel</tspan></text>
+<rect x="658" y="403" width="478" height="225" rx="13" fill="#FFFFFF" stroke="#D58C00" stroke-width="3"/>
+<path d="M671,403 H1123 Q1136,403 1136,416 V473 H658 V416 Q658,403 671,403 Z" fill="#D58C00"/>
+<rect x="658" y="550" width="478" height="78" fill="#FFF8E8" rx="10"/>
+<line x1="658" y1="550" x2="1136" y2="550" stroke="#D58C00" stroke-width="1.5"/>
+<text x="897.0" y="450" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF"><tspan x="897.0" dy="0">Energy efficiency</tspan></text>
+<text x="897.0" y="522" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" fill="#202B33"><tspan x="897.0" dy="0">Demand-side efficiency shocks</tspan></text>
+<text x="897.0" y="598" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#D58C00"><tspan x="897.0" dy="0">Demand channel</tspan></text>
+<rect x="1178" y="403" width="466" height="225" rx="13" fill="#FFFFFF" stroke="#B82C2C" stroke-width="3"/>
+<path d="M1191,403 H1631 Q1644,403 1644,416 V473 H1178 V416 Q1178,403 1191,403 Z" fill="#B82C2C"/>
+<rect x="1178" y="550" width="466" height="78" fill="#FFF1F1" rx="10"/>
+<line x1="1178" y1="550" x2="1644" y2="550" stroke="#B82C2C" stroke-width="1.5"/>
+<text x="1411.0" y="450" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" fill="#FFFFFF"><tspan x="1411.0" dy="0">Transition finance</tspan></text>
+<text x="1411.0" y="522" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" fill="#202B33"><tspan x="1411.0" dy="0">Modified cost of capital</tspan></text>
+<text x="1411.0" y="598" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700" fill="#B82C2C"><tspan x="1411.0" dy="0">Investment channel</tspan></text>
+<line x1="355" y1="628" x2="355" y2="676" stroke="#102A56" stroke-width="7"/>
+<line x1="897" y1="628" x2="897" y2="708" stroke="#102A56" stroke-width="7"/>
+<line x1="1408" y1="628" x2="1408" y2="676" stroke="#102A56" stroke-width="7"/>
+<line x1="355" y1="676" x2="1408" y2="676" stroke="#102A56" stroke-width="7"/>
+<line x1="897" y1="676" x2="897" y2="718" stroke="#102A56" stroke-width="7" marker-end="url(#arrow)"/>
+<rect x="432" y="723" width="896" height="120" rx="14" fill="#FFFFFF" stroke="#102A56" stroke-width="3"/>
+<text x="880" y="773" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="39" font-weight="700" fill="#102A56"><tspan x="880" dy="0">Mechanism decomposition</tspan></text>
+<text x="880" y="817" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="400" fill="#202B33"><tspan x="880" dy="0">Scenario differences isolate marginal policy contributions</tspan></text>
+<text x="848" y="892" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="27" font-weight="400" fill="#202B33" font-style="italic"><tspan x="848" dy="0">Only shock paths differ across scenarios</tspan></text>
+</svg>

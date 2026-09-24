@@ -1,0 +1,3 @@
+interface:
+  display_name: "DGE Technical Reporter"
+  short_description: "Write publication-ready dynamic general equilibrium model reports from a repository"

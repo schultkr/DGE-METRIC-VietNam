@@ -15,8 +15,9 @@ setup_paths();
 
 %% ---------------------- Participant Configuration ----------------------
 BASELINE_NAME = "Baseline";
+VERSION_SUFFIX = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
 
-% Replace with your assigned scenario (must match ExcelFiles/Output/<name>.csv)
+% Replace with your assigned scenario (must match ExcelFiles/Output/<name><VERSION_SUFFIX>.csv)
 SCENARIO_NAME = "EE_PDP8_ref";
 SCENARIO_LABEL = "Assigned Scenario";
 
@@ -39,8 +40,8 @@ POLICY_FOCUS_VARIABLE = "E_1";
 POLICY_FOCUS_LABEL    = "Emissions";
 
 %% ---------------------------- Load Outputs -----------------------------
-baselineCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', BASELINE_NAME + ".csv");
-scenarioCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', SCENARIO_NAME + ".csv");
+baselineCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', BASELINE_NAME + VERSION_SUFFIX + ".csv");
+scenarioCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', SCENARIO_NAME + VERSION_SUFFIX + ".csv");
 
 if ~isfile(baselineCsv)
     error('HandsOn2:missingBaseline', 'Missing baseline CSV: %s', baselineCsv);

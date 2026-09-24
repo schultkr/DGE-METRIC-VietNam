@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>EE Simulation Scenarios Results</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
+  </style>
+  <link rel="stylesheet" href="pdf_print_no_scroll.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">EE Simulation Scenarios Results</h1>
+</header>
+<h1 id="ee-simulation-scenarios-results">EE Simulation Scenarios
+Results</h1>
+<p>Date: 2026-06-03</p>
+<h2 id="scope-and-data-used">Scope and data used</h2>
+<p>This note summarizes simulated outcomes from CSV outputs in
+<code>ExcelFiles/Output/</code> for:</p>
+<ul>
+<li><code>EE_PDP8</code></li>
+<li><code>EE_Directive10</code></li>
+<li><code>EE_Directive10_NoBESS</code></li>
+<li><code>EE_PDP8_PV_BESS_NoBESS</code></li>
+</ul>
+<p>Requested-but-missing output files at the time of reporting:</p>
+<ul>
+<li><code>EE_Directive10_PV_BESS.csv</code> (not found)</li>
+<li><code>EE_PDP8_PV_BESS.csv</code> (not found)</li>
+</ul>
+<h2 id="metric-definitions">Metric definitions</h2>
+<ul>
+<li>GDP growth: annual growth of <code>Y_1</code> in percent.</li>
+<li>GDP level: model level <code>Y_1</code> (reported relatively in
+comparison tables).</li>
+<li>Investment share: <code>I_1 / Y_1 * 100</code>.</li>
+<li>Consumption share: <code>C_1 / Y_1 * 100</code>.</li>
+<li>Energy intensity index:
+<code>((Q_A_2_1 + Q_PV_1)/(Q_A_2_1(2026)+Q_PV_1(2026))) / (Y_1/Y_1(2026)) * 100</code>.</li>
+<li>Final energy demand index:
+<code>((Q_A_F_2_1 + Q_PV_1)/(Q_A_F_2_1(2026)+Q_PV_1(2026))) * 100</code>.</li>
+<li>Emissions index: <code>E_1 / E_1(2026) * 100</code>.</li>
+</ul>
+<h2 id="headline-findings">Headline findings</h2>
+<ol type="1">
+<li><code>EE_Directive10</code> and <code>EE_Directive10_NoBESS</code>
+deliver slightly higher GDP levels than <code>EE_PDP8</code> throughout
+the horizon (about +0.44% to +0.58% by 2030-2050).</li>
+<li>The two Directive10 variants are very close to each other in macro
+aggregates, indicating limited additional macro divergence from BESS in
+the available run set.</li>
+<li>Energy intensity improves (lower index) in Directive10 variants
+relative to <code>EE_PDP8</code>.</li>
+<li>Emissions are identical across the four available EE outputs at the
+key years and over the 2026-2050 cumulative index sum.</li>
+</ol>
+<h2 id="key-year-levels">Key-year levels</h2>
+<h3 id="section">2030</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Scenario</th>
+<th style="text-align: right;">GDP growth (%)</th>
+<th style="text-align: right;">Investment share (% GDP)</th>
+<th style="text-align: right;">Consumption share (% GDP)</th>
+<th style="text-align: right;">Energy intensity (index)</th>
+<th style="text-align: right;">Final energy demand (index)</th>
+<th style="text-align: right;">Emissions (index)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">EE_PDP8</td>
+<td style="text-align: right;">9.972</td>
+<td style="text-align: right;">36.290</td>
+<td style="text-align: right;">52.233</td>
+<td style="text-align: right;">80.135</td>
+<td style="text-align: right;">222.938</td>
+<td style="text-align: right;">111.416</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_Directive10</td>
+<td style="text-align: right;">9.963</td>
+<td style="text-align: right;">36.494</td>
+<td style="text-align: right;">52.146</td>
+<td style="text-align: right;">78.256</td>
+<td style="text-align: right;">227.025</td>
+<td style="text-align: right;">111.416</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_Directive10_NoBESS</td>
+<td style="text-align: right;">9.963</td>
+<td style="text-align: right;">36.492</td>
+<td style="text-align: right;">52.147</td>
+<td style="text-align: right;">78.255</td>
+<td style="text-align: right;">227.007</td>
+<td style="text-align: right;">111.416</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_PDP8_PV_BESS_NoBESS</td>
+<td style="text-align: right;">9.971</td>
+<td style="text-align: right;">36.388</td>
+<td style="text-align: right;">52.187</td>
+<td style="text-align: right;">79.200</td>
+<td style="text-align: right;">224.930</td>
+<td style="text-align: right;">111.416</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-1">2040</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Scenario</th>
+<th style="text-align: right;">GDP growth (%)</th>
+<th style="text-align: right;">Investment share (% GDP)</th>
+<th style="text-align: right;">Consumption share (% GDP)</th>
+<th style="text-align: right;">Energy intensity (index)</th>
+<th style="text-align: right;">Final energy demand (index)</th>
+<th style="text-align: right;">Emissions (index)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">EE_PDP8</td>
+<td style="text-align: right;">7.503</td>
+<td style="text-align: right;">35.597</td>
+<td style="text-align: right;">45.843</td>
+<td style="text-align: right;">53.952</td>
+<td style="text-align: right;">256.037</td>
+<td style="text-align: right;">62.988</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_Directive10</td>
+<td style="text-align: right;">7.505</td>
+<td style="text-align: right;">35.689</td>
+<td style="text-align: right;">45.802</td>
+<td style="text-align: right;">52.316</td>
+<td style="text-align: right;">261.033</td>
+<td style="text-align: right;">62.988</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_Directive10_NoBESS</td>
+<td style="text-align: right;">7.504</td>
+<td style="text-align: right;">35.684</td>
+<td style="text-align: right;">45.805</td>
+<td style="text-align: right;">52.317</td>
+<td style="text-align: right;">260.907</td>
+<td style="text-align: right;">62.988</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_PDP8_PV_BESS_NoBESS</td>
+<td style="text-align: right;">7.501</td>
+<td style="text-align: right;">35.636</td>
+<td style="text-align: right;">45.827</td>
+<td style="text-align: right;">53.204</td>
+<td style="text-align: right;">258.204</td>
+<td style="text-align: right;">62.988</td>
+</tr>
+</tbody>
+</table>
+<h3 id="section-2">2050</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Scenario</th>
+<th style="text-align: right;">GDP growth (%)</th>
+<th style="text-align: right;">Investment share (% GDP)</th>
+<th style="text-align: right;">Consumption share (% GDP)</th>
+<th style="text-align: right;">Energy intensity (index)</th>
+<th style="text-align: right;">Final energy demand (index)</th>
+<th style="text-align: right;">Emissions (index)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">EE_PDP8</td>
+<td style="text-align: right;">7.553</td>
+<td style="text-align: right;">44.870</td>
+<td style="text-align: right;">39.579</td>
+<td style="text-align: right;">21.915</td>
+<td style="text-align: right;">203.112</td>
+<td style="text-align: right;">25.000</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_Directive10</td>
+<td style="text-align: right;">7.433</td>
+<td style="text-align: right;">44.852</td>
+<td style="text-align: right;">39.641</td>
+<td style="text-align: right;">21.065</td>
+<td style="text-align: right;">204.412</td>
+<td style="text-align: right;">25.000</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_Directive10_NoBESS</td>
+<td style="text-align: right;">7.455</td>
+<td style="text-align: right;">44.860</td>
+<td style="text-align: right;">39.632</td>
+<td style="text-align: right;">21.083</td>
+<td style="text-align: right;">204.313</td>
+<td style="text-align: right;">25.000</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_PDP8_PV_BESS_NoBESS</td>
+<td style="text-align: right;">7.508</td>
+<td style="text-align: right;">44.865</td>
+<td style="text-align: right;">39.604</td>
+<td style="text-align: right;">21.540</td>
+<td style="text-align: right;">203.639</td>
+<td style="text-align: right;">25.000</td>
+</tr>
+</tbody>
+</table>
+<h2 id="differences-vs-ee_pdp8">Differences vs EE_PDP8</h2>
+<h3 id="deltas-scenario-minus-ee_pdp8">2030 deltas (scenario minus
+EE_PDP8)</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Scenario</th>
+<th style="text-align: right;">GDP growth (pp)</th>
+<th style="text-align: right;">GDP level (%)</th>
+<th style="text-align: right;">Investment share (pp GDP)</th>
+<th style="text-align: right;">Consumption share (pp GDP)</th>
+<th style="text-align: right;">Energy intensity (percentage points)</th>
+<th style="text-align: right;">Final energy demand (percentage
+points)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">EE_Directive10</td>
+<td style="text-align: right;">-0.009</td>
+<td style="text-align: right;">+0.442</td>
+<td style="text-align: right;">+0.205</td>
+<td style="text-align: right;">-0.087</td>
+<td style="text-align: right;">-1.880</td>
+<td style="text-align: right;">+4.087</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_Directive10_NoBESS</td>
+<td style="text-align: right;">-0.009</td>
+<td style="text-align: right;">+0.440</td>
+<td style="text-align: right;">+0.203</td>
+<td style="text-align: right;">-0.086</td>
+<td style="text-align: right;">-1.880</td>
+<td style="text-align: right;">+4.069</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_PDP8_PV_BESS_NoBESS</td>
+<td style="text-align: right;">-0.001</td>
+<td style="text-align: right;">+0.219</td>
+<td style="text-align: right;">+0.098</td>
+<td style="text-align: right;">-0.046</td>
+<td style="text-align: right;">-0.936</td>
+<td style="text-align: right;">+1.992</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deltas-scenario-minus-ee_pdp8-1">2040 deltas (scenario minus
+EE_PDP8)</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Scenario</th>
+<th style="text-align: right;">GDP growth (pp)</th>
+<th style="text-align: right;">GDP level (%)</th>
+<th style="text-align: right;">Investment share (pp GDP)</th>
+<th style="text-align: right;">Consumption share (pp GDP)</th>
+<th style="text-align: right;">Energy intensity (percentage points)</th>
+<th style="text-align: right;">Final energy demand (percentage
+points)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">EE_Directive10</td>
+<td style="text-align: right;">+0.002</td>
+<td style="text-align: right;">+0.579</td>
+<td style="text-align: right;">+0.092</td>
+<td style="text-align: right;">-0.041</td>
+<td style="text-align: right;">-1.636</td>
+<td style="text-align: right;">+4.995</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_Directive10_NoBESS</td>
+<td style="text-align: right;">+0.001</td>
+<td style="text-align: right;">+0.571</td>
+<td style="text-align: right;">+0.086</td>
+<td style="text-align: right;">-0.038</td>
+<td style="text-align: right;">-1.635</td>
+<td style="text-align: right;">+4.869</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_PDP8_PV_BESS_NoBESS</td>
+<td style="text-align: right;">-0.001</td>
+<td style="text-align: right;">+0.262</td>
+<td style="text-align: right;">+0.038</td>
+<td style="text-align: right;">-0.016</td>
+<td style="text-align: right;">-0.748</td>
+<td style="text-align: right;">+2.166</td>
+</tr>
+</tbody>
+</table>
+<h3 id="deltas-scenario-minus-ee_pdp8-2">2050 deltas (scenario minus
+EE_PDP8)</h3>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr>
+<th style="text-align: left;">Scenario</th>
+<th style="text-align: right;">GDP growth (pp)</th>
+<th style="text-align: right;">GDP level (%)</th>
+<th style="text-align: right;">Investment share (pp GDP)</th>
+<th style="text-align: right;">Consumption share (pp GDP)</th>
+<th style="text-align: right;">Energy intensity (percentage points)</th>
+<th style="text-align: right;">Final energy demand (percentage
+points)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">EE_Directive10</td>
+<td style="text-align: right;">-0.120</td>
+<td style="text-align: right;">+0.446</td>
+<td style="text-align: right;">-0.018</td>
+<td style="text-align: right;">+0.061</td>
+<td style="text-align: right;">-0.850</td>
+<td style="text-align: right;">+1.300</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_Directive10_NoBESS</td>
+<td style="text-align: right;">-0.098</td>
+<td style="text-align: right;">+0.459</td>
+<td style="text-align: right;">-0.011</td>
+<td style="text-align: right;">+0.053</td>
+<td style="text-align: right;">-0.833</td>
+<td style="text-align: right;">+1.201</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_PDP8_PV_BESS_NoBESS</td>
+<td style="text-align: right;">-0.044</td>
+<td style="text-align: right;">+0.207</td>
+<td style="text-align: right;">-0.005</td>
+<td style="text-align: right;">+0.025</td>
+<td style="text-align: right;">-0.376</td>
+<td style="text-align: right;">+0.527</td>
+</tr>
+</tbody>
+</table>
+<h2 id="aggregate-indicators-2026-2050">Aggregate indicators
+(2026-2050)</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Scenario</th>
+<th style="text-align: right;">Average GDP growth (%)</th>
+<th style="text-align: right;">Sum of emissions index</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">EE_PDP8</td>
+<td style="text-align: right;">8.015</td>
+<td style="text-align: right;">1792.148</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_Directive10</td>
+<td style="text-align: right;">8.035</td>
+<td style="text-align: right;">1792.148</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_Directive10_NoBESS</td>
+<td style="text-align: right;">8.035</td>
+<td style="text-align: right;">1792.148</td>
+</tr>
+<tr>
+<td style="text-align: left;">EE_PDP8_PV_BESS_NoBESS</td>
+<td style="text-align: right;">8.024</td>
+<td style="text-align: right;">1792.148</td>
+</tr>
+</tbody>
+</table>
+<h2 id="plots">Plots</h2>
+<h3 id="gdp-growth-comparison-with-baseline">GDP Growth Comparison with
+Baseline</h3>
+<figure>
+<img
+src="figures/EE_Simulation_Results/GDP_Growth_Comparison_with_Baseline.svg"
+alt="GDP Growth Comparison with Baseline" />
+<figcaption aria-hidden="true">GDP Growth Comparison with
+Baseline</figcaption>
+</figure>
+<h3 id="gdp-growth">GDP Growth</h3>
+<figure>
+<img src="figures/EE_Simulation_Results/GDP_Growth.svg"
+alt="GDP Growth" />
+<figcaption aria-hidden="true">GDP Growth</figcaption>
+</figure>
+<h3 id="investment-share-of-gdp">Investment Share of GDP</h3>
+<figure>
+<img src="figures/EE_Simulation_Results/Investment_Share_GDP.svg"
+alt="Investment Share of GDP" />
+<figcaption aria-hidden="true">Investment Share of GDP</figcaption>
+</figure>
+<h3 id="consumption-share-of-gdp">Consumption Share of GDP</h3>
+<figure>
+<img src="figures/EE_Simulation_Results/Consumption_Share_GDP.svg"
+alt="Consumption Share of GDP" />
+<figcaption aria-hidden="true">Consumption Share of GDP</figcaption>
+</figure>
+<h3 id="energy-intensity-index">Energy Intensity Index</h3>
+<figure>
+<img src="figures/EE_Simulation_Results/Energy_Intensity_Index.svg"
+alt="Energy Intensity Index" />
+<figcaption aria-hidden="true">Energy Intensity Index</figcaption>
+</figure>
+<h3 id="energy-prices-index">Energy Prices Index</h3>
+<figure>
+<img src="figures/EE_Simulation_Results/Energy_Prices_Index.svg"
+alt="Energy Prices Index" />
+<figcaption aria-hidden="true">Energy Prices Index</figcaption>
+</figure>
+<h3 id="final-energy-demand-index">Final Energy Demand Index</h3>
+<figure>
+<img src="figures/EE_Simulation_Results/Final_Energy_Demand_Index.svg"
+alt="Final Energy Demand Index" />
+<figcaption aria-hidden="true">Final Energy Demand Index</figcaption>
+</figure>
+<h3 id="emissions-index">Emissions Index</h3>
+<figure>
+<img src="figures/EE_Simulation_Results/Emissions_Index.svg"
+alt="Emissions Index" />
+<figcaption aria-hidden="true">Emissions Index</figcaption>
+</figure>
+<h2 id="deviations-from-baseline-plots">Deviations from Baseline
+Plots</h2>
+<p>These charts show scenario differences relative to Baseline directly
+(zero line = same as Baseline).</p>
+<h3 id="gdp-level-deviation-from-baseline">GDP Level Deviation from
+Baseline</h3>
+<figure>
+<img
+src="figures/EE_Simulation_Results/GDP_Level_Deviation_vs_Baseline.svg"
+alt="GDP Level Deviation from Baseline" />
+<figcaption aria-hidden="true">GDP Level Deviation from
+Baseline</figcaption>
+</figure>
+<h3 id="investment-share-deviation-from-baseline">Investment Share
+Deviation from Baseline</h3>
+<figure>
+<img
+src="figures/EE_Simulation_Results/Investment_Share_Deviation_vs_Baseline.svg"
+alt="Investment Share Deviation from Baseline" />
+<figcaption aria-hidden="true">Investment Share Deviation from
+Baseline</figcaption>
+</figure>
+<h3 id="consumption-share-deviation-from-baseline">Consumption Share
+Deviation from Baseline</h3>
+<figure>
+<img
+src="figures/EE_Simulation_Results/Consumption_Share_Deviation_vs_Baseline.svg"
+alt="Consumption Share Deviation from Baseline" />
+<figcaption aria-hidden="true">Consumption Share Deviation from
+Baseline</figcaption>
+</figure>
+<h3 id="energy-intensity-deviation-from-baseline">Energy Intensity
+Deviation from Baseline</h3>
+<figure>
+<img
+src="figures/EE_Simulation_Results/Energy_Intensity_Deviation_vs_Baseline.svg"
+alt="Energy Intensity Deviation from Baseline" />
+<figcaption aria-hidden="true">Energy Intensity Deviation from
+Baseline</figcaption>
+</figure>
+<h3 id="final-energy-demand-deviation-from-baseline">Final Energy Demand
+Deviation from Baseline</h3>
+<figure>
+<img
+src="figures/EE_Simulation_Results/Final_Energy_Demand_Deviation_vs_Baseline.svg"
+alt="Final Energy Demand Deviation from Baseline" />
+<figcaption aria-hidden="true">Final Energy Demand Deviation from
+Baseline</figcaption>
+</figure>
+<h3 id="energy-prices-deviation-from-baseline">Energy Prices Deviation
+from Baseline</h3>
+<figure>
+<img
+src="figures/EE_Simulation_Results/Energy_Prices_Deviation_vs_Baseline.svg"
+alt="Energy Prices Deviation from Baseline" />
+<figcaption aria-hidden="true">Energy Prices Deviation from
+Baseline</figcaption>
+</figure>
+<h2 id="interpretation-notes">Interpretation notes</h2>
+<ul>
+<li>The near-zero gap between <code>EE_Directive10</code> and
+<code>EE_Directive10_NoBESS</code> in these outputs suggests BESS
+effects are modest for the selected macro aggregates under the current
+calibration/run settings.</li>
+<li>Identical emissions paths indicate either a shared binding
+constraint/policy path in these runs or scenario differences that
+primarily affect non-emissions channels.</li>
+<li>To complete the originally requested five-scenario comparison,
+generate and export the missing PV+BESS scenario outputs
+(<code>EE_Directive10_PV_BESS.csv</code> and/or
+<code>EE_PDP8_PV_BESS.csv</code>) and append them to this table
+set.</li>
+</ul>
+</body>
+</html>

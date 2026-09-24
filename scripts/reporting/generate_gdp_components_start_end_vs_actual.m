@@ -6,7 +6,7 @@
 %
 % Workbook/data inputs used by this script:
 %   1) Model output data (repo):
-%      - ExcelFiles/Output/Baseline.csv
+%      - ExcelFiles/Output/Baseline<suffix>.csv (suffix from report_version_suffix)
 %      - Provides simulated component levels for 2025 and 2050.
 %   2) Actual national-accounts workbook (external, not tracked in repo):
 %      - IO_GSO_2019.xlsx, sheet "GSO_REDUCED": aggregate actual totals
@@ -40,7 +40,8 @@ setup_paths();
 
 %% Configuration -----------------------------------------------------------
 
-baselineCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', 'Baseline.csv');
+sversion    = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+baselineCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', ['Baseline' sversion '.csv']);
 startYear   = 2025;
 reportingEndYear  = 2050;
 simulationEndYear = 2100;
@@ -98,7 +99,7 @@ set(groot, 'defaultAxesFontSize', 12, ...
 
 requiredVars = ["Year", "Y_1", "P_1", "C_1", "I_1", "G_1", "I_G_1", "IH_1", "PH_1", "I_PV_1"];
 baseline = readtable(baselineCsv);
-require_vars(baseline, requiredVars, 'Baseline_replication.csv');
+require_vars(baseline, requiredVars, ['Baseline' sversion '.csv']);
 
 startRow = baseline(baseline.Year == startYear, :);
 endRow   = baseline(baseline.Year == reportingEndYear, :);

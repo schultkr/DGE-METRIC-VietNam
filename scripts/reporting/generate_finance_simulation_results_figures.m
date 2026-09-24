@@ -1,4 +1,4 @@
-%% Generate finance-scenario figures used for reporting and slides
+﻿%% Generate finance-scenario figures used for reporting and slides
 % Produces baseline-vs-scenario charts for:
 %   - GDP growth
 %   - WACC (renewables sector)
@@ -7,7 +7,7 @@
 % Output:
 %   docs/figures/Finance_Simulation_Results/*.svg and *.png
 %
-% Used in: IWH_Report_Macro Impact Assessment.docx, Figure 4
+% Used in: IWH_Report_Macro_Impact_Assessment_revised.docx, Figure 4
 % (GDP_Level_Deviation_vs_Baseline_5Y_Average) and Figure 5
 % (WACC_Renewables_Deviation_vs_Baseline_5Y_Average). See
 % README_MacroImpactAssessment.md for the full figure map.
@@ -127,7 +127,7 @@ end
 if isfield(figureScenarioConfig, 'VersionSuffix')
     sversion = string(figureScenarioConfig.VersionSuffix);
 else
-    sversion = "_replication";
+    sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
 end
 if isfield(figureScenarioConfig, 'ScenarioNames')
     scenarioNames = string(figureScenarioConfig.ScenarioNames);

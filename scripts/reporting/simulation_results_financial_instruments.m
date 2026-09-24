@@ -31,10 +31,11 @@ for iscenStyle = 1:numel(casScenarios)
 end
 
 % Load scenario CSV data
+sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
 dsall = struct();
 for iscen = 1:length(casScenarios)
     sScen = casScenarios{iscen};
-    filename = ['ExcelFiles/Output/' sScen '.csv'];
+    filename = ['ExcelFiles/Output/' sScen sversion '.csv'];
     dsall.(sScen) = readtable(filename);
 end
 

@@ -10,12 +10,12 @@ cd(repoRoot);
 setup_paths();
 %% Specify scenario names (grouped)
 lSteadyState = false;
-sSensitivity = '_replication';
+sSensitivity = '_replication_fix';
 % Optional override via environment variable, e.g.:
 %   set DGE_WORKBOOK_VERSION=canonical
 % to target the canonical (no-suffix) workbooks instead of the default
 % "_replication" set, or set it to any other workbook-filename suffix
-% (e.g. "_check") directly. Unset/empty leaves the default above
+% (e.g. "_replication") directly. Unset/empty leaves the default above
 % unchanged. The literal value "canonical" is a sentinel for "" because an
 % environment variable cannot distinguish "unset" from "set to empty".
 envWorkbookVersion = strtrim(getenv('DGE_WORKBOOK_VERSION'));
@@ -39,6 +39,7 @@ scenarioGroups.EE = {...
     'EE_Dir10_full_NoBESS', ...    % Directive 10 without the BESS/integration layer
     'EE_RTS_prerev_95GW', ...      % RTS held at the pre-revision 95 GW vs the Baseline's 135 GW
     };
+
 
 % Green-finance scenarios on PDP8 baseline
 scenarioGroups.GF_PDP8 = {...
@@ -73,13 +74,13 @@ scenarioGroups.ImportShock = {...
 
 % Full evidence base for the IWH Technical Report and Macro Impact Assessment:
 % every scenario either report cites, in dependency order (Baseline and NZ
-% must solve before anything built on them). Run with the default below, or
-% explicitly via:
+% must solve before anything built on them). Run with:
 %   set DGE_SCENARIO_GROUPS=ReportReplication
 % See docs/reference/report_replication.md for the figure/table -> scenario
 % mapping. Deliberately excludes ImportShock (unrelated to either report).
 scenarioGroups.ReportReplication = [scenarioGroups.Reference, scenarioGroups.EE, ...
     scenarioGroups.GF_PDP8, scenarioGroups.GF_NZ, scenarioGroups.NZ_Sensitivity];
+
 
 % Select which groups to run.
 % Default: the full set of scenarios needed to reproduce every figure and
@@ -122,10 +123,10 @@ if isempty(casScenarioNames)
 end
 
 % Define sector strucutre
-sSubsecstart = '[1, 2, 4, 5]';
+sSubsecstart = '[1, 2, 4, 5]';                 
 sSubsecend =   '[1, 3, 4, 5]';
 
-% sSubsecstart = '[1]';
+% sSubsecstart = '[1]';                 
 % sSubsecend =   '[1]';
 sClimRegional = '["tas"]';
 sClimNational = '["tas"]';
@@ -258,7 +259,7 @@ for icoScenario = scenarioStart:scenarioEnd
         sBaseline = 'Baseline';
         sSimulation = '5';
         sExoNX = '0';
-        sCapandTrade = '0';
+        sCapandTrade = '0';        
     else
         sBaseline = 'Baseline';
         sSimulation = '20';

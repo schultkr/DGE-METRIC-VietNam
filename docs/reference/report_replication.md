@@ -20,7 +20,9 @@ To run only a subset, either edit `activeScenarioGroups` in `RunSimulations.m` o
 `DGE_SCENARIO_GROUPS` (comma-separated group names) or `DGE_SCENARIO_NAMES` (an exact,
 comma-separated, ordered scenario list, bypassing groups entirely) before starting MATLAB. Both
 env vars are read by `RunSimulations.m`; see its header comments for exact semantics, along with
-`DGE_WORKBOOK_VERSION` (workbook-filename suffix — default `_replication`).
+`DGE_WORKBOOK_VERSION` (workbook-filename suffix — default `_replication_fix`, in which `r_G` is
+the public-instrument-only weighted rate; set to `_replication` for the earlier workbook variant,
+or `canonical` for the plain, unsuffixed files).
 
 Then generate figures:
 

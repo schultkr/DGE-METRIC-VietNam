@@ -16,7 +16,7 @@ function run_online_training_comparison(config)
     cfg = apply_defaults(config);
 
     outputDir = fullfile(repoRoot, 'ExcelFiles', 'Output');
-    baselineCsv = resolve_output_csv(outputDir, cfg.baselineName, true);
+    baselineCsv = resolve_output_csv(outputDir, cfg.baselineName + cfg.versionSuffix, true);
     baseline = readtable(baselineCsv);
 
     plotSpecs = normalize_plot_specs(cfg.plotSpecs);
@@ -26,7 +26,7 @@ function run_online_training_comparison(config)
     for iScen = 1:height(cfg.scenarioSpecs)
         sName = string(cfg.scenarioSpecs.Name(iScen));
         sLabel = string(cfg.scenarioSpecs.Label(iScen));
-        sCsv = resolve_output_csv(outputDir, sName, false);
+        sCsv = resolve_output_csv(outputDir, sName + cfg.versionSuffix, false);
 
         if ~isfile(sCsv)
             warning('OnlineTraining:MissingScenarioFile', ...
@@ -74,7 +74,8 @@ function run_online_training_comparison(config)
         mkdir(outDir);
     end
 
-    colors = default_colors();
+    colors = default_colors();   % .plan / .grid only; scenario colour comes from the shared registry
+    scenarioStyles = iwh_scenario_style({loadedScenarios.Name});
     set_global_plot_defaults();
 
     summaryRows = [];
@@ -89,9 +90,9 @@ function run_online_training_comparison(config)
         for iScen = 1:numel(loadedScenarios)
             sData = loadedScenarios(iScen).Data;
             dVals = compute_deviation(sData.(variableName), baseline.(variableName), string(spec.Deviation));
-            c = scenario_color(iScen, colors);
-            plot(ax, years, dVals, '-', 'Color', c, 'LineWidth', 1.9, ...
-                'DisplayName', loadedScenarios(iScen).Label);
+            plot(ax, years, dVals, 'Color', scenarioStyles(iScen).Color, ...
+                'LineStyle', scenarioStyles(iScen).LineStyle, 'Marker', scenarioStyles(iScen).Marker, ...
+                'LineWidth', 1.9, 'DisplayName', loadedScenarios(iScen).Label);
 
             summaryRows = [summaryRows; struct( ... %#ok<AGROW>
                 'Variable', string(spec.Variable), ...
@@ -105,10 +106,8 @@ function run_online_training_comparison(config)
             'HandleVisibility', 'off');
         hold(ax, 'off');
 
-        title(ax, sprintf('%s: %s relative to %s', ...
-            cfg.chartTitlePrefix, spec.Label, cfg.baselineLabel), 'Interpreter', 'none');
-        ylabel(ax, build_deviation_ylabel(string(spec.Deviation), cfg.baselineLabel));
-        xlabel(ax, 'Year');
+        ylabel(ax, {sprintf('%s: %s relative to %s', cfg.chartTitlePrefix, spec.Label, cfg.baselineLabel), ...
+            build_deviation_ylabel(string(spec.Deviation), cfg.baselineLabel)}, 'Interpreter', 'none');
         style_time_axis(ax, yearRange, colors);
         pad_y_axis(ax, string(spec.Deviation));
         legend(ax, 'Location', 'best', 'Box', 'off', 'Interpreter', 'none');
@@ -144,6 +143,13 @@ function cfg = apply_defaults(config)
     else
         cfg.baselineLabel = string(cfg.baselineLabel);
     end
+
+    % Output-CSV suffix written by RunSimulations (sSensitivity); default
+    % "_replication_fix", overridable via DGE_WORKBOOK_VERSION or config.
+    if ~isfield(cfg, 'versionSuffix')
+        cfg.versionSuffix = report_version_suffix();
+    end
+    cfg.versionSuffix = string(cfg.versionSuffix);
 
     if ~isfield(cfg, 'plotStartYear')
         cfg.plotStartYear = 2025;
@@ -240,17 +246,11 @@ function require_vars(data, vars, dataName)
 end
 
 function colors = default_colors()
+    % Scenario colours now come from iwh_scenario_style (shared registry),
+    % so only the non-scenario semantic colours live here.
     colors = struct();
     colors.plan = [0.25 0.25 0.25];
     colors.grid = [0.82 0.82 0.82];
-    colors.pool = [ ...
-        0.00 0.45 0.70; ...
-        0.84 0.37 0.00; ...
-        0.00 0.62 0.45; ...
-        0.49 0.18 0.56; ...
-        0.18 0.55 0.34; ...
-        0.64 0.08 0.18; ...
-        0.30 0.30 0.30];
 end
 
 function set_global_plot_defaults()
@@ -299,12 +299,6 @@ function save_figure(fig, outDir, stem, exportPdf)
     if exportPdf
         exportgraphics(fig, fullfile(outDir, char(stem + ".pdf")), 'ContentType', 'vector');
     end
-end
-
-function c = scenario_color(idx, colors)
-    pool = colors.pool;
-    i = mod(idx - 1, size(pool, 1)) + 1;
-    c = pool(i, :);
 end
 
 function style_time_axis(ax, yearRange, colors)

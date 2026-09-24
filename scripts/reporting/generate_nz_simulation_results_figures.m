@@ -1,4 +1,4 @@
-%% Generate Net-Zero scenario figures used for reporting and slides
+﻿%% Generate Net-Zero scenario figures used for reporting and slides
 % Compares the requested Net-Zero policy variants with the Baseline:
 %   - NZ
 %   - NZ_subsidy
@@ -11,12 +11,12 @@
 % investment, and ETS revenue as a share of GDP.
 %
 % Input:
-%   ExcelFiles/Output/<scenario>_replication.csv
+%   ExcelFiles/Output/<scenario>_replication_fix.csv
 %
 % Output:
 %   docs/figures/NZ_Simulation_Results/*.svg and *.png
 %
-% Used in: IWH_Report_Macro Impact Assessment.docx, Figure 7
+% Used in: IWH_Report_Macro_Impact_Assessment_revised.docx, Figure 7
 % (ETS_Revenue_5Y_Cumulative_Billion_USD_NZ_Scenarios), Figure 8
 % (ETS_Revenue_Share_Deviation_vs_Baseline_5Y_Average), and Figure 9
 % (GDP_Level_Deviation_vs_Baseline_5Y_Average). See
@@ -24,7 +24,7 @@
 
 figureScenarioConfig = struct();
 figureScenarioConfig.BaselineName = "Baseline";
-figureScenarioConfig.VersionSuffix = "_replication";
+figureScenarioConfig.VersionSuffix = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
 figureScenarioConfig.ScenarioNames = [ ...
     "NZ", ...
     "NZ_subsidy", ...
@@ -32,9 +32,9 @@ figureScenarioConfig.ScenarioNames = [ ...
     "NZ_Dir10_full_GF_C"];
 figureScenarioConfig.ScenarioLabels = [ ...
     "Net Zero", ...
-    "Net Zero - subsidy", ...
-    "Net Zero - direct subsidy", ...
-    "Net Zero - GF C + EE"];
+    "Net Zero subsidy", ...
+    "Net Zero direct subsidy", ...
+    "Net Zero GF C + EE + subsidies"];
 figureScenarioConfig.OutputSubdirectory = "NZ_Simulation_Results";
 figureScenarioConfig.ReportLabel = "Net-Zero scenario";
 figureScenarioConfig.IncludeETSRevenuePlot = true;

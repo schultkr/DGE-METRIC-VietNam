@@ -16,7 +16,8 @@ cd(repoRoot);
 setup_paths();
 
 outputDir   = fullfile(repoRoot, 'ExcelFiles', 'Output');
-baselineCsv = fullfile(outputDir, 'Baseline.csv');
+sversion    = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+baselineCsv = fullfile(outputDir, ['Baseline' sversion '.csv']);
 
 scenarioSpecs = table( ...
     ["Baseline"; "EE_Dir10_full"; "PDP8_GF_C"], ...
@@ -62,7 +63,7 @@ for iScen = 1:height(scenarioSpecs)
         continue
     end
 
-    csvPath = fullfile(outputDir, sName + ".csv");
+    csvPath = fullfile(outputDir, sName + sversion + ".csv");
     if ~isfile(csvPath)
         warning('generate_gdp_component_decomposition_figures:missingScenarioFile', ...
             'Scenario file not found for "%s": %s. Skipping.', sName, csvPath);

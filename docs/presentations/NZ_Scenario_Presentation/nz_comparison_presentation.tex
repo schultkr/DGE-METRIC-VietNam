@@ -1,0 +1,142 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+\graphicspath{{docs/figures/NZ_Simulation_Results/}{../figures/NZ_Simulation_Results/}}
+
+\title{Net Zero Scenario Comparison}
+\subtitle{NZ vs Baseline}
+\author{DGE-METRIC Team}
+\date{June 2026}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Scope}
+\begin{itemize}
+  \item Comparison shown: NZ (Net Zero) versus Baseline.
+  \item Metrics cover macro outcomes, energy channels, and emissions.
+  \item Deviation panels show NZ minus Baseline effects directly.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{GDP and Growth: 5-Year Average Deviations}
+\begin{columns}[T]
+  \begin{column}{0.52\textwidth}
+    \centering
+    \includegraphics[width=0.98\linewidth]{GDP_Growth_Deviation_vs_Baseline_5YAvg.png}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \includegraphics[width=0.98\linewidth]{GDP_Level_Deviation_vs_Baseline_5YAvg.png}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Investment and Consumption: 5-Year Average Deviations}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{Investment_Share_Deviation_vs_Baseline_5YAvg.png}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{Consumption_Share_Deviation_vs_Baseline_5YAvg.png}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Energy Intensity and Prices: 5-Year Average Deviations}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{Energy_Intensity_Deviation_vs_Baseline_5YAvg.png}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{Energy_Prices_Deviation_vs_Baseline_5YAvg.png}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Final Energy Demand: 5-Year Average Deviations}
+\begin{columns}[T]
+  \begin{column}{0.34\textwidth}
+    \centering
+    \includegraphics[width=0.98\linewidth]{Final_Energy_Demand_Deviation_vs_Baseline_5YAvg.png}
+  \end{column}
+  \begin{column}{0.33\textwidth}
+    \centering
+    \includegraphics[width=0.98\linewidth]{Final_Energy_Demand_Grid_Deviation_vs_Baseline_5YAvg.png}
+  \end{column}
+  \begin{column}{0.33\textwidth}
+    \centering
+    \includegraphics[width=0.98\linewidth]{Final_Energy_Demand_PV_Deviation_vs_Baseline_5YAvg.png}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Emissions and GDP Growth: 5-Year Average Deviations}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{Emissions_Deviation_vs_Baseline_5YAvg.png}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{GDP_Growth_Deviation_vs_Baseline_5YAvg.png}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Economic Interpretation}
+\begin{itemize}
+  \item NZ transition effects can be decomposed into demand reallocation, relative-price adjustment, and emissions-abatement dynamics.
+  \item The 5-year grouped bars provide the main medium-term signal by averaging short-run volatility and highlighting persistent wedges versus baseline.
+  \item GDP-level and investment-share deviations indicate how transition support and adjustment costs net out over successive policy windows.
+  \item The split of final energy demand into grid and PV channels shows whether the transition relies more on centralized electrification or distributed energy uptake.
+\end{itemize}
+\end{frame}
+
+\appendix
+
+\begin{frame}{Appendix: GDP Growth Comparison and Level Deviation (Annual)}
+\begin{columns}[T]
+  \begin{column}{0.52\textwidth}
+    \centering
+    \includegraphics[width=0.98\linewidth]{GDP_Growth_Comparison_with_Baseline.png}
+  \end{column}
+  \begin{column}{0.48\textwidth}
+    \centering
+    \includegraphics[width=0.98\linewidth]{GDP_Level_Deviation_vs_Baseline.png}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\begin{frame}{Appendix: Energy and Emissions (Annual)}
+\begin{columns}[T]
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{Energy_Intensity_Deviation_vs_Baseline.png}
+    \vspace{0.2em}
+    \includegraphics[width=0.95\linewidth]{Final_Energy_Demand_Deviation_vs_Baseline.png}
+  \end{column}
+  \begin{column}{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.95\linewidth]{Emissions_Index.png}
+    \vspace{0.2em}
+    \includegraphics[width=0.95\linewidth]{Emissions_Deviation_vs_Baseline.png}
+  \end{column}
+\end{columns}
+\end{frame}
+
+\end{document}

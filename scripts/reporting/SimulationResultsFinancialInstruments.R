@@ -27,6 +27,10 @@ library(scales)
 library(patchwork)
 
 DATA_DIR <- "ExcelFiles/Output"
+# Output-CSV suffix written by RunSimulations.m (sSensitivity). Mirrors
+# report_version_suffix.m: DGE_WORKBOOK_VERSION overrides, "canonical" -> "".
+VERSION_SUFFIX <- Sys.getenv("DGE_WORKBOOK_VERSION", unset = "_replication_fix")
+if (tolower(VERSION_SUFFIX) == "canonical") VERSION_SUFFIX <- ""
 FIG_DIR  <- file.path("Figures", "Financing")
 if (!dir.exists(FIG_DIR)) dir.create(FIG_DIR, recursive = TRUE)
 
@@ -59,7 +63,7 @@ POLICY <- tribble(
 # ── 2. Load data ───────────────────────────────────────────────────────────────
 
 load_csv <- function(file_name) {
-  read_csv(file.path(DATA_DIR, paste0(file_name, ".csv")),
+  read_csv(file.path(DATA_DIR, paste0(file_name, VERSION_SUFFIX, ".csv")),
            show_col_types = FALSE)
 }
 

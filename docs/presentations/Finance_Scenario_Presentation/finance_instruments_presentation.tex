@@ -1,0 +1,129 @@
+\documentclass[aspectratio=169]{beamer}
+
+\usetheme{Madrid}
+\usecolortheme{default}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\graphicspath{{docs/figures/Finance_Simulation_Results/}{../figures/Finance_Simulation_Results/}}
+
+\title{Financial Instruments Scenarios}
+\subtitle{GDP Growth and WACC Outcomes}
+\author{DGE-METRIC Team}
+\date{June 2026}
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\begin{frame}{Scope}
+\begin{itemize}
+  \item Scenarios shown: PDP8\_GF\_A, PDP8\_GF\_B, PDP8\_GF\_C compared to Baseline.
+  \item Metrics: GDP growth and renewable-sector WACC.
+  \item Deviations are reported against Baseline; 5-year grouped bars summarize medium-term differences.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Scenario Input Summary (from workbook)}
+\scriptsize
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+Metric & PDP8\_GF\_A (Scenario A) & PDP8\_GF\_B (Scenario B) & PDP8\_GF\_C (Scenario C) \\
+\midrule
+WACF & 6.425\% & 7.367\% & 5.067\% \\
+Green bond share (sov+corp) & 20.0\% & 15.0\% & 24.5\% \\
+Bank credit share & 67.0\% & 78.0\% & 44.5\% \\
+Concessional + blended share & 13.0\% & 7.0\% & 31.0\% \\
+\bottomrule
+\end{tabular}
+}
+
+\vspace{0.35em}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lccc}
+\toprule
+Metric & PDP8\_GF\_A (Scenario A) & PDP8\_GF\_B (Scenario B) & PDP8\_GF\_C (Scenario C) \\
+\midrule
+Sovereign bond rate & 4.0\% & 4.3\% & 3.6\% \\
+Bank lending rate & 7.5\% & 8.0\% & 7.0\% \\
+Annual financing cost (USD bn) & 8.7 & 10.0 & 6.9 \\
+Annual saving vs Scenario B (USD bn) & -1.3 & -- & -3.1 \\
+\bottomrule
+\end{tabular}
+}
+
+\vspace{0.25em}
+\footnotesize Source: ExcelFiles/PDP8/Vietnam\_Green\_Finance\_Scenarios\_April2026.xlsx (Summary Dashboard).
+\end{frame}
+
+\begin{frame}{Policy Comparison Table (Deviation vs Baseline)}
+\scriptsize
+\centering
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{lcccccc}
+\toprule
+Scenario & GDP 2030 & GDP 2040 & GDP 2050 & WACC 2030 & WACC 2040 & WACC 2050 \\
+\midrule
+PDP8\_GF\_A & +0.070 & +0.005 & -0.023 & -0.400 & -0.386 & -0.159 \\
+PDP8\_GF\_B & -0.120 & +0.003 & -0.017 & +0.778 & +0.719 & +0.311 \\
+PDP8\_GF\_C & +0.309 & +0.011 & -0.047 & -2.089 & -2.119 & -0.983 \\
+\bottomrule
+\end{tabular}
+}
+
+\vspace{0.4em}
+\footnotesize
+GDP entries are percentage-point deviations in annual growth. WACC entries are percentage-point deviations in renewable-sector WACC.
+\end{frame}
+
+\begin{frame}{GDP Growth: Levels}
+  \centering
+  \includegraphics[width=0.92\linewidth]{GDP_Growth_Comparison_with_Baseline.png}
+\end{frame}
+
+\begin{frame}{GDP Growth: 5-Year Average Deviation from Baseline}
+  \centering
+  \includegraphics[width=0.92\linewidth]{GDP_Growth_Deviation_vs_Baseline_5Y_Average.png}
+\end{frame}
+
+\begin{frame}{WACC (Renewables): Levels}
+  \centering
+  \includegraphics[width=0.92\linewidth]{WACC_Renewables_Comparison_with_Baseline.png}
+\end{frame}
+
+\begin{frame}{WACC (Renewables): 5-Year Average Deviation from Baseline}
+  \centering
+  \includegraphics[width=0.92\linewidth]{WACC_Renewables_Deviation_vs_Baseline_5Y_Average.png}
+\end{frame}
+
+\begin{frame}{Economic Interpretation}
+\begin{itemize}
+  \item Core mechanism: a lower renewable-sector WACC reduces the user cost of capital, supports earlier renewable investment, and can temporarily lift aggregate growth during the transition.
+  \item PDP8\_GF\_C shows the strongest WACC reduction and the largest near-term GDP-growth gain (2030), consistent with stronger front-loading of capital formation.
+  \item PDP8\_GF\_B raises WACC relative to baseline and is associated with weaker near-term growth, indicating tighter financing conditions can delay reallocation and expansion.
+  \item By 2050, GDP-growth deviations are small or slightly negative across scenarios, suggesting convergence in growth rates as level effects are absorbed and transition dynamics mature.
+  \item Primary evidence in this deck comes from 5-year grouped bars: persistent WACC wedges map into persistent, but diminishing, growth differentials over successive periods.
+\end{itemize}
+\end{frame}
+
+\appendix
+
+\begin{frame}{Appendix: GDP Growth Annual Deviation from Baseline}
+  \centering
+  \includegraphics[width=0.92\linewidth]{GDP_Growth_Deviation_vs_Baseline.png}
+\end{frame}
+
+\begin{frame}{Appendix: WACC Annual Deviation from Baseline}
+  \centering
+  \includegraphics[width=0.92\linewidth]{WACC_Renewables_Deviation_vs_Baseline.png}
+\end{frame}
+
+\end{document}

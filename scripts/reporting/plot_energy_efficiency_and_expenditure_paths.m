@@ -33,7 +33,8 @@ end
 % -------------------------------------------------------------------------
 % Load baseline and selected scenarios
 % -------------------------------------------------------------------------
-baseFile = fullfile(repoRoot, 'ExcelFiles', 'Output', 'Baseline.csv');
+sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+baseFile = fullfile(repoRoot, 'ExcelFiles', 'Output', ['Baseline' sversion '.csv']);
 if ~isfile(baseFile)
     error('Baseline CSV not found: %s', baseFile);
 end
@@ -41,7 +42,7 @@ baseline = readtable(baseFile);
 
 datasets = struct('Baseline', baseline);
 for i = 1:numel(scenarioNames)
-    f = fullfile(repoRoot, 'ExcelFiles', 'Output', [scenarioNames{i} '.csv']);
+    f = fullfile(repoRoot, 'ExcelFiles', 'Output', [scenarioNames{i} sversion '.csv']);
     if ~isfile(f)
         warning('Skipping missing scenario CSV: %s', f);
         continue;

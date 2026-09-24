@@ -1,6 +1,6 @@
 %% Baseline Energy Transition Dashboard
 %  Run after the baseline simulation has written:
-%    ExcelFiles/Output/Baseline.csv
+%    ExcelFiles/Output/Baseline<suffix>.csv  (suffix from report_version_suffix, default _replication_fix)
 %
 %  Outputs are written to Figures/ as PNG and vector PDF files. The script
 %  keeps the legacy single-panel filenames and adds dashboard panels for
@@ -15,11 +15,12 @@ cd(repoRoot);
 setup_paths();
 
 % ---- configuration ------------------------------------------------------
-baselineCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', 'Baseline_replication.csv');
+sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+baselineCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', ['Baseline' sversion '.csv']);
 capacityCsv = fullfile(repoRoot, 'ExcelFiles', 'PDP8', ...
     'IndexedTrajectories_FossilRenewable_Capacity.csv');
 targetXlsx = fullfile(repoRoot, 'ExcelFiles', ...
-    'ModelBaseline5Sectorsand1Regions_replication.xlsx');
+    ['ModelBaseline5Sectorsand1Regions' sversion '.xlsx']);
 
 outDir = fullfile(repoRoot, 'Figures');
 if ~exist(outDir, 'dir')
@@ -32,13 +33,14 @@ targetYears   = [2030; 2050];
 periodLength  = 5;
 periodStartYear = 2026;
 
+iwhPalette = iwh_colors();
 colors = struct();
-colors.renewable  = [0.00 0.45 0.70];
-colors.fossil     = [0.84 0.37 0.00];
-colors.efficiency = [0.49 0.18 0.56];
-colors.share      = [0.00 0.62 0.45];
-colors.plan       = [0.25 0.25 0.25];
-colors.grid       = [0.82 0.82 0.82];
+colors.renewable  = iwhPalette.green;
+colors.fossil     = iwhPalette.orange;
+colors.efficiency = iwhPalette.primaryBlue;
+colors.share      = iwhPalette.mediumBlue;
+colors.plan       = iwhPalette.baseline;
+colors.grid       = iwhPalette.grid;
 
 set(groot, 'defaultAxesFontSize', 12, ...
            'defaultTextFontSize', 12, ...
@@ -66,7 +68,7 @@ yearRange = [years(1), years(end)];
 
 planCapacity = readtable(capacityCsv, 'TextType', 'string');
 require_vars(planCapacity, ["Year", "TechType", "Index_Value"], ...
-    'PDP8 capacity data');
+    'PDP8-rev capacity data');
 planCapacity.TechType = string(planCapacity.TechType);
 
 planTargets = readtable(targetXlsx, 'Sheet', 'Baseline');
@@ -176,7 +178,7 @@ plot_path_panel(nexttile(tlo), years, resShare, colors.share, ...
 
 save_figure(fig, outDir, 'baseline_energy_dashboard');
 
-fig = make_figure('Baseline vs PDP8 annual comparison', [70 70 1180 760]);
+fig = make_figure('Baseline vs PDP8-rev annual comparison', [70 70 1180 760]);
 tlo = tiledlayout(fig, 2, 2, 'TileSpacing', 'compact', 'Padding', 'compact');
 
 plot_annual_comparison(nexttile(tlo), years, KRenIdx, capacityTargetYears, ...
@@ -194,7 +196,7 @@ plot_annual_comparison(nexttile(tlo), years, invFosShare, targetInvYears, ...
 
 save_figure(fig, outDir, 'baseline_pdp8_annual_comparison');
 
-fig = make_figure('Baseline vs PDP8 period comparison', [80 80 1180 760]);
+fig = make_figure('Baseline vs PDP8-rev period comparison', [80 80 1180 760]);
 tlo = tiledlayout(fig, 2, 2, 'TileSpacing', 'compact', 'Padding', 'compact');
 
 plot_period_bars(nexttile(tlo), capacityEndLabels, simCapRenEnd, pdp8CapRenEnd, ...
@@ -212,7 +214,7 @@ plot_period_bars(nexttile(tlo), periodLabels, simFos5, pdp8Fos5, ...
 
 save_figure(fig, outDir, 'baseline_pdp8_period_comparison');
 
-fig = make_figure('Baseline vs PDP8 period comparison (investment ratios)', ...
+fig = make_figure('Baseline vs PDP8-rev period comparison (investment ratios)', ...
     [90 90 1080 520]);
 tlo = tiledlayout(fig, 1, 2, 'TileSpacing', 'compact', 'Padding', 'compact');
 
@@ -225,7 +227,7 @@ plot_period_bars(nexttile(tlo), periodLabels, simFos5, pdp8Fos5, ...
 
 save_figure(fig, outDir, 'baseline_pdp8_period_comparison_investment_ratios');
 
-fig = make_figure('Baseline vs PDP8 period comparison (installed capacity)', ...
+fig = make_figure('Baseline vs PDP8-rev period comparison (installed capacity)', ...
     [100 100 1080 520]);
 tlo = tiledlayout(fig, 1, 2, 'TileSpacing', 'compact', 'Padding', 'compact');
 
@@ -256,14 +258,14 @@ plot_single_path(years, resShare, colors.share, ...
     outDir, 'baseline_res_share');
 
 plot_single_annual(years, KRenIdx, capacityTargetYears, targetCapRen, ...
-    colors.renewable, 'Renewable capacity: simulation vs PDP8 targets', ...
+    colors.renewable, 'Renewable capacity: simulation vs PDP8-rev targets', ...
     'Index (2025 = 100)', yearRange, colors, 'markers', outDir, ...
     'ren_cap_annual');
 plot_single_period(capacityEndLabels, simCapRenEnd, pdp8CapRenEnd, colors.renewable, ...
     'Renewable capacity: end-year level', ...
     'Index (2025 = 100)', colors, outDir, 'ren_cap_bar');
 plot_single_annual(years, KFosIdx, capacityTargetYears, targetCapFos, ...
-    colors.fossil, 'Fossil capacity: simulation vs PDP8 targets', ...
+    colors.fossil, 'Fossil capacity: simulation vs PDP8-rev targets', ...
     'Index (2025 = 100)', yearRange, colors, 'markers', outDir, ...
     'fos_cap_annual');
 plot_single_period(capacityEndLabels, simCapFosEnd, pdp8CapFosEnd, colors.fossil, ...
@@ -428,11 +430,11 @@ function plot_annual_comparison(ax, years, simValues, targetYears, targetValues,
                 plot(ax, targetYears(validTarget), targetValues(validTarget), ...
                     'd', 'Color', colors.plan, 'MarkerFaceColor', colors.plan, ...
                     'MarkerSize', 7, 'LineStyle', 'none', ...
-                    'DisplayName', 'PDP8 target');
+                    'DisplayName', 'PDP8-rev target');
             otherwise
                 plot(ax, targetYears(validTarget), targetValues(validTarget), ...
                     ':', 'Color', colors.plan, 'LineWidth', 2.0, ...
-                    'DisplayName', 'PDP8 target path');
+                    'DisplayName', 'PDP8-rev target path');
         end
     end
     hold(ax, 'off');
@@ -457,7 +459,7 @@ function plot_period_bars(ax, labels, simValues, targetValues, color, ...
         'XTickLabelRotation', 30);
     style_axis(ax, colors);
     pad_y_axis(ax);
-    legend(ax, {'Simulation', 'PDP8 plan'}, 'Location', 'northoutside', ...
+    legend(ax, {'Simulation', 'PDP8-rev plan'}, 'Location', 'northoutside', ...
         'Orientation', 'horizontal', 'Box', 'off');
 end
 

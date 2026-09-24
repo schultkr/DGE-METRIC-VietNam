@@ -1,4 +1,4 @@
-%% Generate Green-Finance-on-NZ scenario figures used for reporting and slides
+﻿%% Generate Green-Finance-on-NZ scenario figures used for reporting and slides
 % Compares the Green Finance variants built on the Net-Zero baseline with NZ
 % itself (NZ plays the role Baseline plays for the PDP8 Green Finance set):
 %   - NZ_GF_A  (Balanced,   WACF 6.43%)
@@ -11,12 +11,12 @@
 % investment, all measured against NZ rather than Baseline.
 %
 % Input:
-%   ExcelFiles/Output/<scenario>_replication.csv  (NZ, NZ_GF_A, NZ_GF_B, NZ_GF_C)
+%   ExcelFiles/Output/<scenario>_replication_fix.csv  (NZ, NZ_GF_A, NZ_GF_B, NZ_GF_C)
 %
 % Output:
 %   docs/figures/GF_NZ_Simulation_Results/*.svg and *.png
 %
-% Used in: IWH_Report_Macro Impact Assessment.docx, Figure 6 (top panel:
+% Used in: IWH_Report_Macro_Impact_Assessment_revised.docx, Figure 6 (top panel:
 % WACC_Renewables_Deviation_vs_Baseline_5Y_Average; bottom panel:
 % GDP_Level_Deviation_vs_Baseline_5Y_Average). See
 % README_MacroImpactAssessment.md for the full figure map.
@@ -24,15 +24,15 @@
 figureScenarioConfig = struct();
 figureScenarioConfig.BaselineName = "Baseline";
 figureScenarioConfig.BaselineLabel = "PDP8-rev";
-figureScenarioConfig.VersionSuffix = "_replication";
+figureScenarioConfig.VersionSuffix = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
 figureScenarioConfig.ScenarioNames = [ ...
     "NZ", ...
     "NZ_GF_B", ...
     "NZ_GF_C"];
 figureScenarioConfig.ScenarioLabels = [ ...
-    "NZ", ...
-    "NZ GF B", ...
-    "NZ GF C"];
+    "Net Zero", ...
+    "Net Zero GF B", ...
+    "Net Zero GF C"];
 figureScenarioConfig.OutputSubdirectory = "GF_NZ_Simulation_Results";
 figureScenarioConfig.ReportLabel = "Green Finance (NZ baseline) scenario";
 

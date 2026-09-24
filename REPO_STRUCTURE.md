@@ -17,7 +17,7 @@ This guide documents how to navigate the repository and where to place changes w
   `dev/`, `presentations/`, `figures/`, `exports/`.
 - Figures/: exported visuals.
 - Training/: standalone learning material (non-production runtime path).
-- Archive/: historical or legacy material.
+- ExcelFiles/Archive/: historical or legacy workbook variants.
 
 ## Source vs Generated
 

@@ -23,8 +23,9 @@ baselineName = "Baseline";
 scenarioName = "NZ";
 scenarioLabel = "Net Zero";
 
-baselineCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', baselineName + ".csv");
-scenarioCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', scenarioName + ".csv");
+sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+baselineCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', baselineName + sversion + ".csv");
+scenarioCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', scenarioName + sversion + ".csv");
 
 if ~isfile(baselineCsv)
     error('generate_nz_baseline_comparison_figures:missingCsv', ...

@@ -4,6 +4,16 @@ Audit date: 2026-05-22
 
 Workbook checked: `ExcelFiles/ModelSimulationandCalibration5Sectorsand1Regions.xlsx`
 
+> **Note (added during the 2026-09 documentation harmonization pass).** This audit predates the
+> split into `ModelCalibration5Sectorsand1Regions.xlsx` / `ModelBaseline5Sectorsand1Regions.xlsx` /
+> `ModelScenarios5Sectorsand1Regions.xlsx` described in [Calibration](calibration.md). The combined
+> workbook checked here is now archived under `ExcelFiles/Archive/` and is not read by the current
+> pipeline. The `Structural Parameters` sheet layout and named ranges carried over unchanged into
+> `ModelCalibration5Sectorsand1Regions.xlsx`, so the citation map and stale-value findings below
+> still apply to the current workbook — but a fresh audit against the live file has not been done
+> since the split. Treat this page as directionally accurate, not as confirmation against current
+> values.
+
 This note maps the `Structural Parameters` sheet to defensible citation sources and separates data-fed calibration targets from modeling assumptions. The key local scripts are `Functions/Miscellaneous/Excel/update_data_excel.m` and `ExcelFiles/README.md`.
 
 ## Main Findings
