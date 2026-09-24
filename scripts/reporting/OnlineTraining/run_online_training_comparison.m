@@ -145,7 +145,7 @@ function cfg = apply_defaults(config)
     end
 
     % Output-CSV suffix written by RunSimulations (sSensitivity); default
-    % "_replication_fix", overridable via DGE_WORKBOOK_VERSION or config.
+    % "", overridable via DGE_WORKBOOK_VERSION or config.
     if ~isfield(cfg, 'versionSuffix')
         cfg.versionSuffix = report_version_suffix();
     end

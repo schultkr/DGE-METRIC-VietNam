@@ -1,4 +1,4 @@
-﻿function summary = reproduce_macro_impact_assessment_figures(varargin)
+function summary = reproduce_macro_impact_assessment_figures(varargin)
 % reproduce_macro_impact_assessment_figures  Regenerate every figure of the IWH Macro Impact report.
 %
 %   reproduce_macro_impact_assessment_figures
@@ -27,7 +27,7 @@
 %   * ExcelFiles/Output/<Scenario><suffix>.csv for the scenarios below, i.e.
 %     RunSimulations with DGE_SCENARIO_GROUPS=ReportReplication (or the
 %     individual groups Reference, EE, GF_PDP8, GF_NZ, NZ_Sensitivity).
-%   * <suffix> is report_version_suffix(): '_replication_fix' unless the
+%   * <suffix> is report_version_suffix(): '' unless the
 %     DGE_WORKBOOK_VERSION environment variable overrides it.
 %   * Figure 10 needs Python 3 (stdlib only; the repo's .venv is used if
 %     present, else DGE_PYTHON, else python/py on PATH) and, for the PNG
@@ -375,7 +375,7 @@ switch inputMode
     case 'strict'
         candidateSuffixes = string(sversion);
     case 'fallback'
-        candidateSuffixes = unique([string(sversion), "_replication_fix", "_replication", ""], 'stable');
+        candidateSuffixes = unique([string(sversion), "", "_replication", ""], 'stable');
     otherwise
         usedSuffix = '';
         missing = strings(1, 0);

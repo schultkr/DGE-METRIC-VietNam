@@ -29,7 +29,7 @@ library(patchwork)
 DATA_DIR <- "ExcelFiles/Output"
 # Output-CSV suffix written by RunSimulations.m (sSensitivity). Mirrors
 # report_version_suffix.m: DGE_WORKBOOK_VERSION overrides, "canonical" -> "".
-VERSION_SUFFIX <- Sys.getenv("DGE_WORKBOOK_VERSION", unset = "_replication_fix")
+VERSION_SUFFIX <- Sys.getenv("DGE_WORKBOOK_VERSION", unset = "")
 if (tolower(VERSION_SUFFIX) == "canonical") VERSION_SUFFIX <- ""
 FIG_DIR  <- file.path("Figures", "Financing")
 if (!dir.exists(FIG_DIR)) dir.create(FIG_DIR, recursive = TRUE)

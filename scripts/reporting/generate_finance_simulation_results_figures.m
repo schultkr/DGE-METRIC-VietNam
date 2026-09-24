@@ -1,4 +1,4 @@
-﻿%% Generate finance-scenario figures used for reporting and slides
+%% Generate finance-scenario figures used for reporting and slides
 % Produces baseline-vs-scenario charts for:
 %   - GDP growth
 %   - WACC (renewables sector)
@@ -127,7 +127,7 @@ end
 if isfield(figureScenarioConfig, 'VersionSuffix')
     sversion = string(figureScenarioConfig.VersionSuffix);
 else
-    sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+    sversion = report_version_suffix();  % "" unless DGE_WORKBOOK_VERSION overrides
 end
 if isfield(figureScenarioConfig, 'ScenarioNames')
     scenarioNames = string(figureScenarioConfig.ScenarioNames);

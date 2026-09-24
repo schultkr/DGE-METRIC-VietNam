@@ -23,7 +23,7 @@ baselineName = "Baseline";
 scenarioName = "NZ";
 scenarioLabel = "Net Zero";
 
-sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+sversion = report_version_suffix();  % "" unless DGE_WORKBOOK_VERSION overrides
 baselineCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', baselineName + sversion + ".csv");
 scenarioCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', scenarioName + sversion + ".csv");
 

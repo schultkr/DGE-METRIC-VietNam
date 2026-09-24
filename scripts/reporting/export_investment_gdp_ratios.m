@@ -16,7 +16,7 @@ cd(repoRoot);
 setup_paths();
 
 % ---- configuration ------------------------------------------------------
-sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+sversion = report_version_suffix();  % "" unless DGE_WORKBOOK_VERSION overrides
 csvPath  = fullfile('ExcelFiles', 'Output', ['Baseline' sversion '.csv']);
 xlsPath  = fullfile('ExcelFiles', 'Output', 'InvestmentGDPRatios.xlsx');
 Tplot    = Inf;   % use all available periods; set to e.g. 25 to truncate

@@ -25,7 +25,7 @@ oldPwd = pwd;
 cleanupObj = onCleanup(@() cd(oldPwd));
 cd(repoRoot);
 setup_paths();
-sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+sversion = report_version_suffix();  % "" unless DGE_WORKBOOK_VERSION overrides
 % ---- user configuration -------------------------------------------------
 outputDir = fullfile(repoRoot, 'ExcelFiles', 'Output');
 baselineCsv = resolve_output_csv(outputDir, "Baseline" + sversion);

@@ -15,7 +15,7 @@ setup_paths();
 
 %% ---------------------- Participant Configuration ----------------------
 BASELINE_NAME = "Baseline";
-VERSION_SUFFIX = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+VERSION_SUFFIX = report_version_suffix();  % "" unless DGE_WORKBOOK_VERSION overrides
 
 % Replace with your assigned scenario (must match ExcelFiles/Output/<name><VERSION_SUFFIX>.csv)
 SCENARIO_NAME = "EE_PDP8_ref";

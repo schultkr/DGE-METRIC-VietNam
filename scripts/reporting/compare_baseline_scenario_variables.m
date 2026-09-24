@@ -26,7 +26,7 @@ cd(repoRoot);
 setup_paths();
 
 % ---- user configuration -------------------------------------------------
-sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+sversion = report_version_suffix();  % "" unless DGE_WORKBOOK_VERSION overrides
 baselineCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', "Baseline" + sversion + ".csv");
 
 % New scenarios for slide updates. Add/remove rows as needed.

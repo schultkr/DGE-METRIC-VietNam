@@ -1,4 +1,4 @@
-﻿%% Generate Green-Finance-on-NZ scenario figures used for reporting and slides
+%% Generate Green-Finance-on-NZ scenario figures used for reporting and slides
 % Compares the Green Finance variants built on the Net-Zero baseline with NZ
 % itself (NZ plays the role Baseline plays for the PDP8 Green Finance set):
 %   - NZ_GF_A  (Balanced,   WACF 6.43%)
@@ -11,7 +11,7 @@
 % investment, all measured against NZ rather than Baseline.
 %
 % Input:
-%   ExcelFiles/Output/<scenario>_replication_fix.csv  (NZ, NZ_GF_A, NZ_GF_B, NZ_GF_C)
+%   ExcelFiles/Output/<scenario>.csv  (NZ, NZ_GF_A, NZ_GF_B, NZ_GF_C)
 %
 % Output:
 %   docs/figures/GF_NZ_Simulation_Results/*.svg and *.png
@@ -24,7 +24,7 @@
 figureScenarioConfig = struct();
 figureScenarioConfig.BaselineName = "Baseline";
 figureScenarioConfig.BaselineLabel = "PDP8-rev";
-figureScenarioConfig.VersionSuffix = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+figureScenarioConfig.VersionSuffix = report_version_suffix();  % "" unless DGE_WORKBOOK_VERSION overrides
 figureScenarioConfig.ScenarioNames = [ ...
     "NZ", ...
     "NZ_GF_B", ...

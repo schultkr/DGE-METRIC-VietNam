@@ -1,4 +1,4 @@
-﻿%% Generate EE simulation-result figures for the NZ-baseline variants
+%% Generate EE simulation-result figures for the NZ-baseline variants
 % NZ-baseline analogs of the scenario set in
 % generate_ee_simulation_results_figures.m, compared against NZ instead of
 % Baseline:
@@ -11,13 +11,13 @@
 %
 % Data version: scenarios (including Baseline) in ExcelFiles/Output/ can
 % exist as a plain "<Name>.csv", a "<Name>_replication.csv" and a
-% "<Name>_replication_fix.csv" (at any given time, only some may actually
+% "<Name>.csv" (at any given time, only some may actually
 % be present for a given scenario). DataVersion below picks which variant
 % to prefer; the shared pipeline (generate_ee_simulation_results_figures.m)
 % falls back to the other variants automatically if the preferred one isn't
 % available for every required scenario (reported via fprintf), so this
 % never has to be re-checked scenario by scenario.
-%   "replication_fix" - prefer "<Name>_replication_fix.csv" (default)
+%   "plain"           - prefer "<Name>.csv" (default)
 %   "replication"     - prefer "<Name>_replication.csv"
 %   "plain"           - prefer "<Name>.csv"
 %
@@ -32,7 +32,7 @@
 figureScenarioConfig = struct();
 figureScenarioConfig.BaselineName = "Baseline";
 figureScenarioConfig.BaselineLabel = "PDP8-rev";
-figureScenarioConfig.DataVersion = "replication_fix";
+figureScenarioConfig.DataVersion = "plain";
 figureScenarioConfig.ScenarioNames = [ ...
     "NZ",...
     "NZ_Dir10_full", ...

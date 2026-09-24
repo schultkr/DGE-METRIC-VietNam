@@ -49,21 +49,21 @@ gdpBaseBillionUSD = 430;  % Vietnam 2025 GDP, USD billion (430,000 USD million)
 
 % Data version: scenarios (including Baseline) in ExcelFiles/Output/ can
 % exist as a plain "<Name>.csv", a "<Name>_replication.csv" and a
-% "<Name>_replication_fix.csv" (at any given time, only some may actually be
-% present — "_replication_fix" is the suffix RunSimulations.m currently
+% "<Name>.csv" (at any given time, only some may actually be
+% present — "" is the suffix RunSimulations.m currently
 % writes). Set which variant to prefer; if the preferred one is missing,
 % the others are tried in turn (reported via fprintf/warning), so this never
 % has to be re-checked scenario by scenario.
-%   "replication_fix" - prefer "<Name>_replication_fix.csv" (default; falls
-%                       back to replication, then plain)
+%   "plain"           - prefer "<Name>.csv" (default; falls
+%                       back to replication)
 %   "replication"     - prefer "<Name>_replication.csv"
 %   "plain"           - prefer "<Name>.csv"
-dataVersion = "replication_fix";
+dataVersion = "plain";
 
 [baselineCsv, baselineResolvedName, baselineUsedFallback] = resolve_scenario_csv(outputDir, "Baseline", dataVersion);
 if baselineCsv == ""
     error('generate_renewables_investment_cumulative_5yr_figures:missingBaseline', ...
-        'No CSV found for "Baseline" (tried "Baseline.csv", "Baseline_replication.csv" and "Baseline_replication_fix.csv").');
+        'No CSV found for "Baseline" (tried "Baseline.csv", "Baseline_replication.csv" and "Baseline.csv").');
 end
 if baselineUsedFallback
     fprintf('Scenario "Baseline": preferred "%s" variant not found; using "%s" instead.\n', ...
@@ -111,7 +111,7 @@ for iScen = 1:nScen
     [csvPath, resolvedName, usedFallback] = resolve_scenario_csv(outputDir, sName, dataVersion);
     if isempty(csvPath)
         warning('generate_renewables_investment_cumulative_5yr_figures:missingScenarioFile', ...
-            'No CSV found for "%s" (tried "%s.csv", "%s_replication.csv" and "%s_replication_fix.csv"). Skipping.', ...
+            'No CSV found for "%s" (tried "%s.csv", "%s_replication.csv" and "%s.csv"). Skipping.', ...
             sName, sName, sName, sName);
         continue
     end
@@ -209,18 +209,15 @@ function [csvPath, resolvedName, usedFallback] = resolve_scenario_csv(outputDir,
     % NOT the one actually used.
     plainName          = sName;
     replicationName    = sName + "_replication";
-    replicationFixName = sName + "_replication_fix";
 
     switch dataVersion
-        case "replication_fix"
-            candidates = [replicationFixName, replicationName, plainName];
-        case "replication"
-            candidates = [replicationName, replicationFixName, plainName];
         case "plain"
-            candidates = [plainName, replicationFixName, replicationName];
+            candidates = [plainName, replicationName];
+        case "replication"
+            candidates = [replicationName, plainName];
         otherwise
             error('generate_renewables_investment_cumulative_5yr_figures:badDataVersion', ...
-                'dataVersion must be "replication_fix", "replication" or "plain", got "%s".', dataVersion);
+                'dataVersion must be "plain" or "replication", got "%s".', dataVersion);
     end
 
     for iCand = 1:numel(candidates)

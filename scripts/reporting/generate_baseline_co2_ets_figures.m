@@ -17,9 +17,9 @@
 %     Fuel Exploitation), mapped onto the model's 2025 emissions level.
 %
 % Input:
-%   ExcelFiles/Output/Baseline_replication_fix.csv
-%   ExcelFiles/Output/NZ_Dir10_full_GF_C_replication_fix.csv
-%   ("_replication_fix" is the sSensitivity suffix RunSimulations.m currently
+%   ExcelFiles/Output/Baseline.csv
+%   ExcelFiles/Output/NZ_Dir10_full_GF_C.csv
+%   ("" is the sSensitivity suffix RunSimulations.m currently
 %   writes by default; report_version_suffix() returns it, so both files
 %   come from the same run. Override with DGE_WORKBOOK_VERSION.)
 %
@@ -41,7 +41,7 @@ end
 
 plotYears = 2026:2050;
 
-sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+sversion = report_version_suffix();  % "" unless DGE_WORKBOOK_VERSION overrides
 scenarioName = "NZ_Dir10_full_GF_C";
 scenarioLabel = "Net Zero";
 

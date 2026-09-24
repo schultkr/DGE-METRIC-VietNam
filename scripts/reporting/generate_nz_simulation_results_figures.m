@@ -1,4 +1,4 @@
-﻿%% Generate Net-Zero scenario figures used for reporting and slides
+%% Generate Net-Zero scenario figures used for reporting and slides
 % Compares the requested Net-Zero policy variants with the Baseline:
 %   - NZ
 %   - NZ_subsidy
@@ -11,7 +11,7 @@
 % investment, and ETS revenue as a share of GDP.
 %
 % Input:
-%   ExcelFiles/Output/<scenario>_replication_fix.csv
+%   ExcelFiles/Output/<scenario>.csv
 %
 % Output:
 %   docs/figures/NZ_Simulation_Results/*.svg and *.png
@@ -24,7 +24,7 @@
 
 figureScenarioConfig = struct();
 figureScenarioConfig.BaselineName = "Baseline";
-figureScenarioConfig.VersionSuffix = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+figureScenarioConfig.VersionSuffix = report_version_suffix();  % "" unless DGE_WORKBOOK_VERSION overrides
 figureScenarioConfig.ScenarioNames = [ ...
     "NZ", ...
     "NZ_subsidy", ...

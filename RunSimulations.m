@@ -10,7 +10,7 @@ cd(repoRoot);
 setup_paths();
 %% Specify scenario names (grouped)
 lSteadyState = false;
-sSensitivity = '_replication_fix';
+sSensitivity = '';
 % Optional override via environment variable, e.g.:
 %   set DGE_WORKBOOK_VERSION=canonical
 % to target the canonical (no-suffix) workbooks instead of the default

@@ -1,4 +1,4 @@
-﻿%% Generate EE simulation-result figures used by the TeX presentation
+%% Generate EE simulation-result figures used by the TeX presentation
 % Regenerates the exact figure filenames consumed by
 % docs/EE_Scenario_Presentation/ee_scenarios_presentation.tex.
 %
@@ -68,14 +68,14 @@ allNames = [baselineName, scenarioNames];
 
 % Data version: scenarios (including Baseline) in ExcelFiles/Output/ can
 % exist as a plain "<Name>.csv", a "<Name>_replication.csv" and a
-% "<Name>_replication_fix.csv" (at any given time, only some of these may
+% "<Name>.csv" (at any given time, only some of these may
 % actually be present for a given scenario). A wrapper can force an exact
 % suffix via VersionSuffix (used as-is, no fallback); otherwise DataVersion
 % picks which variant to prefer and the others are tried automatically if
 % the preferred one isn't available for every required scenario (reported
 % via fprintf), so this never has to be re-checked scenario by scenario.
-%   "replication_fix" - prefer "<Name>_replication_fix.csv" (default; falls
-%                       back to replication, then plain)
+%   "plain"           - prefer "<Name>.csv" (default; falls
+%                       back to replication)
 %   "replication"     - prefer "<Name>_replication.csv"
 %   "plain"           - prefer "<Name>.csv"
 if isfield(figureScenarioConfig, 'VersionSuffix')
@@ -84,7 +84,7 @@ else
     if isfield(figureScenarioConfig, 'DataVersion')
         dataVersion = string(figureScenarioConfig.DataVersion);
     else
-        dataVersion = "replication_fix";
+        dataVersion = "plain";
     end
     outputDir = fullfile(repoRoot, 'ExcelFiles', 'Output');
     [sversion, usedFallback] = resolve_version_suffix(outputDir, allNames, dataVersion);
@@ -695,21 +695,19 @@ fprintf('Generated EE presentation figures in: %s\n', outDir);
 
 function [versionSuffix, usedFallback] = resolve_version_suffix(outputDir, allNames, dataVersion)
     % Resolves the single suffix to apply to every name in allNames
-    % according to the preferred dataVersion ("replication_fix",
-    % "replication" or "plain"), falling back to the other variants only if
+    % according to the preferred dataVersion ("plain" or "replication"),
+    % falling back to the other variant only if
     % the preferred one is not available for ALL required names (one suffix
     % is applied uniformly across baseline + scenarios, so a partial match
     % isn't usable).
     switch dataVersion
-        case "replication_fix"
-            candidateSuffixes = ["_replication_fix", "_replication", ""];
-        case "replication"
-            candidateSuffixes = ["_replication", "_replication_fix", ""];
         case "plain"
-            candidateSuffixes = ["", "_replication_fix", "_replication"];
+            candidateSuffixes = ["", "_replication"];
+        case "replication"
+            candidateSuffixes = ["_replication", ""];
         otherwise
             error('generate_ee_simulation_results_figures:badDataVersion', ...
-                'DataVersion must be "replication_fix", "replication" or "plain", got "%s".', dataVersion);
+                'DataVersion must be "plain" or "replication", got "%s".', dataVersion);
     end
 
     for iCand = 1:numel(candidateSuffixes)
@@ -732,7 +730,7 @@ function label = version_label(suffix)
     if suffix == ""
         label = "plain";
     else
-        label = extractAfter(suffix, "_");   % "_replication_fix" -> "replication_fix"
+        label = extractAfter(suffix, "_");   % "_replication" -> "replication"
     end
 end
 

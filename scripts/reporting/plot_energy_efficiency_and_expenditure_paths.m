@@ -33,7 +33,7 @@ end
 % -------------------------------------------------------------------------
 % Load baseline and selected scenarios
 % -------------------------------------------------------------------------
-sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+sversion = report_version_suffix();  % "" unless DGE_WORKBOOK_VERSION overrides
 baseFile = fullfile(repoRoot, 'ExcelFiles', 'Output', ['Baseline' sversion '.csv']);
 if ~isfile(baseFile)
     error('Baseline CSV not found: %s', baseFile);

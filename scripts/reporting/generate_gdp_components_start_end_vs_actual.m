@@ -40,7 +40,7 @@ setup_paths();
 
 %% Configuration -----------------------------------------------------------
 
-sversion    = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+sversion    = report_version_suffix();  % "" unless DGE_WORKBOOK_VERSION overrides
 baselineCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', ['Baseline' sversion '.csv']);
 startYear   = 2025;
 reportingEndYear  = 2050;

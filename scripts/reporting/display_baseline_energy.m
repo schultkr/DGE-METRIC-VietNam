@@ -1,6 +1,6 @@
 %% Baseline Energy Transition Dashboard
 %  Run after the baseline simulation has written:
-%    ExcelFiles/Output/Baseline<suffix>.csv  (suffix from report_version_suffix, default _replication_fix)
+%    ExcelFiles/Output/Baseline<suffix>.csv  (suffix from report_version_suffix, default )
 %
 %  Outputs are written to Figures/ as PNG and vector PDF files. The script
 %  keeps the legacy single-panel filenames and adds dashboard panels for
@@ -15,7 +15,7 @@ cd(repoRoot);
 setup_paths();
 
 % ---- configuration ------------------------------------------------------
-sversion = report_version_suffix();  % "_replication_fix" unless DGE_WORKBOOK_VERSION overrides
+sversion = report_version_suffix();  % "" unless DGE_WORKBOOK_VERSION overrides
 baselineCsv = fullfile(repoRoot, 'ExcelFiles', 'Output', ['Baseline' sversion '.csv']);
 capacityCsv = fullfile(repoRoot, 'ExcelFiles', 'PDP8', ...
     'IndexedTrajectories_FossilRenewable_Capacity.csv');
