@@ -25,7 +25,7 @@ Related conceptual documentation:
 - [Scenarios at a glance](../policy/scenarios_overview.md)
 - [Scenario design and implementation](scenario.md)
 - [Exogenous shocks](exogenous_shocks.md)
-- [Technical report](../reports/TECHNICAL_REPORT.md)
+- [Technical report](../reports/IWH_Technical_Report.docx)
 
 ## 2. The workbook in one minute
 

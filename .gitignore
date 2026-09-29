@@ -1,22 +1,47 @@
-/+DGE_Model
+# Generated Dynare MATLAB packages and work folders (rebuilt by `dynare DGE_Model`)
+/+DGE_Model/
+/DGE_Model/
+*_dynamic.m
+*_static.m
+*_set_auxiliary_variables.m
+*_dynamic_set_auxiliary_series.m
 DGE_Model.log
-/DGE_Model
 
 # Generated simulation outputs and results
 ExcelFiles/Output/
 ExcelFiles/Archive/
 
-# Editor autosave files
-*.asv
+# Generated simulation-result caches (regenerate via RunSimulations.m)
+*.mat
 
-# LaTeX build artifacts
+# MATLAB editor/session artifacts
+*.asv
+*.m~
+
+# Excel/Office lock files
+~$*
+
+# Scratch files and local backups
+*.tmp
+*.bak
+*_backup_[0-9]*.xlsx
+ConflictBackups/
+
+# LaTeX build artifacts (sources and final PDFs stay tracked)
 *.aux
 *.fls
 *.fdb_latexmk
 *.synctex.gz
+*.nav
+*.snm
+*.toc
+*.out
+docs/**/*.log
 
-# Build/runtime logs (except documentation)
-DGE_Model.log
+# Python environments and caches
+.venv/
+__pycache__/
+*.pyc
 
-# Generated simulation-result caches (regenerate via RunSimulations.m)
-*.mat
+# Local/private tool settings
+.claude/

@@ -68,7 +68,7 @@ The Directive 10 scenario uses higher saving percentages calibrated to Vietnam's
 
 This pathway diagram is aligned to the EE simulation outputs and summarizes how EE shocks propagate to the reported macro and energy outcomes.
 
-![EE simulation impact pathway](../image/index/ee_simulation_impact_pathway.svg)
+![EE simulation impact pathway](../figures/figures/ee_simulation_impact_pathway.svg)
 
 ### GDP level
 

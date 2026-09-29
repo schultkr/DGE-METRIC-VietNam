@@ -11,10 +11,11 @@ This guide documents how to navigate the repository and where to place changes w
   - scripts/analysis/
   - scripts/maintenance/
   - scripts/reporting/
+  - scripts/ci/ (repository checks run by CI; see `.github/workflows/`)
 - ExcelFiles/: input workbooks and scenario assumptions.
 - docs/: policy and technical documentation. See [docs/index.md](docs/index.md) for the full map;
-  subfolders are `policy/`, `reference/`, `scenario_notes/`, `reports/`, `implementation_plans/`,
-  `dev/`, `presentations/`, `figures/`, `exports/`.
+  subfolders are `policy/`, `reference/`, `scenario_notes/`, `reports/`, `maintenance/`,
+  `implementation_plans/`, `dev/`, `presentations/`, `figures/`, `exports/`.
 - Figures/: exported visuals.
 - Training/: standalone learning material (non-production runtime path).
 - ExcelFiles/Archive/: historical or legacy workbook variants.
@@ -40,11 +41,17 @@ Treat these as generated or local outputs (do not hand-edit):
 ## Root Hygiene Policy
 
 Keep the repository root minimal:
-- Canonical entry points and governance only.
+- Canonical entry points (`RunSimulationsEasy.m`, `RunSimulations.m`, `setup_paths.m`,
+  `DGE_Model.mod`, `DGE_Model_steadystate.m`) and governance files (`README.md`, `LICENSE`,
+  `CITATION.cff`, `CONTRIBUTING.md`, `CHANGELOG.md`, `AGENTS.md`, this file) only.
 - Avoid temporary artifacts in root.
 - Keep local backup folders ignored.
 
 ## Runner Conventions
+
+Recommended first entry point:
+- RunSimulationsEasy.m — checks the MATLAB/Dynare environment and workbooks, then runs `Baseline`
+  and `NZ` (override with `DGE_EASY_SCENARIO_NAMES`).
 
 Canonical runner:
 - RunSimulations.m — defaults to the `ReportReplication` scenario group, which reproduces every
@@ -62,3 +69,5 @@ Before commit:
 2. Confirm generated outputs are not hand-edited.
 3. Confirm docs links still resolve after moves/renames.
 4. Confirm temporary/local folders are ignored.
+5. Run `python scripts/ci/check_repository.py`.
+6. Fill in the PR template, including the Technical Report impact (see CONTRIBUTING.md).

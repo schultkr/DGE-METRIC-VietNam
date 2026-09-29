@@ -127,7 +127,7 @@ The Beamer presentation for EE scenarios (compiled from `docs/EE_Scenario_Presen
 - Energy intensity and final energy demand indices
 - 5-year average deviation charts for a smoother visual
 
-To recompile: see [EE Scenario Presentation README](EE_Scenario_Presentation/README.md).
+To recompile: see [EE Scenario Presentation README](presentations/EE_Scenario_Presentation/README.md).
 
 ---
 

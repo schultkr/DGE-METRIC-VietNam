@@ -146,13 +146,13 @@ This layered design supports policy-relevant statements on:
 
 ## Emissions and Carbon Markets
 
-![Emissions](../figures/Emissions.png)
+![Emissions](../figures/figures/Emissions.png)
 
-![Emission Intensity](../figures/EmissionIntensity.png)
+![Emission Intensity](../figures/figures/EmissionIntensity.png)
 
-![Emission Price](../figures/EmissionPrice.png)
+![Emission Price](../figures/figures/EmissionPrice.png)
 
-![Cap-and-Trade Revenues](../figures/CapAndTradeRevenues.png)
+![Cap-and-Trade Revenues](../figures/figures/CapAndTradeRevenues.png)
 
 **Interpretation.**  
 These figures illustrate how emissions decline under Net Zero scenarios, the implied carbon price trajectory, and the resulting ETS revenues as a share of value added.

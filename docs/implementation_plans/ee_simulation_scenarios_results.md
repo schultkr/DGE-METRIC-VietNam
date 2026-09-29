@@ -39,7 +39,7 @@ Requested-but-missing output files at the time of reporting:
 
 The following figure is calibrated to this simulation run set and maps EE scenario shocks to the observed quantitative outcomes (Directive10 vs EE_PDP8, with NoBESS counterfactual interpretation).
 
-![EE simulation impact pathway](../image/index/ee_simulation_impact_pathway.svg)
+![EE simulation impact pathway](../figures/figures/ee_simulation_impact_pathway.svg)
 
 This diagram is a compact visual summary of the same reported deltas used in the tables below.
 

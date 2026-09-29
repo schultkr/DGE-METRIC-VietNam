@@ -134,7 +134,7 @@ The Beamer presentation for finance scenarios is in `docs/Finance_Scenario_Prese
 - Scenario narrative framing for each of the three financing architectures
 
 To recompile figures: `scripts/reporting/GenerateFinanceSimulationResultsFigures.m`
-To recompile slides: see [Finance Scenario Presentation README](Finance_Scenario_Presentation/README.md).
+To recompile slides: see [Finance Scenario Presentation README](presentations/Finance_Scenario_Presentation/README.md).
 
 ---
 

@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: DGE-METRIC framework repository
+    url: https://github.com/schultkr/DGE-METRIC
+    about: Issues with the common model architecture rather than the Viet Nam implementation.
