@@ -322,10 +322,10 @@ for i = 1:numel(scenarioNames)
     v = renewable_share_of_energy(s, plotYears);
     levelMat(:, i) = v.Values;
     plot(v.Years, v.Values, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'DisplayName', char(scenarioLabels(i)));
 end
-format_axes('Renewable Share of Energy Output', 'Year', '% of total energy output');
+format_axes('Renewable Share of Energy Output', '% of total energy output');
 place_legend_below();
 save_dual(fig, outDir, 'Renewable_Share_Energy_Output');
 maybe_save_five_year_level_bars(outDir, 'Renewable_Share_Energy_Output', ...
@@ -340,10 +340,10 @@ for i = 1:numel(scenarioNames)
     v = fossil_share_of_energy(s, plotYears);
     levelMat(:, i) = v.Values;
     plot(v.Years, v.Values, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'DisplayName', char(scenarioLabels(i)));
 end
-format_axes('Fossil Share of Energy Output', 'Year', '% of total energy output');
+format_axes('Fossil Share of Energy Output', '% of total energy output');
 place_legend_below();
 save_dual(fig, outDir, 'Fossil_Share_Energy_Output');
 maybe_save_five_year_level_bars(outDir, 'Fossil_Share_Energy_Output', ...
@@ -356,10 +356,10 @@ for i = 1:numel(scenarioNames)
     s = allData.(char(scenarioNames(i)));
     v = renewable_production_index(s, plotYears);
     plot(v.Years, v.Values, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+    'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'DisplayName', char(scenarioLabels(i)));
 end
-format_axes('Renewable Production Index', 'Year', 'Index (2026 = 100)');
+format_axes('Renewable Production Index', 'Index (2026 = 100)');
 place_legend_below();
 save_dual(fig, outDir, 'Renewable_Production_Index');
 
@@ -369,10 +369,10 @@ for i = 1:numel(scenarioNames)
     s = allData.(char(scenarioNames(i)));
     v = fossil_production_index(s, plotYears);
     plot(v.Years, v.Values, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+    'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'DisplayName', char(scenarioLabels(i)));
 end
-format_axes('Fossil Production Index', 'Year', 'Index (2026 = 100)');
+format_axes('Fossil Production Index', 'Index (2026 = 100)');
 place_legend_below();
 save_dual(fig, outDir, 'Fossil_Production_Index');
 
@@ -618,16 +618,16 @@ for i = 1:numel(scenarioNames)
     d = v.Values - bRenewableShare.Values;
     devMat(:, i) = d;
     plot(v.Years, d, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'DisplayName', char(scenarioLabels(i)));
 end
 yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('Renewable Share of Energy Output Deviation vs Baseline', 'Year', 'pp of energy output');
+format_axes('Renewable Share of Energy Output Deviation vs Baseline', 'pp of energy output');
 place_legend_below();
 save_dual(fig, outDir, 'Renewable_Share_Energy_Output_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'Renewable_Share_Energy_Output_Deviation_vs_Baseline', ...
     'Renewable Share of Energy Output Deviation vs Baseline', 'pp of energy output', plotYears, devMat, ...
-    scenarioLabels, colors, lineTypes, lineWidth, options);
+    scenarioLabels, colors, options);
 
 % 13e) Fossil share of energy output deviation vs baseline.
 fig = make_fig(); hold on;
@@ -638,16 +638,16 @@ for i = 1:numel(scenarioNames)
     d = v.Values - bFossilShare.Values;
     devMat(:, i) = d;
     plot(v.Years, d, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'DisplayName', char(scenarioLabels(i)));
 end
 yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('Fossil Share of Energy Output Deviation vs Baseline', 'Year', 'pp of energy output');
+format_axes('Fossil Share of Energy Output Deviation vs Baseline', 'pp of energy output');
 place_legend_below();
 save_dual(fig, outDir, 'Fossil_Share_Energy_Output_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'Fossil_Share_Energy_Output_Deviation_vs_Baseline', ...
     'Fossil Share of Energy Output Deviation vs Baseline', 'pp of energy output', plotYears, devMat, ...
-    scenarioLabels, colors, lineTypes, lineWidth, options);
+    scenarioLabels, colors, options);
 
 % 13f) Renewable production deviation vs baseline.
 fig = make_fig(); hold on;
@@ -658,16 +658,16 @@ for i = 1:numel(scenarioNames)
     d = v.Values - bRenewableProduction.Values;
     devMat(:, i) = d;
     plot(v.Years, d, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'DisplayName', char(scenarioLabels(i)));
 end
 yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('Renewable Production Deviation vs Baseline', 'Year', 'Index points');
+format_axes('Renewable Production Deviation vs Baseline', 'Index points');
 place_legend_below();
 save_dual(fig, outDir, 'Renewable_Production_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'Renewable_Production_Deviation_vs_Baseline', ...
     'Renewable Production Deviation vs Baseline', 'Index points', plotYears, devMat, ...
-    scenarioLabels, colors, lineTypes, lineWidth, options);
+    scenarioLabels, colors, options);
 
 % 13g) Fossil production deviation vs baseline.
 fig = make_fig(); hold on;
@@ -678,16 +678,16 @@ for i = 1:numel(scenarioNames)
     d = v.Values - bFossilProduction.Values;
     devMat(:, i) = d;
     plot(v.Years, d, 'Color', colors(i, :), 'LineWidth', lineWidth, ...
-        'LineStyle', lineTypes{mod(i-1, numel(lineTypes)) + 1}, ...
+        'LineStyle', styles(i).LineStyle, 'Marker', styles(i).Marker, ...
         'DisplayName', char(scenarioLabels(i)));
 end
 yline(0, ':', 'Color', iwh_colors().zero, 'LineWidth', 1.0, 'HandleVisibility', 'off');
-format_axes('Fossil Production Deviation vs Baseline', 'Year', 'Index points');
+format_axes('Fossil Production Deviation vs Baseline', 'Index points');
 place_legend_below();
 save_dual(fig, outDir, 'Fossil_Production_Deviation_vs_Baseline');
 maybe_save_five_year_summaries(outDir, 'Fossil_Production_Deviation_vs_Baseline', ...
     'Fossil Production Deviation vs Baseline', 'Index points', plotYears, devMat, ...
-    scenarioLabels, colors, lineTypes, lineWidth, options);
+    scenarioLabels, colors, options);
 
 fprintf('Generated EE presentation figures in: %s\n', outDir);
 
