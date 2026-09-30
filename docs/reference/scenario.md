@@ -146,13 +146,13 @@ This layered design supports policy-relevant statements on:
 
 ## Emissions and Carbon Markets
 
-![Emissions](../figures/figures/Emissions.png)
+![Emissions](../figures/NZ_Simulation_Results/Emissions_Deviation_vs_Baseline.png)
 
-![Emission Intensity](../figures/figures/EmissionIntensity.png)
+![Emission Intensity](../figures/NZ_Simulation_Results/Energy_Intensity_Deviation_vs_Baseline.png)
 
-![Emission Price](../figures/figures/EmissionPrice.png)
+![Emission Price](../figures/NZ_Simulation_Results/Emission_Price_USD_per_tCO2e_Baseline_vs_NZ.png)
 
-![Cap-and-Trade Revenues](../figures/figures/CapAndTradeRevenues.png)
+![Cap-and-Trade Revenues](../figures/NZ_Simulation_Results/ETS_Revenue_Billion_USD_Baseline_vs_NZ.png)
 
 **Interpretation.**  
 These figures illustrate how emissions decline under Net Zero scenarios, the implied carbon price trajectory, and the resulting ETS revenues as a share of value added.

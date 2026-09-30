@@ -107,7 +107,7 @@ See [Calibration](calibration.md) and [Data sources](data_sources.md) for detail
 - The economy consists of households, firms, a retail sector, wholesalers, a government, an emissions trading system (ETS), and the rest of the world.
 - Agents interact through markets for goods, labor, capital, emissions permits, and international trade, subject to budget constraints and market-clearing conditions.
 
-![Model Overview](../figures/figures/ModelDiagram.jpg)
+![Model Overview](../figures/model_diagrams/energy_gdp_channels.png)
 
 ### How energy policy affects the macroeconomy
 
@@ -188,7 +188,7 @@ $$
 
 
 ### Firms
-![Model Overview](../figures/figures/IOStructure.jpg)
+![Model Overview](../figures/model_diagrams/production_structure.png)
 - In each sector $s$, firms choose intermediate inputs $Q^I_{s,k,t}$, labor $L_{s,t}$, and capital $K_{s,t}$ to maximize profits.
 
 - The firm’s static profit maximization problem is:
