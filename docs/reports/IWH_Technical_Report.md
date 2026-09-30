@@ -1,6 +1,6 @@
-﻿<img src="media/technical/media/image2.jpeg" style="width:3.16181in;height:0.84375in" /><img src="media/technical/media/image3.jpeg" style="width:2.93472in;height:0.87014in" alt="G:\Kdl\Privat\Vorlagen\Logos\IWH_Logo_RGB_EN_klein.jpg" />
+﻿<img src="media/technical/media/image2.jpeg" style="width:3.16181in;height:0.84375in" /><img src="media/technical/media/image3.jpeg" style="width:2.93472in;height:0.87014in" alt="IWH logo" />
 
-> DGE-METRIC: A Dynamic General Equilibrium Model for Vietnamâ€™s Energy Transition
+> DGE-METRIC: A Dynamic General Equilibrium Model for Vietnam’s Energy Transition
 >
 > Technical Report
 >
@@ -8,7 +8,7 @@
 >
 > Halle (Saale), 30.09.2026
 
-*Prepared under the joint GIZâ€“IWH research project supporting Vietnamâ€™s energy and climate policy dialogue.*
+*Prepared under the joint GIZ–IWH research project supporting Vietnam’s energy and climate policy dialogue.*
 
 **How to use this document.** This is the methodological companion to the PDP8 Macroeconomic Impact Assessment, which presents policy findings. This report documents the model, its data foundations, its solution method, and its limitations, so that results can be reproduced, audited, and extended.
 
@@ -96,101 +96,99 @@ Executive Summary [VI](#executive-summary)
 
 9 References [48](#references)
 
-**\**
 
 # List of Figures
 
-[Figure 1: Model Architecture. [9](#_Ref236325524)](#_Ref236325524)
+Figure 1: Model Architecture. 9
 
-[Figure 2: Input-Output production structure across sectors. [12](#_Toc236913048)](#_Toc236913048)
+Figure 2: Input-Output production structure across sectors. 12
 
-[Figure 3: Expenditure-side GDP components: actual 2019 vs simulated baseline start and end. [16](#_Toc236913049)](#_Toc236913049)
+Figure 3: Expenditure-side GDP components: actual 2019 vs simulated baseline start and end. 16
 
-[Figure 4: Baseline simulation vs PDP8 target for renewable installed capacity (end-year levels). [19](#_Toc236913050)](#_Toc236913050)
+Figure 4: Baseline simulation vs PDP8 target for renewable installed capacity (end-year levels). 19
 
-[Figure 5: Baseline simulation vs PDP8 target for fossil installed capacity (end-year levels). [19](#_Toc236913051)](#_Toc236913051)
+Figure 5: Baseline simulation vs PDP8 target for fossil installed capacity (end-year levels). 19
 
-[Figure 6: Baseline simulation vs PDP8 target for renewable investment share. [20](#_Toc236913052)](#_Toc236913052)
+Figure 6: Baseline simulation vs PDP8 target for renewable investment share. 20
 
-[Figure 7: Baseline simulation vs PDP8 target for fossil investment share. [20](#_Toc236913053)](#_Toc236913053)
+Figure 7: Baseline simulation vs PDP8 target for fossil investment share. 20
 
-[Figure 8: Hierarchical organisation of the DGE-METRIC scenario framework. [21](#_Toc236913054)](#_Toc236913054)
+Figure 8: Hierarchical organisation of the DGE-METRIC scenario framework. 21
 
-[Figure 9: Energy-intensity deviation of EE scenarios from the Baseline. [23](#_Ref236050361)](#_Ref236050361)
+Figure 9: Energy-intensity deviation of EE scenarios from the Baseline. 23
 
-[Figure 10: Government consumption share deviation versus Baseline. [24](#_Toc236913056)](#_Toc236913056)
+Figure 10: Government consumption share deviation versus Baseline. 24
 
-[Figure 11: Housing investment share deviation versus Baseline. [24](#_Toc236913057)](#_Toc236913057)
+Figure 11: Housing investment share deviation versus Baseline. 24
 
-[Figure 12: Net exports share deviation versus Baseline. [25](#_Toc236913058)](#_Toc236913058)
+Figure 12: Net exports share deviation versus Baseline. 25
 
-[Figure 13: GDP level deviation versus Baseline across EE scenarios. [25](#_Toc236913059)](#_Toc236913059)
+Figure 13: GDP level deviation versus Baseline across EE scenarios. 25
 
-[Figure 14: Consumption share deviation versus Baseline across EE scenarios. [26](#_Toc236913060)](#_Toc236913060)
+Figure 14: Consumption share deviation versus Baseline across EE scenarios. 26
 
-[Figure 15: Investment share deviation versus Baseline across EE scenarios. [26](#_Ref236051267)](#_Ref236051267)
+Figure 15: Investment share deviation versus Baseline across EE scenarios. 26
 
-[Figure 16: GDP growth deviation versus Baseline across green-finance scenarios. [29](#_Toc236913062)](#_Toc236913062)
+Figure 16: GDP growth deviation versus Baseline across green-finance scenarios. 29
 
-[Figure 17: GDP level deviation versus Baseline across green-finance scenarios [30](#_Toc236913063)](#_Toc236913063)
+Figure 17: GDP level deviation versus Baseline across green-finance scenarios 30
 
-[Figure 18: Consumption share deviation versus Baseline across green-finance scenarios. [30](#_Toc236913064)](#_Toc236913064)
+Figure 18: Consumption share deviation versus Baseline across green-finance scenarios. 30
 
-[Figure 19: Investment share deviation versus Baseline across green-finance scenarios. [31](#_Toc236913065)](#_Toc236913065)
+Figure 19: Investment share deviation versus Baseline across green-finance scenarios. 31
 
-[Figure 20: Government consumption share deviation versus Baseline across green-finance scenarios. [31](#_Toc236913066)](#_Toc236913066)
+Figure 20: Government consumption share deviation versus Baseline across green-finance scenarios. 31
 
-[Figure 21: Housing investment share deviation versus Baseline across green-finance scenarios. [32](#_Toc236913067)](#_Toc236913067)
+Figure 21: Housing investment share deviation versus Baseline across green-finance scenarios. 32
 
-[Figure 22: Net exports share deviation versus Baseline across green-finance scenarios. [32](#_Toc236913068)](#_Toc236913068)
+Figure 22: Net exports share deviation versus Baseline across green-finance scenarios. 32
 
-[Figure 23: Renewable-energy WACC deviation versus Baseline across green-finance scenarios. [33](#_Toc236913069)](#_Toc236913069)
+Figure 23: Renewable-energy WACC deviation versus Baseline across green-finance scenarios. 33
 
-[Figure 24: Emissions path across Net Zero scenarios and revised PDP 8 high scenario. [35](#_Toc236913070)](#_Toc236913070)
+Figure 24: Emissions path across Net Zero scenarios and revised PDP 8 high scenario. 35
 
-[Figure 25: GDP growth deviation versus the PDP8-rev Baseline across Net Zero scenarios. [36](#_Toc236913071)](#_Toc236913071)
+Figure 25: GDP growth deviation versus the PDP8-rev Baseline across Net Zero scenarios. 36
 
-[Figure 26: GDP level deviation versus the PDP8-rev Baseline across Net Zero scenarios. [36](#_Toc236913072)](#_Toc236913072)
+Figure 26: GDP level deviation versus the PDP8-rev Baseline across Net Zero scenarios. 36
 
-[Figure 27: Consumption share deviation versus the PDP8-rev Baseline across Net Zero scenarios. [37](#_Toc236913073)](#_Toc236913073)
+Figure 27: Consumption share deviation versus the PDP8-rev Baseline across Net Zero scenarios. 37
 
-[Figure 28: Investment share deviation versus the PDP8-rev Baseline across Net Zero scenarios. [37](#_Toc236913074)](#_Toc236913074)
+Figure 28: Investment share deviation versus the PDP8-rev Baseline across Net Zero scenarios. 37
 
-[Figure 29: Government consumption share deviation versus the PDP8-rev Baseline across Net Zero scenarios. [38](#_Toc236913075)](#_Toc236913075)
+Figure 29: Government consumption share deviation versus the PDP8-rev Baseline across Net Zero scenarios. 38
 
-[Figure 30: Housing investment share deviation versus the PDP8-rev Baseline across Net Zero scenarios. [38](#_Toc236913076)](#_Toc236913076)
+Figure 30: Housing investment share deviation versus the PDP8-rev Baseline across Net Zero scenarios. 38
 
-[Figure 31: Net exports share deviation versus the PDP8-rev Baseline across Net Zero scenarios. [39](#_Toc236913077)](#_Toc236913077)
+Figure 31: Net exports share deviation versus the PDP8-rev Baseline across Net Zero scenarios. 39
 
-[Figure 32: Renewable capital deviation versus the PDP8-rev Baseline across Net Zero scenarios. [39](#_Toc236913078)](#_Toc236913078)
+Figure 32: Renewable capital deviation versus the PDP8-rev Baseline across Net Zero scenarios. 39
 
-[Figure 33: Renewable investment deviation versus the PDP8-rev Baseline across Net Zero scenarios. [40](#_Toc236913079)](#_Toc236913079)
+Figure 33: Renewable investment deviation versus the PDP8-rev Baseline across Net Zero scenarios. 40
 
-[Figure 34: Renewable-energy WACC deviation versus the PDP8-rev Baseline across Net Zero scenarios. [40](#_Toc236913080)](#_Toc236913080)
+Figure 34: Renewable-energy WACC deviation versus the PDP8-rev Baseline across Net Zero scenarios. 40
 
-[Figure 35: ETS revenue share deviation versus the PDP8-rev Baseline across Net Zero scenarios. [41](#_Toc236913081)](#_Toc236913081)
+Figure 35: ETS revenue share deviation versus the PDP8-rev Baseline across Net Zero scenarios. 41
 
-[Figure 36: Five-year cumulative ETS revenues across the PDP8-rev Baseline and Net Zero scenarios. [41](#_Toc236913082)](#_Toc236913082)
+Figure 36: Five-year cumulative ETS revenues across the PDP8-rev Baseline and Net Zero scenarios. 41
 
 # List of Tables
 
-[Table 1: Scenario run-validation and reproducibility checklist. [7](#_Ref236750247)](#_Ref236750247)
+Table 1: Scenario run-validation and reproducibility checklist. 7
 
-[Table 2: Sectoral classification. [10](#_Toc236913084)](#_Toc236913084)
+Table 2: Sectoral classification. 10
 
-[Table 3: Model Extensions. [13](#_Ref236050899)](#_Ref236050899)
+Table 3: Model Extensions. 13
 
-[Table 4: Data Sources. [15](#_Toc236913086)](#_Toc236913086)
+Table 4: Data Sources. 15
 
-[Table 5: Core Excel workbooks of the five-sector, one-region model. [17](#_Toc236913087)](#_Toc236913087)
+Table 5: Core Excel workbooks of the five-sector, one-region model. 17
 
-[Table 6: Green Finance Transmission Channels. [27](#_Ref236590080)](#_Ref236590080)
+Table 6: Green Finance Transmission Channels. 27
 
-[Table 7: Green-finance scenario assumptions [28](#_Toc236913089)](#_Toc236913089)
+Table 7: Green-finance scenario assumptions 28
 
-[Table 8: Net Zero scenario assumptions. [34](#_Toc236913090)](#_Toc236913090)
+Table 8: Net Zero scenario assumptions. 34
 
-**\**
 
 # Abbreviations
 
@@ -204,7 +202,7 @@ CMIP6 Coupled Model Intercomparison Project Phase 6
 
 DGE Dynamic General Equilibrium
 
-DGE-METRIC Dynamic General Equilibrium Model for Vietnamâ€™s Energy Transition Incorporating Carbon Markets
+DGE-METRIC Dynamic General Equilibrium Model for Vietnam’s Energy Transition Incorporating Carbon Markets
 
 EDGAR Emissions Database for Global Atmospheric Research
 
@@ -216,7 +214,7 @@ EXIOBASE Environmentally Extended Multi-Regional Input-Output Database
 
 FDI Foreign Direct Investment
 
-GIZ Deutsche Gesellschaft fÃ¼r Internationale Zusammenarbeit
+GIZ Deutsche Gesellschaft für Internationale Zusammenarbeit
 
 GDP Gross Domestic Product
 
@@ -250,25 +248,25 @@ WACF Weighted Average Cost of Finance
 
 # Executive Summary
 
-The DGE-METRIC (Dynamic General Equilibrium for Macroeconomic Energy Transition Incorporating Carbon markets) model was developed to analyse the macroeconomic implications of Vietnamâ€™s energy transition and to evaluate alternative pathways for achieving the objectives of the revised Power Development Plan 8 (PDP8-rev) and the countryâ€™s net-zero emissions commitment by 2050. The model provides a quantitative framework for assessing how alternative energy and climate policies affect economic growth, investment, sectoral production, household welfare, public finances, and carbon emissions over the transition period.
+The DGE-METRIC (Dynamic General Equilibrium for Macroeconomic Energy Transition Incorporating Carbon markets) model was developed to analyse the macroeconomic implications of Vietnam’s energy transition and to evaluate alternative pathways for achieving the objectives of the revised Power Development Plan 8 (PDP8-rev) and the country’s net-zero emissions commitment by 2050. The model provides a quantitative framework for assessing how alternative energy and climate policies affect economic growth, investment, sectoral production, household welfare, public finances, and carbon emissions over the transition period.
 
-Unlike engineering-based energy system models that focus on technology deployment and electricity-system optimization, DGE-METRIC captures economy-wide interactions among investment, production, consumption, labour markets, international trade, and climate policy. This integrated perspective enables the assessment of transition pathways within a consistent macroeconomic framework, allowing policy interventions in the energy sector to be evaluated alongside their broader economic consequences (BÃ¶hringer and Rutherford 2008; Pfenninger, Hawkes, and Keirstead 2014).
+Unlike engineering-based energy system models that focus on technology deployment and electricity-system optimization, DGE-METRIC captures economy-wide interactions among investment, production, consumption, labour markets, international trade, and climate policy. This integrated perspective enables the assessment of transition pathways within a consistent macroeconomic framework, allowing policy interventions in the energy sector to be evaluated alongside their broader economic consequences (Böhringer and Rutherford 2008; Pfenninger, Hawkes, and Keirstead 2014).
 
-The model is formulated as a deterministic, forward-looking dynamic general equilibrium (DGE) model implemented in Dynare and MATLAB. It represents Vietnam as a five-subsector, one-region economy, comprising a representative household, firms operating in five production sectors, wholesale and retail trade, an exporting sector, a government with an emissions trading system (ETS), and the rest of the world. The model is calibrated to Vietnamâ€™s 2019 input-output structure (General Statistics Office of Vietnam 2019) and a 2026 baseline and is solved over the 2026â€“2050 transition horizon, drawing on data from the General Statistics Office (GSO), Vienam Electricity(EVN), the International Energy Agency (IEA), EDGAR, the World Bank, and project-specific (GIZ/IWH) calibration inputs (Government of Viet Nam and Department of Energy 2024).
+The model is formulated as a deterministic, forward-looking dynamic general equilibrium (DGE) model implemented in Dynare and MATLAB. It represents Vietnam as a five-subsector, one-region economy, comprising a representative household, firms operating in five production sectors, wholesale and retail trade, an exporting sector, a government with an emissions trading system (ETS), and the rest of the world. The model is calibrated to Vietnam’s 2019 input-output structure (General Statistics Office of Vietnam 2019) and a 2026 baseline and is solved over the 2026–2050 transition horizon, drawing on data from the General Statistics Office (GSO), Vienam Electricity(EVN), the International Energy Agency (IEA), EDGAR, the World Bank, and project-specific (GIZ/IWH) calibration inputs (Government of Viet Nam and Department of Energy 2024).
 
 The report documents the theoretical foundations, calibration strategy, and numerical implementation of the model, together with the construction of the policy scenarios used throughout the analysis. It explains how baseline and scenario pathways are translated into model inputs, how the perfect-foresight transition path is solved, and how key assumptions regarding technology, emissions, and financing are incorporated into the modelling framework. The report also discusses the principal limitations of the approach and provides guidance for the interpretation of simulation results.
 
-Taken together, these elements provide a transparent and reproducible modelling framework for analysing the macroeconomic consequences of Vietnamâ€™s energy transition and for supporting evidence-based policy analysis on climate, energy, and green finance.
+Taken together, these elements provide a transparent and reproducible modelling framework for analysing the macroeconomic consequences of Vietnam’s energy transition and for supporting evidence-based policy analysis on climate, energy, and green finance.
 
 #  Introduction and Motivation
 
 ## Policy Context
 
-Vietnamâ€™s energy transition represents one of the countryâ€™s most significant long-term development challenges. Achieving sustained economic growth while simultaneously transforming the electricity sector to meet national climate objectives requires unprecedented levels of investment, coordinated policy interventions, and substantial structural adjustment across the economy. Decisions regarding the timing, scale, and financing of these investments will shape not only the future energy system but also broader economic development over the coming decades.
+Vietnam’s energy transition represents one of the country’s most significant long-term development challenges. Achieving sustained economic growth while simultaneously transforming the electricity sector to meet national climate objectives requires unprecedented levels of investment, coordinated policy interventions, and substantial structural adjustment across the economy. Decisions regarding the timing, scale, and financing of these investments will shape not only the future energy system but also broader economic development over the coming decades.
 
-Meeting the objectives of revised Power Development Plan 8 (PDP8-rev) and Vietnamâ€™s commitment to achieve net-zero greenhouse gas emissions by 2050 is estimated to require approximately USD 1 trillion in energy-sector investment by 2050 (IWH Investment Needs Assessment, 2026). At the same time, Vietnam aims to maintain annual GDP growth of 10% from 2026 to 2030 and 7.5% from 2031 to 2050, raise renewable electricity generation to at least 60% including hydro by 2030, halt further expansion of coal-fired power generation after 2030 (Government of Viet Nam and Department of Energy 2024; Prime Minister of the Socialist Republic of Viet Nam 2024), and fulfil its Nationally Determined Contribution under the Paris Agreement.
+Meeting the objectives of revised Power Development Plan 8 (PDP8-rev) and Vietnam’s commitment to achieve net-zero greenhouse gas emissions by 2050 is estimated to require approximately USD 1 trillion in energy-sector investment by 2050 (IWH Investment Needs Assessment, 2026). At the same time, Vietnam aims to maintain annual GDP growth of 10% from 2026 to 2030 and 7.5% from 2031 to 2050, raise renewable electricity generation to at least 60% including hydro by 2030, halt further expansion of coal-fired power generation after 2030 (Government of Viet Nam and Department of Energy 2024; Prime Minister of the Socialist Republic of Viet Nam 2024), and fulfil its Nationally Determined Contribution under the Paris Agreement.
 
-Bottom-up energy-system models (capacity expansion, LCOE, dispatch) play a central role in energy planning by identifying cost-effective technology portfolios, evaluating generation capacity expansion, and analysing system operation. These models are not designed to quantify the broader macroeconomic consequences of alternative transition pathways (BÃ¶hringer and Rutherford 2008; Pfenninger, Hawkes, and Keirstead 2014). In particular, they cannot directly address economy-wide questions such as:
+Bottom-up energy-system models (capacity expansion, LCOE, dispatch) play a central role in energy planning by identifying cost-effective technology portfolios, evaluating generation capacity expansion, and analysing system operation. These models are not designed to quantify the broader macroeconomic consequences of alternative transition pathways (Böhringer and Rutherford 2008; Pfenninger, Hawkes, and Keirstead 2014). In particular, they cannot directly address economy-wide questions such as:
 
 - What are the macroeconomic costs of meeting PDP8 investment requirements in terms of GDP, household consumption, investment, and employment?
 - To what extent does achieving net-zero emissions impose additional economic costs beyond those already associated with implementing PDP8?
@@ -281,7 +279,7 @@ Addressing these questions requires an economy-wide analytical framework that ca
 
 ## Scope of the Model
 
-DGE-METRIC is a reduced-form dynamic general equilibrium model designed to analyse the economy-wide consequences of Vietnamâ€™s energy transition. It combines a detailed representation of the energy sector with a comprehensive macroeconomic framework that captures interactions between households, firms, government, international trade, capital accumulation, and carbon pricing. Rather than determining optimal technology choices, the model evaluates the economic implications of externally specified policy pathways and investment trajectories.
+DGE-METRIC is a reduced-form dynamic general equilibrium model designed to analyse the economy-wide consequences of Vietnam’s energy transition. It combines a detailed representation of the energy sector with a comprehensive macroeconomic framework that captures interactions between households, firms, government, international trade, capital accumulation, and carbon pricing. Rather than determining optimal technology choices, the model evaluates the economic implications of externally specified policy pathways and investment trajectories.
 
 As with any macroeconomic model, DGE-METRIC deliberately abstracts from several aspects that are more appropriately analysed using specialised engineering or financial models. In particular, the model does not:
 
@@ -291,7 +289,7 @@ As with any macroeconomic model, DGE-METRIC deliberately abstracts from several 
 
 Similarly, technology cost projections, renewable deployment pathways, and capacity expansion plans are taken as exogenous inputs based on official planning documents and international energy outlooks rather than being determined endogenously within the model.
 
-Consequently, DGE-METRIC should be viewed as complementary to engineering-based energy system models rather than as a substitute for them (Bollen et al. 2009; Shoven and Whalley 1992). While engineering models identify technically feasible and cost-efficient energy-system configurations, DGE-METRIC evaluates the broader macroeconomic consequences of implementing these pathways. Together, the two modelling approaches provide a more comprehensive evidence base for assessing Vietnamâ€™s transition towards a low-carbon economy (BÃ¶hringer and Rutherford 2008; Pfenninger, Hawkes, and Keirstead 2014).
+Consequently, DGE-METRIC should be viewed as complementary to engineering-based energy system models rather than as a substitute for them (Bollen et al. 2009; Shoven and Whalley 1992). While engineering models identify technically feasible and cost-efficient energy-system configurations, DGE-METRIC evaluates the broader macroeconomic consequences of implementing these pathways. Together, the two modelling approaches provide a more comprehensive evidence base for assessing Vietnam’s transition towards a low-carbon economy (Böhringer and Rutherford 2008; Pfenninger, Hawkes, and Keirstead 2014).
 
 # Repository and Documentation Structure
 
@@ -381,14 +379,13 @@ The sector and region definitions in sSubsecstart, sSubsecend, and sRegions must
 
 For every selected scenario, RunSimulations.m calls change_mod_file, reruns dynare DGE_Model noclearall, and thereby rebuilds the generated Dynare code for the active switches. The runner catches scenario-level errors, prints the error message, and continues; completion of the MATLAB batch is consequently not proof that every requested scenario converged. The console output and scenario-specific artifacts must be checked individually.
 
-**\**
 
-**Minimum run-validation checklist.** Complete each item for every scenario run and retain the cited evidence with the reproducibility package as reported in [Table 1](#_Ref236750247).
+**Minimum run-validation checklist.** Complete each item for every scenario run and retain the cited evidence with the reproducibility package as reported in Table 1.
 
 A reproducibility package should retain the repository commit, the three input workbooks, any external investment inputs, the values of all DGE\_\* environment variables, the ordered scenario list, the MATLAB and Dynare versions, the console log, and the generated outputs. Scenario-specific tables and figures should then be produced through the shared scripts in scripts/reporting/, rather than by manually editing exported results.
 
 <table>
-<caption><p><span id="_Ref236750247" class="anchor"></span>Table 1: Scenario run-validation and reproducibility checklist.</p></caption>
+<caption><p>Table 1: Scenario run-validation and reproducibility checklist.</p></caption>
 <colgroup>
 <col style="width: 4%" />
 <col style="width: 50%" />
@@ -396,49 +393,49 @@ A reproducibility package should retain the repository commit, the three input w
 </colgroup>
 <thead>
 <tr>
-<th>â˜</th>
+<th>☐</th>
 <th>Validation check</th>
 <th>Evidence / result</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>â˜</td>
+<td>☐</td>
 <td><strong>Workbook and scenario selection.</strong> Confirm that the resolved calibration, Baseline, and scenario workbook filenames use the intended suffix and that the exact scenario sheet was selected.</td>
 <td>Suffix: ________<br />
 Scenario sheet: ________<br />
 Resolved files checked: ________</td>
 </tr>
 <tr>
-<td>â˜</td>
+<td>☐</td>
 <td><strong>Reference dependency.</strong> Confirm that the required Baseline or Net-Zero reference was solved in the current run or loaded from the intended saved structure, and that the scenario used the correct closure and cap-and-trade settings.</td>
 <td>Dependency: ________<br />
 Solved / loaded: ________<br />
 Source artifact: ________</td>
 </tr>
 <tr>
-<td>â˜</td>
+<td>☐</td>
 <td><strong>Numerical convergence.</strong> Confirm convergence of both the steady-state and perfect-foresight solvers. Record the maximum residuals and verify that they are within the chosen tolerances.</td>
 <td>Steady-state residual: ________<br />
 Perfect-foresight residual: ________<br />
 Tolerances: ________</td>
 </tr>
 <tr>
-<td>â˜</td>
+<td>☐</td>
 <td><strong>Accounting and allocation diagnostics.</strong> Run the available accounting, market-clearing, and allocation checks; confirm that all required identities pass and investigate any warning or non-zero discrepancy.</td>
 <td>Checks run: ________<br />
 Maximum discrepancy: ________<br />
 Status / notes: ________</td>
 </tr>
 <tr>
-<td>â˜</td>
+<td>☐</td>
 <td><strong>Growth-target alignment.</strong> Compare simulated growth with the active workbook targets over the full horizon and confirm that deviations are within the accepted audit threshold.</td>
 <td>Audit file: ________<br />
 Maximum deviation: ________<br />
 Accepted threshold: ________</td>
 </tr>
 <tr>
-<td>â˜</td>
+<td>☐</td>
 <td><strong>Outputs and plausibility.</strong> Confirm creation of the expected scenario CSV, results-workbook sheet, MATLAB structures, and reporting outputs. Inspect key paths for completeness, plausible signs and magnitudes, smooth transitions, and absence of missing, infinite, or unexplained discontinuous values.</td>
 <td>CSV: ________<br />
 Workbook sheet: ________<br />
@@ -447,9 +444,9 @@ Reporting outputs: ________<br />
 Plausibility notes: ________</td>
 </tr>
 <tr>
-<td>â˜</td>
+<td>☐</td>
 <td><strong>Run sign-off.</strong> Record the final disposition only after all checks above have been completed.</td>
-<td>â˜ Pass â˜ Pass with documented caveats â˜ Fail<br />
+<td>☐ Pass ☐ Pass with documented caveats ☐ Fail<br />
 Reviewer: ________<br />
 Date: ________<br />
 Run / commit ID: ________</td>
@@ -473,14 +470,14 @@ A reproducible analysis should therefore identify the repository commit, preserv
 
 # Model Structure 
 
-DGE-METRIC is a deterministic, forward-looking dynamic general equilibrium model developed to analyse the macroeconomic implications of Vietnam's energy transition (Bollen et al. 2009; Shoven and Whalley 1992). The model represents Vietnam as a small open economy in which households, firms, government, and the rest of the world interact through interconnected markets for goods, labour, capital, international trade, and emissions permits (see [Figure 1](#_Ref236325524)). Within this framework, changes in energy policy affect not only the energy sector itself but also production costs, household welfare, investment decisions, public finances, and external trade, allowing the economy-wide consequences of alternative transition pathways to be analysed in a consistent manner.
+DGE-METRIC is a deterministic, forward-looking dynamic general equilibrium model developed to analyse the macroeconomic implications of Vietnam's energy transition (Bollen et al. 2009; Shoven and Whalley 1992). The model represents Vietnam as a small open economy in which households, firms, government, and the rest of the world interact through interconnected markets for goods, labour, capital, international trade, and emissions permits (see Figure 1). Within this framework, changes in energy policy affect not only the energy sector itself but also production costs, household welfare, investment decisions, public finances, and external trade, allowing the economy-wide consequences of alternative transition pathways to be analysed in a consistent manner.
 
 <figure>
 <img src="media/technical/media/image5.jpeg" style="width:6.69375in;height:3.48958in" />
-<figcaption><p><span id="_Ref236325524" class="anchor"></span>Figure 1: Model Architecture.</p></figcaption>
+<figcaption><p>Figure 1: Model Architecture.</p></figcaption>
 </figure>
 
-The model is formulated as a **five-sector, one-region** economy and is solved as a deterministic perfect-foresight transition path over the period **2026â€“2050**. The perfect-foresight framework reflects the nature of the policy questions considered in this report, where major policy interventionsâ€”including the implementation of PDP8, emissions reduction targets, and alternative green-finance strategiesâ€”are represented as anticipated long-term policy pathways rather than unexpected economic shocks.
+The model is formulated as a **five-sector, one-region** economy and is solved as a deterministic perfect-foresight transition path over the period **2026–2050**. The perfect-foresight framework reflects the nature of the policy questions considered in this report, where major policy interventions—including the implementation of PDP8, emissions reduction targets, and alternative green-finance strategies—are represented as anticipated long-term policy pathways rather than unexpected economic shocks.
 
 The economy consists of a representative household, firms operating in five productive sectors, wholesale and retail trade, an exporting sector, a government that operates an emissions trading system (ETS), and the rest of the world. These agents are linked through markets for intermediate goods, labour, capital, emissions permits, and internationally traded goods, forming a coherent representation of the economic mechanisms through which the energy transition and the associated climate policies affects aggregate economic performance.
 
@@ -490,17 +487,17 @@ The model distinguishes five production sectors that capture the principal chann
 
 | \# | Label | Economic role (aligned with Input-Output table provided by GSO in 2019) |
 |----|----|----|
-| 1 | Primary | Agriculture, forestry, fisheries, and related primary activities (GSO codes 1â€“33). |
-| 2 | Fossil energy | Fossil extraction and fuel supply: coal, crude oil, natural gas, refined petroleum products, and gas and steam distribution (codes 34â€“36, 67â€“69, and 107â€“108). |
-| 3 | Renewable energy | No direct standalone subsector in the Input-Output table provided by GSO. They are estimated by allocating part of the aggregated electricity and utilities activity, mainly code 106, to renewable energy using EXIOBASE inputâ€“output coefficients. |
-| 4 | Secondary | Industry and production block: non-energy mining, manufacturing, water and waste utilities, and construction (codes 37â€“40, 41â€“66, 70â€“105, and 109â€“118). |
-| 5 | Tertiary | Services block: trade, transport, ICT, finance, real estate, professional services, public administration, education, health, and other services (codes 119â€“171). |
+| 1 | Primary | Agriculture, forestry, fisheries, and related primary activities (GSO codes 1–33). |
+| 2 | Fossil energy | Fossil extraction and fuel supply: coal, crude oil, natural gas, refined petroleum products, and gas and steam distribution (codes 34–36, 67–69, and 107–108). |
+| 3 | Renewable energy | No direct standalone subsector in the Input-Output table provided by GSO. They are estimated by allocating part of the aggregated electricity and utilities activity, mainly code 106, to renewable energy using EXIOBASE input–output coefficients. |
+| 4 | Secondary | Industry and production block: non-energy mining, manufacturing, water and waste utilities, and construction (codes 37–40, 41–66, 70–105, and 109–118). |
+| 5 | Tertiary | Services block: trade, transport, ICT, finance, real estate, professional services, public administration, education, health, and other services (codes 119–171). |
 
-<span id="_Toc236913084" class="anchor"></span>Table 2: Sectoral classification.
+Table 2: Sectoral classification.
 
 Source: Own depiction.
 
-Following the detailed sectoral representation used within the model, results are also reported for a more aggregated sector classification in which the fossil and renewable energy sectors are combined into a single energy sector. This produces the four-sector reporting structureâ€”Primary, Energy, Secondary, and Tertiaryâ€”that is used throughout the presentation of simulation results. Capital and labour are mobile across sectors in response to changes in relative prices, while the energy sectors supply intermediate inputs to the non-energy production sectors.
+Following the detailed sectoral representation used within the model, results are also reported for a more aggregated sector classification in which the fossil and renewable energy sectors are combined into a single energy sector. This produces the four-sector reporting structure—Primary, Energy, Secondary, and Tertiary—that is used throughout the presentation of simulation results. Capital and labour are mobile across sectors in response to changes in relative prices, while the energy sectors supply intermediate inputs to the non-energy production sectors.
 
 ## Representative Household
 
@@ -540,7 +537,7 @@ A representative wholesaler in each subsector combines domestic and imported int
 
 <figure>
 <img src="media/technical/media/image6.jpg" style="width:5.91611in;height:3.48958in" />
-<figcaption><p><span id="_Toc236913048" class="anchor"></span>Figure 2: Input-Output production structure across sectors.</p></figcaption>
+<figcaption><p>Figure 2: Input-Output production structure across sectors.</p></figcaption>
 </figure>
 
 ## Government and the Emissions Trading System
@@ -555,28 +552,28 @@ Under the ETS, firms hold allowances for covered emissions; the carbon price $`P
 
 ## Key model features to analyze Energy Transitions
 
-While DGE-METRIC builds upon the standard dynamic general equilibrium framework, it incorporates several extensions that enable the analysis of long-term energy transition policies. These extensions adapt the core model to the specific characteristics of Vietnam's energy sector and climate policy objectives while preserving the internal consistency and behavioural foundations of a dynamic general equilibrium model. [Table 3](#_Ref236050899) summarises the principal extensions incorporated into DGE-METRIC.
+While DGE-METRIC builds upon the standard dynamic general equilibrium framework, it incorporates several extensions that enable the analysis of long-term energy transition policies. These extensions adapt the core model to the specific characteristics of Vietnam's energy sector and climate policy objectives while preserving the internal consistency and behavioural foundations of a dynamic general equilibrium model. Table 3 summarises the principal extensions incorporated into DGE-METRIC.
 
 | Feature | Intuitive role in the model | Key variables |
 |:---|:---|:---|
-| Inputâ€“output structure and energy demand | Links sectors through supply chains and connects production to energy use. Each sector purchases intermediate inputs from other sectors, including market-based energy services. Higher production therefore raises demand for both non-energy inputs and energy supplied by the energy sector. | $`Q_{s,k}^{I}`$*: intermediate input from sector k used by sector s. including* market-based energy inputs. |
-| Emission coefficients | The model converts energy consumption into greenhouse-gas emissions using emission factors. Sectors with higher carbon intensity generate more COâ‚‚ emissions for the same amount of fossil-energy consumption. | $`\kappa_{s}^{E}`$: emission intensity of sector s |
+| Input–output structure and energy demand | Links sectors through supply chains and connects production to energy use. Each sector purchases intermediate inputs from other sectors, including market-based energy services. Higher production therefore raises demand for both non-energy inputs and energy supplied by the energy sector. | $`Q_{s,k}^{I}`$*: intermediate input from sector k used by sector s. including* market-based energy inputs. |
+| Emission coefficients | The model converts energy consumption into greenhouse-gas emissions using emission factors. Sectors with higher carbon intensity generate more CO₂ emissions for the same amount of fossil-energy consumption. | $`\kappa_{s}^{E}`$: emission intensity of sector s |
 | Emissions trading system | Imposes a cap on covered emissions and generates an endogenous permit price. Firms respond by reducing emissions, improving efficiency or purchasing allowances. | $`E^{ETS}`$*: emissions cap;* $`P^{E}`$*: permit price;* $`\xi s`$: ETS coverage rate |
 | Energy-efficiency improvements | Reduce the amount of market-based energy required to produce one unit of output, thereby lowering energy intensity and production costs. | $`\epsilon_{s,Energy,t}^{AI}`$: exogenous energy-efficiency path |
 | Rooftop solar | Represents behind-the-meter photovoltaic generation that directly supplies firms or households and reduces their demand for market-based energy services. Rooftop solar is modelled separately from the renewable capital stock used by the energy sector to produce electricity for the market. | $`Q_{PV}`$: rooftop-solar energy supplied directly to users; $`\epsilon^{PVeff}1`$*: photovoltaic-efficiency path;* $`\epsilon^{GA}s`$: rooftop-solar deployment or availability path capturing expenditures. |
 | Green-finance channels | Transmit financing conditions to energy investment. Lower financing rates or capital-goods prices reduce the effective cost of renewable-energy investment. | $`\epsilon_{s}^{r_{G}}`$*domestic public finance rate;* $`\epsilon_{s}^{r_{G}}`$ *foreign-finance rate* |
 
-<span id="_Ref236050899" class="anchor"></span>Table 3: Model Extensions.
+Table 3: Model Extensions.
 
 Source: Own depiction.
 
 ## External sector
 
-Vietnam is modelled as a small open economy that trades goods and financial assets with the rest of the world. The external sector determines exports, imports, foreign borrowing, and the accumulation of net foreign assets. Through these channels, domestic consumption and investment decisions are linked to international goods and capital markets, while foreign output, prices, and interest rates can be treated as exogenous to the domestic economy (Adolfson et al. 2007; Bacchetta and Van Wincoop 2021; Schmitt-GrohÃ© and Uribe 2003).
+Vietnam is modelled as a small open economy that trades goods and financial assets with the rest of the world. The external sector determines exports, imports, foreign borrowing, and the accumulation of net foreign assets. Through these channels, domestic consumption and investment decisions are linked to international goods and capital markets, while foreign output, prices, and interest rates can be treated as exogenous to the domestic economy (Adolfson et al. 2007; Bacchetta and Van Wincoop 2021; Schmitt-Grohé and Uribe 2003).
 
-In representative-agent small-open-economy models with incomplete financial markets, the foreign-asset position is generally not stationary without an additional closure mechanism. A debt-elastic interest-rate or external-finance premium is a standard method of inducing stationarity by making the cost of foreign borrowing increase with the economyâ€™s external indebtedness. Exponential specifications of the premium as a function of the net foreign asset position are used, for example, by Adolfson et al. 2007.
+In representative-agent small-open-economy models with incomplete financial markets, the foreign-asset position is generally not stationary without an additional closure mechanism. A debt-elastic interest-rate or external-finance premium is a standard method of inducing stationarity by making the cost of foreign borrowing increase with the economy’s external indebtedness. Exponential specifications of the premium as a function of the net foreign asset position are used, for example, by Adolfson et al. 2007.
 
-Net foreign assets evolve according to the economyâ€™s balance-of-payments constraint. More precisely, the change in net foreign assets is linked to the current-account balance, which includes the trade balance as well as net investment income and, where relevant, transfers. This relationship is standard in small-open-economy models.
+Net foreign assets evolve according to the economy’s balance-of-payments constraint. More precisely, the change in net foreign assets is linked to the current-account balance, which includes the trade balance as well as net investment income and, where relevant, transfers. This relationship is standard in small-open-economy models.
 
 In the present model, the debt-elastic external-finance factor is specified as
 
@@ -584,12 +581,12 @@ In the present model, the debt-elastic external-finance factor is specified as
 \exp\left\lbrack - \phi^{B}\left( \frac{B_{t + 1}^{TOTAL} - \ \left( 1 - \delta^{B} \right)B_{t}^{TOTAL}}{Y_{t}} \right) \right\rbrack,\ where\ B_{t + 1}^{TOTAL}\  - \left( 1 - \delta^{B} \right)B_{t}^{TOTAL}\ 
 ```
 
-measures the change in the economyâ€™s total external position after accounting for the depreciation or repayment rate $`\left( \delta^{B} \right)`$. Scaling this term by gross value added, $`\left( Y_{t} \right)`$, expresses the external-position adjustment relative to the size of the economy. The parameter $`\left( \phi^{B} \right)`$ governs the sensitivity of the external finance premium to this adjustment. The associated quadratic adjustment cost is given by:\
+measures the change in the economy’s total external position after accounting for the depreciation or repayment rate $`\left( \delta^{B} \right)`$. Scaling this term by gross value added, $`\left( Y_{t} \right)`$, expresses the external-position adjustment relative to the size of the economy. The parameter $`\left( \phi^{B} \right)`$ governs the sensitivity of the external finance premium to this adjustment. The associated quadratic adjustment cost is given by:\
 ``` math
 \frac{\phi_{adjB}}{2}\left( \frac{B_{t} - B_{t - 1}}{Y_{t}} \right)^{2},
 ```
 
-where $`\left( \phi_{adjB} > 0 \right)`$ determines the cost associated with changes in the net foreign asset position. This term discourages abrupt movements in foreign asset holdings and contributes to the stability of the modelâ€™s external dynamics.
+where $`\left( \phi_{adjB} > 0 \right)`$ determines the cost associated with changes in the net foreign asset position. This term discourages abrupt movements in foreign asset holdings and contributes to the stability of the model’s external dynamics.
 
 The modeler may use the exchange-rate depreciation rate $`\left( s_{r,t} \right)`$ to determine the path of the net-exports-to-GDP ratio by setting $`\left( \epsilon_{t}^{NX} = 1 \right)`$. Under this specification, $`s_{r,t}`$ adjusts endogenously to satisfy the external-balance condition. Otherwise $`\left( \epsilon_{t}^{NX} \neq 1 \right)`$, the variable instead follows an autoregressive process of order one.
 
@@ -597,7 +594,7 @@ The modeler may use the exchange-rate depreciation rate $`\left( s_{r,t} \right)
 
 The credibility of a computable general equilibrium model depends critically on the consistency between its theoretical structure and the empirical data used for calibration. DGE-METRIC combines national accounts, energy statistics, emissions inventories, international datasets, and project-specific assumptions to construct a representation of Vietnam's economy that serves as the reference point for all policy simulations. Calibration therefore serves two complementary purposes: it ensures consistency with observed economic data and provides the benchmark from which all scenario analyses are conducted (Dawkins, Srinivasan, and Whalley 2001; Shoven and Whalley 1992).
 
-The model is calibrated to Vietnam's **2019 input-output structure** (General Statistics Office of Vietnam 2019), representing the latest comprehensive benchmark prior to the economic disruptions associated with the COVID-19 pandemic, and uses a **2026 baseline** as the starting point for forward-looking simulations over the period 2026â€“2050.
+The model is calibrated to Vietnam's **2019 input-output structure** (General Statistics Office of Vietnam 2019), representing the latest comprehensive benchmark prior to the economic disruptions associated with the COVID-19 pandemic, and uses a **2026 baseline** as the starting point for forward-looking simulations over the period 2026–2050.
 
 ## Data sources
 
@@ -607,26 +604,26 @@ Full variable-to-source mapping is documented in docs/reference/data_sources.md;
 
 | Category | Primary source | Used for |
 |:---|:---|:---|
-| Macroeconomic structure | GSO (Vietnam), OECD | Inputâ€“output table, sectoral value-added and employment shares |
+| Macroeconomic structure | GSO (Vietnam), OECD | Input–output table, sectoral value-added and employment shares |
 | Energy production and capacity | EVN, IEA WEO | Baseline energy calibration and capacity targets |
 | Energy investment costs | Government of Viet Nam and Department of Energy 2024 | CAPEX pathways and LCOE assumptions |
 | Emissions | EDGAR, IEA | Baseline emissions levels and emission intensity |
 | Trade and capital flows | World Bank, OECD | Import and export shares and foreign direct investment flows |
-| Environmentally extended inputâ€“output data | EXIOBASE 3 | Cross-check of embodied-emissions and energy coefficients |
+| Environmentally extended input–output data | EXIOBASE 3 | Cross-check of embodied-emissions and energy coefficients |
 | Climate variables | CMIP6 and SSP scenarios | Climate-damage pathways represented as temperature shocks |
 | Financial parameters | IWH Financial Assessment (2026), GIZ Green Finance workbook | Financing rates and WACC scenarios |
 
-<span id="_Toc236913086" class="anchor"></span>Table 4: Data Sources.
+Table 4: Data Sources.
 
 Source: Own depiction.
 
 ## Calibration
 
-The repository includes a reproducible cross-check generated by scripts/reporting/generate_gdp_components_start_end_vs_actual.m, which compares the modelâ€™s expenditure-side GDP component shares at the baseline start and end years against actual 2019 Vietnam national-accounts shares.
+The repository includes a reproducible cross-check generated by scripts/reporting/generate_gdp_components_start_end_vs_actual.m, which compares the model’s expenditure-side GDP component shares at the baseline start and end years against actual 2019 Vietnam national-accounts shares.
 
 <img src="media/technical/media/image8.svg" style="width:5.16929in;height:3.13689in" />
 
-<span id="_Toc236913049" class="anchor"></span>Figure 3: Expenditure-side GDP components: actual 2019 vs simulated baseline start and end.
+Figure 3: Expenditure-side GDP components: actual 2019 vs simulated baseline start and end.
 
 Note: The chart stacks seven components as shares of GDP: private consumption, government consumption, private investment, housing investment, solar/PV investment, government investment, and net exports. In the Actual 2019 bar, government investment and solar/PV investment are proxy estimates documented in the script header; housing investment is taken directly from the NSO IO table.
 
@@ -634,17 +631,17 @@ Source: General Statistical Office of Viet Nam.
 
 The calibration combines observed economic data with structural assumptions and model-consistent parameter estimation (Dawkins, Srinivasan, and Whalley 2001; Dixon and Rimmer 2013). Four categories of information enter the calibration process:
 
-1.  Observed baseline data, including sectoral production, employment, trade flows, and expenditure shares obtained from official statistics â€” read directly from workbook sheets.
+1.  Observed baseline data, including sectoral production, employment, trade flows, and expenditure shares obtained from official statistics — read directly from workbook sheets.
 
-2.  Structural parameters, such as discount factors, depreciation rates, substitution elasticities, and tax rates, derived from the literature or project assumption â€” read from the `Structural Parameters` sheet or left at code defaults.
+2.  Structural parameters, such as discount factors, depreciation rates, substitution elasticities, and tax rates, derived from the literature or project assumption — read from the `Structural Parameters` sheet or left at code defaults.
 
-3.  Initial macroeconomic conditions, defining the baseline economy at the beginning of the simulation period â€” read from `Start` when available.
+3.  Initial macroeconomic conditions, defining the baseline economy at the beginning of the simulation period — read from `Start` when available.
 
 4.  **Residual calibration parameters**, including productivity levels, CES share parameters, labour-disutility parameters, and emission coefficients, which are determined endogenously to ensure that the model exactly reproduces the observed benchmark equilibrium.
 
 This combination allows the model to remain closely aligned with observed economic data while preserving internal consistency between the theoretical structure and the empirical calibration.
 
-<span id="_Ref236402945" class="anchor"></span>The 5-sector, 1-region model is driven by three workbooks as reported in [Table 5](#_Ref236402945). The model is calibrated in three stages. First, when `lCalibration_p = 1`, the baseline steady state is constructed and the remaining parameters are solved using `fsolve `(Judd 1998; The MathWorks, Inc. 2026). Second, when `lCalibration_p = 0`, the full steady state is recalculated while holding the calibrated parameters fixed. Third, non-baseline scenarios are run in a hybrid mode with `lCalibration_p = 2`, which takes the calibrated baseline as given and applies the relevant scenario shocks. See docs/reference/calibration.md for the step-by-step MATLAB call sequence.
+The 5-sector, 1-region model is driven by three workbooks as reported in Table 5. The model is calibrated in three stages. First, when `lCalibration_p = 1`, the baseline steady state is constructed and the remaining parameters are solved using `fsolve `(Judd 1998; The MathWorks, Inc. 2026). Second, when `lCalibration_p = 0`, the full steady state is recalculated while holding the calibrated parameters fixed. Third, non-baseline scenarios are run in a hybrid mode with `lCalibration_p = 2`, which takes the calibrated baseline as given and applies the relevant scenario shocks. See docs/reference/calibration.md for the step-by-step MATLAB call sequence.
 
 | Workbook | Main purpose | Key contents and workflow |
 |:---|:---|:---|
@@ -652,7 +649,7 @@ This combination allows the model to remain closely aligned with observed econom
 | ModelBaseline5Sectorsand1Regions | Baseline construction | Contains the runnable Baseline sheet plus its supporting baseline-construction sheets; scripts/maintenance/update_baseline_sheet.m refreshes Baseline. |
 | ModelScenarios5Sectorsand1Regions | Scenario definition | Holds the scenario-specific sheets, exogenous shock paths, and assumptions that \`RunSimulations.m\` and \`simulation_model_refactored.m\` use during transition runs. |
 
-<span id="_Toc236913087" class="anchor"></span>Table 5: Core Excel workbooks of the five-sector, one-region model.
+Table 5: Core Excel workbooks of the five-sector, one-region model.
 
 Source: Own exhibition.
 
@@ -666,11 +663,11 @@ Accordingly, all simulation results presented in this report are based on the pa
 
 To ensure that the calibrated model provides a reliable basis for scenario analysis, the baseline solution is evaluated using a comprehensive set of diagnostic indicators. These diagnostics assess whether the calibrated economy reproduces both the intended macroeconomic benchmark and the planned evolution of Vietnam's energy sector under the baseline assumptions. Rather than serving as policy results, the figures presented in this section constitute an integral part of the model validation process.
 
-The validation focuses on three complementary aspects. First, long-term development paths for key energy-sector variablesâ€”including renewable capital, renewable electricity generation, energy efficiency, and the renewable share of electricity productionâ€”are examined to verify that the simulated baseline follows the intended transition trajectory over the period 2026â€“2050. Second, annual comparisons between simulated outcomes and PDP8 targets assess whether the model reproduces the planned development of renewable and fossil generation capacity as well as annual investment requirements. Third, end-of-period comparisons evaluate whether cumulative investment volumes and installed capacities remain consistent with the planning assumptions that underpin the baseline calibration.
+The validation focuses on three complementary aspects. First, long-term development paths for key energy-sector variables—including renewable capital, renewable electricity generation, energy efficiency, and the renewable share of electricity production—are examined to verify that the simulated baseline follows the intended transition trajectory over the period 2026–2050. Second, annual comparisons between simulated outcomes and PDP8 targets assess whether the model reproduces the planned development of renewable and fossil generation capacity as well as annual investment requirements. Third, end-of-period comparisons evaluate whether cumulative investment volumes and installed capacities remain consistent with the planning assumptions that underpin the baseline calibration.
 
 The resulting figures therefore provide a transparent quality-assurance framework for the calibration. Consistent agreement between simulated trajectories and the underlying planning assumptions demonstrates that the model successfully reproduces both the empirical structure of the benchmark economy and the intended energy transition pathway before any policy scenarios are introduced.
 
-This section documents how to check results after running the Baseline scenario â€” i.e., how to confirm the calibrated baseline reproduces the intended PDP8 trajectory before any policy scenario is run on top of it. The baseline reporting script scripts/reporting/display_baseline_energy.m writes its figures to the repository-level Figures/ directory (not docs/figures/). The script uses `outDir = fullfile(repoRoot, 'Figures')` and exports both raster and vector versions (`.png` at 300 dpi and `.pdf` vector).
+This section documents how to check results after running the Baseline scenario — i.e., how to confirm the calibrated baseline reproduces the intended PDP8 trajectory before any policy scenario is run on top of it. The baseline reporting script scripts/reporting/display_baseline_energy.m writes its figures to the repository-level Figures/ directory (not docs/figures/). The script uses `outDir = fullfile(repoRoot, 'Figures')` and exports both raster and vector versions (`.png` at 300 dpi and `.pdf` vector).
 
 These plots provide an operational bridge between the workbook targets and the calibrated baseline path:
 
@@ -678,13 +675,13 @@ These plots provide an operational bridge between the workbook targets and the c
 2.  **Annual target alignment checks** (`ren_cap_annual`, `fos_cap_annual`, `ren_inv_annual`, `fos_inv_annual`, plus dashboard `baseline_pdp8_annual_comparison`) compare simulation series to PDP8/Baseline target paths year by year.
 3.  **Period/end-year consistency checks** (`ren_inv_bar`, `fos_inv_bar`, `ren_cap_bar`, `fos_cap_bar`, plus dashboard `baseline_pdp8_period_comparison`) verify that five-year investment shares and end-year capacity levels match the planning aggregates used in calibration discussions.
 
-In practice, Section 4â€™s data provenance and calibration claims should be read alongside these files in `Figures/`, because they are the fastest visual quality assurance artifacts for checking whether the solved baseline reproduces the workbookâ€™s energy transition intent.
+In practice, Section 4’s data provenance and calibration claims should be read alongside these files in `Figures/`, because they are the fastest visual quality assurance artifacts for checking whether the solved baseline reproduces the workbook’s energy transition intent.
 
 Bar-plot previews used in this section (rendered from `Figures/`):
 
 <figure>
 <img src="media/technical/media/image9.png" style="width:4.49213in;height:3.03198in" />
-<figcaption><p><span id="_Toc236913050" class="anchor"></span>Figure 4: Baseline simulation vs PDP8 target for renewable installed capacity (end-year levels).</p></figcaption>
+<figcaption><p>Figure 4: Baseline simulation vs PDP8 target for renewable installed capacity (end-year levels).</p></figcaption>
 </figure>
 
 Note: Bars compare the model-implied renewables installed capacity index to PDP8 index values at the end of each reporting period (2025 = 100).
@@ -693,7 +690,7 @@ Source: Author calculations based on baseline simulation output and revised PDP8
 
 <figure>
 <img src="media/technical/media/image10.png" style="width:4.43307in;height:3.0312in" />
-<figcaption><p><span id="_Toc236913051" class="anchor"></span>Figure 5: Baseline simulation vs PDP8 target for fossil installed capacity (end-year levels).</p></figcaption>
+<figcaption><p>Figure 5: Baseline simulation vs PDP8 target for fossil installed capacity (end-year levels).</p></figcaption>
 </figure>
 
 Note: Bars compare the model-implied capacity index to PDP8 index values at the end of each reporting period (2025 = 100).
@@ -702,7 +699,7 @@ Source: Author calculations based on baseline simulation output and revised PDP8
 
 <figure>
 <img src="media/technical/media/image11.png" style="width:4.26378in;height:3.04527in" />
-<figcaption><p><span id="_Toc236913052" class="anchor"></span>Figure 6: Baseline simulation vs PDP8 target for renewable investment share.</p></figcaption>
+<figcaption><p>Figure 6: Baseline simulation vs PDP8 target for renewable investment share.</p></figcaption>
 </figure>
 
 Note: Bars report renewable investment as a share of GDP aggregated over a five-year period, comparing simulation outcomes to the baseline workbook target path.
@@ -711,7 +708,7 @@ Source: Author calculations based on baseline simulation output and baseline tar
 
 <figure>
 <img src="media/technical/media/image12.png" style="width:4.35039in;height:3.04589in" />
-<figcaption><p><span id="_Toc236913053" class="anchor"></span>Figure 7: Baseline simulation vs PDP8 target for fossil investment share.</p></figcaption>
+<figcaption><p>Figure 7: Baseline simulation vs PDP8 target for fossil investment share.</p></figcaption>
 </figure>
 
 Note: Bars report fossil investment as a share of GDP aggregated over a five-year period, comparing simulation outcomes to the baseline workbook target path.
@@ -730,7 +727,7 @@ The scenario analysis is organised as a **nested counterfactual framework** that
 
 <figure>
 <img src="media/technical/media/image13.png" style="width:6.70069in;height:3.67432in" />
-<figcaption><p><span id="_Toc236913054" class="anchor"></span>Figure 8: Hierarchical organisation of the DGE-METRIC scenario framework.</p></figcaption>
+<figcaption><p>Figure 8: Hierarchical organisation of the DGE-METRIC scenario framework.</p></figcaption>
 </figure>
 
 The analysis begins with a policy-consistent baseline (PDP8), then either (a) impose a binding Net-Zero emissions cap, (b) add demand-side energy efficiency shocks, or (c) modify the cost of capital for transition investment. Every scenario shares the identical calibration and is solved as a deterministic transition path from the same initial steady state, so differences are attributable solely to the shock paths applied.
@@ -763,81 +760,81 @@ RTS at pre-revision 95 GW is a downside counterfactual in which rooftop-solar de
 
 Where applicable, additional **NoBESS** variants isolate the contribution of battery storage by comparing otherwise identical distributed photovoltaic systems with and without storage capacity. These comparisons quantify the incremental economic value of storage technologies within the broader energy transition.
 
-Any near-zero standalone contribution of battery storage to aggregate GDP should not be read as evidence that storage has little value: DGE-METRIC's annual resolution has no hourly dispatch, so the channels through which storage actually creates value â€” curtailment avoidance, peak shaving, reduced fossil back-up capacity â€” are outside what this model can price by design (see Section 7, â€˜Recognise the modelâ€™s scopeâ€™).
+Any near-zero standalone contribution of battery storage to aggregate GDP should not be read as evidence that storage has little value: DGE-METRIC's annual resolution has no hourly dispatch, so the channels through which storage actually creates value — curtailment avoidance, peak shaving, reduced fossil back-up capacity — are outside what this model can price by design (see Section 7, ‘Recognise the model’s scope’).
 
 Comparisons across these scenarios therefore quantify the incremental macroeconomic benefits associated with stronger improvements in energy efficiency and distributed renewable technologies. The resulting differences in economic growth, investment requirements, electricity demand, emissions, and household welfare provide an integrated assessment of the extent to which demand-side measures can reduce the overall cost of Vietnam's energy transition.
 
 | Scenario | Policy interpretation | What it shocks vs. Baseline | Key modelling constraint |
 |:---|:---|:---|:---|
-| **Directive 10 (full)** | Directive 10 ambition: stronger industry/services efficiency + expanded self-consumption rooftop solar (RTS) + PVâ€“battery (BESS) integration | Sector energy-productivity gains (â‰ˆ7.4% industry, â‰ˆ5.1% services by 2030); rooftop-PV expansion to the revised â‰ˆ135 GW; grid BESS investment (â‰ˆUSD 0.8 bn/yr) | Emissions held to the Baseline ETS cap; BESS/RTS deployment and cost paths are assumed, not optimised |
+| **Directive 10 (full)** | Directive 10 ambition: stronger industry/services efficiency + expanded self-consumption rooftop solar (RTS) + PV–battery (BESS) integration | Sector energy-productivity gains (≈7.4% industry, ≈5.1% services by 2030); rooftop-PV expansion to the revised ≈135 GW; grid BESS investment (≈USD 0.8 bn/yr) | Emissions held to the Baseline ETS cap; BESS/RTS deployment and cost paths are assumed, not optimised |
 | **Directive 10 (no BESS)** | Same package, storage-specific contribution removed | As Directive 10 (full), but grid BESS reset to Baseline | Isolates the macro contribution of BESS |
-| **RTS at pre-revision 95 GW** | Rooftop solar under-delivers â€” reaches only the pre-revision â‰ˆ95 GW instead of the â‰ˆ135 GW now in the Baseline | Rooftop-PV capacity and its efficiency/investment channels rewound to the 95 GW path; no retrofit EE, no BESS | Downside counterfactual: quantifies the RTS contribution by removing it |
+| **RTS at pre-revision 95 GW** | Rooftop solar under-delivers — reaches only the pre-revision ≈95 GW instead of the ≈135 GW now in the Baseline | Rooftop-PV capacity and its efficiency/investment channels rewound to the 95 GW path; no retrofit EE, no BESS | Downside counterfactual: quantifies the RTS contribution by removing it |
 
 Table 6: Energy Efficiency scenario assumptions.
 
-Note: RTS = rooftop solar; BESS = battery energy storage system; ETS = emissions trading scheme. All three scenarios are built on top of the Baseline and isolate the contribution of specific policy levers described in Directive 10: Directive 10 (full) applies the complete package of industrial/services efficiency gains and expanded RTS+BESS deployment; Directive 10 (no BESS) removes only the storage-specific contribution to isolate BESS's macro impact; and RTS at pre-revision 95 GW tests a downside counterfactual in which rooftop-PV capacity underperforms and reverts to the pre-revision â‰ˆ95 GW target instead of the â‰ˆ135 GW assumed in the Baseline. Sector energy-productivity gains and BESS investment costs are model inputs (not optimised outcomes), and emissions in all scenarios are capped at Baseline ETS levels. See ExcelFiles/ModelScenarios5Sectorsand1Regions.xlsx (EE sheets) for the underlying scenario assumptions, and Functions/README_AdditionalShocks.md for the shock-struct schema.
+Note: RTS = rooftop solar; BESS = battery energy storage system; ETS = emissions trading scheme. All three scenarios are built on top of the Baseline and isolate the contribution of specific policy levers described in Directive 10: Directive 10 (full) applies the complete package of industrial/services efficiency gains and expanded RTS+BESS deployment; Directive 10 (no BESS) removes only the storage-specific contribution to isolate BESS's macro impact; and RTS at pre-revision 95 GW tests a downside counterfactual in which rooftop-PV capacity underperforms and reverts to the pre-revision ≈95 GW target instead of the ≈135 GW assumed in the Baseline. Sector energy-productivity gains and BESS investment costs are model inputs (not optimised outcomes), and emissions in all scenarios are capped at Baseline ETS levels. See ExcelFiles/ModelScenarios5Sectorsand1Regions.xlsx (EE sheets) for the underlying scenario assumptions, and Functions/README_AdditionalShocks.md for the shock-struct schema.
 
 Source: Adapted from the IWH Report on Macroeconomic Impact Assessment (2026), Table 2; the assumptions are harmonised with those used there.
 
-The script `scripts/reporting/``generate_ee_simulation_results_figures.m` exports scenario-comparison figures to `docs/figures/EE_Simulation_Results/`. This subsection reports only deviation-versus-Baseline diagnostics ([Figure 9](#_Ref236050361) - [Figure 15](#_Ref236051267)).
+The script `scripts/reporting/``generate_ee_simulation_results_figures.m` exports scenario-comparison figures to `docs/figures/EE_Simulation_Results/`. This subsection reports only deviation-versus-Baseline diagnostics (Figure 9 - Figure 15).
 
 <figure>
 <img src="media/technical/media/image14.png" style="width:5.83333in;height:3.27904in" />
-<figcaption><p><span id="_Ref236050361" class="anchor"></span>Figure 9: Energy-intensity deviation of EE scenarios from the Baseline.</p></figcaption>
+<figcaption><p>Figure 9: Energy-intensity deviation of EE scenarios from the Baseline.</p></figcaption>
 </figure>
 
-Note: Values are index-point deviations from the Baseline energy-intensity index (base year 2026). Negative values indicate improved energy efficiency relative to Baseline. Energy-intensity gains are nearly identical for the two Directive 10 variants (about â€“1.5 to â€“3.3 index points), confirming that BESS contributes little to the efficiency channel; the RTS shortfall moves in the opposite direction, becoming more energy-intensive over time as capacity remains capped at the pre-revision 95 GW target.
+Note: Values are index-point deviations from the Baseline energy-intensity index (base year 2026). Negative values indicate improved energy efficiency relative to Baseline. Energy-intensity gains are nearly identical for the two Directive 10 variants (about –1.5 to –3.3 index points), confirming that BESS contributes little to the efficiency channel; the RTS shortfall moves in the opposite direction, becoming more energy-intensive over time as capacity remains capped at the pre-revision 95 GW target.
 
 Source: Generated by `scripts/reporting/``generate_ee_simulation_results_figures.m` from scenario output CSV files in `ExcelFiles/Output/`.
 
 <figure>
 <img src="media/technical/media/image15.png" style="width:5.83333in;height:3.20974in" />
-<figcaption><p><span id="_Toc236913056" class="anchor"></span>Figure 10: Government consumption share deviation versus Baseline.</p></figcaption>
+<figcaption><p>Figure 10: Government consumption share deviation versus Baseline.</p></figcaption>
 </figure>
 
-Note: Bars report five-year averages of the deviation in the government consumption share of GDP relative to Baseline, measured in percentage points of GDP (`pp of GDP`). The figure highlights persistent differences in the composition of fiscal demand. Government consumption's GDP share falls modestly under both Directive 10 variants and rises under the RTS shortfall â€” a mechanical consequence of GDP itself moving in opposite directions across the two cases, not a discretionary fiscal response.
+Note: Bars report five-year averages of the deviation in the government consumption share of GDP relative to Baseline, measured in percentage points of GDP (`pp of GDP`). The figure highlights persistent differences in the composition of fiscal demand. Government consumption's GDP share falls modestly under both Directive 10 variants and rises under the RTS shortfall — a mechanical consequence of GDP itself moving in opposite directions across the two cases, not a discretionary fiscal response.
 
 Source: Generated by `scripts/reporting/``generate_ee_simulation_results_figures.m` from scenario output CSV files in `ExcelFiles/Output/`.
 
 <figure>
 <img src="media/technical/media/image16.png" style="width:5.83333in;height:3.20974in" />
-<figcaption><p><span id="_Toc236913057" class="anchor"></span>Figure 11: Housing investment share deviation versus Baseline.</p></figcaption>
+<figcaption><p>Figure 11: Housing investment share deviation versus Baseline.</p></figcaption>
 </figure>
 
-Note: Bars report five-year averages of the deviation in the housing investment share of GDP relative to Baseline, measured in percentage points of GDP. The figure highlights medium-term allocation differences. Housing-investment deviations stay within about Â±0.2 pp of GDP with no consistent direction across periods, consistent with this channel being a second-order consequence of the EE and RTS shocks rather than a direct target of either policy.
+Note: Bars report five-year averages of the deviation in the housing investment share of GDP relative to Baseline, measured in percentage points of GDP. The figure highlights medium-term allocation differences. Housing-investment deviations stay within about ±0.2 pp of GDP with no consistent direction across periods, consistent with this channel being a second-order consequence of the EE and RTS shocks rather than a direct target of either policy.
 
 Source: Generated by `scripts/reporting/``generate_ee_simulation_results_figures.m` from scenario output CSV files in `ExcelFiles/Output/`.
 
 <figure>
 <img src="media/technical/media/image17.png" style="width:5.83333in;height:3.23735in" />
-<figcaption><p><span id="_Toc236913058" class="anchor"></span>Figure 12: Net exports share deviation versus Baseline.</p></figcaption>
+<figcaption><p>Figure 12: Net exports share deviation versus Baseline.</p></figcaption>
 </figure>
 
-Note: Bars report five-year averages of the deviation in net-exports-share of GDP relative to Baseline, measured in percentage points of GDP, summarizing sustained external-balance differences under each EE scenario. Net exports improve under both Directive 10 variants â€” most strongly in 2031â€“2035 â€” as lower energy demand eases pressure on imports, while the RTS shortfall worsens the trade balance over the same period as reliance on grid electricity increases.
+Note: Bars report five-year averages of the deviation in net-exports-share of GDP relative to Baseline, measured in percentage points of GDP, summarizing sustained external-balance differences under each EE scenario. Net exports improve under both Directive 10 variants — most strongly in 2031–2035 — as lower energy demand eases pressure on imports, while the RTS shortfall worsens the trade balance over the same period as reliance on grid electricity increases.
 
 Source: Generated by `scripts/reporting/``generate_ee_simulation_results_figures.m` from scenario output CSV files in `ExcelFiles/Output/`.
 
 <figure>
 <img src="media/technical/media/image18.png" style="width:5.83333in;height:3.23735in" />
-<figcaption><p><span id="_Toc236913059" class="anchor"></span>Figure 13: GDP level deviation versus Baseline across EE scenarios.</p></figcaption>
+<figcaption><p>Figure 13: GDP level deviation versus Baseline across EE scenarios.</p></figcaption>
 </figure>
 
-Note: Bars report five-year averages of the deviation in GDP-level (percent) from Baseline, highlighting medium-run macro effects of each EE pathway. This is the headline comparison for the EE analysis: the two Directive 10 variants track closely together throughout 2026â€“2050, confirming BESS is immaterial to the aggregate result, while the RTS shortfall turns negative from 2031â€“2035 onward and approaches â€“1% of GDP by 2041â€“2045.
+Note: Bars report five-year averages of the deviation in GDP-level (percent) from Baseline, highlighting medium-run macro effects of each EE pathway. This is the headline comparison for the EE analysis: the two Directive 10 variants track closely together throughout 2026–2050, confirming BESS is immaterial to the aggregate result, while the RTS shortfall turns negative from 2031–2035 onward and approaches –1% of GDP by 2041–2045.
 
 Source: Generated by `scripts/reporting/``generate_ee_simulation_results_figures.m` from scenario output CSV files in `ExcelFiles/Output/`.
 
 <figure>
 <img src="media/technical/media/image19.png" style="width:5.83333in;height:3.20974in" />
-<figcaption><p><span id="_Toc236913060" class="anchor"></span>Figure 14: Consumption share deviation versus Baseline across EE scenarios.</p></figcaption>
+<figcaption><p>Figure 14: Consumption share deviation versus Baseline across EE scenarios.</p></figcaption>
 </figure>
 
-Note: Bars report five-year averages of the deviation in consumption share of GDP relative to Baseline (`pp of GDP`), allowing direct comparison of household-demand reallocation under alternative EE scenarios. Consumption's GDP share dips under both Directive 10 variants in the first two periods as investment is front-loaded, then turns positive from 2036â€“2040 onward as the growth dividend materialises â€” the reversal underlying the report's â€˜small near-term trade-off, offset by long-term growthâ€™ finding.
+Note: Bars report five-year averages of the deviation in consumption share of GDP relative to Baseline (`pp of GDP`), allowing direct comparison of household-demand reallocation under alternative EE scenarios. Consumption's GDP share dips under both Directive 10 variants in the first two periods as investment is front-loaded, then turns positive from 2036–2040 onward as the growth dividend materialises — the reversal underlying the report's ‘small near-term trade-off, offset by long-term growth’ finding.
 
 Source: Generated by `scripts/reporting/``generate_ee_simulation_results_figures.m` from scenario output CSV files in `ExcelFiles/Output/`.
 
 <figure>
 <img src="media/technical/media/image20.png" style="width:5.83333in;height:3.23735in" />
-<figcaption><p><span id="_Ref236051267" class="anchor"></span>Figure 15: Investment share deviation versus Baseline across EE scenarios.</p></figcaption>
+<figcaption><p>Figure 15: Investment share deviation versus Baseline across EE scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report five-year averages of the deviation in investment share of GDP relative to Baseline (`pp of GDP`) and summarize the medium-term capital-allocation response in each EE pathway. Investment-share deviations mirror Figure 14: strongly negative for both Directive 10 variants in the first decade as efficiency and rooftop-PV investment is front-loaded, and positive for the RTS shortfall as the economy substitutes other capital formation for the missing rooftop-PV capacity.
@@ -846,9 +843,9 @@ Source: Generated by `scripts/reporting/``generate_ee_simulation_results_figures
 
 ## Green finance scenarios
 
-Financing conditions play a central role in determining the pace and economic cost of Viet Namâ€™s energy transition. Renewable-energy projects generally require substantial upfront investment but have comparatively low operating costs, making their viability particularly sensitive to the cost and availability of capital. Improving access to affordable finance can therefore bring forward renewable-energy investment, lower electricity-generation costs, and support capital accumulation and long-term economic growth (Electricity and Renewable Energy Authority (EREA) and Danish Energy Agency (DEA) 2023; International Renewable Energy Agency (IRENA) and Climate Policy Initiative (CPI) 2025).
+Financing conditions play a central role in determining the pace and economic cost of Viet Nam’s energy transition. Renewable-energy projects generally require substantial upfront investment but have comparatively low operating costs, making their viability particularly sensitive to the cost and availability of capital. Improving access to affordable finance can therefore bring forward renewable-energy investment, lower electricity-generation costs, and support capital accumulation and long-term economic growth (Electricity and Renewable Energy Authority (EREA) and Danish Energy Agency (DEA) 2023; International Renewable Energy Agency (IRENA) and Climate Policy Initiative (CPI) 2025).
 
-DGE-METRIC captures these effects without modelling concessional loans, blended-finance facilities, green bonds, guarantees, or development-bank programmes as separate financial instruments or balance-sheet items. Instead, these instruments are represented through reduced-form changes in the financing rates and capital volumes available for renewable-energy investment. The model distinguishes between the cost of public or concessional finance, the cost of foreign direct investment (FDI) or other foreign finance, and the shares of investment financed through public, foreign, and domestic private or household capital. [Table 6](#_Ref236590080) summarises the principal transmission channels.
+DGE-METRIC captures these effects without modelling concessional loans, blended-finance facilities, green bonds, guarantees, or development-bank programmes as separate financial instruments or balance-sheet items. Instead, these instruments are represented through reduced-form changes in the financing rates and capital volumes available for renewable-energy investment. The model distinguishes between the cost of public or concessional finance, the cost of foreign direct investment (FDI) or other foreign finance, and the shares of investment financed through public, foreign, and domestic private or household capital. Table 6 summarises the principal transmission channels.
 
 | Channel | Variable | Economic interpretation |
 |:---|:---|:---|
@@ -865,16 +862,16 @@ DGE-METRIC captures these effects without modelling concessional loans, blended-
 \epsilon_{s}^{s_{G}},\epsilon_{s}^{s_{FDI}}
 ``` | Scale and sectoral allocation of public and FDI investment |
 
-<span id="_Ref236590080" class="anchor"></span>Table 6: Green Finance Transmission Channels.
+Table 6: Green Finance Transmission Channels.
 
-Source: Authorâ€™s exhibition.
+Source: Author’s exhibition.
 
-These transmission channels are combined into three green-finance architectures that differ in both their financing composition and their modelled financing rates. As shown in [Table 7](#_Ref236590381), GF A represents a balanced architecture combining Official Development Assistance and Multilateral Development Bank finance with blended finance, green bonds, FDI, and domestic private capital. GF B represents a more market-led architecture with the greatest reliance on domestic private and household finance and comparatively limited public and foreign participation. GF C represents a public-led architecture with substantially larger shares of public and FDI capital and a stronger role for concessional and Official Development Assistance finance. The assumptions are harmonised with those used in the Macroeconomic Impact Assessment.
+These transmission channels are combined into three green-finance architectures that differ in both their financing composition and their modelled financing rates. As shown in Table 7, GF A represents a balanced architecture combining Official Development Assistance and Multilateral Development Bank finance with blended finance, green bonds, FDI, and domestic private capital. GF B represents a more market-led architecture with the greatest reliance on domestic private and household finance and comparatively limited public and foreign participation. GF C represents a public-led architecture with substantially larger shares of public and FDI capital and a stronger role for concessional and Official Development Assistance finance. The assumptions are harmonised with those used in the Macroeconomic Impact Assessment.
 
-<span id="_Ref236590381" class="anchor"></span>
+
 
 <table>
-<caption><p><span id="_Toc236913089" class="anchor"></span>Table 7: Financing instruments: indicative terms, providers, and model treatment</p></caption>
+<caption><p>Table 7: Financing instruments: indicative terms, providers, and model treatment</p></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 18%" />
@@ -915,78 +912,78 @@ These transmission channels are combined into three green-finance architectures 
 </tr>
 <tr>
 <td style="text-align: left;"><strong>ODA / bilateral concessional</strong></td>
-<td style="text-align: left;">â‰ˆ0.8â€“1.5%</td>
-<td style="text-align: left;">20â€“40 yr</td>
+<td style="text-align: left;">≈0.8–1.5%</td>
+<td style="text-align: left;">20–40 yr</td>
 <td colspan="2" style="text-align: left;">JICA, KfW, AFD, ADB</td>
 <td style="text-align: left;">Public capital</td>
 </tr>
 <tr>
 <td style="text-align: left;"><strong>Multilateral (MDB) concessional</strong></td>
-<td style="text-align: left;">â‰ˆ0.9â€“1.5%</td>
-<td style="text-align: left;">15â€“30 yr</td>
+<td style="text-align: left;">≈0.9–1.5%</td>
+<td style="text-align: left;">15–30 yr</td>
 <td colspan="2" style="text-align: left;">World Bank IBRD/IDA, ADB OCR</td>
 <td style="text-align: left;">Public capital</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Blended finance â€” public first-loss tranche</strong></td>
-<td style="text-align: left;">â‰ˆ0â€“1.5%</td>
-<td style="text-align: left;">10â€“20 yr</td>
+<td style="text-align: left;"><strong>Blended finance — public first-loss tranche</strong></td>
+<td style="text-align: left;">≈0–1.5%</td>
+<td style="text-align: left;">10–20 yr</td>
 <td colspan="2" style="text-align: left;">GCF, JETP partners, DFI subordinated debt/equity</td>
 <td style="text-align: left;">Public capital</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Green bonds â€” sovereign / quasi-sovereign</strong></td>
-<td style="text-align: left;">â‰ˆ3.6â€“4.3%</td>
-<td style="text-align: left;">5â€“15 yr</td>
+<td style="text-align: left;"><strong>Green bonds — sovereign / quasi-sovereign</strong></td>
+<td style="text-align: left;">≈3.6–4.3%</td>
+<td style="text-align: left;">5–15 yr</td>
 <td colspan="2" style="text-align: left;">State Treasury, state-owned enterprises</td>
 <td style="text-align: left;">Public capital</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Blended finance â€” private co-investment tranche</strong></td>
-<td style="text-align: left;">â‰ˆ6.0â€“6.5%</td>
-<td style="text-align: left;">10â€“20 yr</td>
+<td style="text-align: left;"><strong>Blended finance — private co-investment tranche</strong></td>
+<td style="text-align: left;">≈6.0–6.5%</td>
+<td style="text-align: left;">10–20 yr</td>
 <td colspan="2" style="text-align: left;">Credit-enhanced commercial co-investors</td>
 <td style="text-align: left;">Foreign / credit-enhanced private capital</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Green bonds â€” corporate</strong></td>
-<td style="text-align: left;">â‰ˆ6.0â€“7.0%</td>
-<td style="text-align: left;">3â€“15 yr</td>
+<td style="text-align: left;"><strong>Green bonds — corporate</strong></td>
+<td style="text-align: left;">≈6.0–7.0%</td>
+<td style="text-align: left;">3–15 yr</td>
 <td colspan="2" style="text-align: left;">BIDV, Vietcombank, HDBank, SeABank</td>
 <td style="text-align: left;">Foreign / credit-enhanced private capital</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>Green credit â€” commercial banks</strong></td>
-<td style="text-align: left;">â‰ˆ7.0â€“8.0%</td>
-<td style="text-align: left;">1â€“10 yr</td>
+<td style="text-align: left;"><strong>Green credit — commercial banks</strong></td>
+<td style="text-align: left;">≈7.0–8.0%</td>
+<td style="text-align: left;">1–10 yr</td>
 <td colspan="2" style="text-align: left;">BIDV, VietinBank, Vietcombank</td>
-<td style="text-align: left;">Domestic private / household capital â€” the residual; its return is determined by the model, not set as an assumption</td>
+<td style="text-align: left;">Domestic private / household capital — the residual; its return is determined by the model, not set as an assumption</td>
 </tr>
 </tbody>
 </table>
 
-Notes: Baseline commercial borrowing cost for private energy projects is 8â€“10% (IWH Financial Assessment 2026); the concessional, blended, and sovereign-bond instruments are the levers that pull the portfolio average below that range. Rates reflect 2025â€“26 conditions and do not yet embed the 2% ESG interest-rate subsidy (Resolution 198/2025/QH15) or a green-collateral framework.
+Notes: Baseline commercial borrowing cost for private energy projects is 8–10% (IWH Financial Assessment 2026); the concessional, blended, and sovereign-bond instruments are the levers that pull the portfolio average below that range. Rates reflect 2025–26 conditions and do not yet embed the 2% ESG interest-rate subsidy (Resolution 198/2025/QH15) or a green-collateral framework.
 
-| Instrument | GF A â€” balanced (PDP8 revised) | GF B â€” market-led | GF C â€” public-led |
+| Instrument | GF A — balanced (PDP8 revised) | GF B — market-led | GF C — public-led |
 |:---|:---|:---|:---|
 | **ODA / bilateral concessional (Public)** | 4.0% @ 1.5% | 2.0% @ 1.5% | 8.0% @ 1.0% |
 | **Multilateral (MDB) concessional (Public)** | 4.0% @ 1.0% | 2.0% @ 1.0% | 8.0% @ 0.9% |
-| **Blended finance â€” public tranche (Public)** | 1.0% @ 1.0% | 0.6% @ 1.0% | 3.0% @ 1.0% |
-| **Green bonds â€” sovereign (Public)** | 10.0% @ 4.0% | 5.0% @ 4.3% | 17.5% @ 3.6% |
-| **Public capital â€” subtotal** | 19.0% | 9.6% | 36.5% |
-| **Blended finance â€” private tranche (Foreign/cr.-enh. private)** | 4.0% @ 6.0% | 2.4% @ 6.5% | 12.0% @ 6.0% |
-| **Green bonds â€” corporate (Foreign/cr.-enh. private)** | 10.0% @ 6.5% | 10.0% @ 7.0% | 7.0% @ 6.0% |
-| **Foreign / credit-enhanced private â€” subtotal** | 14.0% | 12.4% | 19.0% |
-| **Green credit â€” commercial banks (Domestic private/household)** | 67.0% @ 7.5% | 78.0% @ 8.0% | 44.5% @ 7.0% |
+| **Blended finance — public tranche (Public)** | 1.0% @ 1.0% | 0.6% @ 1.0% | 3.0% @ 1.0% |
+| **Green bonds — sovereign (Public)** | 10.0% @ 4.0% | 5.0% @ 4.3% | 17.5% @ 3.6% |
+| **Public capital — subtotal** | 19.0% | 9.6% | 36.5% |
+| **Blended finance — private tranche (Foreign/cr.-enh. private)** | 4.0% @ 6.0% | 2.4% @ 6.5% | 12.0% @ 6.0% |
+| **Green bonds — corporate (Foreign/cr.-enh. private)** | 10.0% @ 6.5% | 10.0% @ 7.0% | 7.0% @ 6.0% |
+| **Foreign / credit-enhanced private — subtotal** | 14.0% | 12.4% | 19.0% |
+| **Green credit — commercial banks (Domestic private/household)** | 67.0% @ 7.5% | 78.0% @ 8.0% | 44.5% @ 7.0% |
 | **Total** | 100% | 100% | 100% |
-| **Weighted average cost of finance (WACF) = Î£(share Ã— rate)** | 6.43% | 7.37% | 5.07% |
+| **Weighted average cost of finance (WACF) = Σ(share × rate)** | 6.43% | 7.37% | 5.07% |
 | **Cost applied to public capital in the model (= WACF)** | 6.43% | 7.37% | 5.07% |
 | **Cost applied to foreign capital (share-weighted average of its two instruments)** | 6.36% | 6.90% | 6.00% |
 | **Cost of domestic private/household capital** | determined by the model | determined by the model | determined by the model |
 
 Table 8: Portfolio allocation and resulting financing cost by architecture
 
-Note on the WACF and illustrative-cost rows: the illustrative annual financing cost and saving figures apply each architecture's weighted-average cost of finance to the IWH Investment Needs Assessment's (2026) estimate of the power-sector investment requirement for 2026â€“2030 (USD 136 billion, 4.0% of GDP), purely to indicate the scale of the financing bill; they are not model inputs or outputs. DGE-METRIC works with the cost-of-capital rates and allocation shares above, and the investment need in the model is determined by the PDP8 build-out path, not this dollar figure.
+Note on the WACF and illustrative-cost rows: the illustrative annual financing cost and saving figures apply each architecture's weighted-average cost of finance to the IWH Investment Needs Assessment's (2026) estimate of the power-sector investment requirement for 2026–2030 (USD 136 billion, 4.0% of GDP), purely to indicate the scale of the financing bill; they are not model inputs or outputs. DGE-METRIC works with the cost-of-capital rates and allocation shares above, and the investment need in the model is determined by the PDP8 build-out path, not this dollar figure.
 
 Source: Adapted from the IWH Report on Macroeconomic Impact Assessment (2026), Tables 3 and 4; the assumptions are harmonised with those used there.
 
@@ -998,7 +995,7 @@ Each architecture is evaluated against both the revised Power Development Plan V
 
 The simulations indicate that lower financing costs stimulate renewable-energy investment and accelerate capital accumulation. Under the PDP8-rev scenarios, the approximately 1.5 percentage-point difference in the effective renewable-energy WACC between the public-led GF C and market-led GF B architectures is associated with an approximately 1 percentage-point difference in the GDP level by 2050. The effect is larger under the Net Zero pathway because investment requirements are higher and financing costs become a more binding constraint. Comparing the two sets of simulations therefore illustrates how affordable capital can facilitate a more cost-effective transition and reduce the macroeconomic burden of greater climate ambition.
 
-These financing-rate assumptions are expert-calibrated from the IWH Financial Assessment (2026) and GIZ Green Finance workbook, cross-checked against IRENA/CPI (2025) and Vietnam Bond Market Association benchmarks and against State Bank of Vietnam lending-rate data for the 8â€“10% baseline commercial borrowing cost for private energy projects; they are not quantitative figures read directly off any single source. They reflect 2025â€“26 conditions and do not yet embed the 2% ESG interest-rate subsidy under Resolution 198/2025/QH15 or a green-collateral framework, nor the green-taxonomy verification and certification costs firms may face in practice under Decision No. 21/2025/QÄ-TTg.
+These financing-rate assumptions are expert-calibrated from the IWH Financial Assessment (2026) and GIZ Green Finance workbook, cross-checked against IRENA/CPI (2025) and Vietnam Bond Market Association benchmarks and against State Bank of Vietnam lending-rate data for the 8–10% baseline commercial borrowing cost for private energy projects; they are not quantitative figures read directly off any single source. They reflect 2025–26 conditions and do not yet embed the 2% ESG interest-rate subsidy under Resolution 198/2025/QH15 or a green-collateral framework, nor the green-taxonomy verification and certification costs firms may face in practice under Decision No. 21/2025/QĐ-TTg.
 
 These results should nevertheless be interpreted as conditional model outcomes. DGE-METRIC estimates the economy-wide effects that could arise if the assumed financing structures and rates were achieved and maintained at the required scale. It does not determine whether the corresponding volumes of concessional finance, FDI, blended finance, or domestic private capital can be mobilised in practice, nor does it assess the institutional design, eligibility rules, risk-sharing arrangements, or balance-sheet implications of individual financial products.
 
@@ -1006,7 +1003,7 @@ The script scripts/reporting/generate_finance_simulation_results_figures.m expor
 
 <figure>
 <img src="media/technical/media/image21.png" style="width:5.83333in;height:3.11182in" />
-<figcaption><p><span id="_Toc236913062" class="anchor"></span>Figure 16: GDP growth deviation versus Baseline across green-finance scenarios.</p></figcaption>
+<figcaption><p>Figure 16: GDP growth deviation versus Baseline across green-finance scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report five-year averages of the deviation in annual GDP growth (percentage points) from Baseline, comparing how financing architectures alter the medium-run growth profile.
@@ -1015,7 +1012,7 @@ Source: Generated by `scripts/reporting/``generate_finance_simulation_results_fi
 
 <figure>
 <img src="media/technical/media/image22.png" style="width:5.83333in;height:3.14267in" />
-<figcaption><p><span id="_Toc236913063" class="anchor"></span>Figure 17: GDP level deviation versus Baseline across green-finance scenarios</p></figcaption>
+<figcaption><p>Figure 17: GDP level deviation versus Baseline across green-finance scenarios</p></figcaption>
 </figure>
 
 Note: Bars report five-year averages of the percent deviation of GDP level from Baseline (in percent) and capture cumulative macro effects of financing conditions.
@@ -1024,7 +1021,7 @@ Source: Generated by `scripts/reporting/``generate_finance_simulation_results_fi
 
 <figure>
 <img src="media/technical/media/image23.png" style="width:5.77335in;height:3.07982in" />
-<figcaption><p><span id="_Toc236913064" class="anchor"></span>Figure 18: Consumption share deviation versus Baseline across green-finance scenarios.</p></figcaption>
+<figcaption><p>Figure 18: Consumption share deviation versus Baseline across green-finance scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report five-year averages of the deviation in private-consumption share of GDP relative to Baseline (`pp of GDP`).
@@ -1033,7 +1030,7 @@ Source: Generated by `scripts/reporting/``generate_finance_simulation_results_fi
 
 <figure>
 <img src="media/technical/media/image24.png" style="width:5.83333in;height:3.14267in" />
-<figcaption><p><span id="_Toc236913065" class="anchor"></span>Figure 19: Investment share deviation versus Baseline across green-finance scenarios.</p></figcaption>
+<figcaption><p>Figure 19: Investment share deviation versus Baseline across green-finance scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report five-year averages of the deviation in investment share of GDP relative to Baseline (`pp of GDP`), indicating medium-run capital-allocation shifts.
@@ -1042,7 +1039,7 @@ Source: Generated by `scripts/reporting/``generate_finance_simulation_results_fi
 
 <figure>
 <img src="media/technical/media/image25.png" style="width:5.83333in;height:3.2862in" />
-<figcaption><p><span id="_Toc236913066" class="anchor"></span>Figure 20: Government consumption share deviation versus Baseline across green-finance scenarios.</p></figcaption>
+<figcaption><p>Figure 20: Government consumption share deviation versus Baseline across green-finance scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report five-year averages of the deviation in government consumption share of GDP relative to Baseline (`pp of GDP`).
@@ -1051,7 +1048,7 @@ Source: Generated by `scripts/reporting/``generate_finance_simulation_results_fi
 
 <figure>
 <img src="media/technical/media/image26.png" style="width:5.77335in;height:3.07982in" />
-<figcaption><p><span id="_Toc236913067" class="anchor"></span>Figure 21: Housing investment share deviation versus Baseline across green-finance scenarios.</p></figcaption>
+<figcaption><p>Figure 21: Housing investment share deviation versus Baseline across green-finance scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report five-year averages of the deviation in housing investment share of GDP relative to Baseline (`pp of GDP`).
@@ -1060,7 +1057,7 @@ Source: Generated by `scripts/reporting/``generate_finance_simulation_results_fi
 
 <figure>
 <img src="media/technical/media/image27.png" style="width:5.83333in;height:3.14267in" />
-<figcaption><p><span id="_Toc236913068" class="anchor"></span>Figure 22: Net exports share deviation versus Baseline across green-finance scenarios.</p></figcaption>
+<figcaption><p>Figure 22: Net exports share deviation versus Baseline across green-finance scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report five-year averages of the deviation in net exports share of GDP relative to Baseline (`pp of GDP`), summarizing external-balance effects.
@@ -1069,7 +1066,7 @@ Source: Generated by `scripts/reporting/``generate_finance_simulation_results_fi
 
 <figure>
 <img src="media/technical/media/image28.png" style="width:5.83333in;height:3.14267in" />
-<figcaption><p><span id="_Toc236913069" class="anchor"></span>Figure 23: Renewable-energy WACC deviation versus Baseline across green-finance scenarios.</p></figcaption>
+<figcaption><p>Figure 23: Renewable-energy WACC deviation versus Baseline across green-finance scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report five-year averages of the deviations in renewable weighted average cost of capital (percentage points) from Baseline, summarizing the financial-channel intensity of each policy package.
@@ -1078,11 +1075,11 @@ Source: Generated by `scripts/reporting/``generate_finance_simulation_results_fi
 
 ## Net-Zero decomposition
 
-The Net Zero scenarios impose a binding, economy-wide cap on energy-related emissions consistent with Viet Namâ€™s long-term Net Zero objective. The cap is implemented through an emissions trading system (ETS), with the permit price adjusting endogenously to clear the emissions market in each period. Firms and households respond to the resulting carbon price through changes in energy use, production, investment, and the allocation of capital between fossil and non-fossil activities.
+The Net Zero scenarios impose a binding, economy-wide cap on energy-related emissions consistent with Viet Nam’s long-term Net Zero objective. The cap is implemented through an emissions trading system (ETS), with the permit price adjusting endogenously to clear the emissions market in each period. Firms and households respond to the resulting carbon price through changes in energy use, production, investment, and the allocation of capital between fossil and non-fossil activities.
 
 The European Union's Carbon Border Adjustment Mechanism (CBAM) adds a further rationale for developing Vietnam's domestic ETS: eligible domestic carbon payments can reduce CBAM liabilities on covered exports, though this may shift where payments occur without necessarily lowering their combined cost.
 
-<span id="_Ref236593383" class="anchor"></span>
+
 
 | Scenario | Policy design | Use of ETS revenues / additional measures | Main economic mechanism |
 |:---|:---|:---|:---|
@@ -1091,21 +1088,21 @@ The European Union's Carbon Border Adjustment Mechanism (CBAM) adds a further ra
 | **NZ subsidy direct** | Applies the same Net-Zero emissions constraint but directs ETS revenues to households through the transfer channel. | The household-transfer share is set to one rather than using revenues to subsidise non-fossil firms. | Transfers support household income and consumption, but provide a weaker direct stimulus to productive low-carbon investment. |
 | **NZ GF C EE** | Integrated policy package combining the Net-Zero cap, public-led concessional finance, stronger energy efficiency, solar-PV measures and non-fossil firm subsidies. | The GF C structure assigns **36.5%** of renewable investment to public finance and **19.0%** to FDI. Public and FDI financing costs fall to approximately **5.07%** and **6.00%**, respectively. ETS revenues are recycled through the firm-subsidy channel. | Lower financing costs accelerate renewable capital formation, while efficiency and PV measures moderate energy demand. These measures reduce the macroeconomic adjustment burden of the emissions constraint. |
 
-<span id="_Toc236913090" class="anchor"></span>Table 8: Net Zero scenario assumptions.
+Table 8: Net Zero scenario assumptions.
 
-Note: NZ_subsidy and NZ_subsidy_direct are reduced-form transmission experiments. They represent alternative uses of ETS revenues rather than fully specified fiscal programmes with detailed eligibility, administration or budget rules. These four scenarios appear as NZ / NZ subsidy / Net Zero direct subsidy (climate dividend) / Net Zero + GF C + EE in the Macro Impact Assessment, and as Net Zero / Net Zero-subsidy / Net Zero-subsidy direct / Net Zero-GF-C+EE in the Policy Brief â€” same underlying scenarios, named to match each document's style.
+Note: NZ_subsidy and NZ_subsidy_direct are reduced-form transmission experiments. They represent alternative uses of ETS revenues rather than fully specified fiscal programmes with detailed eligibility, administration or budget rules. These four scenarios appear as NZ / NZ subsidy / Net Zero direct subsidy (climate dividend) / Net Zero + GF C + EE in the Macro Impact Assessment, and as Net Zero / Net Zero-subsidy / Net Zero-subsidy direct / Net Zero-GF-C+EE in the Policy Brief — same underlying scenarios, named to match each document's style.
 
-Source: Authorâ€™s exhibition.
+Source: Author’s exhibition.
 
-The scenario framework distinguishes between alternative uses of ETS revenues and the inclusion of complementary energy-efficiency and green-finance measures. This structure makes it possible to assess not only the macroeconomic effects of the emissions constraint itself, but also the extent to which revenue recycling and complementary policies can reduce the associated adjustment costs (Bollen et al. 2009; Metcalf 2019). The principal scenarios are summarised in [Table 8](#_Ref236593383) and differ by use of ETS revenues as well as energy efficiency measures and green finance instruments.
+The scenario framework distinguishes between alternative uses of ETS revenues and the inclusion of complementary energy-efficiency and green-finance measures. This structure makes it possible to assess not only the macroeconomic effects of the emissions constraint itself, but also the extent to which revenue recycling and complementary policies can reduce the associated adjustment costs (Bollen et al. 2009; Metcalf 2019). The principal scenarios are summarised in Table 8 and differ by use of ETS revenues as well as energy efficiency measures and green finance instruments.
 
 The script scripts/reporting/generate_nz_simulation_results_figures.m exports scenario-comparison figures to docs/figures/NZ_Simulation_Results/. This subsection reports five-year-average deviation-versus-PDP8-rev Baseline diagnostics and five-year cumulative emissions trading system (ETS) revenues.
 
-Results. The simulations indicate that carbon pricing can generate substantial revenues under a binding Net Zero cap: cumulative ETS revenues reach approximately USD 250 billion over 2026â€“2050, around 25% of total investment needs for the revised PDP8 pathway, while annual investment demand in the renewable sector rises from approximately USD 40 billion to USD 70 billion. The implied carbon price under PDP8-rev rises gradually from about USD 2/tCO2e in 2026â€“2030 to USD 23/tCO2e by 2046â€“2050, while under Net Zero it climbs far more steeply, from USD 10/tCO2e to USD 559/tCO2e over the same horizon â€” roughly 24 times the PDP8-rev level by 2046â€“2050, reflecting the steeper decarbonisation a binding Net Zero cap requires once low-cost abatement options are exhausted. Recycling ETS revenues through investment subsidies for non-fossil capital reduces GDP losses relative to the standalone Net Zero pathway more effectively than direct household transfers; combining public-led green finance (GF C), energy-efficiency measures, and investment-oriented revenue recycling can raise GDP above the PDP8-rev Baseline even under the binding emissions cap.
+Results. The simulations indicate that carbon pricing can generate substantial revenues under a binding Net Zero cap: cumulative ETS revenues reach approximately USD 250 billion over 2026–2050, around 25% of total investment needs for the revised PDP8 pathway, while annual investment demand in the renewable sector rises from approximately USD 40 billion to USD 70 billion. The implied carbon price under PDP8-rev rises gradually from about USD 2/tCO2e in 2026–2030 to USD 23/tCO2e by 2046–2050, while under Net Zero it climbs far more steeply, from USD 10/tCO2e to USD 559/tCO2e over the same horizon — roughly 24 times the PDP8-rev level by 2046–2050, reflecting the steeper decarbonisation a binding Net Zero cap requires once low-cost abatement options are exhausted. Recycling ETS revenues through investment subsidies for non-fossil capital reduces GDP losses relative to the standalone Net Zero pathway more effectively than direct household transfers; combining public-led green finance (GF C), energy-efficiency measures, and investment-oriented revenue recycling can raise GDP above the PDP8-rev Baseline even under the binding emissions cap.
 
 <figure>
 <img src="media/technical/media/image29.png" style="width:5.4891in;height:3.05797in" />
-<figcaption><p><span id="_Toc236913070" class="anchor"></span>Figure 24: Emissions path across Net Zero scenarios and revised PDP 8 high scenario.</p></figcaption>
+<figcaption><p>Figure 24: Emissions path across Net Zero scenarios and revised PDP 8 high scenario.</p></figcaption>
 </figure>
 
 Note: Bars show the emission trajectories for the Baseline scenario and all Net-Zero variants.
@@ -1114,7 +1111,7 @@ Source: Generated by scripts/reporting/generate_nz_simulation_results_figures.m 
 
 <figure>
 <img src="media/technical/media/image30.png" title="GDP growth deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." style="width:5.65in;height:3.05013in" alt="GDP growth deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." />
-<figcaption><p><span id="_Toc236913071" class="anchor"></span>Figure 25: GDP growth deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
+<figcaption><p>Figure 25: GDP growth deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
 </figure>
 
 Note: Bars show the five-year average deviation in annual GDP growth, in percentage points, from the PDP8-rev Baseline.
@@ -1123,7 +1120,7 @@ Source: Generated by scripts/reporting/generate_nz_simulation_results_figures.m 
 
 <figure>
 <img src="media/technical/media/image31.png" title="GDP level deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." style="width:5.65in;height:3.05013in" alt="GDP level deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." />
-<figcaption><p><span id="_Toc236913072" class="anchor"></span>Figure 26: GDP level deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
+<figcaption><p>Figure 26: GDP level deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
 </figure>
 
 Note: Bars show the five-year average percentage deviation of the GDP level from the PDP8-rev Baseline.
@@ -1132,7 +1129,7 @@ Source: Generated by scripts/reporting/generate_nz_simulation_results_figures.m 
 
 <figure>
 <img src="media/technical/media/image32.png" title="Consumption share deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." style="width:5.65in;height:3.05013in" alt="Consumption share deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." />
-<figcaption><p><span id="_Toc236913073" class="anchor"></span>Figure 27: Consumption share deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
+<figcaption><p>Figure 27: Consumption share deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report the five-year average deviation in private consumption as a share of GDP, in percentage points of GDP.
@@ -1141,7 +1138,7 @@ Source: Generated by scripts/reporting/generate_nz_simulation_results_figures.m 
 
 <figure>
 <img src="media/technical/media/image33.png" title="Investment share deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." style="width:5.65in;height:3.06929in" alt="Investment share deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." />
-<figcaption><p><span id="_Toc236913074" class="anchor"></span>Figure 28: Investment share deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
+<figcaption><p>Figure 28: Investment share deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report the five-year average deviation in investment as a share of GDP, in percentage points of GDP.
@@ -1150,7 +1147,7 @@ Source: Generated by scripts/reporting/generate_nz_simulation_results_figures.m 
 
 <figure>
 <img src="media/technical/media/image34.png" title="Government consumption share deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." style="width:5.65in;height:3.18915in" alt="Government consumption share deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." />
-<figcaption><p><span id="_Toc236913075" class="anchor"></span>Figure 29: Government consumption share deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
+<figcaption><p>Figure 29: Government consumption share deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report the five-year average deviation in government consumption as a share of GDP, in percentage points of GDP.
@@ -1159,7 +1156,7 @@ Source: Generated by scripts/reporting/generate_nz_simulation_results_figures.m 
 
 <figure>
 <img src="media/technical/media/image35.png" title="Housing investment share deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." style="width:5.65in;height:3.05013in" alt="Housing investment share deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." />
-<figcaption><p><span id="_Toc236913076" class="anchor"></span>Figure 30: Housing investment share deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
+<figcaption><p>Figure 30: Housing investment share deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report the five-year average deviation in housing investment as a share of GDP, in percentage points of GDP.
@@ -1168,7 +1165,7 @@ Source: Generated by scripts/reporting/generate_nz_simulation_results_figures.m 
 
 <figure>
 <img src="media/technical/media/image36.png" title="Net exports share deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." style="width:5.65in;height:3.05013in" alt="Net exports share deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." />
-<figcaption><p><span id="_Toc236913077" class="anchor"></span>Figure 31: Net exports share deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
+<figcaption><p>Figure 31: Net exports share deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report the average deviation in net exports as a share of GDP, in percentage points of GDP.
@@ -1177,7 +1174,7 @@ Source: Generated by scripts/reporting/generate_nz_simulation_results_figures.m 
 
 <figure>
 <img src="media/technical/media/image37.png" title="Renewable capital deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." style="width:5.65in;height:3.08525in" alt="Renewable capital deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." />
-<figcaption><p><span id="_Toc236913078" class="anchor"></span>Figure 32: Renewable capital deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
+<figcaption><p>Figure 32: Renewable capital deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
 </figure>
 
 Note: Bars show five-year-average deviations from the PDP8-rev Baseline renewable-capital index (Baseline = 100). Positive values indicate a larger renewable capital stock than in the Baseline.
@@ -1186,7 +1183,7 @@ Source: Generated by scripts/reporting/generate_nz_simulation_results_figures.m 
 
 <figure>
 <img src="media/technical/media/image38.png" title="Renewable investment deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." style="width:5.65in;height:3.03564in" alt="Renewable investment deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." />
-<figcaption><p><span id="_Toc236913079" class="anchor"></span>Figure 33: Renewable investment deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
+<figcaption><p>Figure 33: Renewable investment deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
 </figure>
 
 Note: Bars show five-year-average deviations from the PDP8-rev Baseline renewable-investment index (Baseline = 100). Positive values indicate higher renewable investment than in the Baseline.
@@ -1195,7 +1192,7 @@ Source: Generated by scripts/reporting/generate_nz_simulation_results_figures.m 
 
 <figure>
 <img src="media/technical/media/image39.png" title="Renewable-energy WACC deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." style="width:5.65in;height:3.05013in" alt="Renewable-energy WACC deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." />
-<figcaption><p><span id="_Toc236913080" class="anchor"></span>Figure 34: Renewable-energy WACC deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
+<figcaption><p>Figure 34: Renewable-energy WACC deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report the average deviation in the renewable-energy weighted average cost of capital, in percentage points, from the PDP8-rev Baseline.
@@ -1204,7 +1201,7 @@ Source: Generated by scripts/reporting/generate_nz_simulation_results_figures.m 
 
 <figure>
 <img src="media/technical/media/image40.png" title="ETS revenue share deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." style="width:5.65in;height:3.06929in" alt="ETS revenue share deviation versus the PDP8-rev Baseline across Net Zero scenarios (five-year average)." />
-<figcaption><p><span id="_Toc236913081" class="anchor"></span>Figure 35: ETS revenue share deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
+<figcaption><p>Figure 35: ETS revenue share deviation versus the PDP8-rev Baseline across Net Zero scenarios.</p></figcaption>
 </figure>
 
 Note: Bars report the average deviation in emissions trading system revenue as a share of GDP, in percentage points of GDP, from the PDP8-rev Baseline.
@@ -1213,7 +1210,7 @@ Source: Generated by scripts/reporting/generate_nz_simulation_results_figures.m 
 
 <figure>
 <img src="media/technical/media/image41.png" title="Five-year cumulative ETS revenues across the PDP8-rev Baseline and Net Zero scenarios." style="width:5.65in;height:3.17087in" alt="Five-year cumulative ETS revenues across the PDP8-rev Baseline and Net Zero scenarios." />
-<figcaption><p><span id="_Toc236913082" class="anchor"></span>Figure 36: Five-year cumulative ETS revenues across the PDP8-rev Baseline and Net Zero scenarios.</p></figcaption>
+<figcaption><p>Figure 36: Five-year cumulative ETS revenues across the PDP8-rev Baseline and Net Zero scenarios.</p></figcaption>
 </figure>
 
 Note: Bars show five-year cumulative emissions trading system revenues in USD billion. The comparison includes the PDP8-rev Baseline, NZ, NZ subsidy, NZ subsidy direct, and NZ GF C EE.
@@ -1228,11 +1225,11 @@ The economic model is defined in modular Dynare source files, empirical calibrat
 
 ## Dynare perfect-foresight solving
 
-DGE-METRIC is implemented in **Dynare** and solved using its deterministic perfect-foresight simulation framework. Economic agents are assumed to have full knowledge of the future path of exogenous shocks and policy variables, and the model solves for the transition path that satisfies all first-order conditions and market-clearing conditions simultaneously across the full 2026â€“2050 horizon.
+DGE-METRIC is implemented in **Dynare** and solved using its deterministic perfect-foresight simulation framework. Economic agents are assumed to have full knowledge of the future path of exogenous shocks and policy variables, and the model solves for the transition path that satisfies all first-order conditions and market-clearing conditions simultaneously across the full 2026–2050 horizon.
 
-The deterministic perfect-foresight framework is well suited to the policy questions addressed in this report. The principal policy interventionsâ€”including the implementation of the revised Power Development Plan VIII (PDP8), the introduction of an emissions trading system (ETS), improvements in energy efficiency, and alternative green-finance strategiesâ€”represent announced policy pathways rather than unforeseen shocks. Forward-looking households and firms therefore adjust investment, production, consumption, and financing decisions in anticipation of these policy changes, allowing the model to capture the dynamic adjustment process associated with Vietnam's long-term energy transition.
+The deterministic perfect-foresight framework is well suited to the policy questions addressed in this report. The principal policy interventions—including the implementation of the revised Power Development Plan VIII (PDP8), the introduction of an emissions trading system (ETS), improvements in energy efficiency, and alternative green-finance strategies—represent announced policy pathways rather than unforeseen shocks. Forward-looking households and firms therefore adjust investment, production, consumption, and financing decisions in anticipation of these policy changes, allowing the model to capture the dynamic adjustment process associated with Vietnam's long-term energy transition.
 
-The implementation follows a modular architecture that separates model specification from calibration and simulation. `DGE_Model.mod` is the canonical entry point, which defines shared equation blocks live under `ModFiles/Equations/` (and are mirrored in human-readable form under `ModFiles/Equations/Equations_display/`). Dynareâ€™s macro-preprocessor (`@#`-directives) expands sector/region loops and branches on structural switches (`lCapPrice`, `lAdjPos`, `YEndogenous`, `CapandTrade`, â€¦) declared at the top of `DGE_Model.mod`. All Dynare-generated code (`+DGE_Model/`, `DGE_Model/`, `*_dynamic.m`, `*_static.m`) is rebuilt on every invocation and is not source â€” fixes belong in the `.mod` files, followed by a re-run.
+The implementation follows a modular architecture that separates model specification from calibration and simulation. `DGE_Model.mod` is the canonical entry point, which defines shared equation blocks live under `ModFiles/Equations/` (and are mirrored in human-readable form under `ModFiles/Equations/Equations_display/`). Dynare’s macro-preprocessor (`@#`-directives) expands sector/region loops and branches on structural switches (`lCapPrice`, `lAdjPos`, `YEndogenous`, `CapandTrade`, …) declared at the top of `DGE_Model.mod`. All Dynare-generated code (`+DGE_Model/`, `DGE_Model/`, `*_dynamic.m`, `*_static.m`) is rebuilt on every invocation and is not source — fixes belong in the `.mod` files, followed by a re-run.
 
 ## Steady-state / calibration pipeline
 
@@ -1272,15 +1269,15 @@ All scenarios use the same benchmark and computational sequence. Outputs and aud
 
 The verification framework follows a layered approach in which each stage of the computational workflow is validated before proceeding to the next. This strategy facilitates the early identification of numerical or calibration inconsistencies and substantially improves the transparency and reproducibility of the modelling framework.
 
-There is no automated test suite. â€œDoes it workâ€ is verified by: the steady-state solver converging (`fsolve` residuals near zero, no lCalibration_p branch errors); the accounting identities in ExcelFiles/README.md holding after any calibration edit (row sums, `phiQI = phiX + phiY0`, Trade_Flows rows summing to 1); and, after a baseline/scenario run, the growth-audit CSVs showing simulated growth tracking the Excel `gY_*` targets. scripts/analysis/CheckResults.m and Functions/steady_state/diagnostics/check_allocation_errors.m are the existing sanity-check entry points.
+There is no automated test suite. “Does it work” is verified by: the steady-state solver converging (`fsolve` residuals near zero, no lCalibration_p branch errors); the accounting identities in ExcelFiles/README.md holding after any calibration edit (row sums, `phiQI = phiX + phiY0`, Trade_Flows rows summing to 1); and, after a baseline/scenario run, the growth-audit CSVs showing simulated growth tracking the Excel `gY_*` targets. scripts/analysis/CheckResults.m and Functions/steady_state/diagnostics/check_allocation_errors.m are the existing sanity-check entry points.
 
 Model verification combines numerical, accounting, calibration, implementation, and reproducibility checks. Dynare solves the nonlinear equilibrium system iteratively, using standard residual and tolerance criteria to ensure that the full transition path satisfies all model equations. Because the model has a long horizon and highly nonlinear relationships, carefully constructed initial trajectories are used to improve convergence and numerical stability.
 
-The calibrated benchmark is also checked against all accounting identities, including production, income, government, trade, capital accumulation, and emissions balances. Simulated macroeconomic, sectoral, energy, investment, emissions, and capacity-expansion outcomes are compared with calibration data and baseline assumptions, including Vietnamâ€™s revised Power Development Plan VIII. Additional implementation checks confirm that calibration inputs, parameter transfers, data structures, and MATLABâ€“Dynare routines are correctly initialised and consistent. The modular workflow allows intermediate outputs to be inspected independently and ensures that benchmark and scenario results can be reproduced using the same inputs and model configuration.
+The calibrated benchmark is also checked against all accounting identities, including production, income, government, trade, capital accumulation, and emissions balances. Simulated macroeconomic, sectoral, energy, investment, emissions, and capacity-expansion outcomes are compared with calibration data and baseline assumptions, including Vietnam’s revised Power Development Plan VIII. Additional implementation checks confirm that calibration inputs, parameter transfers, data structures, and MATLAB–Dynare routines are correctly initialised and consistent. The modular workflow allows intermediate outputs to be inspected independently and ensures that benchmark and scenario results can be reproduced using the same inputs and model configuration.
 
 # Limitations, Implementation Risks, and Interpretation Guidance
 
-Like all quantitative policy models, DGE-METRIC simplifies a complex economic system. It is designed to assess the economy-wide effects of alternative energy-transition policies in a consistent, transparent, and manageable way. The results should therefore be interpreted in light of the modelâ€™s assumptions, calibration, and implementation choices.
+Like all quantitative policy models, DGE-METRIC simplifies a complex economic system. It is designed to assess the economy-wide effects of alternative energy-transition policies in a consistent, transparent, and manageable way. The results should therefore be interpreted in light of the model’s assumptions, calibration, and implementation choices.
 
 Before results are published or used for policy analysis, the following checks are particularly important:
 
@@ -1296,11 +1293,11 @@ Before results are published or used for policy analysis, the following checks a
 
 6.  **Check which scenarios are actually active:** The presence of a scenario in the code does not necessarily mean that it is included in a standard model run. Analysts should confirm the active scenario set before claiming that a result can be reproduced directly.
 
-7.  **Recognise the modelâ€™s scope:** DGE-METRIC does not represent power-plant dispatch, technology learning at the plant level, subnational regions, or detailed financial balance sheets. Results should not be interpreted as providing these forms of analysis.
+7.  **Recognise the model’s scope:** DGE-METRIC does not represent power-plant dispatch, technology learning at the plant level, subnational regions, or detailed financial balance sheets. Results should not be interpreted as providing these forms of analysis.
 
 8.  **Treat the renewable-energy IO split as a calibrated proxy, not an observed value:** renewable energy has no standalone line in Vietnam's 2019 IO table and is estimated by allocating part of aggregated electricity/utility activity (code 106) using non-Vietnam-specific EXIOBASE coefficients. This is the single calibration input the EE/GF/NZ comparisons are most sensitive to; results involving the renewable sector's value-added share should be read with this in mind, and a sensitivity range should accompany any figure quoted externally.
 
-9.  **Account for the 2019 input-output vintage:** Vietnam's most recent full input-output table remains the 2019 benchmark, so structural shares are not re-benchmarked to 2020â€“2024 developments such as the FIT-driven solar boom, COVID-19, or the post-2021 FDI manufacturing wave; the model instead cross-checks its level of GDP components against 2019 national-accounts actuals (Figure 3), and relies on the 2026 baseline construction (Section 3) to reconcile the calibrated structure with more recent aggregate targets.
+9.  **Account for the 2019 input-output vintage:** Vietnam's most recent full input-output table remains the 2019 benchmark, so structural shares are not re-benchmarked to 2020–2024 developments such as the FIT-driven solar boom, COVID-19, or the post-2021 FDI manufacturing wave; the model instead cross-checks its level of GDP components against 2019 national-accounts actuals (Figure 3), and relies on the 2026 baseline construction (Section 3) to reconcile the calibrated structure with more recent aggregate targets.
 
 Taken together, these points provide a practical quality-control framework for checking that the model has been implemented correctly and that its results are interpreted within the intended scope.
 
@@ -1312,33 +1309,33 @@ The report has demonstrated the application of DGE-METRIC through a structured s
 
 Although the model abstracts from many engineering, financial, and institutional details, these simplifications are intentional. DGE-METRIC is designed to complement, rather than replace, engineering and sector-specific models by providing an economy-wide perspective on the consequences of energy-transition policies. Its principal strength lies in capturing the interactions between the energy sector and the broader economy within a consistent general equilibrium framework, thereby supporting evidence-based assessment of alternative policy pathways.
 
-While developed for Vietnam, the methodological architecture of DGE-METRIC is not country specific. The framework has been designed to support continued development as new data and policy priorities emerge. Future enhancements are prioritised as follows: first, stochastic and stress-test extensions to global fuel prices and external demand â€” given Vietnam's exposure to LNG price swings under PDP8-rev's gas-fired capacity and to US trade-policy risk as an export-FDI-dependent economy â€” ahead of greater sectoral and regional detail, endogenous technological learning (Acemoglu et al. 2012), and closer integration with engineering-based energy-system models. As Vietnam advances towards its long-term climate and development objectives, DGE-METRIC provides a transparent, extensible, and reproducible analytical platform for evaluating the macroeconomic implications of energy-transition policies and informing evidence-based decision-making.
+While developed for Vietnam, the methodological architecture of DGE-METRIC is not country specific. The framework has been designed to support continued development as new data and policy priorities emerge. Future enhancements are prioritised as follows: first, stochastic and stress-test extensions to global fuel prices and external demand — given Vietnam's exposure to LNG price swings under PDP8-rev's gas-fired capacity and to US trade-policy risk as an export-FDI-dependent economy — ahead of greater sectoral and regional detail, endogenous technological learning (Acemoglu et al. 2012), and closer integration with engineering-based energy-system models. As Vietnam advances towards its long-term climate and development objectives, DGE-METRIC provides a transparent, extensible, and reproducible analytical platform for evaluating the macroeconomic implications of energy-transition policies and informing evidence-based decision-making.
 
 # References
 
-Acemoglu, Daron, Philippe Aghion, Leonardo Bursztyn, and David Hemous. 2012. â€œThe Environment and Directed Technical Change.â€ *American Economic Review* 102(1): 131â€“66. doi:10.1257/aer.102.1.131.
+Acemoglu, Daron, Philippe Aghion, Leonardo Bursztyn, and David Hemous. 2012. “The Environment and Directed Technical Change.” *American Economic Review* 102(1): 131–66. doi:10.1257/aer.102.1.131.
 
-Adjemian, StÃ©phane, Michel Juillard, FrÃ©dÃ©ric KaramÃ©, Willi Mutschler, Johannes Pfeifer, Marco Ratto, Normann Rion, and SÃ©bastien Villemot. 2026. *Dynare: Reference Manual, Version 7*. CEPREMAP. Dynare Working Papers. https://www.dynare.org/wp-repo/dynarewp087.pdf.
+Adjemian, Stéphane, Michel Juillard, Frédéric Karamé, Willi Mutschler, Johannes Pfeifer, Marco Ratto, Normann Rion, and Sébastien Villemot. 2026. *Dynare: Reference Manual, Version 7*. CEPREMAP. Dynare Working Papers. https://www.dynare.org/wp-repo/dynarewp087.pdf.
 
-Adolfson, Malin, Stefan LasÃ©en, Jesper LindÃ©, and Mattias Villani. 2007. â€œBayesian Estimation of an Open Economy DSGE Model with Incomplete Pass-Through.â€ *Journal of International Economics* 72(2): 481â€“511. doi:10.1016/j.jinteco.2007.01.003.
+Adolfson, Malin, Stefan Laséen, Jesper Lindé, and Mattias Villani. 2007. “Bayesian Estimation of an Open Economy DSGE Model with Incomplete Pass-Through.” *Journal of International Economics* 72(2): 481–511. doi:10.1016/j.jinteco.2007.01.003.
 
-Bacchetta, Philippe, and Eric Van Wincoop. 2021. â€œPuzzling Exchange Rate Dynamics and Delayed Portfolio Adjustment.â€ *Journal of International Economics* 131: 103460. doi:10.1016/j.jinteco.2021.103460.
+Bacchetta, Philippe, and Eric Van Wincoop. 2021. “Puzzling Exchange Rate Dynamics and Delayed Portfolio Adjustment.” *Journal of International Economics* 131: 103460. doi:10.1016/j.jinteco.2021.103460.
 
-Barrage, Lint. 2020. â€œOptimal Dynamic Carbon Taxes in General Equilibrium.â€ *American Economic Journal: Economic Policy* 12(4): 1â€“40. doi:10.1257/pol.20170144.
+Barrage, Lint. 2020. “Optimal Dynamic Carbon Taxes in General Equilibrium.” *American Economic Journal: Economic Policy* 12(4): 1–40. doi:10.1257/pol.20170144.
 
-BÃ¶hringer, Christoph, and Thomas F. Rutherford. 2008. â€œCombining Bottom-up and Top-Down.â€ *Energy Economics* 30(2): 574â€“96. doi:10.1016/j.eneco.2007.03.004.
+Böhringer, Christoph, and Thomas F. Rutherford. 2008. “Combining Bottom-up and Top-Down.” *Energy Economics* 30(2): 574–96. doi:10.1016/j.eneco.2007.03.004.
 
-Bollen, Johannes, Benoit Guay, Stephane Jamet, and Jan Corfee-Morlot. 2009. â€œEconomic Impacts of Climate Change Mitigation Policies: A Global CGE Analysis.â€ *Energy Economics* 31: S295â€“305. doi:10.1016/j.eneco.2009.06.009.
+Bollen, Johannes, Benoit Guay, Stephane Jamet, and Jan Corfee-Morlot. 2009. “Economic Impacts of Climate Change Mitigation Policies: A Global CGE Analysis.” *Energy Economics* 31: S295–305. doi:10.1016/j.eneco.2009.06.009.
 
-Dawkins, Christina, T. N. Srinivasan, and John Whalley. 2001. â€œCalibration.â€ In *Handbook of Econometrics*, eds. James J. Heckman and Edward E. Leamer. Amsterdam: Elsevier, 3653â€“3703. https://ideas.repec.org/h/eee/ecochp/5-58.html.
+Dawkins, Christina, T. N. Srinivasan, and John Whalley. 2001. “Calibration.” In *Handbook of Econometrics*, eds. James J. Heckman and Edward E. Leamer. Amsterdam: Elsevier, 3653–3703. https://ideas.repec.org/h/eee/ecochp/5-58.html.
 
-Dixon, Peter B., and Maureen T. Rimmer. 2013. â€œValidation in Computable General Equilibrium Modeling.â€ In *Handbook of Computable General Equilibrium Modeling*, eds. Peter B. Dixon and Dale W. Jorgenson. Amsterdam: Elsevier, 1271â€“1330. doi:10.1016/B978-0-444-59568-3.00019-5.
+Dixon, Peter B., and Maureen T. Rimmer. 2013. “Validation in Computable General Equilibrium Modeling.” In *Handbook of Computable General Equilibrium Modeling*, eds. Peter B. Dixon and Dale W. Jorgenson. Amsterdam: Elsevier, 1271–1330. doi:10.1016/B978-0-444-59568-3.00019-5.
 
 Electricity and Renewable Energy Authority (EREA) and Danish Energy Agency (DEA). 2023. *Viet Nam Technology Catalogue for Power Generation*. Hanoi: Ministry of Industry and Trade (MOIT); Danish Energy Agency. /mnt/data/5_vn_technology_catalogue_2023_power_generation_eng_final.pdf.
 
-General Statistics Office of Vietnam. 2019. â€œInputâ€“Output Table 2019.â€
+General Statistics Office of Vietnam. 2019. “Input–Output Table 2019.”
 
-Gillingham, Kenneth, David Rapson, and Gernot Wagner. 2016. â€œThe Rebound Effect and Energy Efficiency Policy.â€ *Review of Environmental Economics and Policy* 10(1): 68â€“88. doi:10.1093/reep/rev017.
+Gillingham, Kenneth, David Rapson, and Gernot Wagner. 2016. “The Rebound Effect and Energy Efficiency Policy.” *Review of Environmental Economics and Policy* 10(1): 68–88. doi:10.1093/reep/rev017.
 
 Government of Viet Nam and Department of Energy. 2024. *Background Report: Energy Outlook Report - Net Zero Technical Report*. Hanoi: Government of Viet Nam. /mnt/data/3.\_background_eor-nz_technical_report_june2024.pdf.
 
@@ -1346,25 +1343,26 @@ International Renewable Energy Agency (IRENA) and Climate Policy Initiative (CPI
 
 Judd, Kenneth L. 1998. *Numerical Methods in Economics*. Cambridge, MA: MIT Press. https://mitpress.mit.edu/9780262100717/numerical-methods-in-economics/.
 
-Kliem, Martin, and Alexander Kriwoluzky. 2014. â€œToward a Taylor Rule for Fiscal Policy.â€ *Review of Economic Dynamics* 17(2): 294â€“302. doi:10.1016/j.red.2013.08.003.
+Kliem, Martin, and Alexander Kriwoluzky. 2014. “Toward a Taylor Rule for Fiscal Policy.” *Review of Economic Dynamics* 17(2): 294–302. doi:10.1016/j.red.2013.08.003.
 
-Metcalf, Gilbert E. 2019. â€œOn the Economics of a Carbon Tax for the United States.â€ *Brookings Papers on Economic Activity* 2019(1): 405â€“84. doi:10.1353/eca.2019.0007.
+Metcalf, Gilbert E. 2019. “On the Economics of a Carbon Tax for the United States.” *Brookings Papers on Economic Activity* 2019(1): 405–84. doi:10.1353/eca.2019.0007.
 
-Pfenninger, Stefan, Adam Hawkes, and James Keirstead. 2014. â€œEnergy Systems Modeling for Twenty-First Century Energy Challenges.â€ *Renewable and Sustainable Energy Reviews* 33: 74â€“86. doi:10.1016/j.rser.2014.02.003.
+Pfenninger, Stefan, Adam Hawkes, and James Keirstead. 2014. “Energy Systems Modeling for Twenty-First Century Energy Challenges.” *Renewable and Sustainable Energy Reviews* 33: 74–86. doi:10.1016/j.rser.2014.02.003.
 
 Prime Minister of the Socialist Republic of Viet Nam. 2024. *Decision 262/QD-TTg on the Implementation Plan of the National Power Development Plan VIII*. Ha Noi: Government of Viet Nam. /mnt/data/Decision 262 QD-TTG on 1st April 2024 on Plan implementing the Master Power Plan VIII.docx.
 
-Schmitt-GrohÃ©, Stephanie, and MartÄ±Ìn Uribe. 2003. â€œClosing Small Open Economy Models.â€ *Journal of International Economics* 61(1): 163â€“85. doi:10.1016/S0022-1996(02)00056-9.
+Schmitt-Grohé, Stephanie, and Martı́n Uribe. 2003. “Closing Small Open Economy Models.” *Journal of International Economics* 61(1): 163–85. doi:10.1016/S0022-1996(02)00056-9.
 
 Shoven, John B., and John Whalley. 1992. *Applying General Equilibrium*. Cambridge: Cambridge University Press. https://books.google.com/books?id=CBt6kS2-EsUC.
 
-Sorrell, Steve. 2009. â€œJevonsâ€™ Paradox Revisited: The Evidence for Backfire from Improved Energy Efficiency.â€ *Energy Policy* 37(4): 1456â€“69. doi:10.1016/j.enpol.2008.12.003.
+Sorrell, Steve. 2009. “Jevons’ Paradox Revisited: The Evidence for Backfire from Improved Energy Efficiency.” *Energy Policy* 37(4): 1456–69. doi:10.1016/j.enpol.2008.12.003.
 
 The MathWorks, Inc. 2026. *Fsolve: Solve System of Nonlinear Equations*. Natick, MA: The MathWorks, Inc. https://www.mathworks.com/help/optim/ug/fsolve.html (August 4, 2026).
 
-Turner, Karen. 2009. â€œEconomy-Wide Effects of Energy Efficiency Improvements: A Computable General Equilibrium Analysis.â€ *Energy Economics* 31(5): 648â€“62. doi:10.1016/j.eneco.2009.01.006.
+Turner, Karen. 2009. “Economy-Wide Effects of Energy Efficiency Improvements: A Computable General Equilibrium Analysis.” *Energy Economics* 31(5): 648–62. doi:10.1016/j.eneco.2009.01.006.
 
 Vietnam Bond Market Association. 2024. *Vietnam Bond Market Report 2023*. Hanoi: Vietnam Bond Market Association.
 
 Vietnam Bond Market Association. 2025. *Vietnam Bond Market Report 2024*. Hanoi: Vietnam Bond Market Association.
+
 
