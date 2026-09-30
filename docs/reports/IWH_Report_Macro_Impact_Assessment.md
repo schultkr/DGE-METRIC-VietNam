@@ -450,149 +450,34 @@ Table 2: Financing instruments: indicative terms, providers, and model treatment
 
 Notes: Baseline commercial borrowing cost for private energy projects is 8–10% (Heinisch et al. 2026a); the concessional, blended, and sovereign-bond instruments are the levers that pull the portfolio average below that range. Rates reflect 2025–26 conditions and do **not** yet embed the 2% ESG interest-rate subsidy under Resolution 198/2025/QH15 (National Assembly of Viet Nam 2025) or a green-collateral framework.
 
-<table>
-<caption><p>Table 3: Portfolio allocation and resulting financing cost by architecture</p></caption>
-<colgroup>
-<col style="width: 23%" />
-<col style="width: 16%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-</colgroup>
-<thead>
-<tr>
-<th>Instrument</th>
-<th>Model channel</th>
-<th>GF A — balanced (PDP8 revised)</th>
-<th>GF B — market-led</th>
-<th>GF C — public-led</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ODA / bilateral concessional</td>
-<td>Public</td>
-<td>4.0% @ 1.5%</td>
-<td>2.0% @ 1.5%</td>
-<td>8.0% @ 1.0%</td>
-</tr>
-<tr>
-<td>Multilateral (MDB) concessional</td>
-<td>Public</td>
-<td>4.0% @ 1.0%</td>
-<td>2.0% @ 1.0%</td>
-<td>8.0% @ 0.9%</td>
-</tr>
-<tr>
-<td>Blended finance — public tranche</td>
-<td>Public</td>
-<td>1.0% @ 1.0%</td>
-<td>0.6% @ 1.0%</td>
-<td>3.0% @ 1.0%</td>
-</tr>
-<tr>
-<td>Green bonds — sovereign</td>
-<td>Public</td>
-<td>10.0% @ 4.0%</td>
-<td>5.0% @ 4.3%</td>
-<td>17.5% @ 3.6%</td>
-</tr>
-<tr>
-<td>Public capital — subtotal</td>
-<td>Public</td>
-<td>19.0%</td>
-<td>9.6%</td>
-<td>36.5%</td>
-</tr>
-<tr>
-<td>Blended finance — private tranche</td>
-<td>Foreign / cr.-enh. private</td>
-<td>4.0% @ 6.0%</td>
-<td>2.4% @ 6.5%</td>
-<td>12.0% @ 6.0%</td>
-</tr>
-<tr>
-<td>Green bonds — corporate</td>
-<td>Foreign / cr.-enh. private</td>
-<td>10.0% @ 6.5%</td>
-<td>10.0% @ 7.0%</td>
-<td>7.0% @ 6.0%</td>
-</tr>
-<tr>
-<td>Foreign / credit-enhanced private — subtotal</td>
-<td>Foreign</td>
-<td>14.0%</td>
-<td>12.4%</td>
-<td>19.0%</td>
-</tr>
-<tr>
-<td>Green credit — commercial banks</td>
-<td>Domestic private / household</td>
-<td>67.0% @ 7.5%</td>
-<td>78.0% @ 8.0%</td>
-<td>44.5% @ 7.0%</td>
-</tr>
-<tr>
-<td>Total</td>
-<td></td>
-<td>100%</td>
-<td>100%</td>
-<td>100%</td>
-</tr>
-<tr>
-<td>Weighted average cost of finance (WACF) = Σ(share × rate)</td>
-<td></td>
-<td>6.43%</td>
-<td>7.37%</td>
-<td>5.07%</td>
-</tr>
-<tr>
-<td>Cost applied to public capital (share-weighted average of its four instruments)</td>
-<td></td>
-<td>2.68%</td>
-<td>2.82%</td>
-<td>2.22%</td>
-</tr>
-<tr>
-<td>Cost applied to foreign capital (share-weighted average of its two instruments)</td>
-<td></td>
-<td>6.36%</td>
-<td>6.90%</td>
-<td>6.00%</td>
-</tr>
-<tr>
-<td>Cost of domestic private/household capital</td>
-<td></td>
-<td colspan="3">determined by the model</td>
-</tr>
-<tr>
-<td><em>Illustrative</em> annual financing cost — WACF × USD 136 bn (see note)</td>
-<td></td>
-<td>USD 8.74 bn</td>
-<td>USD 10.02 bn</td>
-<td>USD 6.89 bn</td>
-</tr>
-<tr>
-<td><em>Illustrative</em> saving vs GF B</td>
-<td></td>
-<td>−USD 1.28 bn/yr</td>
-<td></td>
-<td>−USD 3.13 bn/yr</td>
-</tr>
-</tbody>
-</table>
+| Instrument | Model channel | GF A — balanced (PDP8 revised) | GF B — market-led | GF C — public-led |
+|:---|:---|:---|:---|:---|
+| ODA / bilateral concessional | Public | 4.0% @ 1.5% | 2.0% @ 1.5% | 8.0% @ 1.0% |
+| Multilateral (MDB) concessional | Public | 4.0% @ 1.0% | 2.0% @ 1.0% | 8.0% @ 0.9% |
+| Blended finance — public tranche | Public | 1.0% @ 1.0% | 0.6% @ 1.0% | 3.0% @ 1.0% |
+| Green bonds — sovereign | Public | 10.0% @ 4.0% | 5.0% @ 4.3% | 17.5% @ 3.6% |
+| Public capital — subtotal | Public | 19.0% | 9.6% | 36.5% |
+| Blended finance — private tranche | Foreign / cr.-enh. private | 4.0% @ 6.0% | 2.4% @ 6.5% | 12.0% @ 6.0% |
+| Green bonds — corporate | Foreign / cr.-enh. private | 10.0% @ 6.5% | 10.0% @ 7.0% | 7.0% @ 6.0% |
+| Foreign / credit-enhanced private — subtotal | Foreign | 14.0% | 12.4% | 19.0% |
+| Green credit — commercial banks | Domestic private / household | 67.0% @ 7.5% | 78.0% @ 8.0% | 44.5% @ 7.0% |
+| Total |  | 100% | 100% | 100% |
+| Weighted average cost of finance (WACF) = Σ(share × rate) |  | 6.43% | 7.37% | 5.07% |
+| Cost applied to public capital (share-weighted average of its four instruments) |  | 2.68% | 2.82% | 2.22% |
+| Cost applied to foreign capital (share-weighted average of its two instruments) |  | 6.36% | 6.90% | 6.00% |
+| Cost of domestic private/household capital |  | determined by the model | determined by the model | determined by the model |
+| *Illustrative* annual financing cost — WACF × USD 136 bn (see note) |  | USD 8.74 bn | USD 10.02 bn | USD 6.89 bn |
+| *Illustrative* saving vs GF B |  | −USD 1.28 bn/yr |  | −USD 3.13 bn/yr |
+
+Table 3: Portfolio allocation and resulting financing cost by architecture.
 
 *Note on the last two rows.* These are **not** model inputs or outputs. They apply each architecture's weighted average cost of finance to the Investment Needs Assessment’s estimate (Heinisch et al. 2026b) of the power-sector investment requirement for 2026–2030 (USD 136 bn, 4.0% of GDP), purely to give a sense of the dollar stakes. DGE-METRIC works with the cost-of-capital rates and allocation shares above, not with this dollar figure; the investment need in the model is determined by the PDP8 build-out path, not by this line.
-
-*\*
 
 *Results.* The simulations produce four principal findings (Figure 4 - Figure 6):
 
 - **Lower financing costs stimulate investment.** Reducing the cost of capital increases investment in renewable energy and accelerates capital accumulation. Relative to the balanced GF A architecture (WACF 6.43%), which reproduces the PDP8-rev Baseline almost exactly, public-led financing (GF C, WACF 5.07%) lowers the cost of capital by roughly 1.4 percentage points and raises GDP by ≈0.9 percent by 2050; market-led financing (GF B, WACF 7.37%) raises the cost of capital by ≈0.9 percentage points and lowers GDP by ≈0.4 percent over the same horizon (Figure 4, Figure 5).
 
 - **Green finance supports stronger economic growth.** The GDP gain from cheaper finance is positive from the first period and builds as the lower-cost capital stock accumulates: GF C adds 0.35% to GDP in 2026–2030 and about 0.85% on average thereafter. Improved financing conditions raise long-term GDP by reducing investment costs and, through a lower WACC, lowering energy prices (Figure 4).
-
-<!-- -->
 
 - **Macroeconomic benefits increase with the scale of financial support**. As the blended cost of capital falls — from GF B (7.37%) to GF C (5.07%) — the GDP gain strengthens correspondingly, but the mechanism is not "more public spending": it is concessional and blended instruments (ODA/MDB finance, guarantees, risk-sharing structures) reducing the effective financing cost paid across the investment pool, which crowds in private capital rather than substituting for it. Limited concessional resources are most valuable when deployed to de-risk and mobilise private capital at scale, particularly in the pre-2035 window where the financing gap is largest. When the same architectures are run against the NZ baseline, this leverage effect is larger still: a given WACC reduction produces a bigger absolute GDP effect than under PDP8-rev alone, because binding decarbonisation raises both investment needs and the cost of capital (Figure 6).
 

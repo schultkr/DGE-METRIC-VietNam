@@ -384,60 +384,14 @@ For every selected scenario, RunSimulations.m calls change_mod_file, reruns dyna
 
 A reproducibility package should retain the repository commit, the three input workbooks, any external investment inputs, the values of all DGE\_\* environment variables, the ordered scenario list, the MATLAB and Dynare versions, the console log, and the generated outputs. Scenario-specific tables and figures should then be produced through the shared scripts in scripts/reporting/, rather than by manually editing exported results.
 
-<table>
-<caption><p>Table 1: Scenario run-validation and reproducibility checklist.</p></caption>
-<colgroup>
-<col style="width: 4%" />
-<col style="width: 50%" />
-<col style="width: 45%" />
-</colgroup>
-<thead>
-<tr>
-<th>☐</th>
-<th>Validation check</th>
-<th>Evidence / result</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>☐</td>
-<td><strong>Workbook and scenario selection.</strong> Confirm that the resolved calibration, Baseline, and scenario workbook filenames use the intended suffix and that the exact scenario sheet was selected.</td>
-<td>Suffix: ________<br />
-Scenario sheet: ________<br />
-Resolved files checked: ________</td>
-</tr>
-<tr>
-<td>☐</td>
-<td><strong>Reference dependency.</strong> Confirm that the required Baseline or Net-Zero reference was solved in the current run or loaded from the intended saved structure, and that the scenario used the correct closure and cap-and-trade settings.</td>
-<td>Dependency: ________<br />
-Solved / loaded: ________<br />
-Source artifact: ________</td>
-</tr>
-<tr>
-<td>☐</td>
-<td><strong>Numerical convergence.</strong> Confirm convergence of both the steady-state and perfect-foresight solvers. Record the maximum residuals and verify that they are within the chosen tolerances.</td>
-<td>Steady-state residual: ________<br />
-Perfect-foresight residual: ________<br />
-Tolerances: ________</td>
-</tr>
-<tr>
-<td>☐</td>
-<td><strong>Accounting and allocation diagnostics.</strong> Run the available accounting, market-clearing, and allocation checks; confirm that all required identities pass and investigate any warning or non-zero discrepancy.</td>
-<td>Checks run: ________<br />
-Maximum discrepancy: ________<br />
-Status / notes: ________</td>
-</tr>
-<tr>
-<td>☐</td>
-<td><strong>Growth-target alignment.</strong> Compare simulated growth with the active workbook targets over the full horizon and confirm that deviations are within the accepted audit threshold.</td>
-<td>Audit file: ________<br />
-Maximum deviation: ________<br />
-Accepted threshold: ________</td>
-</tr>
-<tr>
-<td>☐</td>
-<td><strong>Outputs and plausibility.</strong> Confirm creation of the expected scenario CSV, results-workbook sheet, MATLAB structures, and reporting outputs. Inspect key paths for completeness, plausible signs and magnitudes, smooth transitions, and absence of missing, infinite, or unexplained discontinuous values.</td>
-<td>CSV: ________<br />
+| ☐ | Validation check | Evidence / result |
+|:---|:---|:---|
+| ☐ | **Workbook and scenario selection.** Confirm that the resolved calibration, Baseline, and scenario workbook filenames use the intended suffix and that the exact scenario sheet was selected. | Suffix: ________<br />Scenario sheet: ________<br />Resolved files checked: ________ |
+| ☐ | **Reference dependency.** Confirm that the required Baseline or Net-Zero reference was solved in the current run or loaded from the intended saved structure, and that the scenario used the correct closure and cap-and-trade settings. | Dependency: ________<br />Solved / loaded: ________<br />Source artifact: ________ |
+| ☐ | **Numerical convergence.** Confirm convergence of both the steady-state and perfect-foresight solvers. Record the maximum residuals and verify that they are within the chosen tolerances. | Steady-state residual: ________<br />Perfect-foresight residual: ________<br />Tolerances: ________ |
+| ☐ | **Accounting and allocation diagnostics.** Run the available accounting, market-clearing, and allocation checks; confirm that all required identities pass and investigate any warning or non-zero discrepancy. | Checks run: ________<br />Maximum discrepancy: ________<br />Status / notes: ________ |
+| ☐ | **Growth-target alignment.** Compare simulated growth with the active workbook targets over the full horizon and confirm that deviations are within the accepted audit threshold. | Audit file: ________<br />Maximum deviation: ________<br />Accepted threshold: ________ |
+| ☐ | **Outputs and plausibility.** Confirm creation of the expected scenario CSV, results-workbook sheet, MATLAB structures, and reporting outputs. Inspect key paths for completeness, plausible signs and magnitudes, smooth transitions, and absence of missing, infinite, or unexplained discontinuous values. | CSV: ________<br />
 Workbook sheet: ________<br />
 MATLAB structures: ________<br />
 Reporting outputs: ________<br />
@@ -870,97 +824,17 @@ These transmission channels are combined into three green-finance architectures 
 
 
 
-<table>
-<caption><p>Table 7: Financing instruments: indicative terms, providers, and model treatment</p></caption>
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 18%" />
-<col style="width: 15%" />
-<col style="width: 4%" />
-<col style="width: 4%" />
-<col style="width: 37%" />
-</colgroup>
-<thead>
-<tr>
-<th style="text-align: left;"></th>
-<th colspan="3" style="text-align: left;"></th>
-<th colspan="2" style="text-align: left;"></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;"></td>
-<td colspan="3" style="text-align: left;"></td>
-<td colspan="2" style="text-align: left;"></td>
-</tr>
-<tr>
-<td style="text-align: left;"></td>
-<td colspan="3" style="text-align: left;"></td>
-<td colspan="2" style="text-align: left;"></td>
-</tr>
-<tr>
-<td style="text-align: left;"></td>
-<td colspan="3" style="text-align: left;"></td>
-<td colspan="2" style="text-align: left;"></td>
-</tr>
-<tr>
-<td style="text-align: left;">Instrument</td>
-<td style="text-align: left;">Loan rate p.a.</td>
-<td style="text-align: left;">Tenor</td>
-<td colspan="2" style="text-align: left;">Typical providers</td>
-<td style="text-align: left;">Model category</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>ODA / bilateral concessional</strong></td>
-<td style="text-align: left;">≈0.8–1.5%</td>
-<td style="text-align: left;">20–40 yr</td>
-<td colspan="2" style="text-align: left;">JICA, KfW, AFD, ADB</td>
-<td style="text-align: left;">Public capital</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Multilateral (MDB) concessional</strong></td>
-<td style="text-align: left;">≈0.9–1.5%</td>
-<td style="text-align: left;">15–30 yr</td>
-<td colspan="2" style="text-align: left;">World Bank IBRD/IDA, ADB OCR</td>
-<td style="text-align: left;">Public capital</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Blended finance — public first-loss tranche</strong></td>
-<td style="text-align: left;">≈0–1.5%</td>
-<td style="text-align: left;">10–20 yr</td>
-<td colspan="2" style="text-align: left;">GCF, JETP partners, DFI subordinated debt/equity</td>
-<td style="text-align: left;">Public capital</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Green bonds — sovereign / quasi-sovereign</strong></td>
-<td style="text-align: left;">≈3.6–4.3%</td>
-<td style="text-align: left;">5–15 yr</td>
-<td colspan="2" style="text-align: left;">State Treasury, state-owned enterprises</td>
-<td style="text-align: left;">Public capital</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Blended finance — private co-investment tranche</strong></td>
-<td style="text-align: left;">≈6.0–6.5%</td>
-<td style="text-align: left;">10–20 yr</td>
-<td colspan="2" style="text-align: left;">Credit-enhanced commercial co-investors</td>
-<td style="text-align: left;">Foreign / credit-enhanced private capital</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Green bonds — corporate</strong></td>
-<td style="text-align: left;">≈6.0–7.0%</td>
-<td style="text-align: left;">3–15 yr</td>
-<td colspan="2" style="text-align: left;">BIDV, Vietcombank, HDBank, SeABank</td>
-<td style="text-align: left;">Foreign / credit-enhanced private capital</td>
-</tr>
-<tr>
-<td style="text-align: left;"><strong>Green credit — commercial banks</strong></td>
-<td style="text-align: left;">≈7.0–8.0%</td>
-<td style="text-align: left;">1–10 yr</td>
-<td colspan="2" style="text-align: left;">BIDV, VietinBank, Vietcombank</td>
-<td style="text-align: left;">Domestic private / household capital — the residual; its return is determined by the model, not set as an assumption</td>
-</tr>
-</tbody>
-</table>
+| Instrument | Loan rate p.a. | Tenor | Typical providers | Model category |
+|:---|:---|:---|:---|:---|
+| **ODA / bilateral concessional** | ≈0.8–1.5% | 20–40 yr | JICA, KfW, AFD, ADB | Public capital |
+| **Multilateral (MDB) concessional** | ≈0.9–1.5% | 15–30 yr | World Bank IBRD/IDA, ADB OCR | Public capital |
+| **Blended finance — public first-loss tranche** | ≈0–1.5% | 10–20 yr | GCF, JETP partners, DFI subordinated debt/equity | Public capital |
+| **Green bonds — sovereign / quasi-sovereign** | ≈3.6–4.3% | 5–15 yr | State Treasury, state-owned enterprises | Public capital |
+| **Blended finance — private co-investment tranche** | ≈6.0–6.5% | 10–20 yr | Credit-enhanced commercial co-investors | Foreign / credit-enhanced private capital |
+| **Green bonds — corporate** | ≈6.0–7.0% | 3–15 yr | BIDV, Vietcombank, HDBank, SeABank | Foreign / credit-enhanced private capital |
+| **Green credit — commercial banks** | ≈7.0–8.0% | 1–10 yr | BIDV, VietinBank, Vietcombank | Domestic private / household capital — the residual; its return is determined by the model, not set as an assumption |
+
+Table 7: Financing instruments: indicative terms, providers, and model treatment.
 
 Notes: Baseline commercial borrowing cost for private energy projects is 8–10% (IWH Financial Assessment 2026); the concessional, blended, and sovereign-bond instruments are the levers that pull the portfolio average below that range. Rates reflect 2025–26 conditions and do not yet embed the 2% ESG interest-rate subsidy (Resolution 198/2025/QH15) or a green-collateral framework.
 
