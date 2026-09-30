@@ -60,7 +60,6 @@ fprintf('\n--- Stage 1: workbook pre-flight ---\n');
 
 calibrationWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelCalibration5Sectorsand1Regions.xlsx');
 canonicalBaselineWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelBaseline5Sectorsand1Regions.xlsx');
-replicationBaselineWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelBaseline5Sectorsand1Regions_replication.xlsx');
 scenariosWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelScenarios5Sectorsand1Regions.xlsx');
 
 requiredWorkbooks = {calibrationWorkbook, canonicalBaselineWorkbook, scenariosWorkbook};
@@ -68,9 +67,8 @@ for iFile = 1:numel(requiredWorkbooks)
     if ~isfile(requiredWorkbooks{iFile})
         error('RunSimulationsEasy:MissingWorkbook', ...
             ['Required canonical workbook not found:\n  %s\n' ...
-             'Run scripts/maintenance/build_all_workbooks.m first (with ' ...
-             'cfg.promoteBaselineToCanonical = true, or DGE_PROMOTE_BASELINE=1) to build and ' ...
-             'promote it.'], requiredWorkbooks{iFile});
+             'Run scripts/maintenance/build_all_workbooks.m first to build it.'], ...
+            requiredWorkbooks{iFile});
     end
 end
 
@@ -79,16 +77,6 @@ if ismember('NZ', cfg.scenarioNames)
     validate_nz_sheet(scenariosWorkbook, 'NZ');
 end
 
-if isfile(replicationBaselineWorkbook)
-    replicationInfo = dir(replicationBaselineWorkbook);
-    canonicalInfo = dir(canonicalBaselineWorkbook);
-    if replicationInfo.datenum > canonicalInfo.datenum
-        warning('RunSimulationsEasy:PossiblyUnpromoted', ...
-            ['%s is newer than the canonical %s -- a build_all_workbooks.m run may not have ' ...
-             'been promoted yet (DGE_PROMOTE_BASELINE=1). Continuing against the canonical ' ...
-             'workbook as-is.'], replicationBaselineWorkbook, canonicalBaselineWorkbook);
-    end
-end
 fprintf('  Canonical workbooks present and structurally sane.\n');
 
 %% Stage 2 -- Scenario selection and expected-runtime notice

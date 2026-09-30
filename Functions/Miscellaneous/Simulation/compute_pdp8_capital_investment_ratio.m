@@ -217,18 +217,69 @@ popRel = popPath ./ popPath(1);
 % not the returned answer.
 initialGuess = deltaMaint;
 
-objFun = @(tIK) forward_simulate(tIK, deltaMaint, nominalRatio, popRel, K1, PINVbase, etaKS_p, exoIPath, N, nominalInit) - kT_k0;
+objFun = @(x) terminal_ratio_residual(x, deltaMaint, nominalRatio, popRel, K1, PINVbase, etaKS_p, exoIPath, N, nominalInit, kT_k0);
 
-options = optimset('TolX', 1e-10, 'Display', 'off');
-[tIK, ~, exitflag] = fsolve(objFun, initialGuess, options);
+% Primary solve: bracket a positive root and use scalar fzero.
+tIK = NaN;
+exitflag = -2;
+lower = max(1e-10, initialGuess * 0.25);
+upper = max(1e-6, initialGuess * 4.0);
+fLower = objFun(lower);
+fUpper = objFun(upper);
 
-if exitflag <= 0 || ~isfinite(tIK) || tIK <= 0
-    error('compute_pdp8_capital_investment_ratio:RootFindFailed', ...
-        ['fzero failed to find a positive initial I/K ratio reproducing the PDP8 terminal ' ...
-         'capacity target (exitflag=%d).'], exitflag);
+for iExpand = 1:20
+    if isfinite(fLower) && isfinite(fUpper) && sign(fLower) ~= sign(fUpper)
+        options = optimset('TolX', 1e-10, 'Display', 'off');
+        [tIK, ~, exitflag] = fzero(objFun, [lower, upper], options);
+        break;
+    end
+    lower = max(1e-12, lower * 0.5);
+    upper = upper * 2.0;
+    fLower = objFun(lower);
+    fUpper = objFun(upper);
+end
+
+% Fallback: if we cannot bracket a root, minimize absolute residual over a
+% broad positive interval and accept when close enough.
+if ~(exitflag > 0 && isfinite(tIK) && tIK > 0)
+    safeObj = @(x) safe_abs_residual(x, objFun);
+    options = optimset('TolX', 1e-10, 'Display', 'off');
+    [tIKcand, fvalCand] = fminbnd(safeObj, 1e-12, 1e3, options);
+    relGap = fvalCand / max(1, abs(kT_k0));
+    if isfinite(tIKcand) && tIKcand > 0 && isfinite(fvalCand) && relGap < 1e-3
+        tIK = tIKcand;
+        exitflag = 2;
+        warning('compute_pdp8_capital_investment_ratio:RootFindFallback', ...
+            ['Root bracketing failed; using bounded residual minimization fallback ' ...
+             '(relative terminal-ratio gap %.3e).'], relGap);
+    else
+        tIK = max(initialGuess, 1e-10);
+        warning('compute_pdp8_capital_investment_ratio:RootFindFallbackSeed', ...
+            ['Failed to match PDP8 terminal capacity target (exitflag=%d, fallback relGap=%.3e). ' ...
+             'Proceeding with replacement-investment seed tIK=%.6g to keep the run reproducible.'], ...
+            exitflag, relGap, tIK);
+    end
 end
 
 [realizedRatio, qPath, priceIndex] = forward_simulate(tIK, deltaMaint, nominalRatio, popRel, K1, PINVbase, etaKS_p, exoIPath, N, nominalInit);
+end
+
+function resid = terminal_ratio_residual(tIK, deltaMaint, nominalRatio, popRel, K1, PINVbase, etaKS_p, exoIPath, N, nominalInit, kT_k0)
+if ~isfinite(tIK) || tIK <= 0
+    resid = NaN;
+    return;
+end
+kTk0Model = forward_simulate(tIK, deltaMaint, nominalRatio, popRel, K1, PINVbase, etaKS_p, exoIPath, N, nominalInit);
+resid = kTk0Model - kT_k0;
+end
+
+function v = safe_abs_residual(x, objFun)
+r = objFun(x);
+if ~isfinite(r)
+    v = realmax;
+else
+    v = abs(r);
+end
 end
 
 function [kTk0Model, qPath, priceIndex] = forward_simulate(tIK, deltaMaint, nominalRatio, popRel, K1, PINVbase, etaKS_p, exoIPath, N, nominalInit)

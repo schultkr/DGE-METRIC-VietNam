@@ -135,7 +135,7 @@ run('scripts/maintenance/create_baseline_from_user_input_file.m')
 
 This reads `ScenarioPathDefinition.xlsx` (`Input Scenario` sheet if present, else `Baseline`) in
 `dedicated_path` mode and rewrites the `Baseline` sheet in
-`ModelBaseline5Sectorsand1Regions_replication.xlsx`.
+`ModelBaseline5Sectorsand1Regions.xlsx`.
 
 PDP8 fossil/renewable target investment shares are calculated by the shared
 `compute_pdp8_target_investment_series` function. The default `CapitalStock` method adds

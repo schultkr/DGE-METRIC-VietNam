@@ -33,12 +33,26 @@ First public-repository improvement cycle
 - `AGENTS.md`: maintenance rules; the dangling `CLAUDE.md` reference now points to the framework
   repository.
 - `.gitignore`: LaTeX build files, Python caches, lock files, dated workbook backups.
+- Workbook creation harmonized with the framework repository: `build_all_workbooks.m` (seeds
+  missing canonical workbooks from `*_replication_fix.xlsx`; `DGE_PROMOTE_BASELINE` replaced by
+  `DGE_SEED_CANONICAL_FROM_REPLICATION_FIX`), `update_nz_sheet.m`, the
+  `Functions/Miscellaneous/Excel/create_*`/`update_data_excel.m` builders (canonical filenames,
+  `etaIA_*_p = 0.1` to match the published calibration workbook), `ScenarioPathDefinition.xlsx`,
+  and `RunSimulationsEasy.m`. `compute_pdp8_capital_investment_ratio.m` now uses a bracketed
+  `fzero` in place of `fsolve`. *TR impact: None.*
+- `RunSimulations.m`: the `ReportReplication` group again runs all 18 scenarios listed in
+  `docs/reference/report_replication.md` (four NZ-based EE/RTS variants were commented out).
+  *TR impact: None.*
 
 ### Removed
 - LaTeX build byproducts under `docs/figures/model_diagrams/` and `docs/presentations/`, and
   `__pycache__` files, are no longer tracked (the files remain on disk).
 
 ### Fixed
+- Restored the canonical `ExcelFiles/Model*5Sectorsand1Regions.xlsx` workbooks, which the previous
+  clean-up removed although `RunSimulations.m` reads them. They are byte-identical copies of the
+  newly tracked `*_replication_fix.xlsx` set that produced `docs/figures/`, which is also identical
+  to the framework repository's set. *TR impact: None.*
 - Broken figure and report links in `docs/reference/model.md`, `docs/reference/scenario.md`,
   `docs/reference/baseline_scenario_manual.md`, `docs/use_cases_ee.md`, `docs/use_cases_finance.md`.
 

@@ -13,10 +13,10 @@ lSteadyState = false;
 sSensitivity = '';
 % Optional override via environment variable, e.g.:
 %   set DGE_WORKBOOK_VERSION=canonical
-% to target the canonical (no-suffix) workbooks instead of the default
-% "_replication" set, or set it to any other workbook-filename suffix
-% (e.g. "_replication") directly. Unset/empty leaves the default above
-% unchanged. The literal value "canonical" is a sentinel for "" because an
+% to target the canonical (no-suffix) workbooks, or set it to any other
+% workbook-filename suffix (e.g. "_replication_fix") directly. Unset/empty
+% leaves the default above unchanged. The literal value "canonical" is a
+% sentinel for "" because an
 % environment variable cannot distinguish "unset" from "set to empty".
 envWorkbookVersion = strtrim(getenv('DGE_WORKBOOK_VERSION'));
 if strcmpi(envWorkbookVersion, 'canonical')
@@ -60,10 +60,10 @@ scenarioGroups.NZ_Sensitivity = {...
     'NZ_subsidy',...
     'NZ_subsidy_direct',...
     'NZ_Dir10_full_GF_C',...              % NZ + GF C + Directive 10 (full): the integrated policy package
-    % 'NZ_Dir10_full', ...                  % Directive 10 (full) on NZ
-    % 'NZ_Dir10_full_NoBESS', ...           % Directive 10 without BESS on NZ
-    % 'NZ_RTS_prerev_95GW', ...             % RTS at pre-revision 95 GW on NZ
-    % 'NZ_RTS_prerev_95GW_NoBESS', ...      % RTS at pre-revision 95 GW, no BESS, on NZ
+    'NZ_Dir10_full', ...                  % Directive 10 (full) on NZ
+    'NZ_Dir10_full_NoBESS', ...           % Directive 10 without BESS on NZ
+    'NZ_RTS_prerev_95GW', ...             % RTS at pre-revision 95 GW on NZ
+    'NZ_RTS_prerev_95GW_NoBESS', ...      % RTS at pre-revision 95 GW, no BESS, on NZ
     };
 
 % Temporary import-amount shock scenario

@@ -16,7 +16,9 @@ report or issue it supports.
 
 ## Workbook and scenario selection
 
-- **`DGE_WORKBOOK_VERSION`** (blank = default `_replication`): _____
+- **`DGE_WORKBOOK_VERSION`** (blank = default canonical, unsuffixed workbooks): _____
+- [ ] Canonical workbooks byte-identical to `*_replication_fix.xlsx` (for reproducing
+      `docs/figures/`)
 - **Resolved workbook filenames** (calibration / baseline / scenarios): _____
 - **`DGE_SCENARIO_GROUPS`** or **`DGE_SCENARIO_NAMES`** used: _____
 - **Full ordered scenario list actually run:** _____ (should match
@@ -54,7 +56,7 @@ report or issue it supports.
 
 ## Outputs and plausibility
 
-- [ ] All 18 `ExcelFiles/Output/*_replication.csv` files present and non-empty
+- [ ] All 18 `ExcelFiles/Output/<scenario>.csv` files present and non-empty
 - [ ] `Figures/baseline_*` regenerated (`display_baseline_energy.m`)
 - [ ] `docs/figures/EE_Simulation_Results/`, `Finance_Simulation_Results/`,
       `EE_NZ_Simulation_Results/`, `NZ_Simulation_Results/` regenerated and spot-checked against

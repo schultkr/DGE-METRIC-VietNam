@@ -7,12 +7,11 @@
 % This is the companion to create_scenario_path_definition_templates.m.
 % It copies the current EE, Finance, and NZ sheets from
 % ExcelFiles/ScenarioPathDefinition.xlsx into
-% ExcelFiles/ModelScenarios5Sectorsand1Regions_replication.xlsx.
+% ExcelFiles/ModelScenarios5Sectorsand1Regions.xlsx.
 %
-% Target workbook: the _replication suffix matches RunSimulations.m's default
-% sSensitivity = '_replication' (i.e. the workbook actually read by simulation
-% runs unless DGE_SCENARIO_GROUPS/sSensitivity is overridden). Keep this sheet
-% list in sync with that workbook's actual tabs — see
+% Target workbook: the canonical no-suffix workbook read by default
+% RunSimulations settings. Keep this sheet list in sync with that workbook's
+% actual tabs — see
 % docs/scenario_notes/workbook_creation_procedure.md.
 
 repoRoot = fileparts(fileparts(fileparts(mfilename('fullpath'))));
@@ -22,7 +21,7 @@ cd(repoRoot);
 setup_paths();
 
 sourceWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ScenarioPathDefinition.xlsx');
-targetWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelScenarios5Sectorsand1Regions_replication.xlsx');
+targetWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelScenarios5Sectorsand1Regions.xlsx');
 
 if ~isfile(sourceWorkbook)
     error('update_scenario_sheets_from_path_definition:SourceNotFound', ...

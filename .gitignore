@@ -45,3 +45,6 @@ __pycache__/
 
 # Local/private tool settings
 .claude/
+
+# Repository-local CI scripts (user request)
+scripts/ci/

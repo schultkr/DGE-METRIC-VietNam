@@ -28,6 +28,15 @@ if ~isfile(targetWorkbook)
     error('update_nz_sheet:TargetNotFound', 'Target not found:\n  %s', targetWorkbook);
 end
 
+if is_compact_nz_sheet(sourceWorkbook, srcSheet)
+    copy_compact_nz_sheet(sourceWorkbook, srcSheet, targetWorkbook, tgtSheet);
+    fprintf('\nUpdateNZSheet complete.\n');
+    fprintf('  Source: %s  [%s]\n', sourceWorkbook, srcSheet);
+    fprintf('  Target: %s  [%s]\n', targetWorkbook, tgtSheet);
+    fprintf('  Mode: compact passthrough (direct sheet copy)\n');
+    return
+end
+
 nzInputs = read_nz_inputs(sourceWorkbook, srcSheet);
 write_nz_sheet(targetWorkbook, tgtSheet, nzInputs);
 
@@ -36,12 +45,37 @@ fprintf('  Source: %s  [%s]\n', sourceWorkbook, srcSheet);
 fprintf('  Target: %s  [%s]\n', targetWorkbook, tgtSheet);
 fprintf('  Periods written: %d  (%d-%d)\n', numel(nzInputs.yearsOut), nzInputs.yearsOut(1), nzInputs.yearsOut(end));
 
-function nzIn = read_nz_inputs(sourceWorkbook, srcSheet)
-srcStartCol = 'E';
-srcEndCol = 'AD';
+function tf = is_compact_nz_sheet(sourceWorkbook, srcSheet)
+hdr = readcell(sourceWorkbook, 'Sheet', srcSheet, 'Range', 'A1:G1');
+if isempty(hdr)
+    tf = false;
+    return
+end
+labelA = '';
+if ischar(hdr{1,1}) || isstring(hdr{1,1})
+    labelA = strtrim(char(string(hdr{1,1})));
+end
+tf = strcmpi(labelA, 'Time');
+end
 
-yearHeader = readcell(sourceWorkbook, 'Sheet', srcSheet, 'Range', [srcStartCol '9:' srcEndCol '9']);
-sourceYears = parse_year_header(yearHeader);
+function copy_compact_nz_sheet(sourceWorkbook, srcSheet, targetWorkbook, tgtSheet)
+srcData = readcell(sourceWorkbook, 'Sheet', srcSheet);
+if isempty(srcData)
+    error('update_nz_sheet:EmptyCompactSource', ...
+        'Compact NZ source sheet %s is empty.', srcSheet);
+end
+
+% Clear a bounded region first so stale values from a previous wider layout
+% do not remain in the target sheet.
+clearRows = max(size(srcData, 1), 400);
+clearCols = max(size(srcData, 2), 120);
+blank = repmat({''}, clearRows, clearCols);
+writecell(blank, targetWorkbook, 'Sheet', tgtSheet, 'Range', 'A1');
+writecell(srcData, targetWorkbook, 'Sheet', tgtSheet, 'Range', 'A1');
+end
+
+function nzIn = read_nz_inputs(sourceWorkbook, srcSheet)
+[sourceYears, srcStartCol, srcEndCol] = detect_source_years(sourceWorkbook, srcSheet);
 
 % Model periods are first year after base year onward.
 targetStartYear = sourceYears(1) + 1;
@@ -56,6 +90,60 @@ hasRequired = any(strcmpi({nzIn.rows.importKey}, requiredKey));
 if ~hasRequired
     error('update_nz_sheet:MissingRequiredInput', ...
         'Required NZ import key "%s" was not found in sheet %s.', requiredKey, srcSheet);
+end
+
+function [sourceYears, srcStartCol, srcEndCol] = detect_source_years(sourceWorkbook, srcSheet)
+% Prefer the documented layout first, then try common one-cell shifts.
+candidates = {
+    {'E', 'AD', 9}
+    {'D', 'AD', 9}
+    {'E', 'AC', 9}
+    {'D', 'AC', 9}
+    {'E', 'AD', 8}
+    {'D', 'AD', 8}
+    {'E', 'AD', 10}
+    {'D', 'AD', 10}
+    };
+
+bestYears = [];
+bestStart = '';
+bestEnd = '';
+bestCount = 0;
+
+for i = 1:numel(candidates)
+    c = candidates{i};
+    cStart = c{1};
+    cEnd = c{2};
+    cRow = c{3};
+    header = readcell(sourceWorkbook, 'Sheet', srcSheet, ...
+        'Range', sprintf('%s%d:%s%d', cStart, cRow, cEnd, cRow));
+    [years, parsedCount] = parse_year_header(header);
+    if parsedCount > bestCount
+        bestYears = years;
+        bestStart = cStart;
+        bestEnd = cEnd;
+        bestCount = parsedCount;
+    end
+    if parsedCount >= 5
+        sourceYears = years;
+        srcStartCol = cStart;
+        srcEndCol = cEnd;
+        return
+    end
+end
+
+if isempty(bestYears)
+    error('update_nz_sheet:InvalidYearHeader', ...
+        'Could not parse any year values in NZ header row candidates.');
+end
+
+sourceYears = bestYears;
+srcStartCol = bestStart;
+srcEndCol = bestEnd;
+warning('update_nz_sheet:YearHeaderFallback', ...
+    ['Using inferred NZ year header range %s:%s with %d parsed year(s). ' ...
+     'Please verify ScenarioPathDefinition layout.'], ...
+    srcStartCol, srcEndCol, bestCount);
 end
 end
 
@@ -258,21 +346,31 @@ yearsOut = sourceYears(idx);
 trimmed = series(idx);
 end
 
-function years = parse_year_header(yearHeader)
+function [years, parsedCount] = parse_year_header(yearHeader)
 years = nan(1, numel(yearHeader));
 for i = 1:numel(yearHeader)
     v = yearHeader{i};
     if isnumeric(v) && ~isnan(v) && v > 1900 && v < 3000
         years(i) = v;
+    elseif isnumeric(v) && ~isnan(v) && v > 20000 && v < 100000
+        % Excel serial date value.
+        years(i) = year(datetime(v, 'ConvertFrom', 'excel'));
     elseif isa(v, 'datetime')
         years(i) = year(v);
     elseif ischar(v) || isstring(v)
-        n = str2double(strtrim(string(v)));
+        s = strtrim(char(string(v)));
+        n = str2double(s);
         if ~isnan(n) && n > 1900 && n < 3000
             years(i) = n;
+        else
+            t = regexp(s, '(19|20)\d{2}', 'match', 'once');
+            if ~isempty(t)
+                years(i) = str2double(t);
+            end
         end
     end
 end
+parsedCount = sum(~isnan(years));
 if any(isnan(years))
     iV = find(~isnan(years), 1);
     if isempty(iV)

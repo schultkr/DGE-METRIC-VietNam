@@ -9,7 +9,9 @@
 
 %% Prologue
 clearvars;
-sPathWD = pwd();
+sThisFolder = fileparts(mfilename('fullpath'));
+sRepoRoot = fileparts(fileparts(fileparts(sThisFolder)));
+sExcelOutputFolder = fullfile(sRepoRoot, 'ExcelFiles');
 
 %% Define version to create
 sversion = '';
@@ -35,11 +37,14 @@ casClimateVarsNational = {'SL'};
 %% Build workbook name and sheet definitions
 sWorkBookName = ['ModelScenarios' num2str(inbsubsectors_p) 'Sectorsand' num2str(inbregions_p) 'Regions' sversion '.xlsx'];
 
-addpath(genpath(fullfile(sPathWD, 'Functions')))
-sThisFolder = fileparts(mfilename('fullpath'));
+addpath(genpath(fullfile(sRepoRoot, 'Functions')))
 run(fullfile(sThisFolder, 'define_sheets_scenarios.m'));
 
-sExcelFileName = [pwd() '\ExcelFiles\' sWorkBookName];
+if ~exist(sExcelOutputFolder, 'dir')
+    mkdir(sExcelOutputFolder);
+end
+
+sExcelFileName = fullfile(sExcelOutputFolder, sWorkBookName);
 if exist(sExcelFileName, 'file')
     delete(sExcelFileName)
 end

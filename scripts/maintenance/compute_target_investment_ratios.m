@@ -17,7 +17,7 @@ cleanupObj = onCleanup(@() cd(oldPwd)); %#ok<NASGU>
 cd(repoRoot);
 setup_paths();
 
-sversion = "_replication";
+sversion = "";
 targetConfig = get_pdp8_target_investment_config(repoRoot, sversion);
 ProjectedGDPBaseYear = targetConfig.projectedGDPBaseYear;
 ProjectedGDPBaseValueMioUSD = targetConfig.projectedGDPBaseValueMioUSD;

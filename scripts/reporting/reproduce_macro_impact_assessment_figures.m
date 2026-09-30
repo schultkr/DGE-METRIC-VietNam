@@ -375,7 +375,7 @@ switch inputMode
     case 'strict'
         candidateSuffixes = string(sversion);
     case 'fallback'
-        candidateSuffixes = unique([string(sversion), "", "_replication", ""], 'stable');
+        candidateSuffixes = unique([string(sversion), "", "_replication_fix", "_replication"], 'stable');
     otherwise
         usedSuffix = '';
         missing = strings(1, 0);

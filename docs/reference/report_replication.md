@@ -20,9 +20,30 @@ To run only a subset, either edit `activeScenarioGroups` in `RunSimulations.m` o
 `DGE_SCENARIO_GROUPS` (comma-separated group names) or `DGE_SCENARIO_NAMES` (an exact,
 comma-separated, ordered scenario list, bypassing groups entirely) before starting MATLAB. Both
 env vars are read by `RunSimulations.m`; see its header comments for exact semantics, along with
-`DGE_WORKBOOK_VERSION` (workbook-filename suffix — default ``, in which `r_G` is
-the public-instrument-only weighted rate; set to `_replication` for the earlier workbook variant,
-or `canonical` for the plain, unsuffixed files).
+`DGE_WORKBOOK_VERSION` (workbook-filename suffix — default: none, i.e. the canonical
+unsuffixed workbooks, in which `r_G` is the public-instrument-only weighted rate; set to
+`_replication` for the earlier workbook variant).
+
+### Input workbooks behind the published figures
+
+The figures in `docs/figures/` were produced from the frozen workbook set
+`ExcelFiles/Model{Calibration,Baseline,Scenarios}5Sectorsand1Regions_replication_fix.xlsx`. It is
+byte-identical to the same set in the framework repository
+([DGE-METRIC](https://github.com/schultkr/DGE-METRIC)). The canonical, unsuffixed workbooks that
+`RunSimulations.m` reads by default are exact copies of it. If a canonical workbook has been
+changed or deleted, restore it before reproducing figures:
+
+```matlab
+run('scripts/maintenance/build_all_workbooks.m')  % seeds missing canonical workbooks from *_replication_fix
+```
+
+With all three canonical workbooks missing, the builder copies the frozen set and skips the
+rebuild stages (`DGE_SEED_CANONICAL_FROM_REPLICATION_FIX=1`, the default). A full rebuild from
+`ScenarioPathDefinition.xlsx` (`DGE_SEED_CANONICAL_FROM_REPLICATION_FIX=0`) doesn't currently
+reproduce the frozen workbooks exactly, so it won't reproduce the published figures.
+
+`RunSimulations.m` writes `ExcelFiles/Output/<scenario>.csv`. The reporting scripts read those
+plain names first.
 
 Then generate figures:
 

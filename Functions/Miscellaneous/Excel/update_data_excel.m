@@ -22,8 +22,12 @@
 
 %% User Input
 clearvars;
-% define working directory path
-sPathWD = pwd();
+% Resolve repository paths from this script location so execution is robust
+% regardless of the current working directory.
+sThisFolder = fileparts(mfilename('fullpath'));
+sRepoRoot = char(java.io.File(fullfile(sThisFolder, '..', '..', '..')).getCanonicalPath());
+sFunctionsFolder = fullfile(sRepoRoot, 'Functions');
+sExcelFolder = fullfile(sRepoRoot, 'ExcelFiles');
 % define number of total subsectors
 inbsubsectors_p = 5;
 % define number of regions
@@ -40,11 +44,18 @@ end
 % ModelCalibration*.xlsx holds Data, Start, and Structural Parameters sheets
 sWorkBookName = ['ModelCalibration' num2str(inbsubsectors_p) 'Sectorsand' num2str(inbregions_p) 'Regions' sversion '.xlsx'];
 
-addpath(genpath(fullfile(sPathWD, 'Functions')))
+addpath(genpath(sFunctionsFolder))
 
-sExcelFileName = [pwd() '\ExcelFiles\' sWorkBookName];
+sExcelFileName = fullfile(sExcelFolder, sWorkBookName);
 if ~exist(sExcelFileName, 'file')
-    error('First run create_raw_excel_input_file.m')
+    % Legacy error text referenced create_raw_excel_input_file.m, which no
+    % longer exists. Rebuild the canonical workbook with the maintained
+    % generator, then continue.
+    run(fullfile(sThisFolder, 'create_calibration_excel_file.m'));
+    if ~exist(sExcelFileName, 'file')
+        error(['update_data_excel: missing calibration workbook after bootstrap.\n' ...
+               'Expected file: %s'], sExcelFileName);
+    end
 end
 
 % ── Close any Excel session holding the workbook (pre-flight) ─────────────────

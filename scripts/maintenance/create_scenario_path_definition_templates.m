@@ -11,10 +11,8 @@
 %       so the path-definition workbook reproduces the current scenario layouts
 %       exactly.
 %
-% Source workbook: ModelScenarios5Sectorsand1Regions_replication.xlsx, matching
-% RunSimulations.m's default sSensitivity = '_replication' (i.e. the workbook
-% actually read by simulation runs unless DGE_SCENARIO_GROUPS/sSensitivity is
-% overridden). Keep this sheet list in sync with that workbook's actual tabs —
+% Source workbook: ModelScenarios5Sectorsand1Regions.xlsx (canonical,
+% no-suffix). Keep this sheet list in sync with that workbook's actual tabs —
 % see docs/scenario_notes/workbook_creation_procedure.md.
 
 repoRoot = fileparts(fileparts(fileparts(mfilename('fullpath'))));
@@ -23,7 +21,7 @@ cleanupObj = onCleanup(@() cd(oldPwd)); %#ok<NASGU>
 cd(repoRoot);
 setup_paths();
 
-sourceWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelScenarios5Sectorsand1Regions_replication.xlsx');
+sourceWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelScenarios5Sectorsand1Regions.xlsx');
 targetWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ScenarioPathDefinition.xlsx');
 
 if ~isfile(sourceWorkbook)

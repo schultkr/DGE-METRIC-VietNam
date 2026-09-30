@@ -1,5 +1,5 @@
 % create_calibration_excel_file  Reproduce the current 5-sector/1-region
-% calibration workbook as ModelCalibration5Sectorsand1Regions_replication.xlsx.
+% calibration workbook as ModelCalibration5Sectorsand1Regions.xlsx.
 %
 % The unsuffixed workbook is the reference output. This script deliberately
 % does not read or copy that file: all workbook content is defined below (or
@@ -26,7 +26,7 @@ inbsectors_p = numel(casSectors);
 inbsubsectors_p = numel(casSubSectors);
 inbregions_p = numel(casRegions);
 
-sWorkBookName = sprintf('ModelCalibration%dSectorsand%dRegions_replication.xlsx', ...
+sWorkBookName = sprintf('ModelCalibration%dSectorsand%dRegions.xlsx', ...
     inbsubsectors_p, inbregions_p);
 sExcelFileName = fullfile(sExcelFolder, sWorkBookName);
 
@@ -346,7 +346,7 @@ function casStart = reference_start_parameters()
         'Parameter values for initial population', '', '';
         'PoP0_1_p', 1, 'initial population in region 1';
         'Parameter values for initial labour force', '', '';
-        'LF0_1_p', '=0.68*B15', 'initial labour force in region 1';
+        'LF0_1_p', 0.68, 'initial labour force in region 1';
         'Parameter values for initial housing', '', '';
         'H0_1_p', '=25', 'initial housing in region 1';
         'Parameter values for initial value for tas', '', '';
@@ -453,7 +453,7 @@ function casStructural = reference_structural_parameters(inbregions, inbsubsecto
         'phiM_F_1_1_p', 0.00355410089734362; 'phiM_F_2_1_p', 0.00163033360104539; 'phiM_F_3_1_p', 0.001; 'phiM_F_4_1_p', 0.0382628872177005; 'phiM_F_5_1_p', 0.00318515838400662;
         'phiM_I_1_1_p', 0.0213453989397538; 'phiM_I_2_1_p', 0.019046009569366; 'phiM_I_3_1_p', 0.000353631006751602; 'phiM_I_4_1_p', 0.181111309312077; 'phiM_I_5_1_p', 0.0255262414624216;
         'phiX_1_1_p', 0.00696061357776502; 'phiX_2_1_p', 0.004; 'phiX_3_1_p', 0.0001; 'phiX_4_1_p', 0.262089452443859; 'phiX_5_1_p', 0.0336508607041189;
-        'etaIA_1_p', 0.05; 'etaIA_2_p', 0.05; 'etaIA_3_p', 0.05; 'etaIA_4_p', 0.05; 'etaIA_5_p', 0.05;
+        'etaIA_1_p', 0.1; 'etaIA_2_p', 0.1; 'etaIA_3_p', 0.1; 'etaIA_4_p', 0.1; 'etaIA_5_p', 0.1;
         'phiW_1_1_p', 0.03952593401003; 'phiW_2_1_p', 0.00622250548616622; 'phiW_3_1_p', 0.000722040212268816; 'phiW_4_1_p', 0.0763289422675271; 'phiW_5_1_p', 0.0917596344321297;
         'sE_1_1_p', 0; 'sE_2_1_p', 1; 'sE_3_1_p', 0; 'sE_4_1_p', 0; 'sE_5_1_p', 0;
         'sE_NOETS_1_1_p', 1; 'sE_NOETS_2_1_p', 0; 'sE_NOETS_3_1_p', 0; 'sE_NOETS_4_1_p', 0; 'sE_NOETS_5_1_p', 0;

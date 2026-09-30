@@ -6,16 +6,13 @@
 % Chains the manual runbook documented in
 % docs/scenario_notes/workbook_creation_procedure.md into one script:
 %   ExcelFiles/ModelCalibration5Sectorsand1Regions.xlsx  (IO_Data/Trade_Flows propagation)
-%     -> ExcelFiles/ModelBaseline5Sectorsand1Regions_replication.xlsx (full PDP8/RTS/VNEEP3 Baseline)
-%     -> [optional] promoted to ExcelFiles/ModelBaseline5Sectorsand1Regions.xlsx
+%     -> ExcelFiles/ModelBaseline5Sectorsand1Regions.xlsx (full PDP8/RTS/VNEEP3 Baseline)
 %     -> ExcelFiles/ModelScenarios5Sectorsand1Regions.xlsx (NZ sheet, more groups later)
 %
 % This script only builds/refreshes workbooks; it does not invoke RunSimulations.m.
 %
 % Configuration (env var overrides shown, all optional):
 %   DGE_BUILD_MODE              'quickcheck' (default) or 'full'
-%   DGE_PROMOTE_BASELINE         '1' to promote the replication build to the
-%                                 canonical Baseline workbook, default '0'
 %   DGE_BUILD_SCENARIO_GROUPS    comma-separated subset of
 %                                 Reference,EE,GF_PDP8,GF_NZ,NZ_Sensitivity
 %                                 (default 'Reference'; only Reference is wired
@@ -40,8 +37,8 @@ cd(repoRoot);
 setup_paths();
 cfg = load_cfg(); % recomputed again after every clearvars-risk stage below
 
-fprintf('=== build_all_workbooks: buildMode=%s, scenarioGroups={%s}, promote=%d ===\n', ...
-    cfg.buildMode, strjoin(cfg.scenarioGroups, ','), cfg.promoteBaselineToCanonical);
+fprintf('=== build_all_workbooks: buildMode=%s, scenarioGroups={%s} ===\n', ...
+    cfg.buildMode, strjoin(cfg.scenarioGroups, ','));
 
 %% Stage 0 -- Preconditions
 fprintf('\n--- Stage 0: preconditions ---\n');
@@ -57,13 +54,7 @@ if contains(tasklistOut, 'EXCEL.EXE')
 end
 
 requiredSourceFiles = { ...
-    calibration_workbook_path(repoRoot), ...
     fullfile(repoRoot, 'ExcelFiles', 'ScenarioPathDefinition.xlsx') };
-requiredTargetShells = { ...
-    replication_baseline_workbook_path(repoRoot), ...
-    canonical_baseline_workbook_path(repoRoot), ...
-    fullfile(repoRoot, 'ExcelFiles', 'ModelScenarios5Sectorsand1Regions.xlsx') };
-
 for iFile = 1:numel(requiredSourceFiles)
     if ~isfile(requiredSourceFiles{iFile})
         error('build_all_workbooks:MissingSource', ...
@@ -73,64 +64,59 @@ for iFile = 1:numel(requiredSourceFiles)
              'docs/scenario_notes/workbook_creation_procedure.md.'], requiredSourceFiles{iFile});
     end
 end
-for iFile = 1:numel(requiredTargetShells)
-    if ~isfile(requiredTargetShells{iFile})
-        error('build_all_workbooks:MissingTargetShell', ...
-            ['Required target workbook not found:\n  %s\n' ...
-             'The build/refresh scripts can rebuild sheets inside an existing workbook ' ...
-             'but cannot create the file from zero bytes. Restore it from git history ' ...
-             'first -- see docs/scenario_notes/workbook_creation_procedure.md.'], ...
-            requiredTargetShells{iFile});
-    end
+seedInfo = ensure_workbook_shells(repoRoot);
+fprintf('  Required source workbook present; canonical workbook shells ensured.\n');
+
+skipRebuildStages = cfg.seedCanonicalFromReplicationFix && seedInfo.allFromReplicationFix;
+if skipRebuildStages
+    fprintf(['  Canonical workbook triad was seeded from *_replication_fix and ' ...
+        'DGE_SEED_CANONICAL_FROM_REPLICATION_FIX is enabled; skipping stages 1-4 ' ...
+        'to preserve exact replication_fix content.\n']);
 end
-fprintf('  All required source/target workbooks present.\n');
 
 %% Stage 1 -- Calibration propagation (IO_Data/Trade_Flows -> Data/Start/Structural Parameters)
-fprintf('\n--- Stage 1: calibration propagation ---\n');
-% update_data_excel.m overwrites the canonical calibration workbook in place
-% and has no backup logic of its own -- back it up first, same as Stage 3
-% does for the canonical Baseline workbook.
-backup_workbook(calibration_workbook_path(repoRoot));
-setenv('DGE_CALIBRATION_VERSION', '');
-run(fullfile(get_repo_root(), 'Functions', 'Miscellaneous', 'Excel', 'update_data_excel.m'));
+if ~skipRebuildStages
+    fprintf('\n--- Stage 1: calibration propagation ---\n');
+    % update_data_excel.m overwrites the canonical calibration workbook in place
+    % and has no backup logic of its own -- back it up first, same as Stage 3
+    % does for the canonical Baseline workbook.
+    backup_workbook(calibration_workbook_path(repoRoot));
+    setenv('DGE_CALIBRATION_VERSION', '');
+    run(fullfile(get_repo_root(), 'Functions', 'Miscellaneous', 'Excel', 'update_data_excel.m'));
 
-repoRoot = get_repo_root();
-cd(repoRoot);
-setup_paths();
-cfg = load_cfg();
+    repoRoot = get_repo_root();
+    cd(repoRoot);
+    setup_paths();
+    cfg = load_cfg();
+    % update_data_excel.m calls clearvars; Stage 1 only runs when skipRebuildStages
+    % was false, so restore that state explicitly for downstream guards.
+    skipRebuildStages = false;
+end
 
 %% Stage 2 -- Baseline (full builder: PDP8/RTS/VNEEP3 overlays)
-fprintf('\n--- Stage 2: baseline build (mode=%s) ---\n', cfg.buildMode);
-if cfg.usePDP8InvestmentTargets
-    setenv('DGE_USE_PDP8_INVESTMENT_TARGETS', '1');
-else
-    setenv('DGE_USE_PDP8_INVESTMENT_TARGETS', '0');
-end
-run(fullfile(repoRoot, 'scripts', 'maintenance', 'create_baseline_from_user_input_file.m'));
+if ~skipRebuildStages
+    fprintf('\n--- Stage 2: baseline build (mode=%s) ---\n', cfg.buildMode);
+    if cfg.usePDP8InvestmentTargets
+        setenv('DGE_USE_PDP8_INVESTMENT_TARGETS', '1');
+    else
+        setenv('DGE_USE_PDP8_INVESTMENT_TARGETS', '0');
+    end
+    run(fullfile(repoRoot, 'scripts', 'maintenance', 'create_baseline_from_user_input_file.m'));
 
-repoRoot = get_repo_root();
-cd(repoRoot);
-setup_paths();
-cfg = load_cfg();
-replicationWorkbook = replication_baseline_workbook_path(repoRoot);
+    repoRoot = get_repo_root();
+    cd(repoRoot);
+    setup_paths();
+    cfg = load_cfg();
+end
 canonicalBaselineWorkbook = canonical_baseline_workbook_path(repoRoot);
 
-%% Stage 3 -- Promotion gate (replication -> canonical Baseline workbook)
-fprintf('\n--- Stage 3: promotion gate ---\n');
-if cfg.promoteBaselineToCanonical
-    backupWorkbook = backup_workbook(canonicalBaselineWorkbook);
-    copyfile(replicationWorkbook, canonicalBaselineWorkbook);
-    fprintf('  Promoted replication build to canonical workbook.\n');
-    fprintf('  Previous canonical workbook backed up to:\n    %s\n', backupWorkbook);
-else
-    fprintf(['  cfg.promoteBaselineToCanonical is false: canonical workbook left untouched.\n' ...
-        '  Review %s column-by-column before promoting (see docs/baseline_scenario_manual.md,\n' ...
-        '  Section 10). Re-run with DGE_PROMOTE_BASELINE=1 once satisfied.\n'], replicationWorkbook);
-end
+%% Stage 3 -- Baseline validation target
+fprintf('\n--- Stage 3: baseline target workbook ---\n');
+fprintf('  Baseline build writes directly to canonical workbook:\n    %s\n', canonicalBaselineWorkbook);
 
 %% Stage 4 -- Scenario sheets
 fprintf('\n--- Stage 4: scenario sheets (groups={%s}) ---\n', strjoin(cfg.scenarioGroups, ','));
-if ismember('Reference', cfg.scenarioGroups)
+if ~skipRebuildStages && ismember('Reference', cfg.scenarioGroups)
     % update_nz_sheet.m writes the NZ sheet directly into the canonical
     % scenario workbook (hardcoded path, no replication/staging variant) and
     % has no backup logic of its own -- back it up first.
@@ -141,19 +127,19 @@ if ismember('Reference', cfg.scenarioGroups)
     setup_paths();
     cfg = load_cfg();
 end
-if ismember('EE', cfg.scenarioGroups)
+if ~skipRebuildStages && ismember('EE', cfg.scenarioGroups)
     error('build_all_workbooks:NotImplemented', ...
         ['EE scenario group is not wired up yet. Run ' ...
          'scripts/maintenance/create_ee_scenarios_from_expert_inputs.m manually, or extend ' ...
          'Stage 4''s dispatch to add it.']);
 end
-if any(ismember({'GF_PDP8', 'GF_NZ'}, cfg.scenarioGroups))
+if ~skipRebuildStages && any(ismember({'GF_PDP8', 'GF_NZ'}, cfg.scenarioGroups))
     error('build_all_workbooks:NotImplemented', ...
         ['Green-finance scenario groups are not wired up yet. Run ' ...
          'scripts/maintenance/create_green_finance_scenarios.m manually, or extend ' ...
          'Stage 4''s dispatch to add them.']);
 end
-if ismember('NZ_Sensitivity', cfg.scenarioGroups)
+if ~skipRebuildStages && ismember('NZ_Sensitivity', cfg.scenarioGroups)
     error('build_all_workbooks:NotImplemented', ...
         ['NZ_Sensitivity scenario group has no dedicated builder wired up yet -- extend ' ...
          'Stage 4''s dispatch to add it.']);
@@ -162,13 +148,8 @@ end
 %% Stage 5 -- Post-build structural validation
 fprintf('\n--- Stage 5: post-build validation ---\n');
 
-replicationWorkbook = replication_baseline_workbook_path(repoRoot);
 canonicalBaselineWorkbook = canonical_baseline_workbook_path(repoRoot);
-
-validate_baseline_sheet(replicationWorkbook, 'Baseline');
-if cfg.promoteBaselineToCanonical
-    validate_baseline_sheet(canonicalBaselineWorkbook, 'Baseline');
-end
+validate_baseline_sheet(canonicalBaselineWorkbook, 'Baseline');
 if ismember('Reference', cfg.scenarioGroups)
     validate_nz_sheet(fullfile(repoRoot, 'ExcelFiles', 'ModelScenarios5Sectorsand1Regions.xlsx'), 'NZ');
 end
@@ -178,8 +159,8 @@ fprintf('  All structural checks passed.\n');
 fprintf('\n=== build_all_workbooks complete ===\n');
 fprintf('  Build mode:              %s (PDP8 investment targets: %d)\n', ...
     cfg.buildMode, cfg.usePDP8InvestmentTargets);
-fprintf('  Replication baseline:    %s\n', replicationWorkbook);
-fprintf('  Promoted to canonical:   %d\n', cfg.promoteBaselineToCanonical);
+fprintf('  Canonical baseline:      %s\n', canonicalBaselineWorkbook);
+fprintf('  Seed canonical from *_replication_fix (default): %d\n', cfg.seedCanonicalFromReplicationFix);
 fprintf('  Scenario groups built:   %s\n', strjoin(cfg.scenarioGroups, ', '));
 fprintf(['\n  This script only builds workbooks. To actually run the model against them:\n' ...
          '    set DGE_SCENARIO_GROUPS=Reference\n' ...
@@ -231,16 +212,16 @@ switch lower(cfg.buildMode)
             'Unknown build mode "%s" (DGE_BUILD_MODE). Use "quickcheck" or "full".', cfg.buildMode);
 end
 
-cfg.promoteBaselineToCanonical = false;
-envPromote = strtrim(getenv('DGE_PROMOTE_BASELINE'));
-if ~isempty(envPromote)
-    cfg.promoteBaselineToCanonical = logical(str2double(envPromote));
-end
-
 cfg.scenarioGroups = {'Reference'};
 envScenarioGroups = strtrim(getenv('DGE_BUILD_SCENARIO_GROUPS'));
 if ~isempty(envScenarioGroups)
     cfg.scenarioGroups = strtrim(strsplit(envScenarioGroups, ','));
+end
+
+cfg.seedCanonicalFromReplicationFix = true;
+envSeedCanonical = strtrim(getenv('DGE_SEED_CANONICAL_FROM_REPLICATION_FIX'));
+if ~isempty(envSeedCanonical)
+    cfg.seedCanonicalFromReplicationFix = logical(str2double(envSeedCanonical));
 end
 end
 
@@ -248,12 +229,67 @@ function p = calibration_workbook_path(repoRoot)
 p = fullfile(repoRoot, 'ExcelFiles', 'ModelCalibration5Sectorsand1Regions.xlsx');
 end
 
-function p = replication_baseline_workbook_path(repoRoot)
-p = fullfile(repoRoot, 'ExcelFiles', 'ModelBaseline5Sectorsand1Regions_replication.xlsx');
-end
-
 function p = canonical_baseline_workbook_path(repoRoot)
 p = fullfile(repoRoot, 'ExcelFiles', 'ModelBaseline5Sectorsand1Regions.xlsx');
+end
+
+function seedInfo = ensure_workbook_shells(repoRoot)
+calibrationWorkbook = calibration_workbook_path(repoRoot);
+baselineWorkbook = canonical_baseline_workbook_path(repoRoot);
+scenariosWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelScenarios5Sectorsand1Regions.xlsx');
+replicationCalibrationWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelCalibration5Sectorsand1Regions_replication.xlsx');
+replicationFixCalibrationWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelCalibration5Sectorsand1Regions_replication_fix.xlsx');
+replicationBaselineWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelBaseline5Sectorsand1Regions_replication.xlsx');
+replicationFixBaselineWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelBaseline5Sectorsand1Regions_replication_fix.xlsx');
+replicationScenariosWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelScenarios5Sectorsand1Regions_replication.xlsx');
+replicationFixScenariosWorkbook = fullfile(repoRoot, 'ExcelFiles', 'ModelScenarios5Sectorsand1Regions_replication_fix.xlsx');
+
+seedInfo = struct('calibrationFromReplicationFix', false, ...
+    'baselineFromReplicationFix', false, 'scenariosFromReplicationFix', false, ...
+    'allFromReplicationFix', false);
+
+if ~isfile(calibrationWorkbook)
+    if isfile(replicationFixCalibrationWorkbook)
+        fprintf('  Missing calibration workbook; cloning current replication_fix workbook into canonical path.\n');
+        copyfile(replicationFixCalibrationWorkbook, calibrationWorkbook);
+        seedInfo.calibrationFromReplicationFix = true;
+    elseif isfile(replicationCalibrationWorkbook)
+        fprintf('  Missing calibration workbook; cloning current replication workbook into canonical path.\n');
+        copyfile(replicationCalibrationWorkbook, calibrationWorkbook);
+    else
+        fprintf('  Missing calibration workbook; creating %s\n', calibrationWorkbook);
+        run(fullfile(repoRoot, 'Functions', 'Miscellaneous', 'Excel', 'create_calibration_excel_file.m'));
+    end
+end
+if ~isfile(baselineWorkbook)
+    if isfile(replicationFixBaselineWorkbook)
+        fprintf('  Missing baseline workbook; cloning current replication_fix workbook into canonical path.\n');
+        copyfile(replicationFixBaselineWorkbook, baselineWorkbook);
+        seedInfo.baselineFromReplicationFix = true;
+    elseif isfile(replicationBaselineWorkbook)
+        fprintf('  Missing baseline workbook; cloning current replication workbook into canonical path.\n');
+        copyfile(replicationBaselineWorkbook, baselineWorkbook);
+    else
+        fprintf('  Missing baseline workbook; creating %s\n', baselineWorkbook);
+        run(fullfile(repoRoot, 'Functions', 'Miscellaneous', 'Excel', 'create_baseline_excel_file.m'));
+    end
+end
+if ~isfile(scenariosWorkbook)
+    if isfile(replicationFixScenariosWorkbook)
+        fprintf('  Missing scenarios workbook; cloning current replication_fix workbook into canonical path.\n');
+        copyfile(replicationFixScenariosWorkbook, scenariosWorkbook);
+        seedInfo.scenariosFromReplicationFix = true;
+    elseif isfile(replicationScenariosWorkbook)
+        fprintf('  Missing scenarios workbook; cloning current replication workbook into canonical path.\n');
+        copyfile(replicationScenariosWorkbook, scenariosWorkbook);
+    else
+        fprintf('  Missing scenarios workbook; creating %s\n', scenariosWorkbook);
+        run(fullfile(repoRoot, 'Functions', 'Miscellaneous', 'Excel', 'create_scenarios_excel_file.m'));
+    end
+end
+
+seedInfo.allFromReplicationFix = seedInfo.calibrationFromReplicationFix && ...
+    seedInfo.baselineFromReplicationFix && seedInfo.scenariosFromReplicationFix;
 end
 
 function backupPath = backup_workbook(workbookPath)

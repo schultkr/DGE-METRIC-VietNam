@@ -9,7 +9,7 @@
 clearvars;
 
 %% Define version to create
-sversion = '_replication';
+sversion = '';
 
 %% Define baseline horizon
 baseYear = 2025;

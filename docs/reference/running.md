@@ -196,7 +196,7 @@ archived run and clear them (`setenv('NAME', '')`) before the next experiment.
 | Variable | Read by | Effect when set |
 |---|---|---|
 | `DGE_DYNARE_PATH` | `setup_paths.m` | Folder containing `dynare.m`; takes precedence over automatic detection. |
-| `DGE_WORKBOOK_VERSION` | `RunSimulations.m` | Workbook-filename suffix. `canonical` selects the unsuffixed workbooks; any other value is used literally (e.g. `_replication`); unset keeps the value of `sSensitivity` in the script. |
+| `DGE_WORKBOOK_VERSION` | `RunSimulations.m` | Workbook-filename suffix. `canonical` selects the unsuffixed workbooks; any other value is used literally (e.g. `_replication_fix`); unset keeps the value of `sSensitivity` in the script. |
 | `DGE_SCENARIO_GROUPS` | `RunSimulations.m` | Comma-separated group names; replaces `activeScenarioGroups`. |
 | `DGE_SCENARIO_NAMES` | `RunSimulations.m` | Comma-separated, ordered scenario names; replaces both `scenarioGroups` and `activeScenarioGroups`. |
 | `DGE_EASY_SCENARIO_NAMES` | `RunSimulationsEasy.m` | Comma-separated scenario names for the guided runner (default `Baseline,NZ`). |
@@ -215,7 +215,7 @@ change, not as harmless console output.
 |---|---|---|
 | `DGE_BUILD_MODE` | `build_all_workbooks.m` | `quickcheck` or `full` (`quickcheck`). |
 | `DGE_BUILD_SCENARIO_GROUPS` | `build_all_workbooks.m` | Scenario groups to rebuild (`Reference`). |
-| `DGE_PROMOTE_BASELINE` | `build_all_workbooks.m` | `1` promotes the rebuilt Baseline to the canonical workbook (`0`). |
+| `DGE_SEED_CANONICAL_FROM_REPLICATION_FIX` | `build_all_workbooks.m` | When a canonical workbook is missing, it is copied from its `*_replication_fix.xlsx` counterpart. If all three were seeded this way, `1` skips the rebuild stages so the published inputs stay byte-identical; `0` rebuilds them from `ScenarioPathDefinition.xlsx` (`1`). |
 | `DGE_USE_PDP8_INVESTMENT_TARGETS` | `create_baseline_from_user_input_file.m` | `0` skips the PDP8 investment-target computation for a quick Baseline build (`1`). |
 | `DGE_TARGET_IY_METHOD` | `create_baseline_from_user_input_file.m`, `compute_target_investment_ratios.m` | `IndexProxy` or `CapitalStock` (`CapitalStock`, from `get_pdp8_target_investment_config.m`). |
 | `DGE_SKIP_TARGET_IY_PARITY_CHECK` | `compute_target_investment_ratios.m` | `1` skips the workbook-parity assertion. |
