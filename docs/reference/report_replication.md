@@ -6,7 +6,7 @@ Static diagrams (model architecture, IO structure, the scenario-hierarchy diagra
 recommendations illustration) aren't scenario output and aren't listed.
 
 - **IWH Technical Report** — `docs/reports/IWH_Technical_Report.md`
-- **IWH Macro Impact Assessment** — `docs/reports/IWH_Report_Macro_Impact_Assessment_revised.md`
+- **IWH Macro Impact Assessment** — `docs/reports/IWH_Report_Macro_Impact_Assessment.md`
 
 ## One-command reproduction
 

@@ -24,7 +24,7 @@
 % Output:
 %   docs/figures/EE_NZ_Simulation_Results/*.svg and *.png
 %
-% Used in: IWH_Report_Macro_Impact_Assessment_revised.docx, Figure 3 (top panel:
+% Used in: IWH_Report_Macro_Impact_Assessment.md, Figure 3 (top panel:
 % GDP_Level_Deviation_vs_Baseline_5Y_Average; bottom panel:
 % Energy_Intensity_Deviation_vs_Baseline_5Y_Average). See
 % README_MacroImpactAssessment.md for the full figure map.

@@ -48,7 +48,7 @@ This repository is the public, operational companion to two GIZ/IWH reports:
 - **[IWH Technical Report](docs/reports/IWH_Technical_Report.md)**: model structure,
   calibration, data sources, solution method, and scenario design. This is the stable
   methodological reference.
-- **[IWH Macro Impact Assessment](docs/reports/IWH_Report_Macro_Impact_Assessment_revised.md)**:
+- **[IWH Macro Impact Assessment](docs/reports/IWH_Report_Macro_Impact_Assessment.md)**:
   policy findings on energy efficiency, green finance, and carbon pricing.
 
 ## Quick start

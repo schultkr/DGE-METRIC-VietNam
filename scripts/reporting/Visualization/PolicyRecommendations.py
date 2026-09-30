@@ -8,7 +8,7 @@
 #      (figure with the table embedded directly beneath it, read as a
 #      single Figure 10)
 #
-# Used in: IWH_Report_Macro_Impact_Assessment_revised.docx, Figure 10 (Policy
+# Used in: IWH_Report_Macro_Impact_Assessment.md, Figure 10 (Policy
 # Recommendations). See ../README_MacroImpactAssessment.md for the full
 # figure map. This one is a hand-authored diagram, not a model-output chart,
 # so there is no scenario CSV to regenerate first.
