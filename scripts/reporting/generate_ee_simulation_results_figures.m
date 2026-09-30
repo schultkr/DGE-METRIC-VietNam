@@ -2,7 +2,7 @@
 % Regenerates the exact figure filenames consumed by
 % docs/EE_Scenario_Presentation/ee_scenarios_presentation.tex.
 %
-% Used in: IWH_Report_Macro_Impact_Assessment.md, Figure 1
+% Used in: IWH_Report_Macro Impact Assessment.pdf, Figure 1
 % (GDP_Level_Deviation_vs_Baseline_5Y_Average) and Figure 2
 % (Energy_Intensity_Deviation_vs_Baseline_5Y_Average). See
 % README_MacroImpactAssessment.md for the full figure map.

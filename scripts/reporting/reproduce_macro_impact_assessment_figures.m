@@ -5,7 +5,7 @@ function summary = reproduce_macro_impact_assessment_figures(varargin)
 %   summary = reproduce_macro_impact_assessment_figures('Name', value, ...)
 %
 % Runs, in order, every script listed in README_MacroImpactAssessment.md
-% (Figures 1-10 of "IWH_Report_Macro_Impact_Assessment.md"):
+% (Figures 1-10 of "IWH_Report_Macro Impact Assessment.pdf"):
 %
 %   Fig. 1-2  generate_ee_simulation_results_figures.m       -> docs/figures/EE_Simulation_Results
 %   Fig. 3    generate_ee_nz_simulation_results_figures.m    -> docs/figures/EE_NZ_Simulation_Results

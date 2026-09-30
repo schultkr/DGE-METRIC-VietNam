@@ -1,6 +1,6 @@
 # Figure map: IWH Report on Macroeconomic Impact Assessment
 
-Maps each figure in `IWH_Report_Macro_Impact_Assessment.md` (GIZ "Project Reports" share) to the
+Maps each figure in `IWH_Report_Macro Impact Assessment.pdf` (GIZ "Project Reports" share) to the
 script that produces it. Confirmed by comparing the report's embedded chart images against the
 generated PNGs (scenario labels, panel titles, and axis values match).
 

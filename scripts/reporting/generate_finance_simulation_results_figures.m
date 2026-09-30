@@ -7,7 +7,7 @@
 % Output:
 %   docs/figures/Finance_Simulation_Results/*.svg and *.png
 %
-% Used in: IWH_Report_Macro_Impact_Assessment.md, Figure 4
+% Used in: IWH_Report_Macro Impact Assessment.pdf, Figure 4
 % (GDP_Level_Deviation_vs_Baseline_5Y_Average) and Figure 5
 % (WACC_Renewables_Deviation_vs_Baseline_5Y_Average). See
 % README_MacroImpactAssessment.md for the full figure map.

@@ -26,9 +26,9 @@ DGE-METRIC is a **5-sector, 1-region dynamic general equilibrium model** calibra
 > **Relationship to the IWH reports.** This page — together with [Calibration](calibration.md),
 > [Data sources](data_sources.md), and [Scenario design](scenario.md) — is the methodological
 > companion to the **PDP8 Macroeconomic Impact Assessment**
-> (`docs/reports/IWH_Report_Macro_Impact_Assessment.md`), which presents the policy
+> (`docs/reports/IWH_Report_Macro%20Impact%20Assessment.pdf`), which presents the policy
 > findings. These reference pages document the model, its data foundations, its solution method,
-> and its limitations; the **IWH Technical Report** (`docs/reports/IWH_Technical_Report.md`) is
+> and its limitations; the **IWH Technical Report** (`docs/reports/IWH_Technical_Report.pdf`) is
 > the narrative write-up of the same material for external circulation. See
 > [Report replication guide](report_replication.md) to map a specific figure or table in either
 > report back to the scenario and script that produced it.

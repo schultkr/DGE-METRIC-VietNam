@@ -16,7 +16,7 @@
 % Output:
 %   docs/figures/NZ_Simulation_Results/*.svg and *.png
 %
-% Used in: IWH_Report_Macro_Impact_Assessment.md, Figure 7
+% Used in: IWH_Report_Macro Impact Assessment.pdf, Figure 7
 % (ETS_Revenue_5Y_Cumulative_Billion_USD_NZ_Scenarios), Figure 8
 % (ETS_Revenue_Share_Deviation_vs_Baseline_5Y_Average), and Figure 9
 % (GDP_Level_Deviation_vs_Baseline_5Y_Average). See

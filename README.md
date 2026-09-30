@@ -16,7 +16,7 @@ calibrated Viet Nam implementation**
 > **[DGE-METRIC](https://github.com/schultkr/DGE-METRIC)** (currently private).
 
 **[Quick start](#quick-start)** · **[Documentation](docs/index.md)** ·
-**[Technical Report](docs/reports/IWH_Technical_Report.md)** ·
+**[Technical Report](docs/reports/IWH_Technical_Report.pdf)** ·
 **[Reproduce a report figure](docs/reference/report_replication.md)** · **[Cite](#citation)**
 
 DGE-METRIC is a five-sector, one-region dynamic general equilibrium model of Viet Nam's economy
@@ -45,10 +45,10 @@ flowchart LR
 
 This repository is the public, operational companion to two GIZ/IWH reports:
 
-- **[IWH Technical Report](docs/reports/IWH_Technical_Report.md)**: model structure,
+- **[IWH Technical Report](docs/reports/IWH_Technical_Report.pdf)**: model structure,
   calibration, data sources, solution method, and scenario design. This is the stable
   methodological reference.
-- **[IWH Macro Impact Assessment](docs/reports/IWH_Report_Macro_Impact_Assessment.md)**:
+- **[IWH Macro Impact Assessment](docs/reports/IWH_Report_Macro%20Impact%20Assessment.pdf)**:
   policy findings on energy efficiency, green finance, and carbon pricing.
 
 ## Quick start
