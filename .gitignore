@@ -48,3 +48,9 @@ __pycache__/
 
 # Repository-local CI scripts (user request)
 scripts/ci/
+
+# AI-assistant artifacts (user request)
+AGENTS.md
+docs/reports/dge-technical-reporter/
+scripts/reporting/OnlineTraining/COPILOT_PROMPTS_WORKSHOP.md
+scripts/reporting/OnlineTraining/WORKSHOP_GUIDE_COPILOT.md

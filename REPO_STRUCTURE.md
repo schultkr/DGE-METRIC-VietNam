@@ -43,7 +43,7 @@ Treat these as generated or local outputs (do not hand-edit):
 Keep the repository root minimal:
 - Canonical entry points (`RunSimulationsEasy.m`, `RunSimulations.m`, `setup_paths.m`,
   `DGE_Model.mod`, `DGE_Model_steadystate.m`) and governance files (`README.md`, `LICENSE`,
-  `CITATION.cff`, `CONTRIBUTING.md`, `CHANGELOG.md`, `AGENTS.md`, this file) only.
+  `CITATION.cff`, `CONTRIBUTING.md`, `CHANGELOG.md`, this file) only.
 - Avoid temporary artifacts in root.
 - Keep local backup folders ignored.
 

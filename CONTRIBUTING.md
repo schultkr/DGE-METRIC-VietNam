@@ -8,8 +8,8 @@ the two in sync.
 > **Primary rule:** presentation can evolve quickly; scientific behavior changes only deliberately,
 > with validation and synchronized documentation.
 
-Assistant-specific rules (Claude, Copilot, Cursor) are in [AGENTS.md](AGENTS.md) and apply to
-human contributors as well.
+Repository-wide maintenance and contribution rules are documented in this file and the
+project documentation under `docs/`.
 
 ## Canonical terminology
 

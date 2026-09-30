@@ -30,8 +30,7 @@ First public-repository improvement cycle
   model-family and workflow diagrams, and `RunSimulationsEasy` as the recommended first entry
   point. *TR impact: None.*
 - `docs/index.md`: maintenance section, scenario names aligned with `RunSimulations.m`.
-- `AGENTS.md`: maintenance rules; the dangling `CLAUDE.md` reference now points to the framework
-  repository.
+- Assistant-instruction housekeeping: references now point to the framework repository template.
 - `.gitignore`: LaTeX build files, Python caches, lock files, dated workbook backups.
 - Workbook creation harmonized with the framework repository: `build_all_workbooks.m` (seeds
   missing canonical workbooks from `*_replication_fix.xlsx`; `DGE_PROMOTE_BASELINE` replaced by

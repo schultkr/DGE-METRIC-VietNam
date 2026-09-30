@@ -24,8 +24,8 @@ so do not keep it up to date; start a new audit page for the next cycle.
 | CITATION.cff | same title and version (1.0.0) as framework, `repository-code` → Viet Nam repo | same, `repository-code` → framework repo |
 | LICENSE | MIT | MIT |
 | CONTRIBUTING / CHANGELOG | absent (added this cycle) | absent (added this cycle) |
-| `.github/` | absent (added this cycle) | `copilot-instructions.md` only |
-| `CLAUDE.md` | **absent**, but referenced by `AGENTS.md` | present |
+| `.github/` | absent (added this cycle) | assistant-instruction file only |
+| Framework assistant template | **absent** in this repo, present in framework | present |
 | Entry points | `RunSimulationsEasy.m`, `RunSimulations.m`, `setup_paths.m`, `DGE_Model.mod` | same, plus `RunSimulations_Sensitivity*.m` |
 | Default workbook suffix in `RunSimulations.m` | `''` (unsuffixed) | `'_replication_fix'` |
 | Workbooks present | `_replication` only (unsuffixed and `_check` sets deleted in the uncommitted working tree) | `_replication`, `_replication_fix` |
@@ -52,7 +52,7 @@ Each item states the evidence, the proposed canonical form, and the risk class u
 | D9 | Spelling is mixed: the TR uses "Vietnam" 31 times and "Viet Nam" 5 times; the docs use "Vietnam". The plan's canonical public spelling is **"Viet Nam"**. | TR text; docs | Use "Viet Nam" in public-facing prose (READMEs, TR body, CITATION abstract). Keep existing file names and the `VietNam` repository slug. Keep "Vietnam" as a search keyword. | Low (editorial) |
 | D10 | Scenario names in navigation pages disagree: README lists `EE_Dir10_full(_NoBESS)`, `EE_RTS_prerev_95GW`; `docs/index.md` lists `EE_PDP8`, `EE_Directive10`. `RunSimulations.m` runs the former. | README, `docs/index.md`, `RunSimulations.m` | **Done in `docs/index.md`:** names aligned with `RunSimulations.m`. Remaining pages (`docs/use_cases_ee.md`, `docs/reference/running.md` group table) need a scenario-terminology pass. | Low |
 | D11 | `REPO_STRUCTURE.md` lists `RunSimulations_Sensitivity*.m`, which the uncommitted working tree deletes. | `REPO_STRUCTURE.md` | Update when the deletion is committed. | Low |
-| D12 | `AGENTS.md` refers to `CLAUDE.md` and `.github/copilot-instructions.md`, which do not exist in this repository. | `AGENTS.md` | **Done:** `AGENTS.md` now says the detailed template lives in the framework repository's `CLAUDE.md`. | Low |
+| D12 | Assistant-instruction references pointed to files not present in this repository. | maintenance notes | **Done:** references now point to the framework repository template. | Low |
 | D13 | TR cover logo is a *linked* image pointing to `G:\Kdl\Privat\Vorlagen\Logos\...`, which will not resolve on other machines. | pandoc extract of the TR | Embed the logo in the .docx. | Low (editorial) |
 | D14 | The framework holds **three** versions of the Technical Report (`IWH_Technical_Report.docx`, `TECHNICAL_REPORT.md`, `TECHNICAL_REPORT_PERFECT.md`), and its README links the Markdown one. The Viet Nam repository holds only the .docx. | framework `docs/reports/` | Declare `IWH_Technical_Report.docx` in the Viet Nam repository as canonical. Link the framework README to it, and mark or remove the Markdown copies. | Medium (divergent copies of the methodological reference) |
 | D15 | `docs/use_cases_ee.md` describes `EE_Directive10` as an "EU Directive 10 equivalent". TR §5.2 describes it as a *Prime Minister* directive, and the framework README calls it PM Directive 10/CT-TTg. The page also uses the older scenario names (see D10). | `docs/use_cases_ee.md` l.21–24 | Editorial correction during the scenario-terminology pass. | Low (editorial, but factually wrong) |
@@ -112,7 +112,7 @@ check (TR §2.2–2.4 quote paths directly).
    preference, documented in `docs/reference/running.md`.
 9. Broken links fixed in `docs/reference/model.md`, `docs/reference/scenario.md`,
    `docs/reference/baseline_scenario_manual.md`, `docs/use_cases_ee.md`, `docs/use_cases_finance.md`.
-10. `AGENTS.md` maintenance section and `docs/index.md` maintenance and navigation updates.
+10. Maintenance section and `docs/index.md` navigation updates.
 
 **Low — prepared, needs the maintainer to apply (outward-facing)**
 
