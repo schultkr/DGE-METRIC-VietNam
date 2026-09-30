@@ -60,10 +60,10 @@ scenarioGroups.NZ_Sensitivity = {...
     'NZ_subsidy',...
     'NZ_subsidy_direct',...
     'NZ_Dir10_full_GF_C',...              % NZ + GF C + Directive 10 (full): the integrated policy package
-    'NZ_Dir10_full', ...                  % Directive 10 (full) on NZ
-    'NZ_Dir10_full_NoBESS', ...           % Directive 10 without BESS on NZ
-    'NZ_RTS_prerev_95GW', ...             % RTS at pre-revision 95 GW on NZ
-    'NZ_RTS_prerev_95GW_NoBESS', ...      % RTS at pre-revision 95 GW, no BESS, on NZ
+    % 'NZ_Dir10_full', ...                  % Directive 10 (full) on NZ
+    % 'NZ_Dir10_full_NoBESS', ...           % Directive 10 without BESS on NZ
+    % 'NZ_RTS_prerev_95GW', ...             % RTS at pre-revision 95 GW on NZ
+    % 'NZ_RTS_prerev_95GW_NoBESS', ...      % RTS at pre-revision 95 GW, no BESS, on NZ
     };
 
 % Temporary import-amount shock scenario
