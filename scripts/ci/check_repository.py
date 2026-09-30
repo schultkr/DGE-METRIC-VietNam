@@ -19,6 +19,7 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+from urllib.parse import unquote
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -136,7 +137,7 @@ def check_links() -> list[str]:
         for target in LINK_RE.findall(text):
             if target.startswith(("http://", "https://", "mailto:", "#")):
                 continue
-            target_path = target.split("#", 1)[0]
+            target_path = unquote(target.split("#", 1)[0])
             if not target_path:
                 continue
             if not (doc.parent / target_path).exists():

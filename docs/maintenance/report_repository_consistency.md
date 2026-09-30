@@ -1,6 +1,6 @@
 # Repository–Report Consistency Matrix
 
-The [IWH Technical Report](../reports/IWH_Technical_Report.docx) is the stable methodological
+The [IWH Technical Report](../reports/IWH_Technical_Report.pdf) is the stable methodological
 reference. This repository is the versioned executable implementation. This page records, for
 each concept both of them describe, which side is authoritative and how the two stay in sync.
 

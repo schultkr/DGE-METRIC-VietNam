@@ -3,7 +3,7 @@
 **Audit date:** 2026-09-29
 **Scope:** `schultkr/DGE-METRIC-VietNam` (commit `31abfff` plus the uncommitted working tree of
 that date), `schultkr/DGE-METRIC` (commit `f81b602`), and the Technical Report
-[`docs/reports/IWH_Technical_Report.docx`](../reports/IWH_Technical_Report.docx) (dated 30.09.2026).
+[`docs/reports/IWH_Technical_Report.pdf`](../reports/IWH_Technical_Report.pdf) (dated 30.09.2026).
 **Plan implemented:** *DGE-METRIC Public Repository Improvement and Maintenance Plan*, Section 9
 ("Suggested first work package").
 

@@ -1,7 +1,7 @@
 # Contributing to DGE-METRIC — Viet Nam
 
 This repository is the **calibrated Viet Nam implementation** of the DGE-METRIC model family. The
-[IWH Technical Report](docs/reports/IWH_Technical_Report.docx) is the stable methodological
+[IWH Technical Report](docs/reports/IWH_Technical_Report.pdf) is the stable methodological
 reference, and this repository is the versioned executable implementation. Contributions must keep
 the two in sync.
 
