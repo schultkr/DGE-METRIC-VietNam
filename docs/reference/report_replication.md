@@ -5,8 +5,8 @@ supports to the exact scenario name(s), reporting script, and output location th
 Static diagrams (model architecture, IO structure, the scenario-hierarchy diagram, the policy
 recommendations illustration) aren't scenario output and aren't listed.
 
-- **IWH Technical Report** — `docs/reports/IWH_Technical_Report.docx`
-- **IWH Macro Impact Assessment** — `docs/reports/IWH_Report_Macro_Impact_Assessment_revised.docx`
+- **IWH Technical Report** — `docs/reports/IWH_Technical_Report.md`
+- **IWH Macro Impact Assessment** — `docs/reports/IWH_Report_Macro_Impact_Assessment_revised.md`
 
 ## One-command reproduction
 
